@@ -1,6 +1,8 @@
 /*--------------------------------------------------------------
 # General
+
 --------------------------------------------------------------*/
+
 :root {
 	scroll-behavior: smooth;
   }
@@ -328,11 +330,11 @@
   }
   @media (min-width: 1200px) {
 	.logo {
-	  width: 280px;
+	  width: 200px;
 	}
   }
   .logo img {
-	max-height: 26px;
+	max-height: 40px;
 	margin-right: 6px;
   }
   .logo span {
@@ -522,7 +524,7 @@
   .sidebar {
 	position: fixed;
 	top: 60px;
-	left: 0;
+	right: 0;
 	bottom: 0;
 	width: 300px;
 	z-index: 996;
@@ -536,7 +538,7 @@
   }
   @media (max-width: 1199px) {
 	.sidebar {
-	  left: -300px;
+	  right: -300px;
 	}
   }
   .sidebar::-webkit-scrollbar {
@@ -550,20 +552,20 @@
   
   @media (min-width: 1200px) {
 	#main, #footer {
-	  margin-left: 300px;
+	  margin-right: 300px;
 	}
   }
   @media (max-width: 1199px) {
 	.toggle-sidebar .sidebar {
-	  left: 0;
+	  right: 0;
 	}
   }
   @media (min-width: 1200px) {
 	.toggle-sidebar #main, .toggle-sidebar #footer {
-	  margin-left: 0;
+	  margin-right: 0;
 	}
 	.toggle-sidebar .sidebar {
-	  left: -300px;
+	  right: -300px;
 	}
   }
   
@@ -597,6 +599,7 @@
 	background: #f6f9ff;
 	padding: 10px 15px;
 	border-radius: 4px;
+	font-family: 'Tajawal', sans-serif;
   }
   .sidebar-nav .nav-link i {
 	font-size: 16px;
@@ -658,7 +661,7 @@
   /* Filter dropdown */
   .dashboard .filter {
 	position: absolute;
-	right: 0px;
+	left: 0px;
 	top: 15px;
   }
   .dashboard .filter .icon {
