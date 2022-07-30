@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { ImportRecieptComponent } from './Reciepts/import-reciept/import-reciept.component';
+import { RecieptPrintComponent } from './Reciepts/import-reciept/reciept-print/reciept-print.component';
 
 
 
@@ -15,6 +17,8 @@ import { SidebarComponent } from './layouts/sidebar/sidebar.component';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
+    ImportRecieptComponent,
+    RecieptPrintComponent,
 
   ],
   imports: [
