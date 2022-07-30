@@ -8,6 +8,14 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { ImportRecieptComponent } from './Reciepts/import-reciept/import-reciept.component';
 import { RecieptPrintComponent } from './Reciepts/import-reciept/reciept-print/reciept-print.component';
+import { CarDataComponent } from './car-data/car-data.component';
+import { CarStoreComponent } from './car-store/car-store.component';
+import { CustomerComponent } from './customer/customer.component';
+import { ExpendnsComponent } from './expendns/expendns.component';
+import { ProductsComponent } from './products/products.component';
+import { SupliersComponent } from './supliers/supliers.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,11 +27,19 @@ import { RecieptPrintComponent } from './Reciepts/import-reciept/reciept-print/r
     SidebarComponent,
     ImportRecieptComponent,
     RecieptPrintComponent,
+    CarDataComponent,
+    CarStoreComponent,
+    CustomerComponent,
+    ExpendnsComponent,
+    ProductsComponent,
+    SupliersComponent,
+    LoginComponent,
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
