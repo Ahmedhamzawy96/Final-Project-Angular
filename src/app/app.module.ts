@@ -16,6 +16,8 @@ import { ProductsComponent } from './products/products.component';
 import { SupliersComponent } from './supliers/supliers.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TransactionsComponent } from './transactions/transactions.component';
+
 
 
 
@@ -34,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductsComponent,
     SupliersComponent,
     LoginComponent,
+    TransactionsComponent,
 
   ],
   imports: [
