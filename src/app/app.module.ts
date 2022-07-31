@@ -9,6 +9,9 @@ import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { ImportRecieptComponent } from './Reciepts/import-reciept/import-reciept.component';
 import { RecieptPrintComponent } from './Reciepts/import-reciept/reciept-print/reciept-print.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { CarsAccountsComponent } from './cars-accounts/cars-accounts.component';
+import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
+import { SupplierAccountsComponent } from './supplier-accounts/supplier-accounts.component';
 
 
 
@@ -21,6 +24,9 @@ import { TransactionsComponent } from './transactions/transactions.component';
     ImportRecieptComponent,
     RecieptPrintComponent,
     TransactionsComponent,
+    CarsAccountsComponent,
+    CustomerAccountsComponent,
+    SupplierAccountsComponent,
 
   ],
   imports: [
