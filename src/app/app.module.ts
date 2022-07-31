@@ -6,22 +6,22 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { ImportRecieptComponent } from './Reciepts/import-reciept/import-reciept.component';
-import { RecieptPrintComponent } from './Reciepts/import-reciept/reciept-print/reciept-print.component';
-import { CarDataComponent } from './car-data/car-data.component';
-import { CarStoreComponent } from './car-store/car-store.component';
-import { CustomerComponent } from './customer/customer.component';
-import { ExpendnsComponent } from './expendns/expendns.component';
-import { ProductsComponent } from './products/products.component';
-import { SupliersComponent } from './supliers/supliers.component';
-import { LoginComponent } from './login/login.component';
+import { RecieptPrintComponent } from './Components/reciept-print/reciept-print.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TransactionsComponent } from './transactions/transactions.component';
-import { CarsAccountsComponent } from './cars-accounts/cars-accounts.component';
-import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
-import { SupplierAccountsComponent } from './supplier-accounts/supplier-accounts.component';
-import { ReceiptforcarComponent } from './receiptforcar/receiptforcar.component';
-import { ReceiptforstoreComponent } from './receiptforstore/receiptforstore.component';
+import { CarDataComponent } from './Components/car-data/car-data.component';
+import { CarStoreComponent } from './Components/car-store/car-store.component';
+import { CarsAccountsComponent } from './Components/cars-accounts/cars-accounts.component';
+import { CustomerAccountsComponent } from './Components/customer-accounts/customer-accounts.component';
+import { CustomerComponent } from './Components/customer/customer.component';
+import { ExpendnsComponent } from './Components/expendns/expendns.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ProductsComponent } from './Components/products/products.component';
+import { ReceiptforcarComponent } from './Components/receiptforcar/receiptforcar.component';
+import { ReceiptforstoreComponent } from './Components/receiptforstore/receiptforstore.component';
+import { ImportRecieptComponent } from './Components/Reciepts/import-reciept/import-reciept.component';
+import { SupliersComponent } from './Components/supliers/supliers.component';
+import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
+import { TransactionsComponent } from './Components/transactions/transactions.component';
 
 
 
