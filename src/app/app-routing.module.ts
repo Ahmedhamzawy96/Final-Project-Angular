@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'importreciept', component: ImportRecieptComponent },
   { path: 'cars-accounts', component: CarsAccountsComponent },
   { path:'supplier-accounts', component: SupplierAccountsComponent },
-  {path:'customer-accounts',component:CustomerAccountsComponent }
+  {path:'customer-accounts',component:CustomerAccountsComponent },
   { path:'car-data', component: CarDataComponent},
   {path:'car-store', component: CarStoreComponent},
   {path:'customer', component: CustomerComponent},

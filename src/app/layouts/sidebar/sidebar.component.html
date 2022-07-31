@@ -1,150 +1,81 @@
-<aside id="sidebar" class="sidebar">
+
+ <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink=""> <i class="bi bi-grid"></i>
-        <span class="mx-3">الصفحه الرئيسية</span> </a></li>
-    <ul class="sidebar-nav" id="sidebar-nav">
-       <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/dashboard"> <i class="bi bi-grid"></i> <span class="mx-3">الصفحه الرئيسية</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink=""> <i class="bi bi-grid"></i> <span class="mx-3">الصفحه الرئيسية</span> </a></li>
+     <li class="nav-item">
+        <a class="nav-link collapsed justify-content-between " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <div class="d-flex align-items-center" > 
+             <i class="bi bi-people"></i> 
+             <span  class="mx-3">العملاء</span>
+          </div>
+          <i class="bi bi-chevron-down "></i> 
+       </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+           <li class="nav-item"> <a class=" justify-content-start " routerLink="/customer"> <i class="bi bi-circle"></i> <span class="mx-3">بيانات العملاء</span> </a></li>
+           <li class="nav-item"> <a class=" justify-content-start" routerLink="/customer-accounts"> <i class="bi bi-circle"></i> <span class="mx-3">حسابات العملاء</span> </a></li>
+
+           
+        </ul>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link collapsed justify-content-between " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+         <div class="d-flex align-items-center" > 
+            <i class="bi bi-people"></i> 
+            <span  class="mx-3">الموردين</span>
+         </div>
+         <i class="bi bi-chevron-down "></i> 
+      </a>
+       <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/supliers"> <i class="bi bi-circle"></i> <span class="mx-3">بيانات الموردين</span> </a></li>
+          <li class="nav-item"> <a class=" justify-content-start" routerLink="/supplier-accounts"> <i class="bi bi-circle"></i> <span class="mx-3">حسابات الموردين</span> </a></li>
+
+          
+       </ul>
+    </li>
+    <li class="nav-item">
+       <a class="nav-link collapsed justify-content-between" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+         <div class="d-flex align-items-center" > 
+            <i class="ri-bill-fill"></i> 
+            <span  class="mx-3">الفواتير</span>
+         </div>
+         <i class="bi bi-chevron-down "></i> 
+      </a>
+       <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/importreciept"> <i class="bi bi-circle"></i> <span class="mx-3"> فاتورة شراء</span> </a></li>
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/dashboard"> <i class="bi bi-circle"></i> <span class="mx-3">  فاتورة بيع</span> </a></li>
+       </ul>
+    </li>
+    <li class="nav-item">
+       <a class="nav-link collapsed justify-content-between" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+         <div class="d-flex align-items-center" > 
+            <i class="ri-caravan-fill"></i> 
+            <span  class="mx-3">العربات</span>
+         </div>
+         <i class="bi bi-chevron-down "></i> 
+      </a>
+       <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/car-data"> <i class="bi bi-circle"></i> <span class="mx-3"> بيانات العربه</span> </a></li>
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/cars-accounts"> <i class="bi bi-circle"></i> <span class="mx-3"> حسابات العربه</span> </a></li>
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/car-store"> <i class="bi bi-circle"></i> <span class="mx-3"> مخزن العربه</span> </a></li>
       
-       <li class="nav-item">
-          <a class="nav-link collapsed justify-content-between " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-            <div class="d-flex align-items-center" > 
-               <i class="bi bi-people"></i> 
-               <span  class="mx-3">العملاء</span>
-            </div>
-            <i class="bi bi-chevron-down "></i> 
-         </a>
-          <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-             <li class="nav-item"> <a class=" justify-content-start " routerLink="/customer"> <i class="bi bi-circle"></i> <span class="mx-3">بيانات العملاء</span> </a></li>
-             <li class="nav-item"> <a class=" justify-content-start" routerLink="/dashboard"> <i class="bi bi-circle"></i> <span class="mx-3">حسابات العملاء</span> </a></li>
-    <li class="nav-item">
-      <a class="nav-link collapsed justify-content-between " data-bs-target="#components-nav" data-bs-toggle="collapse"
-        href="#">
-        <div class="d-flex align-items-center">
-          <i class="bi bi-people"></i>
-          <span class="mx-3">العملاء</span>
-        </div>
-        <i class="bi bi-chevron-down "></i>
-      </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i> <span
-              class="mx-3">بيانات العملاء</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start" routerLink="/customer-accounts"> <i
-              class="bi bi-circle"></i> <span class="mx-3">حسابات العملاء</span> </a></li>
-      </ul>
+       </ul>
     </li>
-       <li class="nav-item">
-         <a class="nav-link collapsed justify-content-between " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-           <div class="d-flex align-items-center" > 
-              <i class="bi bi-people"></i> 
-              <span  class="mx-3">الموردين</span>
-           </div>
-           <i class="bi bi-chevron-down "></i> 
-        </a>
-         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li class="nav-item"> <a class=" justify-content-start " routerLink="/supliers"> <i class="bi bi-circle"></i> <span class="mx-3">بيانات الموردين</span> </a></li>
-            <li class="nav-item"> <a class=" justify-content-start" routerLink="/dashboard"> <i class="bi bi-circle"></i> <span class="mx-3">حسابات الموردين</span> </a></li>
     <li class="nav-item">
-      <a class="nav-link collapsed justify-content-between " data-bs-target="#forms-nav" data-bs-toggle="collapse"
-        href="#">
-        <div class="d-flex align-items-center">
-          <i class="bi bi-people"></i>
-          <span class="mx-3">الموردين</span>
-        </div>
-        <i class="bi bi-chevron-down "></i>
+       <a class="nav-link collapsed justify-content-between " data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+         <div class="d-flex align-items-center" > 
+            <i class="ri-safe-2-fill"></i> 
+            <span  class="mx-3">الخزنة</span>
+         </div>
+         <i class="bi bi-chevron-down "></i> 
       </a>
-      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i> <span
-              class="mx-3">بيانات الموردين</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start" routerLink="/supplier-accounts"> <i
-              class="bi bi-circle"></i> <span class="mx-3">حسابات الموردين</span> </a></li>
-
-      </ul>
+       <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/dashboard"> <i class="bi bi-circle"></i> <span class="mx-3">  اضافه بند</span> </a></li>
+          <li class="nav-item"> <a class=" justify-content-start " routerLink="/Transaction"> <i class="bi bi-circle"></i> <span class="mx-3">  ادارة الخزنة</span> </a></li>
+      
+       </ul>
     </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed justify-content-between" data-bs-target="#tables-nav" data-bs-toggle="collapse"
-        href="#">
-        <div class="d-flex align-items-center">
-          <i class="ri-bill-fill"></i>
-          <span class="mx-3">الفواتير</span>
-        </div>
-        <i class="bi bi-chevron-down "></i>
-      </a>
-      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li class="nav-item"> <a class=" justify-content-start " routerLink="/importreciept"> <i
-              class="bi bi-circle"></i> <span class="mx-3"> فاتورة شراء</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i>
-            <span class="mx-3"> فاتورة بيع</span> </a></li>
-      </ul>
-    </li>
-
-
-
-    <li class="nav-item">
-      <a class="nav-link collapsed justify-content-between" data-bs-target="#charts-nav" data-bs-toggle="collapse"
-        href="#">
-        <div class="d-flex align-items-center">
-          <i class="ri-caravan-fill"></i>
-          <span class="mx-3">العربات</span>
-        </div>
-        <i class="bi bi-chevron-down "></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i>
-            <span class="mx-3"> بيانات العربه</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start " routerLink="/cars-accounts"> <i
-              class="bi bi-circle"></i> <span class="mx-3"> حسابات العربه</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i>
-            <span class="mx-3"> مخزن العربه</span> </a></li>
-      <li class="nav-item">
-         <a class="nav-link collapsed justify-content-between" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-           <div class="d-flex align-items-center" > 
-              <i class="ri-caravan-fill"></i> 
-              <span  class="mx-3">العربات</span>
-           </div>
-           <i class="bi bi-chevron-down "></i> 
-        </a>
-         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li class="nav-item"> <a class=" justify-content-start " routerLink="/car-data"> <i class="bi bi-circle"></i> <span class="mx-3"> بيانات العربه</span> </a></li>
-            <li class="nav-item"> <a class=" justify-content-start " routerLink="/dashboard"> <i class="bi bi-circle"></i> <span class="mx-3"> حسابات العربه</span> </a></li>
-            <li class="nav-item"> <a class=" justify-content-start " routerLink="/car-store"> <i class="bi bi-circle"></i> <span class="mx-3"> مخزن العربه</span> </a></li>
-        
-         </ul>
-      </li>
-      </ul>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed justify-content-between " data-bs-target="#icons-nav" data-bs-toggle="collapse"
-        href="#">
-        <div class="d-flex align-items-center">
-          <i class="ri-safe-2-fill"></i>
-          <span class="mx-3">الخزنة</span>
-        </div>
-        <i class="bi bi-chevron-down "></i>
-      </a>
-      <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li class="nav-item"> <a class=" justify-content-start " routerLink=""> <i class="bi bi-circle"></i>
-            <span class="mx-3"> اضافه بند</span> </a></li>
-        <li class="nav-item"> <a class=" justify-content-start " routerLink="/Transaction"> <i class="bi bi-circle"></i>
-            <span class="mx-3"> ادارة الخزنة</span> </a></li>
-
-      </ul>
-    </li>
-
-
-
-
-    <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/user-profile"> <i
-          class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span> </a></li>
-    <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/pages-faq"> <i
-          class="bx bx-line-chart "></i> <span class="mx-3">التقارير</span> </a></li>
-    <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/pages-contact"> <i
-          class="ri-map-pin-user-fill ri ri-3x"></i> <span class="mx-3">المستخدمين</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/user-profile"> <i class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/pages-faq"> <i class="bx bx-line-chart "></i> <span class="mx-3">التقارير</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/pages-contact"> <i class="ri-map-pin-user-fill ri ri-3x"></i> <span class="mx-3">المستخدمين</span> </a></li>
   </ul>
 </aside>
-       <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/products"> <i class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span> </a></li>
-       <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/pages-faq"> <i class="bx bx-line-chart "></i> <span class="mx-3">التقارير</span> </a></li>
-       <li class="nav-item"> <a class="nav-link collapsed justify-content-start " routerLink="/p"> <i class="ri-map-pin-user-fill ri ri-3x"></i> <span class="mx-3">المستخدمين</span> </a></li>
-    </ul>
- </aside>
