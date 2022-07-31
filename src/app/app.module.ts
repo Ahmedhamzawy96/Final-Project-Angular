@@ -17,6 +17,9 @@ import { SupliersComponent } from './supliers/supliers.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { CarsAccountsComponent } from './cars-accounts/cars-accounts.component';
+import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
+import { SupplierAccountsComponent } from './supplier-accounts/supplier-accounts.component';
 
 
 
@@ -37,6 +40,9 @@ import { TransactionsComponent } from './transactions/transactions.component';
     SupliersComponent,
     LoginComponent,
     TransactionsComponent,
+    CarsAccountsComponent,
+    CustomerAccountsComponent,
+    SupplierAccountsComponent,
 
   ],
   imports: [
