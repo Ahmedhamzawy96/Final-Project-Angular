@@ -13,6 +13,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { CarsAccountsComponent } from './cars-accounts/cars-accounts.component';
 import { SupplierAccountsComponent } from './supplier-accounts/supplier-accounts.component';
 import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
+import { ReceiptforcarComponent } from './receiptforcar/receiptforcar.component';
+import { ReceiptforstoreComponent } from './receiptforstore/receiptforstore.component';
 
 
 
@@ -28,7 +30,9 @@ const routes: Routes = [
   {path:'products', component: ProductsComponent},
   {path:'supliers', component: SupliersComponent},
   {path:'login', component: LoginComponent},
-  {path:'Transaction',component:TransactionsComponent}
+  {path:'Transaction',component:TransactionsComponent},
+  {path:'ReceiptForCar',component:ReceiptforcarComponent},
+  {path:'Receiptforstore',component:ReceiptforstoreComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
