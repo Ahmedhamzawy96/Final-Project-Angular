@@ -7,7 +7,6 @@ import { ISupplier } from 'src/app/Interface/ISupplier';
   styleUrls: ['./supliers.component.css']
 })
 export class SupliersComponent implements OnInit {
-supliers:ISupplier[]=[];
   constructor() { 
   }
 
