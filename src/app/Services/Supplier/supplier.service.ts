@@ -1,0 +1,19 @@
+import { ISupplier } from './../../Interface/ISupplier';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class SupplierService {
+ supellier:ISupplier[];
+
+  constructor(private httpclient:HttpClient) { }
+  GetAllSuppliers():Observable<ISupplier[]>
+  {
+  return this.httpclient.get<ISupplier[]>(`http://localhost:5187/api/Supplier`);
+  }
+}
