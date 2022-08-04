@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ISupplier } from 'src/app/Interface/ISupplier';
 
 @Component({
   selector: 'app-supliers',
@@ -6,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./supliers.component.css']
 })
 export class SupliersComponent implements OnInit {
-supliers:string[];
+supliers:ISupplier[]=[];
   constructor() { 
-    this.supliers = ["عمر" , " الحاج خالد " ,  " الاستاذ عصام",]
   }
 
   ngOnInit(): void {

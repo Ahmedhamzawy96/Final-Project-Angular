@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ICustomer } from 'src/app/Interface/ICustomer';
+import { CustService } from 'src/app/Services/CustomerService/cust.service';
 
 @Component({
   selector: 'app-customer',
@@ -6,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
- custmer:string[];
-  constructor() {
-    this.custmer = ["عمر" , " الحاج خالد " ,  " الاستاذ عصام",]
+ custmer:ICustomer[];
+  constructor(private csutServ:CustService) {
    }
 
   ngOnInit(): void {
+    this.csutServ.getCustomers().subscribe(Data => {
+      this.custmer = Data
+    })
+    
   }
-
 }
