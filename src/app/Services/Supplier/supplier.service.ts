@@ -1,7 +1,7 @@
-import { ISupplier } from './../../Interface/ISupplier';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ISupplier } from 'src/app/Interface/ISupplier';
 
 
 @Injectable({
