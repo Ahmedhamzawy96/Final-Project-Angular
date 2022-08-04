@@ -5,7 +5,8 @@ export interface ICarProduct
 {
   Quantity:Number,
   CarID:number,
+  CarName:string,
   ProductID:number,
-  Product:IProduct[],
-  Car:ICar[]
+  ProductNamer:string,
+  SellingPrice:number
 }

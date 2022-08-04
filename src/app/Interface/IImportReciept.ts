@@ -5,14 +5,12 @@ import { IUsers } from "./IUsers";
 export interface IImportReciept{
 
   ID:Number,
+  Total:number,
   Notes:string,
   Date:Date,
   Paid:number,
   Remaining:number,
-  Supplier:ISupplier[],
-  User:IUsers[],
   SupplierID? :number,
+  SupplierName:string,
   UserName:string,
-  ImportProducts:IImportProduct[]
-
 }
