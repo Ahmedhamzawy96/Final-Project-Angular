@@ -1,5 +1,4 @@
-import { ISupplier } from './../../Interface/ISupplier';
-import { SupplierService } from './../../Services/Supplier/supplier.service';
+import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 import { Component, OnInit } from '@angular/core';
 import { ISupplier } from 'src/app/Interface/ISupplier';
 
