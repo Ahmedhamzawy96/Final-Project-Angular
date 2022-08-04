@@ -1,4 +1,7 @@
+import { ISupplier } from './../../Interface/ISupplier';
+import { SupplierService } from './../../Services/Supplier/supplier.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-supliers',
@@ -6,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./supliers.component.css']
 })
 export class SupliersComponent implements OnInit {
-supliers:string[];
-  constructor() { 
-    this.supliers = ["عمر" , " الحاج خالد " ,  " الاستاذ عصام",]
+GetSupplier:ISupplier[];
+
+  constructor(private _supplierservice: SupplierService ) { 
   }
+  
 
   ngOnInit(): void {
+    this._supplierservice.GetAllSuppliers().subscribe((supplier)=>{
+    this.GetSupplier=supplier;
+    console.log( this.GetSupplier)
+    })
   }
 
 }
