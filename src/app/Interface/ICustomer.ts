@@ -4,8 +4,7 @@ export interface ICustomer{
   ID:Number,
   Name:string,
   Phone:string,
-  Amount:Number,
+  Account:Number,
   Notes: string,
-  ExportReciepts:IExportReciept[]
 }
 

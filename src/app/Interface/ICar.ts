@@ -6,10 +6,6 @@ export interface ICar
 {
   ID:Number,
   Name:string,
-  Amount:Number,
-  Notes: string,
-  CarProduct:ICarProduct[],
-  user:IUsers[],
-  ExportReciept:IExportReciept[]
-
+  Account:Number,
+  Notes: string
   }

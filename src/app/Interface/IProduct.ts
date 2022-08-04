@@ -8,11 +8,6 @@ export interface IProduct{
   Name:string,
   BuyingPrice:number,
   SellingPrice:number,
-  Quantity:number,
-  CarProducts:ICarProduct[],
-  ExportProducts:IExportProduct[],
-  ImportProducts:IImportProduct[]
-
-
+  Quantity:number
 }
 
