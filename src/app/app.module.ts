@@ -23,6 +23,7 @@ import { ImportRecieptComponent } from './Components/Reciepts/import-reciept/imp
 import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -55,7 +56,6 @@ import { TransactionsComponent } from './Components/transactions/transactions.co
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]
