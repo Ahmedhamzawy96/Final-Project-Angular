@@ -14,6 +14,6 @@ export class SupplierService {
   constructor(private httpclient:HttpClient) { }
   GetAllSuppliers():Observable<ISupplier[]>
   {
-  return this.httpclient.get<ISupplier[]>(`http://localhost:5187/api/Supplier`);
+  return this.httpclient.get<ISupplier[]>(`http://localhost:5500/api/supplier`);
   }
 }
