@@ -15,10 +15,10 @@ export class SupliersComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this._supplierservice.GetAllSuppliers().subscribe((supplier)=>{
-    this.GetSupplier=supplier;
-    console.log( this.GetSupplier)
-    })
+  
+    this._supplierservice.getSupplier().subscribe(Date=>{this.GetSupplier=Date
+    console.log(this.GetSupplier)
+  })
   }
 
 }
