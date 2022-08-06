@@ -1,4 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ICar } from 'src/app/Interface/ICar';
+import { IExportProduct } from 'src/app/Interface/IExportProduct';
+import { ExportProductService } from 'src/app/Services/ExportProduct/export-product.service';
 
 @Component({
   selector: 'app-car-data',
@@ -6,12 +10,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./car-data.component.css']
 })
 export class CarDataComponent implements OnInit {
- car:string[];
-  constructor() { 
-    this.car=["dmx","nissan","ch","toyota"];
+ car:IExportProduct[];
+  constructor(private src:ExportProductService) { 
+    //this.car=["dmx","nissan","ch","toyota"];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+      //  this.src.getReciepts().subscribe((Date=> {
+      //   this.car=Date
+      //   console.log(this.car);
+    // }))
+    
   }
 
 }
