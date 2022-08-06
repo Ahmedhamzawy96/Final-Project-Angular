@@ -8,20 +8,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GenericService {
-  
+
   constructor(private Client:HttpClient) { }
-  
+
   private httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
   })
   };
-  
+
   // set Header
   private setHeader(Key:string,value:string) {
     this.httpOptions.headers.set(Key, value);
   }
-  // Handle Error Function 
+  // Handle Error Function
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
@@ -32,7 +32,7 @@ export class GenericService {
     return throwError(() => new Error(' please try again...!'));
   }
 
-  // Get All Function 
+  // Get All Function
   getAll(RouteURL:string):Observable<any>{
     return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}`)
     .pipe (
@@ -56,14 +56,14 @@ export class GenericService {
       catchError(this.handleError)
     )
   }
-  //Put Function 
+  //Put Function
   put(RouteURL:string,id:number,item:any):Observable<any>{
     return this.Client.put<any>(`${environment.APIUrl}/${RouteURL}/${id}`,JSON.stringify(item),this.httpOptions).pipe (
       retry(3),
       catchError(this.handleError)
     )
   }
-  //Delete Function 
+  //Delete Function
   Delete(RouteURL:string,id:number):Observable<any>{
     return this.Client.delete<any>(`${environment.APIUrl}/${RouteURL}`).pipe(
       retry(3),
