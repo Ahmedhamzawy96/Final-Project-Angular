@@ -2,18 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ISupplier } from 'src/app/Interface/ISupplier';
+import { GenericService } from '../GenericService/generic.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class SupplierService {
- supellier:ISupplier[];
+  constructor(private supp:GenericService) { }
 
-  constructor(private httpclient:HttpClient) { }
-  GetAllSuppliers():Observable<ISupplier[]>
-  {
-  return this.httpclient.get<ISupplier[]>(`http://localhost:5500/api/supplier`);
+   //Get Supplier 
+   getSupplier():Observable<ISupplier[]>{
+    return this.supp.getAll("Supplier");
+  }
+  //Get Supplier By ID
+  getPySupplierByID(id:number):Observable<ISupplier>{
+    return this.supp.getOne("Supplier",id);
+  }
+  //Add Supplier
+  addSupplier(Supplier:ISupplier):Observable<ISupplier>{
+    return this.supp.Post("Supplier",Supplier);
+  }
+  //Update Supplier
+  updateSupplier(id:number,Supplier:ISupplier):Observable<ISupplier>{
+    return this.supp.put("Supplier",id,Supplier);
+  }
+  //Delete Supplier
+  deleteSupplier(id:number):Observable<ISupplier>{
+    return this.supp.Delete("Supplier",id);
   }
 }
