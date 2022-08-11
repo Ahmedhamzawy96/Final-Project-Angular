@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ISupplier } from 'src/app/Models/ISupplier';
+import { ISupplier } from 'src/app/interface/ISupplier';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
-import { IImportProduct } from 'src/app/Models/IImportProduct';
-import { IProduct } from 'src/app/Models/IProduct';
+import { IImportProduct } from 'src/app/interface/IImportProduct';
+import { IProduct } from 'src/app/interface/IProduct';
 import { ProductService } from 'src/app/Services/Product/product.service';
 import { ImportReceiptService } from 'src/app/Services/Import Receipt/import-receipt.service';
-import { IImportReciept } from 'src/app/Models/IImportReciept';
+import { IImportReciept } from 'src/app/interface/IImportReciept';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 

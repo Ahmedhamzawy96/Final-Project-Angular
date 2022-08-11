@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ICar } from 'src/app/Models/ICar';
-import { IExportProduct } from 'src/app/Models/IExportProduct';
+import { ICar } from 'src/app/interface/ICar';
+import { IExportProduct } from 'src/app/interface/IExportProduct';
 import { ExportProductService } from 'src/app/Services/ExportProduct/export-product.service';
 
 @Component({

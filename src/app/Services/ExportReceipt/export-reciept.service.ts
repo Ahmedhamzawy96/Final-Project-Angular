@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IExportReciept } from 'src/app/Models/IExportReciept';
+import { IExportReciept } from 'src/app/interface/IExportReciept';
 import { GenericService } from '../GenericService/generic.service';
 
 @Injectable({

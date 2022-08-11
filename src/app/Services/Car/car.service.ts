@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICar} from 'src/app/Models/ICar';
+import { ICar} from 'src/app/interface/ICar';
 import { GenericService } from '../GenericService/generic.service';
 @Injectable({
   providedIn: 'root'

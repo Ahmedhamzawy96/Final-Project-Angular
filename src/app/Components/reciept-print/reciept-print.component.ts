@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IImportReciept } from 'src/app/Models/IImportReciept';
-import { IProduct } from 'src/app/Models/IProduct';
+import { IImportReciept } from 'src/app/interface/IImportReciept';
+import { IProduct } from 'src/app/interface/IProduct';
 import { ImportReceiptService } from 'src/app/Services/Import Receipt/import-receipt.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';

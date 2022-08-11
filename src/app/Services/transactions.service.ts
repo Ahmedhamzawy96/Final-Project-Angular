@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ITransactions  } from "../Models/ITransactions";
+import {ITransactions  } from "../interface/ITransactions";
 import { environment } from 'src/environments/environment';
 import { GenericService } from '../Services/GenericService/generic.service';
 import { Observable } from 'rxjs';

@@ -1,6 +1,6 @@
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 import { Component, OnInit } from '@angular/core';
-import { ISupplier } from 'src/app/Models/ISupplier';
+import { ISupplier } from 'src/app/interface/ISupplier';
 
 
 @Component({

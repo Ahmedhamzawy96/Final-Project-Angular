@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICarProduct } from 'src/app/Models/ICarProduct';
-import { IProduct } from 'src/app/Models/IProduct';
+import { ICarProduct } from 'src/app/interface/ICarProduct';
+import { IProduct } from 'src/app/interface/IProduct';
 import { GenericService } from '../GenericService/generic.service';
 
 @Injectable({

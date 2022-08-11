@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISupplier } from 'src/app/Models/ISupplier';
+import { ISupplier } from 'src/app/interface/ISupplier';
 import { GenericService } from '../GenericService/generic.service';
 
 

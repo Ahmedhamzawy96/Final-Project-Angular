@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ICar } from 'src/app/Models/ICar';
-import { ICarProduct } from 'src/app/Models/ICarProduct';
+import { ICar } from 'src/app/interface/ICar';
+import { ICarProduct } from 'src/app/interface/ICarProduct';
 import { CarService } from 'src/app/Services/Car/car.service';
 import { CarProductService } from 'src/app/Services/CarProduct/car-product.service';
 
