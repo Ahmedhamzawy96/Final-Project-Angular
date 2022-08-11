@@ -1,6 +1,3 @@
-import { IExportReciept } from "./IExportReciept"
-import { IProduct } from "./IProduct"
-
 export interface IExportProduct{
   
   exportRecieptID?:Number,

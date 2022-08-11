@@ -16,7 +16,7 @@ export class SupplierService {
     return this.supp.getAll("Supplier");
   }
   //Get Supplier By ID
-  getPySupplierByID(id:number):Observable<ISupplier>{
+  getSupplierByID(id:number):Observable<ISupplier>{
     return this.supp.getOne("Supplier",id);
   }
   //Add Supplier

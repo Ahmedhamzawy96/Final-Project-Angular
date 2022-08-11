@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { RecieptPrintComponent } from './Components/reciept-print/reciept-print.component';
+import { RecieptPrintComponent } from './Components/Import-RecieptPrint/reciept-print.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarDataComponent } from './Components/car-data/car-data.component';
 import { CarStoreComponent } from './Components/car-store/car-store.component';
@@ -27,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
 
 
 
@@ -50,7 +51,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     CustomerAccountsComponent,
     SupplierAccountsComponent,
     ReceiptforstoreComponent,
-    ReceiptforcarComponent
+    ReceiptforcarComponent,
+    ExportRecieptPrintComponent
   ],
   imports: [
     BrowserModule,

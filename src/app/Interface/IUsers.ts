@@ -1,7 +1,3 @@
-import { ICar } from "./ICar"
-import { IExportReciept } from "./IExportReciept"
-import { IImportReciept } from "./IImportReciept"
-
 export interface IUsers{
 
   UserName:string,
