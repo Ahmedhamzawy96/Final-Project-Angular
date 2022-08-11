@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ITransactions } from 'src/app/Interface/ITransactions';
+import { TransactionsService } from 'src/app/Services/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
+  transactions:ITransactions[]
 
-  constructor() { }
+  constructor(private transServ : TransactionsService) { }
 
   ngOnInit(): void {
+    this.transServ.getReciepts().subscribe(Data => {
+      this.transactions = Data
+    })
   }
 
 }

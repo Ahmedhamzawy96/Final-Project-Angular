@@ -3,10 +3,10 @@ import { IProduct } from "./IProduct"
 
 export interface IExportProduct{
   
-  ExportRecieptID:number,
-  ProductName:string,
-  ProductID:number
-  Quantity:number,
-  TotalPrice:number,
-  ProductPrice:number,
+  exportRecieptID?:Number,
+  productName:string,
+  productID:Number
+  quantity:number,
+  totalPrice:number,
+  productPrice:number,
 }

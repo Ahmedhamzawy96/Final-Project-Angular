@@ -65,7 +65,7 @@ export class GenericService {
   }
   //Delete Function
   Delete(RouteURL:string,id:number):Observable<any>{
-    return this.Client.delete<any>(`${environment.APIUrl}/${RouteURL}`).pipe(
+    return this.Client.delete<any>(`${environment.APIUrl}/${RouteURL}/${id}`).pipe(
       retry(3),
       catchError(this.handleError)
     )

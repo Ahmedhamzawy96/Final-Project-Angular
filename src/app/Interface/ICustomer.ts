@@ -1,6 +1,6 @@
 
 export interface ICustomer{
-  id:Number,
+  id?:Number,
   name:string,
   phone:string,
   account:Number,

@@ -17,7 +17,7 @@ getRecieptsByID(id:number):Observable<IExportProduct> {
   return this.Serv.getOne("ExportProduct",id);
 }
 //Add ExportProduct 
-addReciept(recipt:IExportProduct): Observable<IExportProduct>{
+addReciept(recipt:IExportProduct[]): Observable<IExportProduct>{
   return this.Serv.Post("ExportProduct",recipt);
 }
 //Update ExportProduct 

@@ -12,8 +12,8 @@ export class CarProductService {
   constructor(private serv:GenericService) { }
 
   //Get Products 
-  getProducts():Observable<ICarProduct[]>{
-    return this.serv.getAll("CarProduct");
+  getProducts(carId : number):Observable<ICarProduct[]>{
+    return this.serv.getAll(`CarProduct/${carId}`);
   }
   //Get Product By ID
   getProductByID(id:number):Observable<ICarProduct>{
