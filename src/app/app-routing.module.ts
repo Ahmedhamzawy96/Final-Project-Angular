@@ -31,7 +31,7 @@ const routes: Routes = [
   {path:'supliers', component:SupliersComponent },
   {path:'login', component:LoginComponent },
   {path:'Transaction',component:TransactionsComponent},
-  {path:'ReceiptForCar',component:ReceiptforcarComponent},
+  {path:'Receiptforcar',component:ReceiptforcarComponent},
   {path:'Receiptforstore',component:ReceiptforstoreComponent}
 ]
 @NgModule({

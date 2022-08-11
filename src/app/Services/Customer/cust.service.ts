@@ -14,24 +14,24 @@ export class CustService {
   }
 
 //Get customers 
-getReciepts():Observable<ICustomer[]> {
+getCustomers():Observable<ICustomer[]> {
   return this.Serv.getAll("customer");
 }
 
 // Get customer By ID 
-getRecieptsByID(id:number):Observable<ICustomer> {
+getCustomerByID(id:number):Observable<ICustomer> {
   return this.Serv.getOne("customer",id);
 }
 //Add customer 
-addReciept(newcustomer:ICustomer): Observable<ICustomer>{
+addCustomer(newcustomer:ICustomer): Observable<ICustomer>{
   return this.Serv.Post("customer",newcustomer);
 }
 //Update customer 
-updateReciept(id:number,upcustomer:ICustomer):Observable<ICustomer>{
+updateCustomer(id:number,upcustomer:ICustomer):Observable<ICustomer>{
   return this.Serv.put("customer",id,upcustomer);
 }
 //Delete customer 
-deleteReceipt(id:number):Observable<ICustomer> {
+deleteCustomer(id:number):Observable<ICustomer> {
   return this.Serv.Delete("customer",id);
 }
 

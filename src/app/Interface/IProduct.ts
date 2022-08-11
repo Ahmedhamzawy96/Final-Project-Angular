@@ -4,10 +4,10 @@ import { IImportProduct } from "./IImportProduct";
 
 export interface IProduct{
 
-  ID:Number,
-  Name:string,
-  BuyingPrice:number,
-  SellingPrice:number,
-  Quantity:number
+  id:Number,
+  name:string,
+  buyingPrice:number,
+  sellingPrice:number,
+  quantity:number
 }
 

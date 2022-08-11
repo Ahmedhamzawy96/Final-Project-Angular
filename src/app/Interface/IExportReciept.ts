@@ -5,17 +5,17 @@ import { IUsers } from "./IUsers";
 
 export interface IExportReciept{
 
-  ID:Number,
-  Total:number,
-  Notes:string,
-  Date:Date,
-  Paid:number,
-  Remaining:number
-  CustomerID?:number;
-  CustomerName:string,
-  UserName:string,
-  CarSellID?:number,
-  CarBuyID?:number,
+  id:Number,
+  total:number,
+  notes:string,
+  date:Date,
+  paid:number,
+  remaining:number
+  customerID?:number;
+  userName:string,
+  carID?:number,
+  products:IExportProduct[]
+
 }
 
 

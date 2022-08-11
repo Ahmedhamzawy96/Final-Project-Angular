@@ -1,12 +1,12 @@
 export interface ITransactions{
 
-  ID:number,
-  Type:string,
-  Amount:number
-  User:string,
-  Receiver:string,
-   Date:Date
-  ReceiptID:number
-  ReceiptType:string
+  id:number,
+  type:string,
+  amount:number
+  user:string,
+  receiver:string,
+  date:Date
+  receiptID:number
+  receiptType:string
 }
 

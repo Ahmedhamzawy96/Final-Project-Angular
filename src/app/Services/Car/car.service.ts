@@ -9,7 +9,7 @@ export class CarService {
 
   constructor(private Serv:GenericService) { }
 //Get Car
-getCar():Observable<ICar[]> {
+ getCar():Observable<ICar[]> {
   return this.Serv.getAll("Car");
 }
 // Get Car By ID 

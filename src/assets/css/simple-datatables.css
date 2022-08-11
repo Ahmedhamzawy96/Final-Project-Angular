@@ -107,19 +107,19 @@
 
 .dataTable-table > thead > tr > th {
 	vertical-align: bottom;
-	text-align: left;
+	text-align: right;
 	border-bottom: 1px solid #d9d9d9;
 }
 
 .dataTable-table > tfoot > tr > th {
 	vertical-align: bottom;
-	text-align: left;
+	text-align: right;
 	border-top: 1px solid #d9d9d9;
 }
 
 .dataTable-table th {
 	vertical-align: bottom;
-	text-align: left;
+	text-align: right;
 }
 
 .dataTable-table th a {

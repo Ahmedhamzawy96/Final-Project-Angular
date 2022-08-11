@@ -1,204 +1,216 @@
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1 style="text-align: right">فاتورة بيع العربة</h1>
+    <h1 style="text-align: right">فاتورة توريد عربه </h1>
     <nav class="my-3">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
         <li class="breadcrumb-item"></li>
-        <li class="breadcrumb-item active">العربة</li>
+        <li class="breadcrumb-item active">الفواتير</li>
       </ol>
     </nav>
   </div>
   <section class="section">
-    <div class="row">
-      <div class="col-lg-12">
+    <div class="column row-md">
+      <form [formGroup]="ExportRecieptForm" (ngSubmit)="OnsSubmit()">
+      <div class="col">
         <div class="card">
+          
+            <div class="card-body">
+              <h5 class="card-title">تفاصيل الفاتورة</h5>
+              <div class="row">
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-box-seam"></i>
+                    <span class="mx-3">العربه</span>
+                  </div>
+                  <div>
+                    <mat-form-field >
+                      
+                     <mat-select formControlName="carID"   >
+                        <mat-option *ngFor="let car of Cars" [value]="car.id" >
+                                {{car.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-calendar-date"></i>
+                    <span class="mx-3">التاريخ</span>
+                  </div>
+                  <input type="text" name="Date" formControlName="date" />
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="mx-3">المستخدم</span>
+                  </div>
+                  <input type="text" name="User" formControlName="userName" />
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="mx-3">الملاحظات</span>
+                  </div>
+                  <input type="text" name="User" formControlName="notes" />
+                </div>
+                
+              </div>
+            </div>
+           
+        </div>
+      </div>
+      <div class="col">
+        <section class="section ">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">اضافة الاصناف</h5>
+                  <div class="row mb-3">                  
+                    <label for="ProductName" class="col-sm-2 col-form-label">اسم الصنف</label>
+                    <div class="col-sm-10">
+                      <div>
+                        <mat-form-field>
+                          <mat-select  [(value)]="PrdID" (selectionChange)="prdselect(PrdID)" >
+                            <mat-option *ngFor="let prd of Products" [value]="prd.id" >
+                              {{prd.name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-3">
+                    <div class="col">
+                      <label for="Amount" class="col-form-label">الكمية</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="0" class="form-control" [(ngModel)]="prdQuantity" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="SellingPrice" class="col-form-label">سعر البيع</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="0" class="form-control" [(ngModel)]="prdPrice" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col d-flex justify-content-center">
+                      <button (click)="AddtoTable()" type="button"  class="btn btn-primary">اضافة</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col">
+        <section class="section col">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">اصناف الفاتورة</h5>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th scope="col">كود</th>
+                      <th scope="col">الصنف</th>
+                      <th scope="col">الكمية</th>
+                      <th scope="col">سعر البيـــع</th>
+                      <th scope="col">الاجمالي</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ProductsAdded">
+                      <td>
+                        <input #radioInput class="form-check-input" [ngModelOptions]="{standalone: true}" type="radio" name="gridRadios" id="gridRadios1"
+                          [value]="item.productID"   [(ngModel)]="Selectedproduct" />
+                      </td>
+                      <th>{{item.productID}}</th>
+                      <td>{{item.productName}}</td>
+                      <td class="col col-2">
+                        <div *ngIf="!this.radioInput.checked">
+                          {{ item.quantity }}
+                        </div>
+                        <div *ngIf="this.radioInput.checked">
+                          <input
+                            [(ngModel)]="item.quantity"
+                            [ngModelOptions]="{ standalone: true }"
+                            type="number"
+                            class="form-control"
+                            [value]="item.quantity"
+                            (change)="changeTable(item.productID, item.quantity,item.productPrice )"
+                          />
+                        </div>
+                      </td>
+                      <td class="col col-2">
+                        <div *ngIf="!this.radioInput.checked">
+                          {{ item.productPrice }}
+                        </div>
+                        <div *ngIf="this.radioInput.checked">
+                          <input
+                            [(ngModel)]="item.productPrice "
+                            [ngModelOptions]="{ standalone: true }"
+                            type="number"
+                            class="form-control"
+                            [value]="item.productPrice "
+                            (change)="changeTable(item.productID, item.quantity,item.productPrice )"
+                          />
+                        </div>
+                      </td>
+                      <td>{{item.totalPrice}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-danger mx-3"  type="button" (click)="deletefromTable()">حذف</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col">
+        <section class="col">
+          <div class="card">
           <div class="card-body">
-            <h5 class="card-title">تفاصيل الفاتورة</h5>
+            <h5 class="card-title">حساب الفاتورة</h5>
             <div class="row">
-              <div class="col col-lg-2">
-                <div class="d-flex align-items-center my-3">
-                  <i class="bi bi-calendar-date"></i>
-                  <span class="mx-3">التاريخ</span>
-                </div>
-                <p>{{ BillDate | date: "short" }}</p>
-              </div>
-              <div class="col col-lg-2">
-                <div class="d-flex align-items-center my-3">
-                  <i class="bi bi-person-circle"></i>
-                  <span class="mx-3">المستخدم</span>
-                </div>
-                <p>{{ UserName }}</p>
-              </div>
-              <div class="col col-lg-8">
-                <div class="d-flex align-items-center my-3">
-                  <i class="bi bi-person-badge-fill"></i>
-                  <span class="mx-3">العميل</span>
-                </div>
-                <div>
-                  <input
-                    class="form-control"
-                    list="Suppliers"
-                    id="Supp"
-                    placeholder="اسم العميل"
-                  />
-                  <datalist id="Suppliers">
-                    <option *ngFor="let item of client" [value]="item"></option>
-                  </datalist>
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label">اجمالي الفاتورة</label>
+                <div class="col-12">
+                  <input type="number" [(ngModel)]="totalreciept" readonly name="TotalReciept" class="form-control" formControlName="total" />
                 </div>
               </div>
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label">المبلغ المدفوع</label>
+                <div class="col-12">
+                  <input type="number" name="Paid" (change)="onSearchChange()" [(ngModel)]="paidreceipt"  class="form-control" formControlName="paid" />
+                </div>
+              </div>
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label" >المبلغ المتبقي</label>
+                <div class="col-12">
+                  <input type="number" [(ngModel)]="remainingreceipt" name="Remaining" readonly class="form-control" formControlName="remaining" />
+                </div>
+              </div>
+             
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">اضافة الاصناف</h5>
-          <form>
-            <div class="row mb-3">
-              <label for="ProductName" class="col-sm-2 col-form-label"
-                >اسم الصنف</label
-              >
-              <div class="col-sm-10">
-                <input
-                  class="form-control"
-                  list="Products"
-                  id="Prod"
-                  placeholder="اسم الصنف"
-                />
-                <datalist id="Products">
-                  <option *ngFor="let item of Products" [value]="item"></option>
-                </datalist>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <label for="Amount" class="col-form-label">الكمية</label>
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" />
-                </div>
-              </div>
-              <div class="col">
-                <label for="SellingPrice" class="col-form-label"
-                  >سعر البيع</label
-                >
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" disabled />
-                </div>
-              </div>
-              <div class="col">
-                <label for="FinalPrice" class="col-form-label"
-                  >سعر البيع النهائي</label
-                >
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" />
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">اضافة</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">اصناف الفاتورة</h5>
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th scope="col">كود</th>
-                <th scope="col">الصنف</th>
-                <th scope="col">الكمية</th>
-                <th scope="col">سعر البيـــع النهائي</th>
-                <th scope="col">الاجمالي</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">1</th>
-                <td>حنفية</td>
-                <td>3</td>
-                <td>40</td>
-                <td>105</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">2</th>
-                <td>لي سخان</td>
-                <td>3</td>
-                <td>40</td>
-                <td>105</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-success mx-3">تعديل</button>
-            <button class="btn btn-danger mx-3">حذف</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <Section class="section">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">حساب الفاتورة</h5>
-          <div class="row">
-            <div class="col mb-3">
-              <label for="Amount" class="col-form-label">اجمالي الفاتورة</label>
-              <div class="col-12">
-                <input type="number" class="form-control" disabled />
-              </div>
-            </div>
-            <div class="col mb-3">
-              <label for="Amount" class="col-form-label">المبلغ المدفوع</label>
-              <div class="col-12">
-                <input type="number" class="form-control" />
-              </div>
-            </div>
-            <div class="col mb-3">
-              <label for="Amount" class="col-form-label">المبلغ المتبقي</label>
-              <div class="col-12">
-                <input type="number" class="form-control" disabled />
-              </div>
-            </div>
-          </div>
+        </section>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary my-3" >حفظ</button>
         </div>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-primary my-3">حفظ</button>
+          <button type="button" class="btn btn-primary my-3" (click)="print()" >طباعه</button>
         </div>
       </div>
+      {{ ExportRecieptForm.value | json }}
+     
+    </form>
     </div>
-  </Section>
+  </section>
 </main>
