@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from '../GenericService/generic.service';
 import { Observable } from 'rxjs';
-import { IExpenses } from 'src/app/Interface/IExpenses';
+import { IExpenses } from 'src/app/Models/IExpenses';
 @Injectable({
   providedIn: 'root'
 })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from '../GenericService/generic.service';
 import { Observable } from 'rxjs';
-import { IImportProduct } from 'src/app/Interface/IImportProduct';
+import { IImportProduct } from 'src/app/Models/IImportProduct';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +22,7 @@ export class ImportProductService {
   }
 
   //Add ImportProduct
-  addImportProduct(impprod:IImportProduct): Observable<IImportProduct>{
+  addImportProduct(impprod:IImportProduct[]): Observable<IImportProduct>{
     return this.impproduct.Post("ImportProduct",impprod);
   }
 

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IImportReciept } from './../../Interface/IImportReciept';
+import { IImportReciept } from '../../Models/IImportReciept';
 import { Injectable } from '@angular/core';
 import { GenericService } from '../GenericService/generic.service';
 @Injectable({
@@ -10,24 +10,24 @@ export class ImportReceiptService {
 
 //Get Reciepts 
   getReciepts():Observable<IImportReciept[]> {
-    return this.Serv.getAll("ImpoerReciept");
+    return this.Serv.getAll("ImportReciept");
   }
 
 // Get Receipt By ID 
   getRecieptsByID(id:number):Observable<IImportReciept> {
-    return this.Serv.getOne("ImpoerReciept",id);
+    return this.Serv.getOne("ImportReciept",id);
   }
 //Add Receipt 
   addReciept(recipt:IImportReciept): Observable<IImportReciept>{
-    return this.Serv.Post("ImpoerReciept",recipt);
+    return this.Serv.Post("ImportReciept",recipt);
   }
 //Update Reciept 
   updateReciept(id:number,recipt:IImportReciept):Observable<IImportReciept>{
-    return this.Serv.put("ImpoerReciept",id,recipt);
+    return this.Serv.put("ImportReciept",id,recipt);
   }
   //Delete Reciept 
   deleteReceipt(id:number):Observable<IImportReciept> {
-    return this.Serv.Delete("ImpoerReciept",id);
+    return this.Serv.Delete("ImportReciept",id);
   }
   };
 

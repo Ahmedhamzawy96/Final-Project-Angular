@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICar} from 'src/app/Interface/ICar';
+import { ICar} from 'src/app/Models/ICar';
 import { GenericService } from '../GenericService/generic.service';
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class CarService {
 
   constructor(private Serv:GenericService) { }
 //Get Car
-getCar():Observable<ICar[]> {
+ getCar():Observable<ICar[]> {
   return this.Serv.getAll("Car");
 }
 // Get Car By ID 

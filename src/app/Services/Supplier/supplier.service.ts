@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISupplier } from 'src/app/Interface/ISupplier';
+import { ISupplier } from 'src/app/Models/ISupplier';
 import { GenericService } from '../GenericService/generic.service';
 
 
@@ -16,7 +15,7 @@ export class SupplierService {
     return this.supp.getAll("Supplier");
   }
   //Get Supplier By ID
-  getPySupplierByID(id:number):Observable<ISupplier>{
+  getSupplierByID(id:number):Observable<ISupplier>{
     return this.supp.getOne("Supplier",id);
   }
   //Add Supplier

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICarProduct } from 'src/app/Interface/ICarProduct';
-import { IProduct } from 'src/app/Interface/IProduct';
+import { ICarProduct } from 'src/app/Models/ICarProduct';
+import { IProduct } from 'src/app/Models/IProduct';
 import { GenericService } from '../GenericService/generic.service';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class CarProductService {
   constructor(private serv:GenericService) { }
 
   //Get Products 
-  getProducts():Observable<ICarProduct[]>{
-    return this.serv.getAll("CarProduct");
+  getProducts(carId : number):Observable<ICarProduct[]>{
+    return this.serv.getAll(`CarProduct/${carId}`);
   }
   //Get Product By ID
   getProductByID(id:number):Observable<ICarProduct>{

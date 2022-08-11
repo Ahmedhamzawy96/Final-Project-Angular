@@ -18,8 +18,8 @@ export class ReceiptforstoreComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.expre.getProducts().subscribe(data =>{
-      console.log(data)
-    } )
+    // this.expre.getProducts().subscribe(data =>{
+    //   console.log(data)
+    // } )
   }
 }

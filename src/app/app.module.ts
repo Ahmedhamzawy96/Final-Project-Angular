@@ -7,7 +7,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { RecieptPrintComponent } from './Components/reciept-print/reciept-print.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { CarDataComponent } from './Components/car-data/car-data.component';
 import { CarStoreComponent } from './Components/car-store/car-store.component';
 import { CarsAccountsComponent } from './Components/cars-accounts/cars-accounts.component';
@@ -22,6 +22,11 @@ import { ImportRecieptComponent } from './Components/Reciepts/import-reciept/imp
 import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -47,13 +52,19 @@ import { TransactionsComponent } from './Components/transactions/transactions.co
     SupplierAccountsComponent,
     ReceiptforcarComponent,
     ReceiptforstoreComponent,
-
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

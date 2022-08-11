@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ICustomer } from 'src/app/Interface/ICustomer';
+import { ICustomer } from 'src/app/Models/ICustomer';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 
 @Component({

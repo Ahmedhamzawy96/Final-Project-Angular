@@ -1,114 +1,118 @@
 <main id="main" class="main">
-    <div class="pagetitle">
-        <h1>ادارة الخزنة</h1>
-        <nav class="my-3">
-          <ol class="breadcrumb">
-             <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
-             <li class="breadcrumb-item"></li>
-             <li class="breadcrumb-item active">الخزنة</li>
-          </ol>
-       </nav>
-     </div>
-    <section dir="rtl">
-
-        <div class="col">
-            <div class="card ">
-                <div class="card-body">
-                   <h5 class="card-title">اضافه تعامل</h5>
-                   <form>
-
-                    <div class="row my-3">
-                       <div class="col-md-6 col-12 ">
-                          <label for="Amount" class=" col-form-label">البند</label>
-                          <div class="col-sm-10 align-items-center"> 
-                            <input class="form-control" list="Products"  placeholder="اسم البند">
-                             <datalist id="Products">
-                                <option value="تصليح عربيه">
-                                <option value="اجرة تخزين">
-                             </datalist>
-                          </div>
-                       </div>
-                       <div class="col-md-6 col-12">
-                          <label for="Amount" class=" col-form-label"> المبلغ</label>
-                          <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" ></div>
-                       </div>
-                       <div class="col-md-6 col-12 ">
-                          <label for="Notes" class=" col-form-label">ملاحظات</label>
-                          <div class="col-sm-10"><textarea id="my-textarea" class="form-control" name="" rows="2"></textarea> </div>
-                       </div>
-                       <div class="col-md-6 col-12 d-flex align-items-end mt-3 justify-content-center ">
-                         <button type="submit" class="btn btn-primary px-4 py-2 ">اضافة</button></div>
-                    
-                    </div>
-                   
-                 </form>
-
-
-                </div> 
-            </div>
-
-        </div>
-
-        <div class="col-12">
-            <div class="card overflow-auto">
-                <div class="card-body p-3">
-                   <h5 class="card-title"> عرض التعاملات</h5>
-
-                    <table class="table overflow-scroll  ">
-                        <thead class="">
-                            <tr class="text-center m-3 p-2">
-                                <th></th>
-                                <th>كود</th>
-                                <th class="text-center">اسم البند</th>
-                                <th class="text-center">المبلغ</th>
-                                <th class="text-center">ملاحظات</th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row"><a href="#">#2049</a></th>
-                                <td>Ashleigh Langosh</td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                            </tr>
-                            <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row"><a href="#">#2049</a></th>
-                                <td>Ashleigh Langosh</td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-
-                            </tr>
-                            <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row"><a href="#">#2049</a></th>
-                                <td>Ashleigh Langosh</td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-
-                            </tr>
-                            <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row"><a href="#">#2049</a></th>
-                                <td>Ashleigh Langosh</td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-                    <div class="row">
-                        <div class=" d-flex align-items-center justify-content-center ">
-                            <button type="button" class="btn btn-success rounded-3 mx-3 px-3 ">تعديل</button>
-                            <button type="button" class="btn btn-danger rounded-3 mx-3 px-3  ">حذف</button>
-                        </div>
-                    </div>
+  <div class="pagetitle">
+    <h1>ادارة الخزنة</h1>
+    <nav class="my-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
+        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item active">الخزنة</li>
+      </ol>
+    </nav>
+  </div>
+  <section dir="rtl">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">اضافه تعامل</h5>
+          <form>
+            <div class="row my-3">
+              <div class="col-md-6 col-12">
+                <label for="Amount" class="col-form-label">البند</label>
+                <div class="col-sm-10 align-items-center">
+                  <input
+                    class="form-control"
+                    list="Products"
+                    placeholder="اسم البند"
+                  />
+                  <datalist id="Products">
+                    <option value="تصليح عربيه"></option>
+                    <option value="اجرة تخزين"></option>
+                  </datalist>
                 </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <label for="Amount" class="col-form-label"> المبلغ</label>
+                <div class="col-sm-10">
+                  <input id="Amount" type="number" class="form-control" />
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <label for="Notes" class="col-form-label">ملاحظات</label>
+                <div class="col-sm-10">
+                  <textarea
+                    id="my-textarea"
+                    class="form-control"
+                    name=""
+                    rows="2"
+                  ></textarea>
+                </div>
+              </div>
+              <div
+                class="col-md-6 col-12 d-flex align-items-end mt-3 justify-content-center"
+              >
+                <button type="submit" class="btn btn-primary px-4 py-2">
+                  اضافة
+                </button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
+    </div>
 
-    </section>
+    <div class="col-12">
+      <div class="card overflow-auto">
+        <div class="card-body p-3">
+          <h5 class="card-title">عرض التعاملات</h5>
+
+          <table class="table overflow-scroll">
+            <thead class="">
+              <tr class="text-center m-3 p-2">
+                <th></th>
+                <th>كود</th>
+                <th class="text-center">اسم البند</th>
+                <th class="text-center">المبلغ</th>
+                <th class="text-center">التاريخ</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="text-center" *ngFor="let item of transactions">
+                <td>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gridRadios"
+                    id="gridRadios1"
+                    [value]="item.id"
+                  />
+                </td>
+                <th scope="row">
+                  <a href="#">{{ item.id }}</a>
+                </th>
+                <td>{{ item.receiptType }}</td>
+                <td>
+                  <a href="#" class="text-primary">{{ item.amount }}</a>
+                </td>
+                <td>
+                  <a href="#" class="text-primary">{{ item.date }}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-center">
+              <button type="button" class="btn btn-success rounded-3 mx-3 px-3">
+                تعديل
+              </button>
+              <button type="button" class="btn btn-danger rounded-3 mx-3 px-3">
+                حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
