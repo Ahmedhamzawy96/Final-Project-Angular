@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-receiptforstore',
@@ -30,7 +31,7 @@ selectedid:number
   totalreciept:number;
   paidreceipt:string="ASD";
   remainingreceipt:number;
-  constructor(private custServ:CustService ,private Productserv :ProductService,private Exportserv:ExportRecieptService,private expProd:ExportProductService) {
+  constructor(private custServ:CustService ,private Productserv :ProductService,private Exportserv:ExportRecieptService,private expProd:ExportProductService, private Route:Router) {
     this.ExportRecieptForm = new FormGroup({
       total:new FormControl(),
       notes:new FormControl(''),
@@ -134,9 +135,8 @@ OnsSubmit()
 {
 let receipt :IExportReciept=this.ExportRecieptForm.value;
 receipt.products=this.ProductsAdded;
-console.log(receipt)
   this.Exportserv.addReciept(receipt).subscribe(data=>{
-       console.log("addreceipt");
+    this.Route.navigate(['ExportRecieptPrint',data.id]);
   })
 }
 totalReciept(){

@@ -22,7 +22,7 @@ export class ImportProductService {
   }
 
   //Add ImportProduct
-  addImportProduct(impprod:IImportProduct): Observable<IImportProduct>{
+  addImportProduct(impprod:IImportProduct[]): Observable<IImportProduct>{
     return this.impproduct.Post("ImportProduct",impprod);
   }
 

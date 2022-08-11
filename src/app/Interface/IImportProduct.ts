@@ -1,6 +1,6 @@
 export interface IImportProduct{
 
-  importRecieptID:number,
+  importReceiptID?:Number,
   productID:number
   productName:string,
   quantity:number,

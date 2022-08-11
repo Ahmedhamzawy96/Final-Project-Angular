@@ -153,15 +153,4 @@ onSearchChange()
   this.remainingreceipt = Number(this.totalreciept)- Number(this.paidreceipt);
 }
 
-print()
-{
-  let printContents = document.getElementById("main").innerHTML;
-  let originalContents = document.body.innerHTML;
-
-  document.body.innerHTML = printContents;
-
-  window.print();
-
-  document.body.innerHTML = originalContents;
-}
 }
