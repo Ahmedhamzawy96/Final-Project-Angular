@@ -1,6 +1,6 @@
 export interface ITransactions{
 
-  id:number,
+  id?:number,
   type:string,
   amount:number
   user:string,

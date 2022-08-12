@@ -1,7 +1,7 @@
 
 export interface IExpenses{
-  ID:Number,
-  Name:string
+  id?:Number,
+  name:string
 
 
 }
