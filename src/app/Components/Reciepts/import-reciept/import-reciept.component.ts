@@ -31,7 +31,7 @@ export class ImportRecieptComponent implements OnInit {
   ImportRecieptForm:FormGroup;
   protected Suppliers: ISupplier [] =[];
   //RecieptID:Number;
-  constructor(private SuppServ:SupplierService , private ProdServ:ProductService,private imporRecServ : ImportReceiptService , private Route:Router) { 
+  constructor(private SuppServ:SupplierService , private ProdServ:ProductService,private imporRecServ : ImportReceiptService , private Route:Router) {
     // ImportReciept From
     this.ImportRecieptForm = new FormGroup({
       total:new FormControl(''),
@@ -42,11 +42,11 @@ export class ImportRecieptComponent implements OnInit {
       supid :new FormControl(''),
       userName:new FormControl('ahmed123')
     })
-    
+
   }
   deleteProd() {
 
-    //#region 
+    //#region
     const swalWithBootstrapButtons = Swal.mixin({
      customClass: {
        confirmButton: 'btn btn-success m-2',
@@ -54,19 +54,19 @@ export class ImportRecieptComponent implements OnInit {
      },
      buttonsStyling: false
    })
-   
+
    swalWithBootstrapButtons.fire({
      title: 'حذف  المنتج',
      text: 'هل انت متاكد من حذفه هذا المنتج',
      icon: 'warning',
      showCancelButton: true,
      cancelButtonText: 'لا',
- 
+
      confirmButtonText: 'نعم',
      reverseButtons: false
    }).then((result) => {
      if (result.isConfirmed) {
- 
+
       let prod:IImportProduct= this.ImportProducts.find( pro => pro.productID == this.prodID);
       let index:number = this.ImportProducts.indexOf( prod);
       this.ImportProducts.splice(index,1);
@@ -108,7 +108,7 @@ export class ImportRecieptComponent implements OnInit {
   getRemain(){
     this.ImportRecieptForm.controls['remaining'].setValue(this.ImportRecieptForm.controls['total'].value -this.ImportRecieptForm.controls['paid'].value )
   }
-  
+
 
   addProduct( id:number){
     this.ImportProducts.push({
@@ -116,7 +116,7 @@ export class ImportRecieptComponent implements OnInit {
       productName:this.productName,
       quantity:this.Quantity,
       buyingPrice:this.prodbuyingPrice,
-      totalPrice:(this.prodbuyingPrice * this.Quantity) 
+      totalPrice:(this.prodbuyingPrice * this.Quantity)
     });
     this.totalReciept();
   }
@@ -130,11 +130,11 @@ export class ImportRecieptComponent implements OnInit {
   }
    Submit() {
     let reciept:IImportReciept = this.ImportRecieptForm.value;
-    reciept.importProducts = this.ImportProducts; 
+    reciept.importProducts = this.ImportProducts;
      this.imporRecServ.addReciept(reciept).subscribe(Data => {
       this.Route.navigate(['ImportRecieptPrint',Data.id]);
     })
- 
+
   }
   ngOnInit(): void {
     this.SuppServ.getSupplier().subscribe(Data => {

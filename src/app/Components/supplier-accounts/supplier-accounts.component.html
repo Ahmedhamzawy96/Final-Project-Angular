@@ -15,7 +15,7 @@
           <div class="card ">
               <div class="card-body">
                  <h5 class="card-title">حساب المورد</h5>
-                 <form>
+                 <form [formGroup]="suppaccountsform">
 
                   <div class="row my-3">
                      <div class="col-md-6 col-12 ">
@@ -26,21 +26,22 @@
                      </div>
                      <div class="row my-3">
                       <div class="col">
-                        <label for="Amount" class=" col-form-label">  المبلغ المدفوع</label>
-                        <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" ></div>
+                        <label for="Amount" class=" col-form-label">  المبلغ الكلى</label>
+                        <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" readonly  ></div>
                       </div>
                       <div class="col">
                         <label for="Amount" class=" col-form-label"> المبلغ المتبقى</label>
-                        <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" ></div>
+                        <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" readonly></div>
                      </div>
                      </div>
-                     <div class="col-md-6 col-12 ">
+                     <!-- <div class="col-md-6 col-12 ">
                         <label for="Notes" class=" col-form-label">ملاحظات</label>
                         <div class="col-sm-10"><textarea id="my-textarea" class="form-control" name="" rows="2"></textarea> </div>
+                     </div> -->
+                     <div class="row mb-3">
+                     <div class="col d-flex justify-content-center">
+                       <button type="submit"  class="btn btn-primary px-4 py-2 ">اضافة</button></div>
                      </div>
-                     <div class="col-md-6 col-12 d-flex align-items-end mt-3 justify-content-center ">
-                       <button type="submit" class="btn btn-primary px-4 py-2 ">اضافة</button></div>
-
                   </div>
                </form>
               </div>
@@ -57,7 +58,7 @@
 
                    <div class="row my-3">
                     <div class="col-md-6 col-12">
-                      <label for="Amount" class=" col-form-label"> المبلغ</label>
+                      <label for="Amount" class=" col-form-label"> المبلغ المدفوع</label>
                       <div class="col-sm-10"> <input id="Amount" type="number" class="form-control" ></div>
                    </div>
 
@@ -67,8 +68,8 @@
                       <div class="col-sm-10"><textarea id="my-textarea" class="form-control" name="" rows="2"></textarea> </div>
                    </div>
                    <div class="col-md-6 col-12 d-flex align-items-end mt-3 justify-content-center ">
-                     <button type="submit" class="btn btn-info px-4 py-2 ">دفع</button>&nbsp; &nbsp;
-                     <button type="submit" class="btn btn-dark px-4 py-2 ">توريد</button></div>
+                     <button type="submit" class="btn btn-info px-4 py-2 ">دفع</button>
+                     </div>
                 </div>
              </form>
             </div>
@@ -83,7 +84,7 @@
                   <table class="table overflow-scroll  ">
                       <thead class="">
                           <tr class="text-center m-3 p-2">
-                              <th></th>
+
                               <th>الرقم</th>
                               <th class="text-center">اسم المورد </th>
                               <th class="text-center">المبلغ</th>
@@ -94,47 +95,17 @@
 
                       <tbody>
                           <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
                               <th scope="row"><a href="#">#2049</a></th>
                               <td>Ashleigh Langosh</td>
                               <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
                               <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
                               <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
                           </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
 
-                          </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
 
-                          </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                          </tr>
                       </tbody>
                   </table>
-                  <div class="row">
-                      <div class=" d-flex align-items-center justify-content-center ">
-                          <button type="button" class="btn btn-success rounded-3 mx-3 px-3 ">تعديل</button>
-                          <button type="button" class="btn btn-danger rounded-3 mx-3 px-3  ">حذف</button>
-                      </div>
-                  </div>
+
               </div>
           </div>
       </div>

@@ -13,15 +13,16 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات الموردين</h5>
-          <form>
+          <form  [formGroup]="userSupplier" (ngSubmit)="addsupplier() " >
             <div class="row mb-3 col-lg-6">
-              <label for="ProductName" class="col-form-label">اسم المورد</label>
+              <label for="name" class="col-form-label">اسم المورد</label>
               <div class="col-sm-10">
                 <input
                   class="form-control"
                   list="custmer"
                   id="Prod"
                   placeholder=" اسم المورد"
+                  formControlName="name"
                 />
                 <datalist id="custmer">
                   <!-- <option *ngFor="let item of supliers" [value]="item"></option> -->
@@ -30,23 +31,21 @@
             </div>
             <div class="row my-3">
               <div class="col col-lg-6">
-                <label for="Mobilenumber" class="col-form-label"
-                  >رقم الهاتف</label
-                >
+                <label for="phone" class="col-form-label"  >رقم الهاتف</label >
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" />
+                  <input type="text" class="form-control" formControlName="phone" />
                 </div>
               </div>
               <div class="col">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" formControlName="notes"  list="notes"/>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">اضافة</button>
+                <button type="submit" class="btn btn-primary" >اضافة</button>
               </div>
             </div>
           </form>
@@ -67,58 +66,66 @@
                 <th scope="col">الملاحظات</th>
               </tr>
             </thead>
-            <tbody  >
-              <!-- <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">1</th>
-                <td>عمر</td>
-                <td>010784673</td>
-                <td>جيد</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">2</th>
-                <td>عمر</td>
-                <td>010784673</td>
-                <td>جيد</td>
-              </tr> -->
+            <tbody>
 
-              <tr *ngFor="let item of GetSupplier">
+
+              <tr *ngFor="let item of sply">
                 <td>
                   <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
+                  #radioInput
+                 class="form-check-input"
+                 type="radio"
+                 name="gridRadios"
+                 id="gridRadios1"
+                 [value]="item.id"
+                 [(ngModel)]="suppid"
+                  [ngModelOptions]="{ standalone: true }"
+               />
+              </td>
+              <th scope="row">#{{ item.id }}</th>
+              <td>
+                <div *ngIf="!this.radioInput.checked">
+                  {{ item.name }}
+                </div>
+                <div  *ngIf="this.radioInput.checked">
+                  <input  [(ngModel)]="item.name"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"  class="form-control" [value]="item.name"
+                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
+
+                </div>
+              </td>
+              <td>
+                <div *ngIf="!this.radioInput.checked">
+                  {{ item.phone }}
+                </div>
+                <div  *ngIf="this.radioInput.checked">
+                  <input  [(ngModel)]="item.phone"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"  class="form-control" [value]="item.phone"
+                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
+
+                </div>
                 </td>
-                <td scope="row">{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.phone}}</td>
-                <td>{{item.notes}}</td>
-              </tr>
+              <td>
+                <div  *ngIf="!this.radioInput.checked">
+                  {{ item.notes }}
+                </div>
+                <div  *ngIf="this.radioInput.checked">
+                  <input  [(ngModel)]="item.notes"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"  class="form-control" [value]="item.notes"
+                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
+
+                </div>
+                </td>
+            </tr>
+
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-success mx-3">تعديل</button>
-            <button class="btn btn-danger mx-3">حذف</button>
+            <!-- <button class="btn btn-success mx-3" (click)=" updatesupplier(id,name,phone,notes )" >تعديل</button> -->
+            <button class="btn btn-danger mx-3"  (click)=" deletesupplier(suppid)" >حذف</button>
           </div>
         </div>
       </div>

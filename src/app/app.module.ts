@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
+import { UsersComponent } from './Components/users/users.component';
 
 
 
@@ -52,7 +53,8 @@ import { ExportRecieptPrintComponent } from './Components/export-reciept-print/e
     SupplierAccountsComponent,
     ReceiptforstoreComponent,
     ReceiptforcarComponent,
-    ExportRecieptPrintComponent
+    ExportRecieptPrintComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
