@@ -16,6 +16,7 @@ import { ImportRecieptComponent } from './Components/Reciepts/import-reciept/imp
 import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
+import { UsersComponent } from './Components/users/users.component';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path:'Receiptforstore',component:ReceiptforstoreComponent},
   {path:'ImportRecieptPrint/:id',component:RecieptPrintComponent},
   {path:'ExportRecieptPrint/:id',component:ExportRecieptPrintComponent},
+  {path:'users',component:UsersComponent}
 
 ]
 @NgModule({
