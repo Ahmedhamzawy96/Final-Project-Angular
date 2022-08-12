@@ -16,7 +16,7 @@
           <div class="card ">
               <div class="card-body">
                  <h5 class="card-title">حساب العربه</h5>
-                 <form>
+                 <form [formGroup]="caraccountform" (ngSubmit)="cardata()">
 
                   <div class="row my-3">
                      <div class="col-md-6 col-12 ">
@@ -52,7 +52,8 @@
         <div class="card ">
             <div class="card-body">
                <h5 class="card-title">عمليه الدفع</h5>
-               <form>
+
+               <form [formGroup]="caraccountformsc" (ngSubmit)="cardatasc()">
 
                 <div class="row my-3">
 
@@ -84,7 +85,7 @@
                   <table class="table overflow-scroll  ">
                       <thead class="">
                           <tr class="text-center m-3 p-2">
-                              <th></th>
+                              
                               <th>الرقم</th>
                               <th class="text-center">اسم العربه </th>
                               <th class="text-center">المبلغ</th>
@@ -94,40 +95,15 @@
                       </thead>
 
                       <tbody>
-                          <tr class="text-center">
+                          <tr class="text-center" *ngFor="let item of caraccount" >
                               <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
                               <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                              <td > {{item.id}} </td>
+                              <td >{{item.name}}</td>
+                              <!-- <td >{{item.account}}</td> -->
+                              <td >{{item.notes}}</td>
                           </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-
-                          </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-
-                          </tr>
-                          <tr class="text-center">
-                              <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                          </tr>
+                         
                       </tbody>
                   </table>
                   <div class="row">

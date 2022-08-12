@@ -13,7 +13,9 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات العربه</h5>
-          <form>
+
+
+          <form [formGroup]="cardataform" (ngSubmit)="cardata()">
             <div class="row mb-3 col-lg-6">
               <label for="ProductName" class="col-form-label">اسم العربه</label>
               <div class="col-sm-10">
@@ -22,6 +24,7 @@
                   list="custmer"
                   id="Prod"
                   placeholder=" اسم العربة"
+                  formControlName="name"
                 />
                 <datalist id="custmer">
                   <option *ngFor="let item of car" [value]="item"></option>
@@ -32,22 +35,24 @@
               <div class="col col-lg-4">
                 <label for="Amount" class="col-form-label">الكميه </label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" />
+                  <input type="number" class="form-control" formControlName="account" />
                 </div>
               </div>
               <div class="col">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" formControlName="nots" />
                 </div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">اضافة</button>
+                <button type="submit" class="btn btn-primary" >اضافة</button>
               </div>
             </div>
           </form>
+
+
         </div>
       </div>
     </div>
@@ -59,49 +64,29 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th scope="col">كود</th>
+                <th scope="col">الرقم</th>
                 <th scope="col">اسم العربه</th>
                 <th scope="col">الكميه</th>
                 <th scope="col">الملاحظات</th>
+              
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">1</th>
-                <td>toyota</td>
-                <td>3000</td>
-                <td>جيد</td>
+
+              
+              <tr *ngFor="let item of carsdata">
+
+                <td > {{item.id}} </td>
+                <td >{{item.name}}</td>
+                <td >{{item.account}}</td>
+                <td >{{item.notes}}</td>
+                
               </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gridRadios"
-                    id="gridRadios1"
-                    value="option1"
-                  />
-                </td>
-                <th scope="row">2</th>
-                <td>bmw</td>
-                <td>07999</td>
-                <td>جيد</td>
-              </tr>
+                
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-success mx-3">تعديل</button>
-            <button class="btn btn-danger mx-3">حذف</button>
+            <!-- {{carsdata}} -->
           </div>
         </div>
       </div>
