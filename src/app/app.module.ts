@@ -8,7 +8,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { RecieptPrintComponent } from './Components/Import-RecieptPrint/reciept-print.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarDataComponent } from './Components/car-data/car-data.component';
 import { CarStoreComponent } from './Components/car-store/car-store.component';
 import { CarsAccountsComponent } from './Components/cars-accounts/cars-accounts.component';
@@ -65,6 +65,7 @@ import { ExportRecieptPrintComponent } from './Components/export-reciept-print/e
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     FormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
