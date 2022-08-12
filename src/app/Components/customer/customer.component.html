@@ -13,22 +13,19 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">اضافة عميل</h5>
-          <form>
+          <form [formGroup]="AddForm" (ngSubmit)="Addcustomer()">
             <div class="row mb-3 col-lg-6">
               <label for="ProductName" class="col-form-label">اسم العميل</label>
               <div class="col-sm-10">
-                <input
-                  class="form-control"
-                  list="custmer"
-                  id="Prod"
-                  placeholder=" اسم العميل"
-                />
-                <datalist id="custmer">
-                  <option
-                    *ngFor="let item of custmer"
-                    [value]="item.name"
-                  ></option>
-                </datalist>
+                <div>
+                  <mat-form-field>
+                    <mat-select  [(value)]="customerID" >
+                      <mat-option *ngFor="let custmer of Customers" [value]="custmer.id" formControlName="name"  >
+                        {{custmer.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
             <div class="row my-3">
@@ -37,19 +34,20 @@
                   >رقم الهاتف</label
                 >
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" />
+                  <input type="text" formControlName="phone"  class="form-control" />
                 </div>
               </div>
               <div class="col">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" />
+                  <input type="text" formControlName="notes"  list ="notes"   class="form-control" /> 
+                 <!--  <input type="text" class="form-control" formControlName="notes" />  -->
                 </div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">اضافة</button>
+                <button type="Submit" class="btn btn-primary">اضافة</button>
               </div>
             </div>
           </form>
@@ -71,20 +69,56 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of custmer">
+              <tr *ngFor="let customers of Customers">
                 <td>
                   <input
+                     #radioInput
                     class="form-check-input"
                     type="radio"
                     name="gridRadios"
                     id="gridRadios1"
-                    value="option1"
+                    [value]="customers.id"
+                    [(ngModel)]="customerID"
+                     [ngModelOptions]="{ standalone: true }"
                   />
                 </td>
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.name }}</td>
-                <td>{{ item.phone }}</td>
-                <td>{{ item.notes }}</td>
+                <th scope="row">#{{ customers.id }}</th>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ customers.name }}
+                  </div>
+                  <div  *ngIf="this.radioInput.checked">
+                    <input  [(ngModel)]="customers.name"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"  class="form-control" [value]="customers.name" 
+                    (change)="updatecustomer(customers.id , customers.name,customers.phone,customers.notes)">
+
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ customers.phone }}
+                  </div>
+                  <div  *ngIf="this.radioInput.checked">
+                    <input  [(ngModel)]="customers.phone"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"  class="form-control" [value]="customers.phone" 
+                    (change)="updatecustomer(customers.id , customers.name,customers.phone,customers.notes)">
+
+                  </div>
+                  </td>
+                <td>
+                  <div  *ngIf="!this.radioInput.checked">
+                    {{ customers.notes }}
+                  </div>
+                  <div  *ngIf="this.radioInput.checked">
+                    <input  [(ngModel)]="customers.notes"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"  class="form-control" [value]="customers.notes"
+                    (change)="updatecustomer(customers.id , customers.name,customers.phone,customers.notes)">
+
+                  </div>
+                  </td>
               </tr>
               <!-- <tr>
                         <td>
@@ -99,8 +133,8 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-success mx-3">تعديل</button>
-            <button class="btn btn-danger mx-3">حذف</button>
+           <!--  <button class="btn btn-success mx-3">تعديل</button> -->
+            <button class="btn btn-danger mx-3" (click)="deletecustomer(customerID)">حذف</button>
           </div>
         </div>
       </div>
