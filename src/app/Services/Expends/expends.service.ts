@@ -12,26 +12,25 @@ export class ExpendsService {
 
   //Get Expends
    getExpends():Observable<IExpenses[]>{
-    return this.expend.getAll("Expends");
+    return this.expend.getAll("Expenses");
   }
-
   // Get Expends By ID
   getExpendsByID(id:number):Observable<IExpenses> {
-    return this.expend.getOne("Expends",id);
+    return this.expend.getOne("Expenses",id);
   }
 
   //Add Expends
   addExpends(expens:IExpenses): Observable<IExpenses>{
-    return this.expend.Post("Expends",expens);
+    return this.expend.Post("Expenses",expens);
   }
 
   //Update Expends
   updateExpends(id:number,expens:IExpenses):Observable<IExpenses>{
-    return this.expend.put("Expends",id,expens);
+    return this.expend.put("Expenses",id,expens);
   }
  //Delete Expends
  deleteExpends(id:number):Observable<IExpenses> {
-  return this.expend.Delete("Expends",id);
+  return this.expend.Delete("Expenses",id);
 }
 
 }

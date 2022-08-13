@@ -1,5 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { concatWith, Observable } from 'rxjs';
+import { TransType } from './../../Interface/Enums/TransType';
+import { Operation } from './../../Interface/Enums/operation';
+import { AccountType } from './../../Interface/Enums/account-type';
+import { ExpendsService } from 'src/app/Services/Expends/expends.service';
+import { IExpenses } from 'src/app/Interface/IExpenses';
+import { Component, EventEmitter, OnInit, Output, Type } from '@angular/core';
+import { asapScheduler, concatWith, Observable } from 'rxjs';
 import { ITransactions } from 'src/app/Interface/ITransactions';
 import {
   FormGroup,
@@ -17,42 +22,50 @@ import { TransactionsService } from 'src/app/Services/transactions.service';
 export class TransactionsComponent implements OnInit {
   //@Output() TransUpdated = new EventEmitter<ITransactions[]>();
 
-  id: number;
-  type: string;
+  notes: string;
   amount: number;
-  date: Date;
+  BillDate: string = new Date().toLocaleString();
   user: string;
   receiver: string;
   receiptID: number;
   receiptType: string;
 
-  transact: ITransactions[] = [];
-  // UpdatTrans =new this.UpdatTrans();
 
+  id: number;
+  transact: ITransactions[] = [];
+  expenses:IExpenses[];
+  selectex:IExpenses;
   transDELNUL = null;
-  UserTransaction: FormGroup;
-  constructor(private fb: FormBuilder, private Trans: TransactionsService) {
-    this.UserTransaction = fb.group({
-      type: [''],
-      amount: [''],
-      date: [''],
-    });
+  constructor( private Trans: TransactionsService,private exServ:ExpendsService) {
+ 
   }
 
   addTrans() {
-    this.Trans.addtransaction(this.UserTransaction.value).subscribe(
-      (res: ITransactions) => {
-        this.transact.push(res);
+    let trans:ITransactions= {
+      accountID:this.id,
+      accountType:AccountType.Treasure,
+      amount:this.amount,
+      date:this.BillDate,
+      notes:this.notes,
+      operation:Operation.Expense,
+      type:TransType.Paid,
+      userName:"asd",
+      id:0,
+      Name:""
+    }
+    this.Trans.addtransaction(trans).subscribe((data) => {
+        this.transact.push(data);
       }
     );
+    console.log(this.transact)
   }
 
   UpdateTrans() {
-    this.Trans.updatetransaction(this.id, this.UserTransaction.value).subscribe(
-      (upd: ITransactions) => {
-        this.transact.push(upd);
-      }
-    );
+    // this.Trans.updatetransaction(this.id, this.UserTransaction.value).subscribe(
+    //   (upd: ITransactions) => {
+    //     this.transact.push(upd);
+    //   }
+    // );
   }
 
   ngOnInit(): void {
@@ -60,16 +73,29 @@ export class TransactionsComponent implements OnInit {
   }
 
   getdatatotable() {
-    this.Trans.gettransaction().subscribe((Date) => {
+    this.exServ.getExpends().subscribe((data)=>
+    {
+      this.expenses=data;
+    })
+  }
+
+
+  selectchange()
+  {
+    this.selectex=this.expenses.find(w=>w.id==this.id)
+    console.log(this.selectex)
+
+    this.Trans.transactionbytype(this.id,AccountType.Treasure).subscribe((Date) =>{
       this.transact = Date;
-      // console.log(this.transact);
+      this.transact.forEach(element => {
+        element.Name=this.selectex.name;
+      });
+      console.log(this.transact)
     });
   }
 
   deleteTrans() {
-    console.log(this.id);
     this.Trans.deletetransaction(this.id).subscribe((Date) => {
-      //   this.transDELNUL=Date;
       this.getdatatotable();
     });
   }

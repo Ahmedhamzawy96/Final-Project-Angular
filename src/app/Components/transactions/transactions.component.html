@@ -13,53 +13,49 @@
   <section dir="rtl">
     <div class="col">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body container">
           <h5 class="card-title">اضافه تعامل</h5>
-          <form [formGroup]="UserTransaction" (ngSubmit)="addTrans()">
-            <div class="row my-3">
-              <div class="col-md-6 col-12">
-                <label for="Amount" class="col-form-label">نوع البند</label>
-                <div class="col-sm-10 align-items-center">
-                  <input
-                    class="form-control"
-                    list="type"
-                    name="type"
-                    formControlName="type"
-                    [(ngModel)]="type"
-                    placeholder=" نوع البند"
-                  />
-                  <datalist id="Type">
-                    <option value="تصليح عربيه"></option>
-                    <option value="اجرة تخزين"></option>
-                  </datalist>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <label for="Amount" class="col-form-label"> المبلغ</label>
-                <div class="col-sm-10">
-                  <input
-                    id="Amount"
-                    type="number"
-                    formControlName="amount"
-                    name="amount"
-                    class="form-control"
-                    [(ngModel)]="amount"
-                  />
-                </div>
-              </div>
-              <!-- <div class="col-md-6 col-12 ">
-                          <label for="Notes" class=" col-form-label">data</label>
-                          <div class="col-sm-10"><datalist id="userdat" class="form-control"  formControlName="date" name="date"  [(ngModel)]="date" rows="2"></datalist> </div>
-                       </div> -->
-              <div
-                class="col-md-6 col-12 d-flex align-items-end mt-3 justify-content-center"
-              >
-                <button type="submit" class="btn btn-primary px-4 py-2">
-                  اضافة
-                </button>
+          <div class="row my-3">
+            <div class="col-lg-6 col-12">
+              <label for="Amount" class="col-form-label">نوع البند</label>
+              <div>
+                <mat-form-field>
+                  <mat-select [(value)]="id" (selectionChange)="selectchange()">
+                    <mat-option *ngFor="let ex of expenses" [value]="ex.id">
+                      {{ ex.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
-          </form>
+            <div class="col-md-6 col-12">
+              <label for="Amount" class="col-form-label"> المبلغ</label>
+              <div class="col-sm-10">
+                <input id="Amount" type="number" name="amount" class="form-control" [(ngModel)]="amount" />
+              </div>
+
+            </div>
+            
+            <div class="col-12 col-lg-6 my-md-2">
+              <label for="Notes" class="col-form-label">ملاحظات</label>
+              <div class="col-sm-10">
+                <textarea id="my-textarea" class="form-control" name="" rows="2"  [(ngModel)]="notes"></textarea>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 my-md-2">
+              <div class="d-flex align-items-center my-3">
+                <i class="bi bi-calendar-date"></i>
+                <span class="mx-3">التاريخ</span>
+              </div>
+              <input type="text" name="Date" readonly [(ngModel)]="BillDate"/>
+            </div>
+            <div class="row ms-5 mt-3">
+              <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" (click)="addTrans()">اضافة</button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -71,71 +67,38 @@
           <table class="table overflow-scroll">
             <thead class="">
               <tr class="text-center m-3 p-2">
-                <th></th>
                 <th>كود</th>
-                <th class="text-center">نوع البند</th>
+                <th class="text-center">اسم البند</th>
                 <th class="text-center">المبلغ</th>
-                <!-- <th class="text-center">التاريخ</th> -->
+                <th class="text-center">نوع العمليه</th>
+                <th class="text-center">تفاصيل العمليه</th>
+                <th class="text-center">التاريخ</th>
+                <th class="text-center">ملاحظات</th>
               </tr>
             </thead>
-
             <tbody>
               <tr class="text-center" *ngFor="let item of transact">
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="id"
-                    id="gridRadios1"
-                    [value]="item.id"
-                    [(ngModel)]="id"
-                  />
-                </td>
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item }}</td>
-                <td>{{ item.amount }}</td>
-                <!-- <td> {{item.date}} </td>  -->
+                <th>{{item.id}}</th>
+                <td>{{item.Name}}</td>
+                <td>{{item.amount}}</td>
+                <td [ngSwitch]="item.type" class="text-center">
+                  <div *ngSwitchCase="0" class="text-center"> دفع</div>
+                  <div *ngSwitchCase="1" class="text-center">توريد</div>
+                </td>  
+                  <td [ngSwitch]="item.operation" class="text-center">
+                    دفع مبلغ مالى  
+                  </td>
+                <td>{{item.date}}</td>
+                <td>{{item.notes}}</td>
               </tr>
-              <!-- <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row">#2049</th>
-                                <td>Ashleigh Langosh</td>
-                                <td> At recusandae consectetur</td>
-                                <td>At recusandae consectetur</td>
-
-                            </tr> -->
-              <!-- <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row">#2049</th>
-                                <td>Ashleigh Langosh</td>
-                                <td>At recusandae consectetur</td>
-                                <td>At recusandae consectetur</td>
-
-                            </tr> -->
-              <!-- <tr class="text-center">
-                                <td> <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" > </td>
-                                <th scope="row">#2049</th>
-                                <td>Ashleigh Langosh</td>
-                                <td>At recusandae consectetur</td>
-                                <td>At recusandae consectetur</td>
-                            </tr>   -->
             </tbody>
           </table>
-
           <div class="row">
             <div class="d-flex align-items-center justify-content-center">
-              <button
-                type="button"
-                class="btn btn-success rounded-3 mx-3 px-3"
-                (click)="updatetrans()"
-              >
+              <button type="button" class="btn btn-success rounded-3 mx-3 px-3" (click)="updatetrans()">
                 تعديل
               </button>
-              <button
-                type="button"
-                class="btn btn-danger rounded-3 mx-3 px-3"
-                (click)="deleteTrans()"
-              >
+              <button type="button" class="btn btn-danger rounded-3 mx-3 px-3" (click)="deleteTrans()">
                 حذف
               </button>
             </div>
