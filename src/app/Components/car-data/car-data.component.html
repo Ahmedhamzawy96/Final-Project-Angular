@@ -13,50 +13,46 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات العربه</h5>
-
-
           <form [formGroup]="cardataform" (ngSubmit)="cardata()">
-            <div class="row mb-3 col-lg-6">
-              <label for="ProductName" class="col-form-label">اسم العربه</label>
-              <div class="col-sm-10">
-                <input
-                  class="form-control"
-                  list="custmer"
-                  id="Prod"
-                  placeholder=" اسم العربة"
-                  formControlName="name"
-                />
-                <datalist id="custmer">
-                  <option *ngFor="let item of car" [value]="item"></option>
-                </datalist>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col col-lg-4">
-                <label for="Amount" class="col-form-label">الكميه </label>
+            <div class="row">
+              <div class="row my-3 col col-lg-6">
+                <label for="ProductName" class="col-form-label"
+                  >اسم العربه</label
+                >
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" formControlName="account" />
+                  <input
+                    class="form-control"
+                    list="custmer"
+                    id="Prod"
+                    placeholder=" اسم العربة"
+                    formControlName="name"
+                  />
+                  <datalist id="custmer">
+                    <option *ngFor="let item of car" [value]="item"></option>
+                  </datalist>
                 </div>
               </div>
-              <div class="col">
+              <div class="row my-3 col col-lg-6">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="nots" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nots"
+                  />
                 </div>
               </div>
             </div>
+
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" >اضافة</button>
+                <button type="submit" class="btn btn-primary">اضافة</button>
               </div>
             </div>
           </form>
-
-
         </div>
       </div>
     </div>
-
     <div class="col">
       <div class="card">
         <div class="card-body">
@@ -64,29 +60,50 @@
           <table class="table">
             <thead>
               <tr>
+                <th></th>
                 <th scope="col">الرقم</th>
                 <th scope="col">اسم العربه</th>
-                <th scope="col">الكميه</th>
                 <th scope="col">الملاحظات</th>
-              
               </tr>
             </thead>
             <tbody>
-
-              
               <tr *ngFor="let item of carsdata">
-
-                <td > {{item.id}} </td>
-                <td >{{item.name}}</td>
-                <td >{{item.account}}</td>
-                <td >{{item.notes}}</td>
-                
+                <td>
+                  <input
+                    #radioInput
+                    class="form-check-input"
+                    type="radio"
+                    name="gridRadios"
+                    id="gridRadios1"
+                    [value]="item.id"
+                    [(ngModel)]="carID"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </td>
+                <th scope="row">{{ item.id }}</th>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ item.name }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="item.name"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="item.name"
+                      (change)="updatecar(item.id, item.name, item.notes)"
+                    />
+                  </div>
+                </td>
+                <td>{{ item.notes }}</td>
               </tr>
-                
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <!-- {{carsdata}} -->
+            <button class="btn btn-danger mx-3" (click)="deleteCar(carID)">
+              حذف
+            </button>
           </div>
         </div>
       </div>

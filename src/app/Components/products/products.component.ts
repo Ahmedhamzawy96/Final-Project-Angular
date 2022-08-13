@@ -7,40 +7,34 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-products:IProduct[];
-product: IProduct;
-Addprodform: FormGroup;
-productID: number;
-newproduct = []
-  constructor( private productService : ProductService  , private fb : FormBuilder) { 
-
+  products: IProduct[];
+  product: IProduct;
+  Addprodform: FormGroup;
+  productID: number;
+  newproduct = [];
+  constructor(private productService: ProductService, private fb: FormBuilder) {
     this.Addprodform = fb.group({
       name: [''],
       buyingPrice: [''],
       sellingPrice: [''],
       quantity: [''],
-
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.getproducts()
+    this.getproducts();
   }
 
-  
   //get  products
 
   getproducts() {
-
     this.productService.getProducts().subscribe((data: IProduct[]) => {
       this.products = data;
-      console.log(this.products)
-
-    })
-
+      console.log(this.products);
+    });
   }
   //Add product
 
@@ -50,76 +44,67 @@ newproduct = []
       console.log(res);
       this.productService.getProducts().subscribe((data: IProduct[]) => {
         this.products = data;
-        console.log(this.products)
-  
-      })
-      
+        console.log(this.products);
+      });
+
       console.log(' created successfully!');
-      
-    })
+    });
     this.newproduct.push(this.Addprodform.value);
   }
 
-//delete product
+  //delete product
   deleteproduct(id: number) {
-
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success m-2',
-        cancelButton: 'btn btn-danger'
+        cancelButton: 'btn btn-danger',
       },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'حذف  العميل ',
-      text: 'هل انت متاكد من حذفه هذا العميل ',
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: 'لا',
-  
-      confirmButtonText: 'نعم',
-      reverseButtons: false
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log(this.productID);
-        this.productService.deleteProduct(id).subscribe(res => {
-          this.products = this.products.filter(item => item.id !== id);
-          console.log(' deleted successfully!');
-        })
-        this.products.pop();
-     swalWithBootstrapButtons.fire(
-        'تم الحذف',
-        'تم حذف العميل ',
-        'success'
-      )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'الغاء',
-          'لم يتم حذف العميل ',
-          'error'
-        )
-      }
-    }) 
+      buttonsStyling: false,
+    });
 
+    swalWithBootstrapButtons
+      .fire({
+        title: 'حذف  الصنف ',
+        text: 'هل انت متاكد من حذفه هذا الصنف ',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'لا',
+
+        confirmButtonText: 'نعم',
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          console.log(this.productID);
+          this.productService.deleteProduct(id).subscribe((res) => {
+            this.products = this.products.filter((item) => item.id !== id);
+            console.log(' deleted successfully!');
+          });
+          this.products.pop();
+          swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف الصنف ', 'success');
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف الصنف ', 'error');
+        }
+      });
   }
-//update product
-  updateproduct(id:Number,name:string,buyingPrice:number,sellingPrice :number , quantity:number){
-
-    let upproduct = this.products.find(upproductt => upproduct.id == id);
+  //update product
+  updateproduct(
+    id: Number,
+    name: string,
+    buyingPrice: number,
+    sellingPrice: number,
+    quantity: number
+  ) {
+    let upproduct = this.products.find((upproductt) => upproductt.id == id);
     upproduct.name = name;
     upproduct.buyingPrice = buyingPrice;
     upproduct.sellingPrice = sellingPrice;
     upproduct.quantity = quantity;
-
-      this.updateproduct
- }
-
-
+    this.productService
+      .updateProduct(<number>upproduct.id, upproduct)
+      .subscribe();
+  }
 }
-
-
-
