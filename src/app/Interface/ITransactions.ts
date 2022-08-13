@@ -4,7 +4,7 @@ export interface ITransactions {
   accountType: number;
   amount: number;
   type: number;
-  operationID: number;
+  operationID?: number;
   operation: number;
   date: string;
   userName: string;
