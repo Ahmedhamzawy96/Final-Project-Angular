@@ -1,65 +1,98 @@
 import { Component, OnInit } from '@angular/core';
 import { ICar } from 'src/app/Interface/ICar';
-import { IExportProduct } from 'src/app/Interface/IExportProduct';
 import { CarService } from 'src/app/Services/Car/car.service';
-import { ExportProductService } from 'src/app/Services/ExportProduct/export-product.service';
-import{ FormGroup,FormControl,Validators} from '@angular/forms'
-import { ActivatedRoute } from '@angular/router';
-
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ITransactions } from 'src/app/Interface/ITransactions';
+import { TransactionsService } from 'src/app/Services/transactions.service';
+import { AccountType } from 'src/app/Interface/Enums/account-type';
+import { TransType } from 'src/app/Interface/Enums/TransType';
+import { Operation } from 'src/app/Interface/Enums/operation';
 
 @Component({
   selector: 'app-cars-accounts',
   templateUrl: './cars-accounts.component.html',
-  styleUrls: ['./cars-accounts.component.css']
+  styleUrls: ['./cars-accounts.component.css'],
 })
-
 export class CarsAccountsComponent implements OnInit {
+  Cars: ICar[];
+  nameCar: string;
+  caraccountsform: FormGroup;
+  carID: number;
+  car: ICar;
+  Remaiing: Number;
+  trans: ITransactions[];
+  transaction: ITransactions;
+  transsupp: ITransactions[] = [];
+  BillDate: string = new Date().toLocaleString();
 
-  car:IExportProduct[];
-
-  caraccount : ICar[];
-
-  caraccountform :FormGroup ;
-
-  caraccountformsc :FormGroup ;
-
-  constructor(private src:ExportProductService,private caracountserv :CarService,private route:ActivatedRoute)
-   { 
-    this.caraccountform = new FormGroup({
-    
-      id:new FormControl({value:'',disabled:true}),
-      name:new FormControl('',[Validators.required]),
-      // account:new FormControl('',[Validators.required]),
-      notes:new FormControl('',[Validators.required]),
-      
+  constructor(
+    private carServ: CarService,
+    private transService: TransactionsService,
+    private fbBuild: FormBuilder
+  ) {
+    this.caraccountsform = fbBuild.group({
+      accountID: [this.carID],
+      accountType: [AccountType.Car],
+      amount: [''],
+      type: [''],
+      operationID: [1],
+      operation: [''],
+      date: [this.BillDate],
+      userName: ['ahmed123'],
+      notes: [''],
     });
-
-    this.caraccountformsc = new FormGroup({
-    
-      id:new FormControl({value:'',disabled:true}),
-      notes:new FormControl('',[Validators.required]),
-      
-    });
-   }
-
-  ngOnInit(): void 
-  {
-    this.caracountserv.getCar().subscribe(Date=>{this.caraccount = Date; console.log(this.caraccount);console.log(Date)} )
-
   }
-  
-  cardata(){
-    if (this.caraccountform.valid){
-      this.caracountserv.addCar(this.caraccountform.value).subscribe(data=>{this.caracountserv.getCar().subscribe(Date=>{this.caraccount = Date; console.log(this.caraccount);console.log(Date)} )
-    })
-    
+  getRemainig() {
+    this.car = this.Cars.find((A) => A.id == this.carID);
+    this.Remaiing = this.car.account;
+    this.transService
+      .transactionbytype(this.carID, AccountType.Car)
+      .subscribe((Data) => {
+        this.trans = Data;
+        this.trans.forEach((element) => {
+          element.Name = this.car.name;
+        });
+      });
+  }
+  Paid() {
+    this.caraccountsform.controls['type'].setValue(TransType.Paid);
+    this.caraccountsform.controls['operation'].setValue(Operation.CarTrans);
+    if (this.caraccountsform.valid) {
+      this.transService
+        .addtransaction(this.caraccountsform.value)
+        .subscribe(() => {
+          this.getRemainig();
+          this.car.account =
+            <number>this.car.account -
+            this.caraccountsform.controls['amount'].value;
+          this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
+            this.Remaiing = Data.account;
+          });
+        });
     }
-      } 
-      cardatasc(){
-        if (this.caraccountformsc.valid){
-          this.caracountserv.addCar(this.caraccountformsc.value).subscribe(data=>{this.caracountserv.getCar().subscribe(Date=>{this.caraccount = Date; console.log(this.caraccount);console.log(Date)} )
-        })
-        
-        }
-      }
+  }
+
+  Get() {
+    this.caraccountsform.controls['type'].setValue(TransType.Get);
+    this.caraccountsform.controls['operation'].setValue(Operation.CarTrans);
+    console.log(this.caraccountsform.value);
+    if (this.caraccountsform.valid) {
+      this.transService
+        .addtransaction(this.caraccountsform.value)
+        .subscribe(() => {
+          this.getRemainig();
+          this.car.account =
+            <number>this.car.account +
+            this.caraccountsform.controls['amount'].value;
+          this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
+            this.Remaiing = Data.account;
+          });
+        });
+    }
+  }
+  ngOnInit(): void {
+    this.carServ.getCar().subscribe((data) => {
+      this.Cars = data;
+    });
+  }
 }
