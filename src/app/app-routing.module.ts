@@ -18,31 +18,27 @@ import { SupplierAccountsComponent } from './Components/supplier-accounts/suppli
 import { TransactionsComponent } from './Components/transactions/transactions.component';
 import { UsersComponent } from './Components/users/users.component';
 
-
-
-
 const routes: Routes = [
-  { path: 'importreciept', component: ImportRecieptComponent  },
+  { path: 'importreciept', component: ImportRecieptComponent },
   { path: 'cars-accounts', component: CarsAccountsComponent },
-  { path:'supplier-accounts', component:SupplierAccountsComponent  },
-  {path:'customer-accounts',component:CustomerAccountsComponent },
-  { path:'car-data', component:CarDataComponent },
-  {path:'car-store', component:CarStoreComponent },
-  {path:'customer', component:CustomerComponent },
-  {path:'expendns', component:ExpendnsComponent },
-  {path:'products', component:ProductsComponent },
-  {path:'supliers', component:SupliersComponent },
-  {path:'login', component:LoginComponent },
-  {path:'Transaction',component:TransactionsComponent},
-  {path:'Receiptforcar',component:ReceiptforcarComponent},
-  {path:'Receiptforstore',component:ReceiptforstoreComponent},
-  {path:'ImportRecieptPrint/:id',component:RecieptPrintComponent},
-  {path:'ExportRecieptPrint/:id',component:ExportRecieptPrintComponent},
-  {path:'users',component:UsersComponent}
-
-]
+  { path: 'supplier-accounts', component: SupplierAccountsComponent },
+  { path: 'customer-accounts', component: CustomerAccountsComponent },
+  { path: 'car-data', component: CarDataComponent },
+  { path: 'car-store', component: CarStoreComponent },
+  { path: 'customer', component: CustomerComponent },
+  { path: 'expendns', component: ExpendnsComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'supliers', component: SupliersComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'Transaction', component: TransactionsComponent },
+  { path: 'Receiptforcar', component: ReceiptforcarComponent },
+  { path: 'Receiptforstore', component: ReceiptforstoreComponent },
+  { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
+  { path: 'ExportRecieptPrint/:id', component: ExportRecieptPrintComponent },
+  { path: 'users', component: UsersComponent },
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

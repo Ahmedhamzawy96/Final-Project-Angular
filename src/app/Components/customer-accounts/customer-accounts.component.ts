@@ -10,10 +10,9 @@ import { VirtualTimeScheduler } from 'rxjs';
 @Component({
   selector: 'app-customer-accounts',
   templateUrl: './customer-accounts.component.html',
-  styleUrls: ['./customer-accounts.component.css']
+  styleUrls: ['./customer-accounts.component.css'],
 })
 export class CustomerAccountsComponent implements OnInit {
-
   customers: ICustomer[];
   selcustomer: ICustomer;
   custname: string;
@@ -25,54 +24,47 @@ export class CustomerAccountsComponent implements OnInit {
   paymentprocess: FormGroup;
   customerID: number = 0;
   customer: ICustomer;
-  constructor(private csutServ: CustService, private transactionsService: TransactionsService, private fb: FormBuilder) {
+  constructor(
+    private csutServ: CustService,
+    private transactionsService: TransactionsService,
+    private fb: FormBuilder
+  ) {
     this.customeraccountsform = fb.group({
       name: [''],
       total: [''],
       remaining: [''],
-      date: [(this.BillDate)],
-
-    })
+      date: [this.BillDate],
+    });
 
     this.paymentprocess = fb.group({
       paid: [''],
-      notes: ['']
-    })
+      notes: [''],
+    });
   }
 
   ngOnInit(): void {
-
-    this.csutServ.getCustomers().subscribe(data => {
+    this.csutServ.getCustomers().subscribe((data) => {
       this.customers = data;
-    })
-    this.transactionsService.gettransactions().subscribe(data => {
+    });
+    this.transactionsService.gettransaction().subscribe((data) => {
       this.transactions = data;
-    })
+    });
   }
 
   Remainingamount() {
-    this.customeraccountsform.controls['remaining'].setValue(this.customeraccountsform.controls['total'].value - this.paymentprocess.controls['paid'].value);
+    this.customeraccountsform.controls['remaining'].setValue(
+      this.customeraccountsform.controls['total'].value -
+        this.paymentprocess.controls['paid'].value
+    );
   }
   selectedcustomer(id: number) {
-
-    this.selcustomer = this.customers.find(c => c.id == id);
-    this.customerID = this.selcustomer.id;
+    this.selcustomer = this.customers.find((c) => c.id == id);
+    this.customerID = <number>this.selcustomer.id;
     console.log(this.customerID);
   }
-  customeraccount(id : number) {
-      if(id == this.selcustomer.id){
-        this.transactionsService.gettransactionsByID(id).subscribe(data=>
-          { 
-            this.transaction.amount;
-            this.transaction.receiptID;
-            this.transaction.receiptType;
-            this.transaction.date;
-           console.log(data);
-          })
-      }
-
+  customeraccount(id: number) {
+    if (id == this.selcustomer.id) {
+      this.transactionsService.gettransactionByID(id).subscribe((data) => {});
+    }
   }
-
-  //get from transaction interface(receiptID,date,receiptType) / from customer interface (id,name,notes)
-
 }
