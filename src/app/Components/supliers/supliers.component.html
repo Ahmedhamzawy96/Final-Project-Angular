@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات الموردين</h5>
-          <form  [formGroup]="userSupplier" (ngSubmit)="addsupplier() " >
+          <form [formGroup]="userSupplier" (ngSubmit)="addsupplier()">
             <div class="row mb-3 col-lg-6">
               <label for="name" class="col-form-label">اسم المورد</label>
               <div class="col-sm-10">
@@ -24,28 +24,35 @@
                   placeholder=" اسم المورد"
                   formControlName="name"
                 />
-                <datalist id="custmer">
-                  <!-- <option *ngFor="let item of supliers" [value]="item"></option> -->
-                </datalist>
+                <datalist id="custmer"> </datalist>
               </div>
             </div>
             <div class="row my-3">
               <div class="col col-lg-6">
-                <label for="phone" class="col-form-label"  >رقم الهاتف</label >
+                <label for="phone" class="col-form-label">رقم الهاتف</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="phone" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="phone"
+                  />
                 </div>
               </div>
               <div class="col">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="notes"  list="notes"/>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="notes"
+                    list="notes"
+                  />
                 </div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" >اضافة</button>
+                <button type="submit" class="btn btn-primary">اضافة</button>
               </div>
             </div>
           </form>
@@ -67,65 +74,96 @@
               </tr>
             </thead>
             <tbody>
-
-
               <tr *ngFor="let item of sply">
                 <td>
                   <input
-                  #radioInput
-                 class="form-check-input"
-                 type="radio"
-                 name="gridRadios"
-                 id="gridRadios1"
-                 [value]="item.id"
-                 [(ngModel)]="suppid"
-                  [ngModelOptions]="{ standalone: true }"
-               />
-              </td>
-              <th scope="row">#{{ item.id }}</th>
-              <td>
-                <div *ngIf="!this.radioInput.checked">
-                  {{ item.name }}
-                </div>
-                <div  *ngIf="this.radioInput.checked">
-                  <input  [(ngModel)]="item.name"
-                  [ngModelOptions]="{ standalone: true }"
-                  type="text"  class="form-control" [value]="item.name"
-                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
-
-                </div>
-              </td>
-              <td>
-                <div *ngIf="!this.radioInput.checked">
-                  {{ item.phone }}
-                </div>
-                <div  *ngIf="this.radioInput.checked">
-                  <input  [(ngModel)]="item.phone"
-                  [ngModelOptions]="{ standalone: true }"
-                  type="text"  class="form-control" [value]="item.phone"
-                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
-
-                </div>
+                    #radioInput
+                    class="form-check-input"
+                    type="radio"
+                    name="gridRadios"
+                    id="gridRadios1"
+                    [value]="item.id"
+                    [(ngModel)]="suppid"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
                 </td>
-              <td>
-                <div  *ngIf="!this.radioInput.checked">
-                  {{ item.notes }}
-                </div>
-                <div  *ngIf="this.radioInput.checked">
-                  <input  [(ngModel)]="item.notes"
-                  [ngModelOptions]="{ standalone: true }"
-                  type="text"  class="form-control" [value]="item.notes"
-                  (change)="updatesupplier(item.id , item.name,item.phone,item.notes)">
-
-                </div>
+                <th scope="row">{{ item.id }}</th>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ item.name }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="item.name"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="item.name"
+                      (change)="
+                        updatesupplier(
+                          item.id,
+                          item.name,
+                          item.phone,
+                          item.notes
+                        )
+                      "
+                    />
+                  </div>
                 </td>
-            </tr>
-
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ item.phone }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="item.phone"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="item.phone"
+                      (change)="
+                        updatesupplier(
+                          item.id,
+                          item.name,
+                          item.phone,
+                          item.notes
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ item.notes }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="item.notes"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="item.notes"
+                      (change)="
+                        updatesupplier(
+                          item.id,
+                          item.name,
+                          item.phone,
+                          item.notes
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <!-- <button class="btn btn-success mx-3" (click)=" updatesupplier(id,name,phone,notes )" >تعديل</button> -->
-            <button class="btn btn-danger mx-3"  (click)=" deletesupplier(suppid)" >حذف</button>
+            <button
+              class="btn btn-danger mx-3"
+              (click)="deletesupplier(suppid)"
+            >
+              حذف
+            </button>
           </div>
         </div>
       </div>

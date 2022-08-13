@@ -1,141 +1,216 @@
 <app-header></app-header>
 <main id="main" class="main">
-   <div class="pagetitle">
-      <h1>المنتجات</h1>
-      <nav>
-         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-            <li class="breadcrumb-item">Components</li>
-            <li class="breadcrumb-item active">Pagination</li>
-         </ol>
-      </nav>
-      <div class="col">
-         <div class="card">
-            <div class="card-body">
-               <h5 class="card-title"> بيانات المنتجات</h5>
-               <form [formGroup]="Addprodform" (ngSubmit)=" Addproduct()">
-                 <div class="row mb-3">
-                    <label for="ProductName" class="col-sm-2 col-form-label">اسم المنتج</label>
-                    <div class="col-sm-10">
-                     <div>
-                       <mat-form-field>
-                         <mat-select  [(value)]="productID" >
-                           <mat-option *ngFor="let product of products" [value]="product.id" formControlName="name"  >
-                             {{product.name}}
-                           </mat-option>
-                         </mat-select>
-                       </mat-form-field>
-                     </div>
-                   </div>
-                 </div>
-                 <div class="row my-3">
-                    <div class="col">
-                       <label for="Amount" class=" col-form-label">الكمية</label>
-                       <div class="col-sm-10"> <input type="number" formControlName="quantity" class="form-control"></div>
-                    </div>
-                    <div class="col">
-                       <label for="BuyingPrice" class=" col-form-label">ثمن الشراء</label>
-                       <div class="col-sm-10"> <input type="number" formControlName="sellingPrice" class="form-control" ></div>
-                    </div>
-                    <div class="col">
-                       <label for="SellingPrice" class=" col-form-label">ثمن البيع</label>
-                       <div class="col-sm-10"> <input type="number" formControlName="buyingPrice" class="form-control" ></div>
-                    </div>
-                 </div>
-                 <div class="row mb-3 ">
-                    <div class="col d-flex justify-content-center"> <button type="submit" class="btn btn-primary">اضافة</button></div>
-                 </div>
-              </form>
+  <div class="pagetitle">
+    <h1>المنتجات</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Pagination</li>
+      </ol>
+    </nav>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">بيانات المنتجات</h5>
+          <form [formGroup]="Addprodform" (ngSubmit)="Addproduct()">
+            <div class="row mb-3">
+              <label for="ProductName" class="col-sm-2 col-form-label"
+                >اسم المنتج</label
+              >
+              <div class="col-sm-10">
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="form-control"
+                  />
+                </div>
+              </div>
             </div>
-         </div>
+            <div class="row my-3">
+              <div class="col">
+                <label for="Amount" class="col-form-label">الكمية</label>
+                <div class="col-sm-10">
+                  <input
+                    type="number"
+                    formControlName="quantity"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <label for="BuyingPrice" class="col-form-label"
+                  >ثمن الشراء</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="number"
+                    formControlName="sellingPrice"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <label for="SellingPrice" class="col-form-label"
+                  >ثمن البيع</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="number"
+                    formControlName="buyingPrice"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">اضافة</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
 
-      <div class="col">
-         <div class="card">
-            <div class="card-body">
-               <h5 class="card-title">بيانات المنجات</h5>
-               <table class="table ">
-                  <thead>
-                     <tr>
-                        <th></th>
-                        <th scope="col">كود </th>
-                        <th scope="col"> اسم المنتج</th>
-                        <th scope="col">الكمية </th>
-                        <th scope="col">ثمن الشراء</th>
-                        <th scope="col">ثمن البيع </th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr *ngFor="let prod of products">
-                        <td>
-                           <input
-                             #radioInput
-                             class="form-check-input"
-                             type="radio"
-                             name="gridRadios"
-                             id="gridRadios1"
-                             [value]="prod.id"
-                             [(ngModel)]="productID"
-                             [ngModelOptions]="{ standalone: true }"
-                           />
-                        </td>
-                           <th>
-                             #{{ prod.id }}
-                            </th>
-                       
-                        <td>
-                           <div *ngIf="!this.radioInput.checked">
-                              {{ prod.name }}
-                            </div>
-                            <div  *ngIf="this.radioInput.checked">
-                              <input  [(ngModel)]="prod.name"
-                              [ngModelOptions]="{ standalone: true }"
-                              type="text"  class="form-control" [value]="prod.name" 
-                              (change)="updateproduct(prod.id , prod.name,prod.buyingPrice,prod.sellingPrice,prod.quantity)">
-                            </div>
-                        </td>
-                        <td>
-                           <div *ngIf="!this.radioInput.checked">
-                              {{ prod.quantity }}
-                            </div>
-                            <div  *ngIf="this.radioInput.checked">
-                              <input  [(ngModel)]="prod.quantity"
-                              [ngModelOptions]="{ standalone: true }"
-                              type="text"  class="form-control" [value]="prod.quantity" 
-                              (change)="updateproduct(prod.id , prod.name,prod.buyingPrice,prod.sellingPrice,prod.quantity)">
-                            </div>
-                        </td>
-                        <td>
-                           <div *ngIf="!this.radioInput.checked">
-                              {{ prod.sellingPrice }}
-                            </div>
-                            <div  *ngIf="this.radioInput.checked">
-                              <input  [(ngModel)]="prod.sellingPrice"
-                              [ngModelOptions]="{ standalone: true }"
-                              type="text"  class="form-control" [value]="prod.sellingPrice" 
-                              (change)="updateproduct(prod.id , prod.name,prod.buyingPrice,prod.sellingPrice,prod.quantity)">
-                            </div>
-                        </td>
-                        <td>
-                           <div *ngIf="!this.radioInput.checked">
-                              {{ prod.buyingPrice }}
-                            </div>
-                            <div  *ngIf="this.radioInput.checked">
-                              <input  [(ngModel)]="prod.buyingPrice"
-                              [ngModelOptions]="{ standalone: true }"
-                              type="text"  class="form-control" [value]="prod.buyingPrice" 
-                              (change)="updateproduct(prod.id , prod.name,prod.buyingPrice,prod.sellingPrice,prod.quantity)">
-                            </div>
-                        </td>
-                      
-                     </tr>
-                  </tbody>
-               </table>
-               <div class="d-flex justify-content-center">
-                <!--   <button class="btn btn-success mx-3">تعديل</button> -->
-                  <button class="btn btn-danger mx-3" (click)="deleteproduct(productID)">حذف</button>
-               </div>
-            </div>
-         </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">بيانات المنجات</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th scope="col">كود</th>
+                <th scope="col">اسم المنتج</th>
+                <th scope="col">الكمية</th>
+                <th scope="col">ثمن الشراء</th>
+                <th scope="col">ثمن البيع</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prod of products">
+                <td>
+                  <input
+                    #radioInput
+                    class="form-check-input"
+                    type="radio"
+                    name="gridRadios"
+                    id="gridRadios1"
+                    [value]="prod.id"
+                    [(ngModel)]="productID"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </td>
+                <th>{{ prod.id }}</th>
+
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ prod.name }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="prod.name"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="prod.name"
+                      (change)="
+                        updateproduct(
+                          prod.id,
+                          prod.name,
+                          prod.buyingPrice,
+                          prod.sellingPrice,
+                          prod.quantity
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ prod.quantity }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="prod.quantity"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="prod.quantity"
+                      (change)="
+                        updateproduct(
+                          prod.id,
+                          prod.name,
+                          prod.buyingPrice,
+                          prod.sellingPrice,
+                          prod.quantity
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ prod.sellingPrice }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="prod.sellingPrice"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="prod.sellingPrice"
+                      (change)="
+                        updateproduct(
+                          prod.id,
+                          prod.name,
+                          prod.buyingPrice,
+                          prod.sellingPrice,
+                          prod.quantity
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ prod.buyingPrice }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="prod.buyingPrice"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      class="form-control"
+                      [value]="prod.buyingPrice"
+                      (change)="
+                        updateproduct(
+                          prod.id,
+                          prod.name,
+                          prod.buyingPrice,
+                          prod.sellingPrice,
+                          prod.quantity
+                        )
+                      "
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <!--   <button class="btn btn-success mx-3">تعديل</button> -->
+            <button
+              class="btn btn-danger mx-3"
+              (click)="deleteproduct(productID)"
+            >
+              حذف
+            </button>
+          </div>
+        </div>
       </div>
-   
+    </div>
+  </div>
+</main>
