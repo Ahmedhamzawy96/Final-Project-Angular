@@ -17,6 +17,10 @@ import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
 import { UsersComponent } from './Components/users/users.component';
+import { ReportsComponent } from './Components/reports/reports.component';
+import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
+import { SpreportsComponent } from './Components/spreports/spreports.component';
+import { CarreportComponent } from './Components/carreport/carreport.component';
 
 const routes: Routes = [
   { path: 'importreciept', component: ImportRecieptComponent },
@@ -36,6 +40,10 @@ const routes: Routes = [
   { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
   { path: 'ExportRecieptPrint/:id', component: ExportRecieptPrintComponent },
   { path: 'users', component: UsersComponent },
+  {path: 'reports', component:ReportsComponent},
+  {path:'custmers-reports' ,component:CustmersReportsComponent},
+  {path: 'spreports',component:SpreportsComponent},
+  {path: 'carreport',component :CarreportComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

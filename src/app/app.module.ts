@@ -29,6 +29,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
 import { UsersComponent } from './Components/users/users.component';
+import { ReportsComponent } from './Components/reports/reports.component';
+import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
+import { SpreportsComponent } from './Components/spreports/spreports.component';
+import { CarreportComponent } from './Components/carreport/carreport.component';
+import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
 
 
 
@@ -54,7 +59,11 @@ import { UsersComponent } from './Components/users/users.component';
     ReceiptforstoreComponent,
     ReceiptforcarComponent,
     ExportRecieptPrintComponent,
-    UsersComponent
+    UsersComponent,
+    ReportsComponent,
+    CustmersReportsComponent,
+    SpreportsComponent,
+    CarreportComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,8 +75,10 @@ import { UsersComponent } from './Components/users/users.component';
     MatButtonModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule,
-    FormsModule
-    
+    FormsModule,
+    TranslateModule.forRoot()
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
