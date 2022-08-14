@@ -1,90 +1,110 @@
 <main  id="main" class="main" dir="rtl">
-  <div class="container">
-    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-            <div class="d-flex justify-content-center py-4"> <a routerLink="/"
-                class="logo d-flex align-items-center w-auto"> <span class="d-none d-lg-block">الأدمن</span> <img
-                  src="assets/img/LOGO.jpg" alt=""> </a></div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="pt-4 pb-2">
-                  <h5 class="card-title text-center pb-0 fs-4">انشاء حساب</h5>
-                  <p class="text-center small">ادخل بياناتك لانشاء حساب</p>
+  <div class="pagetitle">
+    <nav class="my-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
+        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item active">العملاء</li>
+      </ol>
+    </nav>
+    <div > <a routerLink="/"
+      class="logo d-flex align-items-center w-auto">  <img src="assets/img/LOGO.jpg" alt=""> </a></div>
+
+      <section class="section">
+        <div>
+          <form [formGroup]="TypeSelect">
+                  <h5>المستخدمين</h5>
+                  <div class="form-group">
+                    <div class="d-flex align-items-center my-3">
+                      <i class="form-group"></i>
+                      <h6>تحديد نوع المستخدم</h6>
+                    </div>
+                    <div>
+                      <mat-form-field >
+                        <mat-label>أختر نوع المستخدم</mat-label>
+                        <mat-select  formControlName="selectedtype" [(value)]="usertype"  (selectionChange)="selecteduser(usertype)">
+<!--                           <mat-option
+                            *ngFor="let user of users"
+                            [value]="user.type">
+                          
+                            {{ user.type }}
+
+                          </mat-option> -->
+                          <mat-option value="one">أدمن</mat-option>
+                          <mat-option value="two">بائع المخزن</mat-option>
+                          <mat-option value="three">بائع العربه</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                 </div>
-                <form [formGroup]="UserData" (ngSubmit)="onSubmit()" class="row g-3">
-                  <div class="col-12">
-                    <label for="yourName" class="form-label">الاسم </label>
-                    <input type="text" name="username" formControlName="username" class="form-control" id="yourName"
-                      [class.is-invalid]="username?.invalid" [class.is-valid]="username?.valid">
-                    <div class="alert alert-warning" [hidden]="username?.valid || username?.untouched">
-                      <small *ngIf="username?.errors?.['required']">
-                        Full Name is required
-                      </small>
-                      <small *ngIf="username?.errors?.['pattern']">
-                        Full name must be 3 letters at least, <b>{{username?.errors?.['pattern'].actualValue}}</b>
-                        dosn't match.
-                      </small>
-                    </div>
-                    <!-- <div  class="invalid-feedback">ادخل اسمك</div> -->
                   </div>
+              
+          </form>
 
-                  <div class="col-12">
-                    <label for="yourPassword" class="form-label">كلمه السر</label>
-                    <input type="password" name="userpass" formControlName="password" class="form-control"
-                      id="yourPassword">
-
-                    <!-- <div class="alert alert-warning" *ngIf="password?.errors?.['required'] && password?.touched">
-                      Password is required
-                    </div> -->
-
-                    <!-- <div class="invalid-feedback">ادخل كلمه السر</div> -->
-                  </div>
-
-                  <!-- <div class="col-12">
-                    <label for="yourPassword" class="form-label">تاكيد كلمه السر </label>
-                    <input type="password" name="userspass" formControlName="confirmPassword" class="form-control"
-                      id="yourPassword">
-                    <div class="alert alert-warning"
-                      *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
-                      Confirm Password is required
-                    </div>
-                    <div small class="alert alert-warning" *ngIf="username?.errors?.['UnmatchedPassword']">
-                      Confirm password must match password.
-                    </div>
-
-
-
-                  </div> -->
-
-                  <div class="col-md-6 col-12">
-                    <label for="Amount" class=" col-form-label"> النوع</label>
-                    <div class="col-sm-10"> <input id="Amount" type="number" name=type formControlName="type"
-                        class="form-control"></div>
-                  </div>
-
-                  <div class="col-12">
-                    <button [disabled]="UserData.invalid" type="submit" class="btn btn-primary w-100">انشاء
-                      حساب</button>
-                  </div>
-                  <div class="col-12">
-                    <p class="small mb-0">هل تمتلك حساب بالفعل <a routerLink="/login">تسجيل الدخول </a></p>
-                  </div>
-                </form>
-
-              </div>
-            </div>
-
-
-
-
-          </div>
         </div>
-      </div>
+
+       </section>
+      
+    <section class="section"> 
+      <div class="form-group">
+        <form [formGroup]="AddUser" (ngSubmit)="Adduser()" >
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+               <br>
+                    <h5>أضافة جديد</h5>          
+                   
+                    <div class="row mb-3 col-lg-6">
+                      <label for="username" class="col-form-label">اسم المستخدم</label>
+
+                      <div class="col-sm-10">
+                        <div>
+                          <input
+                            type="text"
+                            formControlName="userName"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col col-lg-6">
+                      <label for="password" class="col-form-label"
+                        >كلمة السر </label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          formControlName="password"
+                          class="form-control"
+                        />
+  
+                        <div class="col">
+                          <label for="type" class="col-form-label">نوعه </label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              formControlName="type"
+                              list="notes"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col d-flex justify-content-center">
+                        <button type="Submit" class="btn btn-primary">اضافة</button>
+                      </div>
+                    </div>
+                    </div>
+                  
+                  </div>
+                  
+                </div>   
+        </form>
+      </div>   
     </section>
-
-
   </div>
 
 
@@ -95,37 +115,96 @@
                    <h5 class="card-title"> بيانات المستخدمين </h5>
 
                     <table class="table overflow-scroll  ">
-                        <thead class="">
-                            <tr class="text-center m-3 p-2">
-                                <th></th>
-
-                                <th class="text-center">اسم المستخدم </th>
-                                <th class="text-center">كلمه السر</th>
-                                <th class="text-center">المبلغ </th>
-
-                            </tr>
-                        </thead>
-
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th scope="col">اسم المستخدم</th>
+                          <th scope="col">كلمة السر</th>
+                          <th scope="col">نوعه</th>
+                        </tr>
+                      </thead>
                         <tbody>
-
-                          <!-- <tr class="text-center" *ngFor=" let item of user">;
-                            <td> <input class="form-check-input" type="radio" name="id"  id="gridRadios1" [value]="item.id" [(ngModel)]="id"> </td>
-
-                             <td> {{item.username}} </td>
-                             <td> {{item.password}} </td>
-                             <td> {{item.type}} </td>
-                          </tr> -->
-
-
-
-
+                          <tr *ngFor="let user of users">
+                            <td>
+                              <input 
+                                #radioInput
+                                class="form-check-input"
+                                type="radio"
+                                name="gridRadios"
+                                id="gridRadios1"
+                                [value]="user.userName"
+                                [(ngModel)]="Username"
+                               [ngModelOptions]="{ standalone: true }"
+                              />
+                            </td>
+                           
+                            <td>
+                              <div *ngIf="!this.radioInput.checked">
+                                {{ user.userName }}
+                              </div>
+                              <div *ngIf="this.radioInput.checked">
+                                <input
+                                  [(ngModel)]="user.userName"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  type="text"
+                                  class="form-control"
+                                  [value]="user.userName"
+                                  (change)="updateuser(
+                                    user.userName,
+                                    user.password,
+                                    user.type
+                                  )"
+                                />
+                              </div>
+                            </td>
+                            <td>
+                              <div *ngIf="!this.radioInput.checked">
+                                {{ user.password }}
+                              </div>
+                              <div *ngIf="this.radioInput.checked">
+                                <input
+                                  [(ngModel)]="user.password"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  type="text"
+                                  class="form-control"
+                                  [value]="user.password"
+                                  (change)="updateuser(
+                                    user.userName,
+                                    user.password,
+                                    user.type
+                                  )"
+                                />
+                              </div>
+                            </td>
+                            <td>
+                              <div *ngIf="!this.radioInput.checked">
+                                {{ user.type }}
+                              </div>
+                              <div *ngIf="this.radioInput.checked">
+                                <input
+                                  [(ngModel)]="user.type"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  type="text"
+                                  class="form-control"
+                                  [value]="user.type"
+                                  (change)="updateuser(
+                                    user.userName,
+                                    user.password,
+                                    user.type
+                                  )"
+                             
+                                />
+                              </div>
+                            </td>
+                          </tr>
                         </tbody>
-                    </table>
-                    <div class="row">
-                        <div class=" d-flex align-items-center justify-content-center ">
-                            <button type="button" class="btn btn-success rounded-3 mx-3 px-3 ">تعديل</button>
-                            <button type="button" class="btn btn-danger rounded-3 mx-3 px-3  ">حذف</button>
-                        </div>
+                      </table>
+                      <div class="d-flex justify-content-center">
+                        <!--  <button class="btn btn-success mx-3">تعديل</button> -->
+                        <button
+                          class="btn btn-danger mx-3" (click)="deleteuser(Username)" >
+                          حذف
+                        </button>
                     </div>
                 </div>
             </div>
