@@ -4,6 +4,9 @@ import { ITransactions } from 'src/app/Interface/ITransactions';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { TransactionsService } from 'src/app/Services/transactions.service';
+import { transition } from '@angular/animations';
+import { VirtualTimeScheduler } from 'rxjs';
+
 import { TransType } from 'src/app/Interface/Enums/TransType';
 import { Operation } from 'src/app/Interface/Enums/operation';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
@@ -37,6 +40,7 @@ export class CustomerAccountsComponent implements OnInit {
       operationID: [1],
       operation: [''],
       date: [this.BillDate],
+
       userName: [JSON.parse(localStorage.getItem('UserName'))],
       notes: [''],
     });
