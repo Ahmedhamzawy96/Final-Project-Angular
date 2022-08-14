@@ -46,7 +46,7 @@ export class ReceiptforcarComponent implements OnInit {
       remaining: new FormControl(''),
       carID: new FormControl(''),
       customerName: new FormControl('', [Validators.required]),
-      userName: new FormControl('ahmed123'),
+      userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
 

@@ -27,10 +27,14 @@ export class GenericService {
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
+    }
+    if (error.status == 401) {
+      return throwError(() => new Error('401'));
     } else {
       console.error(
         `Backend returned code ${error.status}, body was: `,
-        error.error
+        error.error,
+        error.status
       );
     }
     return throwError(() => new Error(' please try again...!'));

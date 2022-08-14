@@ -1,5 +1,4 @@
 export interface IUsers{
-
   username:string,
   password:string,
   type:number,
