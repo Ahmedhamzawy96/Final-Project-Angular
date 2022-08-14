@@ -1,7 +1,7 @@
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     <li class="nav-item">
-      <a class="nav-link collapsed justify-content-start" routerLink="">
+      <a class="nav-link collapsed justify-content-start" routerLink="/Home">
         <i class="bi bi-grid"></i> <span class="mx-3">الصفحه الرئيسية</span>
       </a>
     </li>
@@ -29,7 +29,7 @@
             <span class="mx-3">بيانات العملاء</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Type == 0 || Type == 1">
           <a class="justify-content-start" routerLink="/customer-accounts">
             <i class="bi bi-circle"></i>
             <span class="mx-3">حسابات العملاء</span>
@@ -37,7 +37,7 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-between"
         data-bs-target="#forms-nav"
@@ -69,7 +69,7 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-between"
         data-bs-target="#tables-nav"
@@ -123,24 +123,24 @@
         class="nav-content collapse"
         data-bs-parent="#sidebar-nav"
       >
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Type == 0 || Type == 1">
           <a class="justify-content-start" routerLink="/car-data">
             <i class="bi bi-circle"></i>
             <span class="mx-3"> بيانات العربه</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Type == 0 || Type == 1">
           <a class="justify-content-start" routerLink="/cars-accounts">
             <i class="bi bi-circle"></i>
             <span class="mx-3"> حسابات العربه</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Type == 0 || Type == 2 || Type == 1">
           <a class="justify-content-start" routerLink="/car-store">
             <i class="bi bi-circle"></i> <span class="mx-3"> مخزن العربه</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Type == 0 || Type == 2">
           <a class="justify-content-start" routerLink="/Receiptforstore">
             <i class="bi bi-circle"></i>
             <span class="mx-3">فاتورة بيع </span>
@@ -148,7 +148,7 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-between"
         data-bs-target="#icons-nav"
@@ -178,7 +178,7 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-start"
         routerLink="/products"
@@ -186,14 +186,14 @@
         <i class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0">
       <a
         class="nav-link collapsed justify-content-start"
         routerLink="/reports" >
         <i class="bx bx-line-chart"></i> <span class="mx-3">التقارير</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="Type == 0">
       <a class="nav-link collapsed justify-content-start" routerLink="/users">
         <i class="ri-map-pin-user-fill ri ri-3x"></i>
         <span class="mx-3">المستخدمين</span>

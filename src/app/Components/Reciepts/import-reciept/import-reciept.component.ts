@@ -45,7 +45,7 @@ export class ImportRecieptComponent implements OnInit {
       paid: new FormControl(''),
       remaining: new FormControl(''),
       supid: new FormControl(''),
-      userName: new FormControl('ahmed123'),
+      userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
   deleteProd() {
@@ -65,7 +65,6 @@ export class ImportRecieptComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         cancelButtonText: 'لا',
-
         confirmButtonText: 'نعم',
         reverseButtons: false,
       })

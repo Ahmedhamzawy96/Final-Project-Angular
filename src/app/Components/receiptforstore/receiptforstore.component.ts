@@ -46,10 +46,9 @@ export class ReceiptforstoreComponent implements OnInit {
       remaining: new FormControl(''),
       customerID: new FormControl(''),
       customerName: new FormControl('', [Validators.required]),
-      userName: new FormControl('ahmed123'),
+      userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
-
   ngOnInit(): void {
     this.custServ.getCustomers().subscribe((data) => {
       this.Customers = data;

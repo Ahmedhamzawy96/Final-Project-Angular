@@ -34,6 +34,8 @@ import { CustmersReportsComponent } from './Components/custmers-reports/custmers
 import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
 import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
+import { StartComponent } from './Components/start/start.component';
+
 
 
 
@@ -64,6 +66,8 @@ import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
     CustmersReportsComponent,
     SpreportsComponent,
     CarreportComponent,
+    StartComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -81,6 +85,6 @@ import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
