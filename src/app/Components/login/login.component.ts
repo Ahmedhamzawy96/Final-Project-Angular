@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginUser } from 'src/app/Interface/login-user';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
