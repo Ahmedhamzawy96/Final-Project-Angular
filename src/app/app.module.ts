@@ -33,11 +33,7 @@ import { ReportsComponent } from './Components/reports/reports.component';
 import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
 import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
-import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
 import { StartComponent } from './Components/start/start.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -67,7 +63,6 @@ import { StartComponent } from './Components/start/start.component';
     SpreportsComponent,
     CarreportComponent,
     StartComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -80,9 +75,6 @@ import { StartComponent } from './Components/start/start.component';
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     FormsModule,
-    TranslateModule.forRoot()
-
-
   ],
   providers: [],
   bootstrap: [AppComponent],

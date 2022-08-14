@@ -4,30 +4,45 @@ import { Observable } from 'rxjs';
 import { IUsers } from 'src/app/Interface/IUsers';
 import { GenericService } from '../GenericService/generic.service';
 
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UsersService {
-  constructor(private us: GenericService) {}
+
+  constructor(private us:GenericService) { }
 
   //Get Users
-  getUsers(): Observable<IUsers[]> {
-    return this.us.getAll('Users');
+  getUsers():Observable<IUsers[]>{
+    return this.us.getAll("Users");
   }
   //Get Users By ID
-  getUsersByUserName(userName: string): Observable<IUsers> {
-    return this.us.getOne('Users', userName);
+  getUsersByID(id:number):Observable<IUsers>{
+    return this.us.getOne("Users",id);
   }
   //Add Users
-  addUsers(Users: IUsers): Observable<IUsers> {
-    return this.us.Post('Users', Users);
+  addUsers(Users:IUsers):Observable<IUsers>{
+    return this.us.Post("Users",Users);
   }
   //Update Users
-  updateUsers(userName: string, User: IUsers): Observable<IUsers> {
-    return this.us.put('Users', userName, User);
+  updateUsers(id:number,User:IUsers):Observable<IUsers>{
+    return this.us.put("Users",id,User);
   }
-  //Delete Users
-  deleteUsers(userName: string): Observable<IUsers> {
-    return this.us.Delete('Users', userName);
+  //Delete Users by username
+  deleteUsers(usname:string):Observable<IUsers>{
+    return this.us.Deleteuser("Users",usname);
   }
+
+    //Update Users
+   userupdate(username:string,User:IUsers):Observable<IUsers>{
+      return this.us.putuser("Users",username,User);
+    }
+
+    usertype(type:string):Observable<IUsers[]>{
+
+     return this.us.getuerbytype("Users",type)
+    }
+  
 }
+
+
