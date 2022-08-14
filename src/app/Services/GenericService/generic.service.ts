@@ -27,10 +27,14 @@ export class GenericService {
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
+    }
+    if (error.status == 401) {
+      return throwError(() => new Error('401'));
     } else {
       console.error(
         `Backend returned code ${error.status}, body was: `,
-        error.error
+        error.error,
+        error.status
       );
     }
     return throwError(() => new Error(' please try again...!'));
@@ -45,7 +49,7 @@ export class GenericService {
   }
 
   // Get One Function
-  getOne(RouteURL: string, id: number): Observable<any> {
+  getOne(RouteURL: string, id: any): Observable<any> {
     return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}/${id}`).pipe(
       retry(3),
       catchError(this.handleError)
@@ -60,7 +64,7 @@ export class GenericService {
     ).pipe(retry(3), catchError(this.handleError));
   }
   //Put Function
-  put(RouteURL: string, id: number, item: any): Observable<any> {
+  put(RouteURL: string, id: any, item: any): Observable<any> {
     return this.Client.put<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`,
       JSON.stringify(item),
@@ -68,7 +72,7 @@ export class GenericService {
     ).pipe(retry(3), catchError(this.handleError));
   }
   //Delete Function
-  Delete(RouteURL: string, id: number): Observable<any> {
+  Delete(RouteURL: string, id: any): Observable<any> {
     return this.Client.delete<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`
     ).pipe(retry(3), catchError(this.handleError));

@@ -29,8 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
 import { UsersComponent } from './Components/users/users.component';
-
-
+import { StartComponent } from './Components/start/start.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +53,8 @@ import { UsersComponent } from './Components/users/users.component';
     ReceiptforstoreComponent,
     ReceiptforcarComponent,
     ExportRecieptPrintComponent,
-    UsersComponent
+    UsersComponent,
+    StartComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,10 +66,9 @@ import { UsersComponent } from './Components/users/users.component';
     MatButtonModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule,
-    FormsModule
-    
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

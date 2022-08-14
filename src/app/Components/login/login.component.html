@@ -1,63 +1,112 @@
-<app-header></app-header>
 <main>
-    <div class="container" dir="rtl">
-       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-          <div class="container">
-             <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-4 d-flex flex-column align-items-center justify-content-center">
-                   <div class="d-flex justify-content-center py-4"> <a routerLink="/" class="logo d-flex align-items-center w-auto"  >
-                     <span  class="d-none d-lg-block">الادمن </span> <img src="/assets/img/LOGO.jpg" alt="">  </a></div>
-                   <div class="card mb-4">
-                      <div class="card-body">
-                         <div class="pt-4 pb-2">
-                            <h3 class="card-title text-center pb-0 fs-8">تسجيل الدخول </h3>
-                         </div>
-                         <form  style=" width: 400px; height: 320px;"  [formGroup]="registerForm" (ngSubmit)="onSubmit()"  class="row g-2">
-                            <div class="col-12">
-                               <label for="yourUsername" class="form-label" >الاسم</label>
-                               <div >
-                                 </div>
-                                 <input type="text"  formControlName="username"  class="form-control" [ngClass]="{ 'is-invalid': submitted && registerForm.controls.username.errors }" id="yourUsername" />
-                                 <div *ngIf="submitted && registerForm.controls.username.errors" class="text-danger"> 
-                                 <div *ngIf="registerForm.controls.username.errors.required ">قم بادخال الاسم !</div>
-                                 <div *ngIf="registerForm.controls.username.errors.username">قم بادخال الاسم !</div>
-   
-                            </div>  
-
-                            <div class="col-12">
-                               <label for="yourPassword" class="form-label">كلمه المرور</label>
-                          </div>
-                          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && registerForm.controls.password.errors }" id="yourPassword"  />
-                          <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger">
-                            <div *ngIf="registerForm.controls.password.errors.required">قم بادخال كلمه المرور</div>
-                           <div *ngIf="registerForm.controls.password.errors.password" > اخل كلمه مرور صحيحه!</div>
-                           </div>
-                            <br>
-                            <div class="col" >
-                              <input class="form-check-input" type="checkbox" name="remember" id="rememberMe" >
-                              <label  class="form-check-label mx-3" for="rememberMe">تذكر هذا الحساب  </label> 
-                               <!-- <div class="form-check" > -->
-                                  
-                            </div> 
-
-                            <div class="col-12"> <button class="btn btn-primary w-100" type="submit">تسجيل الدخول</button></div> <br>
-                            <div class="col-12">
-                               <p class="small mb-0">هل تمتلك حساب ؟  <a routerLink="/pages-register"> إنشاء حساب </a></p>
-                            </div>
-
-                           </div>
-
-                           </form>
-                       
-                            
+  <div class="container" dir="rtl">
+    <section
+      class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-lg-6 col-md-4 d-flex flex-column align-items-center justify-content-center"
+          >
+            <div class="d-flex justify-content-center py-4">
+              <a routerLink="/" class="logo d-flex align-items-center w-auto">
+                <img src="/assets/img/LOGO.jpg" alt="" />
+              </a>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="pt-4 pb-2">
+                  <h3 class="card-title text-center pb-0 fs-8">تسجيل الدخول</h3>
+                </div>
+                <form
+                  style="width: 400px; height: 320px"
+                  [formGroup]="LoginForm"
+                  (ngSubmit)="onSubmit()"
+                  class="row g-2"
+                >
+                  <div class="col-12">
+                    <label for="yourUsername" class="form-label">الاسم</label>
+                    <div></div>
+                    <input
+                      type="text"
+                      formControlName="userName"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && LoginForm.controls.userName.errors
+                      }"
+                      id="yourUsername"
+                    />
+                    <div
+                      *ngIf="submitted && LoginForm.controls.userName.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="LoginForm.controls.userName.errors.required">
+                        قم بادخال الاسم !
                       </div>
-                   </div>
-                </div>
-                </div>
-             </div>
+                      <div *ngIf="LoginForm.controls.userName.errors.userName">
+                        قم بادخال الاسم !
+                      </div>
+                    </div>
 
-       </section>
-    </div>
- </main>
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label"
+                        >كلمه المرور</label
+                      >
+                    </div>
+                    <input
+                      type="password"
+                      formControlName="password"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && LoginForm.controls.password.errors
+                      }"
+                      id="yourPassword"
+                    />
+                    <div
+                      *ngIf="submitted && LoginForm.controls.password.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="LoginForm.controls.password.errors.required">
+                        قم بادخال كلمه المرور
+                      </div>
+                      <div *ngIf="LoginForm.controls.password.errors.password">
+                        اخل كلمه مرور صحيحه!
+                      </div>
+                    </div>
+                    <br />
+                    <div class="col my-4">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="remember"
+                        id="rememberMe"
+                      />
+                      <label class="form-check-label mx-3" for="rememberMe"
+                        >تذكر هذا الحساب
+                      </label>
+                    </div>
 
-
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">
+                        تسجيل الدخول
+                      </button>
+                    </div>
+                    <br />
+                    <div class="col-12">
+                      <p class="small mb-0">
+                        هل تمتلك حساب ؟
+                        <a routerLink="/pages-register"> إنشاء حساب </a>
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

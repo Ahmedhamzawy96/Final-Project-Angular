@@ -39,7 +39,7 @@ export class SupplierAccountsComponent implements OnInit {
       operationID: [1],
       operation: [''],
       date: [this.BillDate],
-      userName: ['ahmed123'],
+      userName: [JSON.parse(localStorage.getItem('UserName'))],
       notes: [''],
     });
   }

@@ -13,29 +13,41 @@ import { ProductsComponent } from './Components/products/products.component';
 import { ReceiptforcarComponent } from './Components/receiptforcar/receiptforcar.component';
 import { ReceiptforstoreComponent } from './Components/receiptforstore/receiptforstore.component';
 import { ImportRecieptComponent } from './Components/Reciepts/import-reciept/import-reciept.component';
+import { StartComponent } from './Components/start/start.component';
 import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
 import { UsersComponent } from './Components/users/users.component';
 
 const routes: Routes = [
-  { path: 'importreciept', component: ImportRecieptComponent },
-  { path: 'cars-accounts', component: CarsAccountsComponent },
-  { path: 'supplier-accounts', component: SupplierAccountsComponent },
-  { path: 'customer-accounts', component: CustomerAccountsComponent },
-  { path: 'car-data', component: CarDataComponent },
-  { path: 'car-store', component: CarStoreComponent },
-  { path: 'customer', component: CustomerComponent },
-  { path: 'expendns', component: ExpendnsComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'supliers', component: SupliersComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'Transaction', component: TransactionsComponent },
-  { path: 'Receiptforcar', component: ReceiptforcarComponent },
-  { path: 'Receiptforstore', component: ReceiptforstoreComponent },
-  { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
-  { path: 'ExportRecieptPrint/:id', component: ExportRecieptPrintComponent },
-  { path: 'users', component: UsersComponent },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  {
+    path: '',
+    component: StartComponent,
+    children: [
+      { path: 'Home', component: StartComponent },
+      { path: 'importreciept', component: ImportRecieptComponent },
+      { path: 'cars-accounts', component: CarsAccountsComponent },
+      { path: 'supplier-accounts', component: SupplierAccountsComponent },
+      { path: 'customer-accounts', component: CustomerAccountsComponent },
+      { path: 'car-data', component: CarDataComponent },
+      { path: 'car-store', component: CarStoreComponent },
+      { path: 'customer', component: CustomerComponent },
+      { path: 'expendns', component: ExpendnsComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'supliers', component: SupliersComponent },
+      { path: 'Transaction', component: TransactionsComponent },
+      { path: 'Receiptforcar', component: ReceiptforcarComponent },
+      { path: 'Receiptforstore', component: ReceiptforstoreComponent },
+      { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
+      {
+        path: 'ExportRecieptPrint/:id',
+        component: ExportRecieptPrintComponent,
+      },
+      { path: 'users', component: UsersComponent },
+    ],
+  },
+  { path: '**', component: LoginComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
