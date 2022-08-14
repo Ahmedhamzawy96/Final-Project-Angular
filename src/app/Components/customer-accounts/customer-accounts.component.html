@@ -24,10 +24,12 @@
                       <mat-select
                         formControlName="accountID"
                         [(value)]="customerID"
-                        (selectionChange)="selectedcustomer(customerID)">
+                        (selectionChange)="selectedcustomer(customerID)"
+                      >
                         <mat-option
                           *ngFor="let custmer of customers"
-                          [value]="custmer.id">
+                          [value]="custmer.id"
+                        >
                           {{ custmer.name }}
                         </mat-option>
                       </mat-select>
@@ -45,7 +47,7 @@
                     type="number"
                     class="form-control"
                     [(ngModel)]="Custaccount"
-                    [ngModelOptions]="{standalone: true}"
+                    [ngModelOptions]="{ standalone: true }"
                     readonly
                   />
                 </div>
@@ -55,7 +57,12 @@
                   المبلغ المدفوع</label
                 >
                 <div class="col-sm-10">
-                    <input id="Amount" type="number" class="form-control"   formControlName="amount" />
+                  <input
+                    id="Amount"
+                    type="number"
+                    class="form-control"
+                    formControlName="amount"
+                  />
                 </div>
               </div>
               <div class="col-12 col-lg-6 my-md-2">
@@ -63,7 +70,12 @@
                   <i class="bi bi-calendar-date"></i>
                   <span class="mx-3">التاريخ</span>
                 </div>
-                <input type="text" name="Date" readonly formControlName="date" />
+                <input
+                  type="text"
+                  name="Date"
+                  readonly
+                  formControlName="date"
+                />
               </div>
               <div class="col-12 col-lg-6 my-md-2">
                 <label for="Notes" class="col-form-label">ملاحظات</label>
@@ -87,7 +99,11 @@
                 >
                   دفع
                 </button>
-                <button type="submit" class="btn btn-success px-4 py-2"   (click)="Get()">
+                <button
+                  type="submit"
+                  class="btn btn-success px-4 py-2"
+                  (click)="Get()"
+                >
                   توريد</button
                 >&nbsp; &nbsp;
               </div>
@@ -114,25 +130,28 @@
             </thead>
             <tbody>
               <tr class="text-center" *ngFor="let item of transactions">
-                <th>{{item.id}}</th>
-                <td>{{item.Name}}</td>
-                <td>{{item.amount}}</td>
+                <th>{{ item.id }}</th>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.amount }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
-                  <div *ngSwitchCase="0" class="text-center"> دفع</div>
+                  <div *ngSwitchCase="0" class="text-center">دفع</div>
                   <div *ngSwitchCase="1" class="text-center">توريد</div>
-                </td>  
-                  <td [ngSwitch]="item.operation" class="text-center">
-                    <div *ngSwitchCase="2" class="text-center"> فاتورة شراء رقم {{item.operationID}} </div>
-                    <div *ngSwitchCase="5" class="text-center"> توريد مبلغ مالى رقم {{item.operationID}}  </div>
-                  </td>
-                <td>{{item.date}}</td>
-                <td>{{item.notes}}</td>
+                </td>
+                <td [ngSwitch]="item.operation" class="text-center">
+                  <div *ngSwitchCase="2" class="text-center">
+                    فاتورة شراء رقم {{ item.operationID }}
+                  </div>
+                  <div *ngSwitchCase="5" class="text-center">
+                    توريد مبلغ مالى رقم {{ item.operationID }}
+                  </div>
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.notes }}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    {{customeraccountsform.value|json}}
   </section>
 </main>
