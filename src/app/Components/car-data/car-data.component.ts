@@ -1,11 +1,8 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ICar } from 'src/app/Interface/ICar';
 import { IExportProduct } from 'src/app/Interface/IExportProduct';
 import { CarService } from 'src/app/Services/Car/car.service';
-import { ExportProductService } from 'src/app/Services/ExportProduct/export-product.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,11 +16,7 @@ export class CarDataComponent implements OnInit {
   cardataform: FormGroup;
   carID: number;
 
-  constructor(
-    private src: ExportProductService,
-    private carserv: CarService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
       name: new FormControl('', [Validators.required]),
       notes: new FormControl(''),

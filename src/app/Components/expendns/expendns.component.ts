@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ExpendsService } from 'src/app/Services/Expends/expends.service';
 import { Observable } from 'rxjs';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -68,10 +69,8 @@ export class ExpendnsComponent implements OnInit {
             });
           });
           swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف البند', 'success');
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف البند', 'error');
         }
       });
