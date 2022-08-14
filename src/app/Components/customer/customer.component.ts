@@ -1,6 +1,5 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ICustomer } from 'src/app/Interface/ICustomer';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import Swal from 'sweetalert2';
@@ -83,10 +82,7 @@ export class CustomerComponent implements OnInit {
             'تم حذف العميل ',
             'success'
           );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف العميل ', 'error');
         }
       });
