@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ICar } from 'src/app/Interface/ICar';
+import { CarService } from 'src/app/Services/Car/car.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,FormControl } from '@angular/forms';
 import { IUsers } from 'src/app/Interface/IUsers';
 import { UsersService } from 'src/app/Services/Users/users.service';
@@ -12,39 +14,49 @@ import Swal from 'sweetalert2';
 })
 
 export class UsersComponent implements OnInit {
+senduser:IUsers;
+@ViewChild('userradioInputname') input: ElementRef<HTMLInputElement>;
+
   adduser:boolean=false;
   users :IUsers[];
   userstype:IUsers[];
+  avaliabelcars:ICar[];
   user :IUsers;
   seluser :IUsers;
-  usertype : string ="";
+  usertype : number;
   AddUser:FormGroup;
-  TypeSelect :FormGroup;
   Username : string;
-  constructor(private fb: FormBuilder, private userserv:UsersService ) {
+  constructor(private fb: FormBuilder, private userserv:UsersService ,private carserv:CarService) {
     this.AddUser = fb.group({
       userName:[''],
       password:[''],
-      type:['']
+      type:[''],
+      carID:['']
     })
-    this.TypeSelect = fb.group({
-      selectedtype:['']
-    })
-
-
   }
 
 
   Adduser() {
-    console.log(this.AddUser.value);
-    this.userserv.addUsers(this.AddUser.value).subscribe((res) => {
-      console.log(res);
-      this.userserv.getUsers().subscribe((data: IUsers[]) => {
-        this.users = data;
-        console.log(this.users);
+    if(this.AddUser.controls['carID'].value=="")
+    {
+      this.senduser={
+        password:this.AddUser.controls['password'].value,
+        userName:this.AddUser.controls['userName'].value,
+        type:this.AddUser.controls['type'].value,
+      }
+      this.userserv.addUsers(this.senduser).subscribe(
+      )
+    }
+    else
+    {
+      this.userserv.addUsers(this.AddUser.value).subscribe((res) => {
+        this.userserv.getUsers().subscribe((data: IUsers[]) => {
+          this.users = data;
+          console.log(this.users);
+        });
       });
-    });
-    // this.addCustomer.push(this.AddForm.value);
+    }
+   this.getusers();
   }
 
 
@@ -90,41 +102,50 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  getusers() {
+getusers() {
     this.userserv.getUsers().subscribe((data: IUsers[]) => {
       this.users = data;
-      console.log(this.users);
+      // console.log(this.users);
     });
-  }
-
-  updateuser(username: string, password: string, type: string) {
-    let upuser = this.users.find((upduser) => upduser.userName== username);
-    upuser.userName = username;
-    upuser.password = password;
-    upuser.type= type;
-    this.updateuser;
-    this.userserv.userupdate(<string>upuser.userName, upuser).subscribe();
-  }
-
-  selecteduser(type:string){
-
-    this.seluser = this.users.find(us => us.type == type);
-    this.usertype=this.seluser.type;
-     this.userserv.usertype(this.seluser.type).subscribe(data=>
-      { 
-          this.userstype = data;
-/*         for(var i = 0; i < data.length; i++){  // loop through the object array
-           // push each element to sys_id   
-           this.userstype.push(data[i]);
-
-               // this.TypeSelect.push(data[i]);
-        
-     } */
-        console.log('done');
+    this.carserv.getavaliablecar().subscribe(Data=>
+      {
+        this.avaliabelcars=Data
       })
+    
+}
+
+  updateuser(username: string, password: string,inpCheckbox: HTMLInputElement) {
+    let upuser = this.users.find(upduser => upduser.userName== username);
+    upuser.password = password;
+   if(upuser.carID!=null)
+   {
+    this.userserv.userupdate(upuser.userName, upuser).subscribe();
+   }
+   else
+   {
+
+    this.userserv.userupdate(upuser.userName, {userName:upuser.userName,password:upuser.password,type:upuser.type}).subscribe();
+
+   }
+   Swal.fire(
+    'تم التعديل!',
+    'تم حفظ كلمة السر الحديدة',
+    'success'
+  )
+  inpCheckbox.checked=false;
+
   }
 
 
+
+  selectchange()
+  {
+    if(this.AddUser.controls['type'].value!=2)
+    {
+      this.AddUser.get('carID').patchValue("");
+
+    }
+  }
 
   ngOnInit(): void {
       this.getusers();

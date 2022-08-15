@@ -1,5 +1,7 @@
 <main  id="main" class="main" dir="rtl">
   <div class="pagetitle">
+    <h1>المستخدمبن</h1>
+
     <nav class="my-3">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
@@ -7,43 +9,7 @@
         <li class="breadcrumb-item active">العملاء</li>
       </ol>
     </nav>
-    <div > <a routerLink="/"
-      class="logo d-flex align-items-center w-auto">  <img src="assets/img/LOGO.jpg" alt=""> </a></div>
 
-      <section class="section">
-        <div>
-          <form [formGroup]="TypeSelect">
-                  <h5>المستخدمين</h5>
-                  <div class="form-group">
-                    <div class="d-flex align-items-center my-3">
-                      <i class="form-group"></i>
-                      <h6>تحديد نوع المستخدم</h6>
-                    </div>
-                    <div>
-                      <mat-form-field >
-                        <mat-label>أختر نوع المستخدم</mat-label>
-                        <mat-select  formControlName="selectedtype" [(value)]="usertype"  (selectionChange)="selecteduser(usertype)">
-<!--                           <mat-option
-                            *ngFor="let user of users"
-                            [value]="user.type">
-                          
-                            {{ user.type }}
-
-                          </mat-option> -->
-                          <mat-option value="one">أدمن</mat-option>
-                          <mat-option value="two">بائع المخزن</mat-option>
-                          <mat-option value="three">بائع العربه</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-                  </div>
-              
-          </form>
-
-        </div>
-
-       </section>
-      
     <section class="section"> 
       <div class="form-group">
         <form [formGroup]="AddUser" (ngSubmit)="Adduser()" >
@@ -51,9 +17,9 @@
             <div class="card">
               <div class="card-body">
                <br>
-                    <h5>أضافة جديد</h5>          
-                   
-                    <div class="row mb-3 col-lg-6">
+                    <h5>أضافة مستخدم</h5>          
+                   <div class="row">
+                    <div class=" mb-3 col col-lg-6">
                       <label for="username" class="col-form-label">اسم المستخدم</label>
 
                       <div class="col-sm-10">
@@ -77,33 +43,46 @@
                           formControlName="password"
                           class="form-control"
                         />
-  
-                        <div class="col">
-                          <label for="type" class="col-form-label">نوعه </label>
-                          <div class="col-sm-10">
-                            <input
-                              type="text"
-                              formControlName="type"
-                              list="notes"
-                              class="form-control"
-                            />
-                          </div>
-                        </div>
+                        
+                
                       </div>
                     </div>
-
+                   </div>
+                   <div class="row" >
+                    <div class="col col-lg-6 my-3">
+                      <mat-form-field >
+                        <mat-label>أختر نوع المستخدم</mat-label>
+                        <mat-select  formControlName="type" (selectionChange)="selectchange()"  >
+                          <mat-option value="0">أدمن</mat-option>
+                          <mat-option value="1">بائع المخزن</mat-option>
+                          <mat-option value="2">بائع العربه</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div class="col col-lg-6 my-3" *ngIf="AddUser.controls['type'].value==2">
+                    <mat-form-field  >
+                      <mat-label>العربات المتاحة</mat-label>
+                      <mat-select formControlName="carID" >
+                        <mat-option [value]="car.id" *ngFor="let car of avaliabelcars">
+                          {{ car.name }}
+                        </mat-option>
+                       
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                   </div>
+                  
                     <div class="row mb-3">
                       <div class="col d-flex justify-content-center">
                         <button type="Submit" class="btn btn-primary">اضافة</button>
                       </div>
                     </div>
                     </div>
-                  
                   </div>
-                  
                 </div>   
         </form>
       </div>   
+      {{AddUser.value|json}}
     </section>
   </div>
 
@@ -139,24 +118,11 @@
                             </td>
                            
                             <td>
-                              <div *ngIf="!this.radioInput.checked">
+                             
                                 {{ user.userName }}
-                              </div>
-                              <div *ngIf="this.radioInput.checked">
-                                <input
-                                  [(ngModel)]="user.userName"
-                                  [ngModelOptions]="{ standalone: true }"
-                                  type="text"
-                                  class="form-control"
-                                  [value]="user.userName"
-                                  (change)="updateuser(
-                                    user.userName,
-                                    user.password,
-                                    user.type
-                                  )"
-                                />
-                              </div>
                             </td>
+                              
+                          
                             <td>
                               <div *ngIf="!this.radioInput.checked">
                                 {{ user.password }}
@@ -171,31 +137,18 @@
                                   (change)="updateuser(
                                     user.userName,
                                     user.password,
-                                    user.type
+                                    radioInput
                                   )"
                                 />
                               </div>
                             </td>
-                            <td>
-                              <div *ngIf="!this.radioInput.checked">
-                                {{ user.type }}
-                              </div>
-                              <div *ngIf="this.radioInput.checked">
-                                <input
-                                  [(ngModel)]="user.type"
-                                  [ngModelOptions]="{ standalone: true }"
-                                  type="text"
-                                  class="form-control"
-                                  [value]="user.type"
-                                  (change)="updateuser(
-                                    user.userName,
-                                    user.password,
-                                    user.type
-                                  )"
+                            
+                              <td [ngSwitch]="user.type" >
+                                <div *ngSwitchCase=0 >أدمن</div>
+                                <div *ngSwitchCase=1>بائع المخزن</div>
+                                <div *ngSwitchCase=2 >بائع العربة رقم {{ user.carID }}</div>
+                              </td>
                              
-                                />
-                              </div>
-                            </td>
                           </tr>
                         </tbody>
                       </table>
