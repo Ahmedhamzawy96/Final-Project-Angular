@@ -38,7 +38,7 @@ export class UsersService {
       return this.us.putuser("Users",username,User);
     }
 
-    usertype(type:string):Observable<IUsers[]>{
+    usertype(type:number):Observable<IUsers[]>{
 
      return this.us.getuerbytype("Users",type)
     }

@@ -2,7 +2,7 @@ export interface IUsers{
 
   userName:string,
   password:string,
-  type:string,
+  type:number,
   carID?:number,
   carName?:string
 }

@@ -12,6 +12,8 @@ export class CarService {
  getCar():Observable<ICar[]> {
   return this.Serv.getAll("Car");
 }
+getavaliablecar():Observable<ICar[]> {
+  return this.Serv.getAll("Car/available")}
 // Get Car By ID 
 getCarByID(id:number):Observable<ICar> {
   return this.Serv.getOne("Car",id);

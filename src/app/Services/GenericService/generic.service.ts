@@ -96,7 +96,7 @@ export class GenericService {
     }
      
   //get user by type
-  getuerbytype(RouteURL: string, type: string): Observable<any> {
+  getuerbytype(RouteURL: string, type: number): Observable<any> {
     return this.Client.get<any>(
       `${environment.APIUrl}/${RouteURL}/${type}`
     ).pipe(retry(3), catchError(this.handleError));
