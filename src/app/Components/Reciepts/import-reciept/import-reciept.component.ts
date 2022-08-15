@@ -128,6 +128,7 @@ export class ImportRecieptComponent implements OnInit {
     let reciept: IImportReciept = this.ImportRecieptForm.value;
     reciept.importProducts = this.ImportProducts;
     this.imporRecServ.addReciept(reciept).subscribe((Data) => {
+      this.ImportRecieptForm.reset();
       this.Route.navigate(['ImportRecieptPrint', Data.id]);
     });
   }

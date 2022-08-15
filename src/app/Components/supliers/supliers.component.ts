@@ -4,6 +4,7 @@ import { ISupplier } from 'src/app/Interface/ISupplier';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, FormControl } from '@angular/forms';
 import Swall from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-supliers',
@@ -31,6 +32,12 @@ export class SupliersComponent implements OnInit {
     this._supplierservice
       .addSupplier(this.userSupplier.value)
       .subscribe((result: ISupplier) => {
+        this.userSupplier.reset();
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'تم الاضافة بنجاح',
+        });
         this.sply.push(result);
 
         this._supplierservice.getSupplier().subscribe((data: ISupplier[]) => {
@@ -82,13 +89,20 @@ export class SupliersComponent implements OnInit {
         }
       });
   }
-  updatesupplier(id: Number, name: string, phone: string, notes: string) {
+  updatesupplier(
+    id: Number,
+    name: string,
+    phone: string,
+    notes: string,
+    ref: HTMLInputElement
+  ) {
     let sup = this.sply.find((upcustomerr) => upcustomerr.id == id);
     sup.name = name;
     sup.phone = phone;
     sup.notes = notes;
     this.updatesupplier;
     this._supplierservice.updateSupplier(<number>sup.id, sup).subscribe();
+    ref.checked = false;
   }
 
   ngOnInit(): void {

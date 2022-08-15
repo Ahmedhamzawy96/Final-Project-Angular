@@ -39,10 +39,15 @@ export class CarDataComponent implements OnInit {
   cardata() {
     if (this.cardataform.valid) {
       this.carserv.addCar(this.cardataform.value).subscribe(() => {
+        this.cardataform.reset();
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'تم الاضافة بنجاح',
+        });
+
         this.carserv.getCar().subscribe((Date) => {
           this.carsdata = Date;
-          console.log(this.carsdata);
-          console.log(Date);
         });
       });
     }
@@ -88,10 +93,11 @@ export class CarDataComponent implements OnInit {
       });
   }
 
-  updatecar(id: Number, name: string, notes: string) {
+  updatecar(id: Number, name: string, notes: string, ref: HTMLInputElement) {
     let upcar = this.carsdata.find((upcarr) => upcarr.id == id);
     upcar.name = name;
     upcar.notes = notes;
     this.carserv.updateCar(<number>upcar.id, upcar).subscribe();
+    ref.checked = false;
   }
 }

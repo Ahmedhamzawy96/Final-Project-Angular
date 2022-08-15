@@ -39,14 +39,18 @@ export class CustomerComponent implements OnInit {
 
   Addcustomer() {
     console.log(this.AddForm.value);
-    this.csutServ.addCustomer(this.AddForm.value).subscribe((res) => {
-      console.log(res);
+    this.csutServ.addCustomer(this.AddForm.value).subscribe(() => {
+      this.AddForm.reset();
+      Swal.fire({
+        icon: 'success',
+        title: '',
+        text: 'تم الاضافة بنجاح',
+      });
+
       this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
         this.Customers = data;
-        console.log(this.Customers);
       });
     });
-    // this.addCustomer.push(this.AddForm.value);
   }
 
   deletecustomer(id: number) {
@@ -88,12 +92,19 @@ export class CustomerComponent implements OnInit {
       });
   }
 
-  updatecustomer(id: Number, name: string, phone: string, notes: string) {
+  updatecustomer(
+    id: Number,
+    name: string,
+    phone: string,
+    notes: string,
+    ref: HTMLInputElement
+  ) {
     let upcustomer = this.Customers.find((upcustomerr) => upcustomerr.id == id);
     upcustomer.name = name;
     upcustomer.phone = phone;
     upcustomer.notes = notes;
     this.updatecustomer;
     this.csutServ.updateCustomer(<number>upcustomer.id, upcustomer).subscribe();
+    ref.checked = false;
   }
 }

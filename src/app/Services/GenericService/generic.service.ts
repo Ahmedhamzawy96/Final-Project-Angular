@@ -45,7 +45,7 @@ export class GenericService {
   }
 
   // Get One Function
-  getOne(RouteURL: string, id: number): Observable<any> {
+  getOne(RouteURL: string, id: any): Observable<any> {
     return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}/${id}`).pipe(
       retry(3),
       catchError(this.handleError)
@@ -60,7 +60,7 @@ export class GenericService {
     ).pipe(retry(3), catchError(this.handleError));
   }
   //Put Function
-  put(RouteURL: string, id: number, item: any): Observable<any> {
+  put(RouteURL: string, id: any, item: any): Observable<any> {
     return this.Client.put<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`,
       JSON.stringify(item),
@@ -68,7 +68,7 @@ export class GenericService {
     ).pipe(retry(3), catchError(this.handleError));
   }
   //Delete Function
-  Delete(RouteURL: string, id: number): Observable<any> {
+  Delete(RouteURL: string, id: any): Observable<any> {
     return this.Client.delete<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`
     ).pipe(retry(3), catchError(this.handleError));
@@ -79,27 +79,4 @@ export class GenericService {
       `${environment.APIUrl}/${RouteURL}/${id}/${type}`
     ).pipe(retry(3), catchError(this.handleError));
   }
-
-    //Delete Function by username
-    Deleteuser(RouteURL: string, user: string): Observable<any> {
-      return this.Client.delete<any>(
-        `${environment.APIUrl}/${RouteURL}/${user}`
-      ).pipe(retry(3), catchError(this.handleError));
-    }
-    //Put Function by username
-    putuser(RouteURL: string, username: string, item: any): Observable<any> {
-      return this.Client.put<any>(
-        `${environment.APIUrl}/${RouteURL}/${username}`,
-        JSON.stringify(item),
-        this.httpOptions
-      ).pipe(retry(3), catchError(this.handleError));
-    }
-     
-  //get user by type
-  getuerbytype(RouteURL: string, type: string): Observable<any> {
-    return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${type}`
-    ).pipe(retry(3), catchError(this.handleError));
-  }
-
 }

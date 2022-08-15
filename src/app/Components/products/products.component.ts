@@ -39,15 +39,16 @@ export class ProductsComponent implements OnInit {
   //Add product
 
   Addproduct() {
-    console.log(this.Addprodform.value);
-    this.productService.addProduct(this.Addprodform.value).subscribe((res) => {
-      console.log(res);
+    this.productService.addProduct(this.Addprodform.value).subscribe(() => {
+      this.Addprodform.reset();
+      Swal.fire({
+        icon: 'success',
+        title: '',
+        text: 'تم الاضافة بنجاح',
+      });
       this.productService.getProducts().subscribe((data: IProduct[]) => {
         this.products = data;
-        console.log(this.products);
       });
-
-      console.log(' created successfully!');
     });
     this.newproduct.push(this.Addprodform.value);
   }

@@ -3,7 +3,9 @@
     <h1>ادارة الخزنة</h1>
     <nav class="my-3">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/">الصفحة الرئيسية</a></li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Home">الصفحة الرئيسية</a>
+        </li>
         <li class="breadcrumb-item"></li>
         <li class="breadcrumb-item active">الخزنة</li>
       </ol>
@@ -31,15 +33,26 @@
             <div class="col-md-6 col-12">
               <label for="Amount" class="col-form-label"> المبلغ</label>
               <div class="col-sm-10">
-                <input id="Amount" type="number" name="amount" class="form-control" [(ngModel)]="amount" />
+                <input
+                  id="Amount"
+                  type="number"
+                  name="amount"
+                  class="form-control"
+                  [(ngModel)]="amount"
+                />
               </div>
-
             </div>
-            
+
             <div class="col-12 col-lg-6 my-md-2">
               <label for="Notes" class="col-form-label">ملاحظات</label>
               <div class="col-sm-10">
-                <textarea id="my-textarea" class="form-control" name="" rows="2"  [(ngModel)]="notes"></textarea>
+                <textarea
+                  id="my-textarea"
+                  class="form-control"
+                  name=""
+                  rows="2"
+                  [(ngModel)]="notes"
+                ></textarea>
               </div>
             </div>
             <div class="col-12 col-lg-6 my-md-2">
@@ -47,14 +60,19 @@
                 <i class="bi bi-calendar-date"></i>
                 <span class="mx-3">التاريخ</span>
               </div>
-              <input type="text" name="Date" readonly [(ngModel)]="BillDate"/>
+              <input type="text" name="Date" readonly [(ngModel)]="BillDate" />
             </div>
             <div class="row ms-5 mt-3">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" (click)="addTrans()">اضافة</button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="addTrans()"
+                >
+                  اضافة
+                </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -78,27 +96,35 @@
             </thead>
             <tbody>
               <tr class="text-center" *ngFor="let item of transact">
-                <th>{{item.id}}</th>
-                <td>{{item.Name}}</td>
-                <td>{{item.amount}}</td>
+                <th>{{ item.id }}</th>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.amount }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
-                  <div *ngSwitchCase="0" class="text-center"> دفع</div>
+                  <div *ngSwitchCase="0" class="text-center">دفع</div>
                   <div *ngSwitchCase="1" class="text-center">توريد</div>
-                </td>  
-                  <td [ngSwitch]="item.operation" class="text-center">
-                    دفع مبلغ مالى  
-                  </td>
-                <td>{{item.date}}</td>
-                <td>{{item.notes}}</td>
+                </td>
+                <td [ngSwitch]="item.operation" class="text-center">
+                  دفع مبلغ مالى
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.notes }}</td>
               </tr>
             </tbody>
           </table>
           <div class="row">
             <div class="d-flex align-items-center justify-content-center">
-              <button type="button" class="btn btn-success rounded-3 mx-3 px-3" (click)="updatetrans()">
+              <button
+                type="button"
+                class="btn btn-success rounded-3 mx-3 px-3"
+                (click)="updatetrans()"
+              >
                 تعديل
               </button>
-              <button type="button" class="btn btn-danger rounded-3 mx-3 px-3" (click)="deleteTrans()">
+              <button
+                type="button"
+                class="btn btn-danger rounded-3 mx-3 px-3"
+                (click)="deleteTrans()"
+              >
                 حذف
               </button>
             </div>
