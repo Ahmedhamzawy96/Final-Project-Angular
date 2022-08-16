@@ -13,6 +13,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { TransactionsService } from 'src/app/Services/transactions.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transactions',
@@ -30,34 +31,38 @@ export class TransactionsComponent implements OnInit {
   receiptID: number;
   receiptType: string;
 
-
   id: number;
   transact: ITransactions[] = [];
-  expenses:IExpenses[];
-  selectex:IExpenses;
+  expenses: IExpenses[];
+  selectex: IExpenses;
   transDELNUL = null;
-  constructor( private Trans: TransactionsService,private exServ:ExpendsService) {
- 
-  }
+  constructor(
+    private Trans: TransactionsService,
+    private exServ: ExpendsService
+  ) {}
 
   addTrans() {
-    let trans:ITransactions= {
-      accountID:this.id,
-      accountType:AccountType.Treasure,
-      amount:this.amount,
-      date:this.BillDate,
-      notes:this.notes,
-      operation:Operation.Expense,
-      type:TransType.Paid,
-      userName:"asd",
-      id:0,
-      Name:""
-    }
+    let trans: ITransactions = {
+      accountID: this.id,
+      accountType: AccountType.Treasure,
+      amount: this.amount,
+      date: this.BillDate,
+      notes: this.notes,
+      operation: Operation.Expense,
+      type: TransType.Paid,
+      userName: 'asd',
+      id: 0,
+      Name: '',
+    };
     this.Trans.addtransaction(trans).subscribe((data) => {
-        this.transact.push(data);
-      }
-    );
-    console.log(this.transact)
+      Swal.fire({
+        icon: 'success',
+        title: '',
+        text: 'تم الاضافة بنجاح',
+      });
+      this.transact.push(data);
+    });
+    console.log(this.transact);
   }
 
   UpdateTrans() {
@@ -73,25 +78,24 @@ export class TransactionsComponent implements OnInit {
   }
 
   getdatatotable() {
-    this.exServ.getExpends().subscribe((data)=>
-    {
-      this.expenses=data;
-    })
+    this.exServ.getExpends().subscribe((data) => {
+      this.expenses = data;
+    });
   }
 
+  selectchange() {
+    this.selectex = this.expenses.find((w) => w.id == this.id);
+    console.log(this.selectex);
 
-  selectchange()
-  {
-    this.selectex=this.expenses.find(w=>w.id==this.id)
-    console.log(this.selectex)
-
-    this.Trans.transactionbytype(this.id,AccountType.Treasure).subscribe((Date) =>{
-      this.transact = Date;
-      this.transact.forEach(element => {
-        element.Name=this.selectex.name;
-      });
-      console.log(this.transact)
-    });
+    this.Trans.transactionbytype(this.id, AccountType.Treasure).subscribe(
+      (Date) => {
+        this.transact = Date;
+        this.transact.forEach((element) => {
+          element.Name = this.selectex.name;
+        });
+        console.log(this.transact);
+      }
+    );
   }
 
   deleteTrans() {

@@ -35,7 +35,7 @@ export class CarStoreComponent implements OnInit {
   }
   ngOnInit(): void {
     if (JSON.parse(localStorage.getItem('Type')) == 2) {
-      this.UserServ.getUsersByID(
+      this.UserServ.getUsersByUserName(
         JSON.parse(localStorage.getItem('UserName'))
       ).subscribe((Date) => {
         this.User = Date;
