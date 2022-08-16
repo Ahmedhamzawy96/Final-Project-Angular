@@ -8,6 +8,7 @@ import { transition } from '@angular/animations';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { TransType } from 'src/app/Interface/Enums/TransType';
 import { Operation } from 'src/app/Interface/Enums/operation';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-supplier-accounts',
@@ -73,6 +74,12 @@ export class SupplierAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Remaiing = Data.account;
             });
+          this.suppaccountsform.reset();
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الدفع بنجاح',
+          });
         });
     }
   }
@@ -96,6 +103,12 @@ export class SupplierAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Remaiing = Data.account;
             });
+          this.suppaccountsform.reset();
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم التوريد بنجاح',
+          });
         });
     }
   }

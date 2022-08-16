@@ -132,6 +132,7 @@ export class ReceiptforstoreComponent implements OnInit {
     let receipt: IExportReciept = this.ExportRecieptForm.value;
     receipt.products = this.ProductsAdded;
     this.Exportserv.addReciept(receipt).subscribe((data) => {
+      this.ExportRecieptForm.reset();
       this.Route.navigate(['ExportRecieptPrint', data.id]);
     });
   }

@@ -10,6 +10,7 @@ import { VirtualTimeScheduler } from 'rxjs';
 import { TransType } from 'src/app/Interface/Enums/TransType';
 import { Operation } from 'src/app/Interface/Enums/operation';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-accounts',
@@ -83,6 +84,12 @@ export class CustomerAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
+          this.customeraccountsform.reset();
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الدفع  بنجاح',
+          });
         });
     }
   }
@@ -106,6 +113,12 @@ export class CustomerAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
+          this.customeraccountsform.reset();
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم التوريد بنجاح',
+          });
         });
     }
   }

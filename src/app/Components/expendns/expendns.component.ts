@@ -31,8 +31,13 @@ export class ExpendnsComponent implements OnInit {
   }
 
   addexpend() {
-    console.log(this.name);
     this.exserv.addExpends({ name: this.name }).subscribe((data) => {
+      this.name = ' ';
+      Swal.fire({
+        icon: 'success',
+        title: '',
+        text: 'تم الاضافة بنجاح',
+      });
       this.Expand.push(data);
     });
   }
@@ -69,7 +74,6 @@ export class ExpendnsComponent implements OnInit {
             });
           });
           swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف البند', 'success');
-
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف البند', 'error');
         }

@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-receiptforcar',
@@ -36,7 +37,8 @@ export class ReceiptforcarComponent implements OnInit {
     private CarServ: CarService,
     private Productserv: ProductService,
     private Exportserv: ExportRecieptService,
-    private expProd: ExportProductService
+    private expProd: ExportProductService,
+    private Route: Router
   ) {
     this.ExportRecieptForm = new FormGroup({
       total: new FormControl(),
@@ -132,9 +134,9 @@ export class ReceiptforcarComponent implements OnInit {
     let receipt: IExportReciept = this.ExportRecieptForm.value;
     receipt.products = this.ProductsAdded;
     this.Exportserv.addReciept(receipt).subscribe((data) => {
-      console.log('addreceipt');
+      this.ExportRecieptForm.reset();
+      this.Route.navigate(['CarRecieptPrint', data.id]);
     });
-    location.reload();
   }
   totalReciept() {
     let total: number = 0;
