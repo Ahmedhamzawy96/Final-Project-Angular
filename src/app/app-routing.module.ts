@@ -22,10 +22,11 @@ import { ReportsComponent } from './Components/reports/reports.component';
 import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
 import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
+import { ErorrComponent } from './Components/erorr/erorr.component';
+import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 
 const routes: Routes = [
-
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/Login', pathMatch: 'full' },
   {
     path: '',
     component: StartComponent,
@@ -45,18 +46,20 @@ const routes: Routes = [
       { path: 'Receiptforcar', component: ReceiptforcarComponent },
       { path: 'Receiptforstore', component: ReceiptforstoreComponent },
       { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
+      { path: 'Login', component: LoginComponent },
       {
         path: 'ExportRecieptPrint/:id',
         component: ExportRecieptPrintComponent,
       },
       { path: 'users', component: UsersComponent },
-      {path: 'reports', component:ReportsComponent},
-      {path:'custmers-reports' ,component:CustmersReportsComponent},
-      {path: 'spreports',component:SpreportsComponent},
-      {path: 'carreport',component :CarreportComponent}
+      { path: 'reports', component: ReportsComponent },
+      { path: 'custmers-reports', component: CustmersReportsComponent },
+      { path: 'spreports', component: SpreportsComponent },
+      { path: 'carreport', component: CarreportComponent },
+      { path: 'ExportRecRefund', component: ExportRecRefundComponent },
     ],
   },
-  { path: '**', component: LoginComponent },
+  { path: '**', component: ErorrComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

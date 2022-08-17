@@ -34,6 +34,8 @@ import { CustmersReportsComponent } from './Components/custmers-reports/custmers
 import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
 import { StartComponent } from './Components/start/start.component';
+import { ErorrComponent } from './Components/erorr/erorr.component';
+import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { StartComponent } from './Components/start/start.component';
     SpreportsComponent,
     CarreportComponent,
     StartComponent,
+    ErorrComponent,
+    ExportRecRefundComponent,
   ],
   imports: [
     BrowserModule,

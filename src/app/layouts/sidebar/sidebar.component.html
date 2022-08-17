@@ -186,10 +186,16 @@
         <i class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span>
       </a>
     </li>
-    <li class="nav-item" *ngIf="Type == 0">
+    <!-- <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-start"
-        routerLink="/reports" >
+        routerLink="/ExportRecRefund"
+      >
+        <i class="bi bi-cart-x"></i> <span class="mx-3">المرتجعات</span>
+      </a>
+    </li> -->
+    <li class="nav-item" *ngIf="Type == 0">
+      <a class="nav-link collapsed justify-content-start" routerLink="/reports">
         <i class="bx bx-line-chart"></i> <span class="mx-3">التقارير</span>
       </a>
     </li>
