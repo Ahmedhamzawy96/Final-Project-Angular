@@ -31,11 +31,12 @@ import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
+  { path: 'Login', component: LoginComponent },
+
   {
     path: '',
     component: StartComponent,
     children: [
-      { path: 'Login', component: LoginComponent },
       { path: 'Home', component: StartComponent,canActivate:[AuthGuard] },
       { path: 'importreciept', component: ImportRecieptComponent,canActivate:[CarDriverGuard]  },
       { path: 'cars-accounts', component: CarsAccountsComponent,canActivate:[CarDriverGuard]  },

@@ -11,7 +11,7 @@ export class CarDriverGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (JSON.parse(localStorage.getItem('Type'))!=UserType.Car)
+      if (JSON.parse(localStorage.getItem('Type'))==UserType.Admin||JSON.parse(localStorage.getItem('Type'))==UserType.Employee)
       {
         return true;
       }
