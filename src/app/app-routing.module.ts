@@ -1,3 +1,4 @@
+import { EmployeeGuard } from './Guards/Employee/employee.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CarDataComponent } from './Components/car-data/car-data.component';
@@ -24,6 +25,9 @@ import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
+import { AuthGuard } from './Guards/Auth/auth.guard';
+import { AdminGuard } from './Guards/Admin/admin.guard';
+import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -31,25 +35,25 @@ const routes: Routes = [
     path: '',
     component: StartComponent,
     children: [
-      { path: 'Home', component: StartComponent },
-      { path: 'importreciept', component: ImportRecieptComponent },
-      { path: 'cars-accounts', component: CarsAccountsComponent },
-      { path: 'supplier-accounts', component: SupplierAccountsComponent },
-      { path: 'customer-accounts', component: CustomerAccountsComponent },
-      { path: 'car-data', component: CarDataComponent },
-      { path: 'car-store', component: CarStoreComponent },
-      { path: 'customer', component: CustomerComponent },
-      { path: 'expendns', component: ExpendnsComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'supliers', component: SupliersComponent },
-      { path: 'Transaction', component: TransactionsComponent },
-      { path: 'Receiptforcar', component: ReceiptforcarComponent },
-      { path: 'Receiptforstore', component: ReceiptforstoreComponent },
-      { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent },
       { path: 'Login', component: LoginComponent },
+      { path: 'Home', component: StartComponent,canActivate:[AuthGuard] },
+      { path: 'importreciept', component: ImportRecieptComponent,canActivate:[CarDriverGuard]  },
+      { path: 'cars-accounts', component: CarsAccountsComponent,canActivate:[CarDriverGuard]  },
+      { path: 'supplier-accounts', component: SupplierAccountsComponent ,canActivate:[CarDriverGuard] },
+      { path: 'customer-accounts', component: CustomerAccountsComponent,canActivate:[CarDriverGuard]  },
+      { path: 'car-data', component: CarDataComponent,canActivate:[CarDriverGuard]  },
+      { path: 'car-store', component: CarStoreComponent ,canActivate:[AuthGuard] },
+      { path: 'customer', component: CustomerComponent,canActivate:[AuthGuard]  },
+      { path: 'expendns', component: ExpendnsComponent ,canActivate:[CarDriverGuard] },
+      { path: 'products', component: ProductsComponent,canActivate:[CarDriverGuard]  },
+      { path: 'supliers', component: SupliersComponent,canActivate:[CarDriverGuard]  },
+      { path: 'Transaction', component: TransactionsComponent,canActivate:[CarDriverGuard]  },
+      { path: 'Receiptforcar', component: ReceiptforcarComponent,canActivate:[CarDriverGuard]  },
+      { path: 'Receiptforstore', component: ReceiptforstoreComponent,canActivate:[AuthGuard]  },
+      { path: 'ImportRecieptPrint/:id', component: RecieptPrintComponent,canActivate:[CarDriverGuard]  },
       {
         path: 'ExportRecieptPrint/:id',
-        component: ExportRecieptPrintComponent,
+        component: ExportRecieptPrintComponent,canActivate:[CarDriverGuard] ,
       },
       { path: 'users', component: UsersComponent },
       { path: 'reports', component: ReportsComponent },
@@ -57,6 +61,7 @@ const routes: Routes = [
       { path: 'spreports', component: SpreportsComponent },
       { path: 'carreport', component: CarreportComponent },
       { path: 'ExportRecRefund', component: ExportRecRefundComponent },
+
     ],
   },
   { path: '**', component: ErorrComponent },
