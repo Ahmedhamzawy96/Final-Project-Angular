@@ -14,14 +14,12 @@
     <div class="d-flex align-items-center ms-5">
       <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-
           <li class="nav-item dropdown pe-3">
             <a
               class="nav-link nav-profile d-flex align-items-center pe-0"
               href="#"
               data-bs-toggle="dropdown"
             >
-
               <span class="d-none d-md-block dropdown-toggle ps-2">{{
                 UserName
               }}</span>
@@ -30,7 +28,6 @@
               class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
             >
               <li class="dropdown-header">
-
                 <h6>{{ UserName }}</h6>
                 <span *ngIf="Type == '0'"> ادمن</span>
                 <span *ngIf="Type == '1'"> موظف </span>
@@ -39,12 +36,11 @@
               <li>
                 <a
                   class="dropdown-item d-flex align-items-center"
-
                   routerLink="/Login"
                   (click)="Logout()"
                 >
                   <i class="bi bi-box-arrow-right"></i>
-                  <span>تسجيل الخروج</span>
+                  <span routerLink="/Login">تسجيل الخروج</span>
                 </a>
               </li>
             </ul>

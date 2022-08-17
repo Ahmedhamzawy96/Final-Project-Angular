@@ -11,11 +11,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class GenericService {
+  token: string;
   constructor(private Client: HttpClient) {}
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('Token'))}`,
     }),
   };
 
@@ -38,18 +40,18 @@ export class GenericService {
 
   // Get All Function
   getAll(RouteURL: string): Observable<any> {
-    return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}`).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}`,
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
   }
 
   // Get One Function
   getOne(RouteURL: string, id: number): Observable<any> {
-    return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}/${id}`).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}`,
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
   }
   // Post Function
   Post(RouteURL: string, item: any): Observable<any> {
@@ -70,36 +72,39 @@ export class GenericService {
   //Delete Function
   Delete(RouteURL: string, id: number): Observable<any> {
     return this.Client.delete<any>(
-      `${environment.APIUrl}/${RouteURL}/${id}`
+      `${environment.APIUrl}/${RouteURL}/${id}`,
+      this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
   //transaction
   getTransaction(RouteURL: string, id: number, type: number): Observable<any> {
     return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${id}/${type}`
+      `${environment.APIUrl}/${RouteURL}/${id}/${type}`,
+      this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
 
-    //Delete Function by username
-    Deleteuser(RouteURL: string, user: string): Observable<any> {
-      return this.Client.delete<any>(
-        `${environment.APIUrl}/${RouteURL}/${user}`
-      ).pipe(retry(3), catchError(this.handleError));
-    }
-    //Put Function by username
-    putuser(RouteURL: string, username: string, item: any): Observable<any> {
-      return this.Client.put<any>(
-        `${environment.APIUrl}/${RouteURL}/${username}`,
-        JSON.stringify(item),
-        this.httpOptions
-      ).pipe(retry(3), catchError(this.handleError));
-    }
-     
+  //Delete Function by username
+  Deleteuser(RouteURL: string, user: string): Observable<any> {
+    return this.Client.delete<any>(
+      `${environment.APIUrl}/${RouteURL}/${user}`,
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
+  }
+  //Put Function by username
+  putuser(RouteURL: string, username: string, item: any): Observable<any> {
+    return this.Client.put<any>(
+      `${environment.APIUrl}/${RouteURL}/${username}`,
+      JSON.stringify(item),
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
+  }
+
   //get user by type
   getuerbytype(RouteURL: string, type: number): Observable<any> {
     return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${type}`
+      `${environment.APIUrl}/${RouteURL}/${type}`,
+      this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
-
 }

@@ -22,8 +22,6 @@ export class CarDataComponent implements OnInit {
       notes: new FormControl(''),
     });
 
-    console.log(this.cardata);
-
     this.ngOnInit();
   }
 
@@ -31,8 +29,6 @@ export class CarDataComponent implements OnInit {
     //2
     this.carserv.getCar().subscribe((Date) => {
       this.carsdata = Date;
-      console.log(this.carsdata);
-      console.log(Date);
     });
   }
 
@@ -76,7 +72,6 @@ export class CarDataComponent implements OnInit {
         if (result.isConfirmed) {
           this.carserv.deleteCar(id).subscribe(() => {
             this.carsdata = this.carsdata.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
           });
           this.carsdata.pop();
           swalWithBootstrapButtons.fire(

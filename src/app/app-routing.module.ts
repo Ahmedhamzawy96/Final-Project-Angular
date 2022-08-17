@@ -23,17 +23,19 @@ import { ReportsComponent } from './Components/reports/reports.component';
 import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
 import { SpreportsComponent } from './Components/spreports/spreports.component';
 import { CarreportComponent } from './Components/carreport/carreport.component';
+import { ErorrComponent } from './Components/erorr/erorr.component';
+import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { AuthGuard } from './Guards/Auth/auth.guard';
 import { AdminGuard } from './Guards/Admin/admin.guard';
 import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 
 const routes: Routes = [
-
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/Login', pathMatch: 'full' },
   {
     path: '',
     component: StartComponent,
     children: [
+      { path: 'Login', component: LoginComponent },
       { path: 'Home', component: StartComponent,canActivate:[AuthGuard] },
       { path: 'importreciept', component: ImportRecieptComponent,canActivate:[CarDriverGuard]  },
       { path: 'cars-accounts', component: CarsAccountsComponent,canActivate:[CarDriverGuard]  },
@@ -53,14 +55,16 @@ const routes: Routes = [
         path: 'ExportRecieptPrint/:id',
         component: ExportRecieptPrintComponent,canActivate:[CarDriverGuard] ,
       },
-      { path: 'users', component: UsersComponent,canActivate:[AdminGuard] },
-      {path: 'reports', component:ReportsComponent,canActivate:[AdminGuard] },
-      {path:'custmers-reports' ,component:CustmersReportsComponent,canActivate:[AdminGuard] },
-      {path: 'spreports',component:SpreportsComponent,canActivate:[AdminGuard] },
-      {path: 'carreport',component :CarreportComponent,canActivate:[AdminGuard] }
+      { path: 'users', component: UsersComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'custmers-reports', component: CustmersReportsComponent },
+      { path: 'spreports', component: SpreportsComponent },
+      { path: 'carreport', component: CarreportComponent },
+      { path: 'ExportRecRefund', component: ExportRecRefundComponent },
+
     ],
   },
-  { path: '**', component: LoginComponent },
+  { path: '**', component: ErorrComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
