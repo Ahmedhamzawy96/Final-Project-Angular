@@ -26,6 +26,7 @@
                 id="Prod"
                 placeholder=" اسم"
                 [(ngModel)]="name"
+
               />
             </div>
           </div>
@@ -47,7 +48,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات النفقات</h5>
-          <table class="table datatable">
+          <table class="table ">
             <thead>
               <tr class="text-center">
                 <th></th>
@@ -66,6 +67,7 @@
                     id="gridRadios1"
                     [value]="item.id"
                     [(ngModel)]="id"
+                    (change)="radiochange()"
                   />
                 </td>
                 <td scope="row">{{ item.id }}</td>
@@ -80,7 +82,7 @@
                       type="text"
                       class="form-control"
                       [value]="item.name"
-                      (change)="changeTable(item.id, item.name)"
+                      (change)="changeTable(item.id, item.name,radioInput)"
                     />
                   </div>
                 </td>

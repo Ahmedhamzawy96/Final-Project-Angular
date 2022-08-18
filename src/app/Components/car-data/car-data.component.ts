@@ -16,7 +16,7 @@ export class CarDataComponent implements OnInit {
   cardataform: FormGroup;
   carID: number;
   Addeded: boolean = false;
-
+  changeradio:number=-1;
   constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -58,43 +58,58 @@ export class CarDataComponent implements OnInit {
     }
   }
   deleteCar(id: number) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success m-2',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
-    });
 
-    swalWithBootstrapButtons
-      .fire({
-        title: 'حذف  العربة ',
-        text: 'هل انت متاكد من حذفه هذة العربة ',
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'لا',
-
-        confirmButtonText: 'نعم',
-        reverseButtons: false,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.carserv.deleteCar(id).subscribe(() => {
-            this.carsdata = this.carsdata.filter((item) => item.id !== id);
-          });
-          this.carsdata.pop();
-          swalWithBootstrapButtons.fire(
-            'تم الحذف',
-            'تم حذف العربة ',
-            'success'
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف العربة ', 'error');
-        }
+    if(this.changeradio!=-1 )
+    {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success m-2',
+          cancelButton: 'btn btn-danger',
+        },
+        buttonsStyling: false,
       });
+  
+      swalWithBootstrapButtons
+        .fire({
+          title: 'حذف  العربة ',
+          text: 'هل انت متاكد من حذفه هذة العربة ',
+          icon: 'warning',
+          showCancelButton: true,
+          cancelButtonText: 'لا',
+  
+          confirmButtonText: 'نعم',
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.carserv.deleteCar(id).subscribe(() => {
+              this.carsdata = this.carsdata.filter((item) => item.id !== id);
+            });
+            this.carsdata.pop();
+            swalWithBootstrapButtons.fire(
+              'تم الحذف',
+              'تم حذف العربة ',
+              'success'
+            );
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف العربة ', 'error');
+          }
+        });
+      this.changeradio=-1;
+  
+      
+    }
+    else
+    {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'برجاء اختيار العربة ',
+      });
+    }
   }
 
   updatecar(id: Number, name: string, notes: string, ref: HTMLInputElement) {
@@ -103,5 +118,10 @@ export class CarDataComponent implements OnInit {
     upcar.notes = notes;
     this.carserv.updateCar(<number>upcar.id, upcar).subscribe();
     ref.checked = false;
+    this.changeradio=-1;
+  }
+  radiochange()
+  {
+    this.changeradio=this.carID;
   }
 }

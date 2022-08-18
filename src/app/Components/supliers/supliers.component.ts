@@ -18,7 +18,7 @@ export class SupliersComponent implements OnInit {
   userSupplier: FormGroup;
   addsupp: ISupplier[] = [];
   added: boolean = false;
-
+  radiochange:number=-1;
   constructor(
     private _supplierservice: SupplierService,
     private fBuilder: FormBuilder
@@ -65,42 +65,55 @@ export class SupliersComponent implements OnInit {
   }
 
   deletesupplier(id: number) {
-    const swalWithBootstrapButtons = Swall.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success m-2',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
-    });
+    if(this.radiochange!=-1)
+    {
 
-    swalWithBootstrapButtons
-      .fire({
-        title: 'حذف  المورد ',
-        text: 'هل انت متاكد من حذفه هذا المورد ',
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'لا',
-
-        confirmButtonText: 'نعم',
-        reverseButtons: false,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          console.log(this.suppid);
-          this._supplierservice.deleteSupplier(id).subscribe((res) => {
-            this.sply = this.sply.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
-          });
-          this.sply.pop();
-          swalWithBootstrapButtons.fire(
-            'تم الحذف',
-            'تم حذف المورد ',
-            'success'
-          );
-        } else if (result.dismiss === Swall.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف المورد ', 'error');
-        }
+      const swalWithBootstrapButtons = Swall.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success m-2',
+          cancelButton: 'btn btn-danger',
+        },
+        buttonsStyling: false,
       });
+  
+      swalWithBootstrapButtons
+        .fire({
+          title: 'حذف  المورد ',
+          text: 'هل انت متاكد من حذفه هذا المورد ',
+          icon: 'warning',
+          showCancelButton: true,
+          cancelButtonText: 'لا',
+  
+          confirmButtonText: 'نعم',
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            console.log(this.suppid);
+            this._supplierservice.deleteSupplier(id).subscribe((res) => {
+              this.sply = this.sply.filter((item) => item.id !== id);
+              console.log(' deleted successfully!');
+            });
+            this.sply.pop();
+            swalWithBootstrapButtons.fire(
+              'تم الحذف',
+              'تم حذف المورد ',
+              'success'
+            );
+          } else if (result.dismiss === Swall.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف المورد ', 'error');
+          }
+        });
+    }
+    else
+    {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'برجاء اختيار مورد',
+      });
+    }
+
   }
   updatesupplier(
     id: Number,
@@ -116,11 +129,16 @@ export class SupliersComponent implements OnInit {
     this.updatesupplier;
     this._supplierservice.updateSupplier(<number>sup.id, sup).subscribe();
     ref.checked = false;
+    this.radiochange=-1
   }
 
   ngOnInit(): void {
     this._supplierservice.getSupplier().subscribe((Data) => {
       this.sply = Data;
     });
+  }
+  ChangeRadio()
+  {
+    this.radiochange=this.suppid;
   }
 }

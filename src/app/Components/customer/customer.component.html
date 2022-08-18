@@ -119,6 +119,7 @@
                     [value]="customers.id"
                     [(ngModel)]="customerID"
                     [ngModelOptions]="{ standalone: true }"
+                    (change)="ChangeRadio()"
                   />
                 </td>
                 <th scope="row">{{ customers.id }}</th>

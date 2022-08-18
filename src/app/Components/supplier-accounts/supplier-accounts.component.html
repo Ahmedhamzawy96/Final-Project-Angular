@@ -160,7 +160,7 @@
       <div class="card overflow-auto">
         <div class="card-body p-3">
           <h5 class="card-title">معاملات المورد</h5>
-          <table class="table datatable overflow-scroll">
+          <table class="table  overflow-scroll">
             <thead class="">
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
@@ -183,7 +183,7 @@
                 </td>
                 <td>
                   <div *ngIf="item.operation == 1">فاتورة شراء</div>
-                  <div *ngIf="item.operation == 4">دفع مبلغ مالي</div>
+                    <div *ngIf="item.operation == 4">معاملة مادية رقم {{ item.id }}</div>
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>

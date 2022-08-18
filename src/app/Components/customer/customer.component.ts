@@ -15,7 +15,7 @@ export class CustomerComponent implements OnInit {
   AddForm: FormGroup;
   customerID: number;
   added: boolean = false;
-
+selectreadio:number=-1;
   constructor(private csutServ: CustService, private fb: FormBuilder) {
     this.AddForm = fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
@@ -45,58 +45,71 @@ export class CustomerComponent implements OnInit {
   //Add coustomer
 
   Addcustomer() {
-    this.added = true;
-    if (this.AddForm.valid) {
-      this.csutServ.addCustomer(this.AddForm.value).subscribe(() => {
-        this.AddForm.reset();
-        this.added = false;
-        Swal.fire({
-          icon: 'success',
-          title: '',
-          text: 'تم الاضافة بنجاح',
+   
+      this.added = true;
+      if (this.AddForm.valid) {
+        this.csutServ.addCustomer(this.AddForm.value).subscribe(() => {
+          this.AddForm.reset();
+          this.added = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الاضافة بنجاح',
+          });
+          this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
+            this.Customers = data;
+          });
         });
-        this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
-          this.Customers = data;
-        });
-      });
-    }
+      }
   }
 
   deletecustomer(id: number) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success m-2',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: 'حذف  العميل ',
-        text: 'هل انت متاكد من حذفه هذا العميل ',
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'لا',
-        confirmButtonText: 'نعم',
-        reverseButtons: false,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.csutServ.deleteCustomer(id).subscribe(() => {
-            this.Customers = this.Customers.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
-          });
-          this.Customers.pop();
-          swalWithBootstrapButtons.fire(
-            'تم الحذف',
-            'تم حذف العميل ',
-            'success'
-          );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف العميل ', 'error');
-        }
+    if(this.selectreadio!=-1)
+    {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success m-2',
+          cancelButton: 'btn btn-danger',
+        },
+        buttonsStyling: false,
       });
+  
+      swalWithBootstrapButtons
+        .fire({
+          title: 'حذف  العميل ',
+          text: 'هل انت متاكد من حذفه هذا العميل ',
+          icon: 'warning',
+          showCancelButton: true,
+          cancelButtonText: 'لا',
+          confirmButtonText: 'نعم',
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.csutServ.deleteCustomer(id).subscribe(() => {
+              this.Customers = this.Customers.filter((item) => item.id !== id);
+              console.log(' deleted successfully!');
+            });
+            this.Customers.pop();
+            swalWithBootstrapButtons.fire(
+              'تم الحذف',
+              'تم حذف العميل ',
+              'success'
+            );
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف العميل ', 'error');
+          }
+        });
+    this.selectreadio=-1;
+    }
+    else
+    {Swal.fire({
+      icon: 'error',
+      title: '',
+      text:'برجاء اختيار العميل',
+    });
+    }
+
   }
 
   updatecustomer(
@@ -113,5 +126,10 @@ export class CustomerComponent implements OnInit {
     this.updatecustomer;
     this.csutServ.updateCustomer(<number>upcustomer.id, upcustomer).subscribe();
     ref.checked = false;
+    this.selectreadio=-1;
+  }
+  ChangeRadio()
+  {
+    this.selectreadio=this.customerID;
   }
 }

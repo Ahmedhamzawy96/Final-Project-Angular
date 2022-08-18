@@ -28,6 +28,7 @@ export class ImportRecieptComponent implements OnInit {
   productName: string;
   remainig: number;
   paid: number;
+  radioChange:number=-1;
   ImportRecieptForm: FormGroup;
   protected Suppliers: ISupplier[] = [];
   //RecieptID:Number;
@@ -49,7 +50,9 @@ export class ImportRecieptComponent implements OnInit {
     });
   }
   deleteProd() {
-    //#region
+    if(this.radioChange!=-1)
+    {
+      //#region
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success m-2',
@@ -83,13 +86,28 @@ export class ImportRecieptComponent implements OnInit {
         }
       });
     //#endregion
+    this.radioChange=-1;
+  
+    }
+    else
+    {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text:'برجاء اختيار منتج',
+      });
+    }
+    
   }
 
-  change(id: number, value: number) {
+    
+    change(id: number, value: number,ref: HTMLInputElement) {
     let pro = this.ImportProducts.find((prod) => prod.productID == id);
     pro.quantity = value;
     pro.totalPrice = pro.buyingPrice * value;
     this.totalReciept();
+    this.radioChange=-1;
+    ref.checked = false;
   }
   totalReciept() {
     let total: number = 0;
@@ -139,5 +157,9 @@ export class ImportRecieptComponent implements OnInit {
     this.ProdServ.getProducts().subscribe((Data) => {
       this.Products = Data;
     });
+  }
+  ChangeRadio()
+  {
+    this.radioChange=this.prodID;
   }
 }

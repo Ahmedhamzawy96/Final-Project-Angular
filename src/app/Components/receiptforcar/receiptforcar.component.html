@@ -182,7 +182,8 @@
                             name="gridRadios"
                             id="gridRadios1"
                             [value]="item.productID"
-                            [(ngModel)]="Selectedproduct"
+                            [(ngModel)]="productid"
+                            (change)="Radiochange()"
                           />
                         </td>
                         <th>{{ item.productID }}</th>
@@ -202,7 +203,8 @@
                                 changeTable(
                                   item.productID,
                                   item.quantity,
-                                  item.productPrice
+                                  item.productPrice,
+                                  radioInput
                                 )
                               "
                             />
@@ -223,7 +225,8 @@
                                 changeTable(
                                   item.productID,
                                   item.quantity,
-                                  item.productPrice
+                                  item.productPrice,
+                                  radioInput
                                 )
                               "
                             />
