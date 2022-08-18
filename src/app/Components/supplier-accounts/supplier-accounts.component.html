@@ -37,6 +37,22 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
+                    <div
+                      *ngIf="
+                        transact &&
+                        suppaccountsform.controls['accountID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          suppaccountsform.controls['accountID'].errors[
+                            'required'
+                          ]
+                        "
+                        >يجب اختيار المورد</small
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -63,10 +79,34 @@
                 <div class="col-sm-10">
                   <input
                     id="Amount"
-                    type="number"
+                    type="text"
                     class="form-control"
                     formControlName="amount"
+                    [ngClass]="{
+                      'is-invalid':
+                        transact && suppaccountsform.controls['amount'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="
+                      transact && suppaccountsform.controls['amount'].errors
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="
+                        suppaccountsform.controls['amount'].errors['required']
+                      "
+                      >يجب ادخال المبلغ
+                    </small>
+                    <br />
+                    <small
+                      *ngIf="
+                        suppaccountsform.controls['amount'].errors['pattern']
+                      "
+                      >يجب ادخال ارقام
+                    </small>
+                  </div>
                 </div>
               </div>
               <div class="col-12 col-lg-6 my-md-2">

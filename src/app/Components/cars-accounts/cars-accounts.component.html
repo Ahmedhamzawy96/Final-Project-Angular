@@ -34,6 +34,21 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
+                    <div
+                      *ngIf="
+                        transact && caraccountsform.controls['accountID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          caraccountsform.controls['accountID'].errors[
+                            'required'
+                          ]
+                        "
+                        >يجب اختيار العربة</small
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -60,10 +75,34 @@
                 <div class="col-sm-10">
                   <input
                     id="Amount"
-                    type="number"
+                    type="text"
                     class="form-control"
                     formControlName="amount"
+                    [ngClass]="{
+                      'is-invalid':
+                        transact && caraccountsform.controls['amount'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="
+                      transact && caraccountsform.controls['amount'].errors
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="
+                        caraccountsform.controls['amount'].errors['required']
+                      "
+                      >يجب ادخال المبلغ
+                    </small>
+                    <br />
+                    <small
+                      *ngIf="
+                        caraccountsform.controls['amount'].errors['pattern']
+                      "
+                      >يجب ادخال ارقام
+                    </small>
+                  </div>
                 </div>
               </div>
               <div class="col-12 col-lg-6 my-md-2">
@@ -111,8 +150,8 @@
     <div class="col col-12">
       <div class="card overflow-auto">
         <div class="card-body p-3">
-          <h5 class="card-title">معاملات المورد</h5>
-          <table class="table datatable overflow-scroll">
+          <h5 class="card-title">معاملات العربة</h5>
+          <table class="table overflow-scroll">
             <thead class="">
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
@@ -134,7 +173,7 @@
                   <div *ngIf="item.type == 1">توريد</div>
                 </td>
                 <td>
-                  <div *ngIf="item.operation == 2">فاتورة بيع عربة</div>
+                  <div *ngIf="item.operation == 2">فاتورة توريد لعربة</div>
                   <div *ngIf="item.operation == 3">توريد مبلغ مالي</div>
                 </td>
                 <td>{{ item.date }}</td>

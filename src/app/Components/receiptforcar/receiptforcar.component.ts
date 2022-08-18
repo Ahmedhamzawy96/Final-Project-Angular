@@ -20,19 +20,19 @@ import { Router } from '@angular/router';
 })
 export class ReceiptforcarComponent implements OnInit {
   ExportRecieptForm: FormGroup;
-
   Products: IProduct[];
   Cars: ICar[];
   ProductsAdded: IExportProduct[] = [];
   selectedid: number;
   PrdID: number = 0;
   Selectedproduct: IProduct;
-  BillDate: string = new Date().toUTCString();
+  BillDate: string = new Date().toLocaleString();
   prdQuantity: number;
   prdPrice: number;
   totalreciept: number;
   paidreceipt: string = 'ASD';
   remainingreceipt: number;
+  submit: boolean = false;
   constructor(
     private CarServ: CarService,
     private Productserv: ProductService,
@@ -46,8 +46,7 @@ export class ReceiptforcarComponent implements OnInit {
       date: new FormControl(this.BillDate),
       paid: new FormControl(''),
       remaining: new FormControl(''),
-      carID: new FormControl(''),
-      customerName: new FormControl('', [Validators.required]),
+      carID: new FormControl('', [Validators.required]),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
@@ -131,12 +130,23 @@ export class ReceiptforcarComponent implements OnInit {
   }
 
   OnsSubmit() {
+    this.submit = true;
     let receipt: IExportReciept = this.ExportRecieptForm.value;
-    receipt.products = this.ProductsAdded;
-    this.Exportserv.addReciept(receipt).subscribe((data) => {
-      this.ExportRecieptForm.reset();
-      this.Route.navigate(['CarRecieptPrint', data.id]);
-    });
+    if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
+      });
+    }
+    if (this.ProductsAdded.length > 0 && this.ExportRecieptForm.valid) {
+      receipt.products = this.ProductsAdded;
+      this.Exportserv.addReciept(receipt).subscribe((data) => {
+        this.ExportRecieptForm.reset();
+        this.submit = true;
+        this.Route.navigate(['CarRecieptPrint', data.id]);
+      });
+    }
   }
   totalReciept() {
     let total: number = 0;

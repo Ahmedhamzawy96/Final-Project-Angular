@@ -23,7 +23,21 @@
                     type="text"
                     formControlName="name"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid': added && AddForm.controls['name'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="added && AddForm.controls['name'].errors"
+                    class="text-danger"
+                  >
+                    <small *ngIf="AddForm.controls['name'].errors['required']"
+                      >يجب ادخال الاسم</small
+                    >
+                    <small *ngIf="AddForm.controls['name'].errors['minlength']"
+                      >يجب الا يقل الاسم عن 4 حروف</small
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -37,7 +51,25 @@
                     type="text"
                     formControlName="phone"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid': added && AddForm.controls['phone'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="added && AddForm.controls['phone'].errors"
+                    class="text-danger"
+                  >
+                    <small *ngIf="AddForm.controls['phone'].errors['required']"
+                      >يجب ادخال رقم الهاتف</small
+                    >
+                    <small *ngIf="AddForm.controls['phone'].errors['minlength']"
+                      >يجب الا يقل رقم الهاتف عن 11 رقم</small
+                    >
+                    <br />
+                    <small *ngIf="AddForm.controls['phone'].errors['pattern']"
+                      >يجب ان يتكون من ارقام فقط</small
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col">
@@ -62,10 +94,10 @@
       </div>
     </div>
     <div class="col">
-      <div class="card">
+      <div class="card overflow-auto">
         <div class="card-body">
           <h5 class="card-title">بيانات العملاء</h5>
-          <table class="table datatable">
+          <table class="table">
             <thead>
               <tr>
                 <th></th>
@@ -163,7 +195,6 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <!--  <button class="btn btn-success mx-3">تعديل</button> -->
             <button
               class="btn btn-danger mx-3"
               (click)="deletecustomer(customerID)"

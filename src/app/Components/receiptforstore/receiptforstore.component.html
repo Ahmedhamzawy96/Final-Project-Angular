@@ -33,6 +33,22 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
+                    <div
+                      *ngIf="
+                        submit &&
+                        ExportRecieptForm.controls['customerID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          ExportRecieptForm.controls['customerID'].errors[
+                            'required'
+                          ]
+                        "
+                        >يجب اختيار العميل
+                      </small>
+                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -149,7 +165,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">اصناف الفاتورة</h5>
-                  <table class="table datatable">
+                  <table class="table">
                     <thead>
                       <tr>
                         <th></th>
@@ -266,10 +282,29 @@
                         type="number"
                         name="Paid"
                         (change)="onSearchChange()"
-                        [(ngModel)]="paidreceipt"
                         class="form-control"
                         formControlName="paid"
+                        [ngClass]="{
+                          'is-invalid':
+                            submit && ExportRecieptForm.controls['paid'].errors
+                        }"
                       />
+                      <div
+                        *ngIf="
+                          submit && ExportRecieptForm.controls['paid'].errors
+                        "
+                        class="text-danger"
+                      >
+                        <small
+                          *ngIf="
+                            ExportRecieptForm.controls['paid'].errors[
+                              'required'
+                            ]
+                          "
+                        >
+                          يجب ادخال المبلغ المدفوع
+                        </small>
+                      </div>
                     </div>
                   </div>
                   <div class="col mb-3">

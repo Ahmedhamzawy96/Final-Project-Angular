@@ -1,4 +1,3 @@
-<app-header></app-header>
 <main id="main" class="main">
   <div dir="rtl" class="pagetitle">
     <h1>العربه</h1>
@@ -24,14 +23,24 @@
                 <div class="col-sm-10">
                   <input
                     class="form-control"
-                    list="custmer"
-                    id="Prod"
+                    id="name"
                     placeholder=" اسم العربة"
                     formControlName="name"
+                    [ngClass]="{
+                      'is-invalid': Addeded && name.errors
+                    }"
                   />
-                  <datalist id="custmer">
+                  <div *ngIf="Addeded && name.errors" class="text-danger">
+                    <small *ngIf="name.errors['required']"
+                      >يجب ادخال الاسم</small
+                    >
+                    <small *ngIf="name.errors['minlength']"
+                      >يجب الا يقل الاسم عن 4 حروف</small
+                    >
+                  </div>
+                  <!-- <datalist id="custmer">
                     <option *ngFor="let item of car" [value]="item"></option>
-                  </datalist>
+                  </datalist> -->
                 </div>
               </div>
               <div class="row my-3 col col-lg-6">
@@ -45,7 +54,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">اضافة</button>
@@ -59,7 +67,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات العربه</h5>
-          <table class="table datatable">
+          <table class="table">
             <thead>
               <tr>
                 <th></th>
