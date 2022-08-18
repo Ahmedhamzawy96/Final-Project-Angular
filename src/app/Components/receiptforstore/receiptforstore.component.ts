@@ -32,6 +32,8 @@ export class ReceiptforstoreComponent implements OnInit {
   paidreceipt: string = 'ASD';
   remainingreceipt: number;
   submit: boolean = false;
+  changeRadio: number = -1;
+  productid: number;
   constructor(
     private custServ: CustService,
     private Productserv: ProductService,
@@ -74,52 +76,73 @@ export class ReceiptforstoreComponent implements OnInit {
     this.totalReciept();
   }
   deletefromTable() {
-    //#region
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success m-2',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: 'حذف  المنتج',
-        text: 'هل انت متاكد من حذفه هذا المنتج',
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'لا',
-
-        confirmButtonText: 'نعم',
-        reverseButtons: false,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          let prod: IExportProduct = this.ProductsAdded.find(
-            (pro) => pro.productID == this.selectedid
-          );
-          let index: number = this.ProductsAdded.indexOf(prod);
-          this.ProductsAdded.splice(index, 1);
-          this.totalReciept();
-          this.getRemain();
-          swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف المنتج', 'success');
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف المنتج', 'error');
-        }
+    if (this.changeRadio != -1) {
+      //#region
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success m-2',
+          cancelButton: 'btn btn-danger',
+        },
+        buttonsStyling: false,
       });
-    //#endregion
+
+      swalWithBootstrapButtons
+        .fire({
+          title: 'حذف  المنتج',
+          text: 'هل انت متاكد من حذفه هذا المنتج',
+          icon: 'warning',
+          showCancelButton: true,
+          cancelButtonText: 'لا',
+
+          confirmButtonText: 'نعم',
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            let prod: IExportProduct = this.ProductsAdded.find(
+              (pro) => pro.productID == this.selectedid
+            );
+            let index: number = this.ProductsAdded.indexOf(prod);
+            this.ProductsAdded.splice(index, 1);
+            this.totalReciept();
+            this.getRemain();
+            swalWithBootstrapButtons.fire(
+              'تم الحذف',
+              'تم حذف المنتج',
+              'success'
+            );
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'الغاء',
+              'لم يتم حذف المنتج',
+              'error'
+            );
+          }
+        });
+      //#endregion
+
+      this.changeRadio = -1;
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'برجاء اختيار منتج',
+      });
+    }
   }
-  changeTable(id: Number, quantity: number, price: number) {
+  changeTable(id: Number, quantity: number, price: number,ref: HTMLInputElement) {
     let pro = this.ProductsAdded.find((prod) => prod.productID == id);
     pro.quantity = quantity;
     pro.productPrice = quantity;
 
     pro.totalPrice = price * quantity;
     this.totalReciept();
+    ref.checked = false;
+
+    this.changeRadio = -1;
   }
   getRemain() {
     this.ExportRecieptForm.controls['remaining'].setValue(
@@ -157,5 +180,8 @@ export class ReceiptforstoreComponent implements OnInit {
   onSearchChange() {
     this.remainingreceipt =
       Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
+  }
+  Radiochange() {
+    this.changeRadio = this.productid;
   }
 }

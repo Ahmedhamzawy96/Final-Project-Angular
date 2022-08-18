@@ -122,6 +122,7 @@
                     name="gridRadios"
                     id="gridRadios1"
                     [value]="item.id"
+                    (change)="ChangeRadio()"
                     [(ngModel)]="suppid"
                     [ngModelOptions]="{ standalone: true }"
                   />

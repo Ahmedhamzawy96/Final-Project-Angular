@@ -40,7 +40,7 @@ export class CustomerAccountsComponent implements OnInit {
       amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
       type: [''],
       operationID: [1],
-      operation: [''],
+      operation: [3],
       date: [this.BillDate],
       userName: [JSON.parse(localStorage.getItem('UserName'))],
       notes: [''],
@@ -69,7 +69,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Paid);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.SuppplierTrans
+      Operation.CustomerTrans
     );
     if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
       Swal.fire({
@@ -107,7 +107,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Get);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.SuppplierTrans
+      Operation.CustomerTrans
     );
     if (this.customeraccountsform.valid) {
       this.transactionsService
