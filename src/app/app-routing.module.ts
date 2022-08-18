@@ -29,6 +29,7 @@ import { AuthGuard } from './Guards/Auth/auth.guard';
 import { AdminGuard } from './Guards/Admin/admin.guard';
 import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 import { HomeComponent } from './Components/home/home.component';
+import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -116,7 +117,7 @@ const routes: Routes = [
       },
       {
         path: 'CarRecieptPrint/:id',
-        component: ExportRecieptPrintComponent,
+        component: CarRecPrintComponent,
         canActivate: [CarDriverGuard],
       },
       { path: 'users', component: UsersComponent },
