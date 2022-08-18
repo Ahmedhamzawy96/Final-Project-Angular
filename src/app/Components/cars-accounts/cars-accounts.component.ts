@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ICar } from 'src/app/Interface/ICar';
 import { CarService } from 'src/app/Services/Car/car.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ITransactions } from 'src/app/Interface/ITransactions';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { TransType } from 'src/app/Interface/Enums/TransType';
 import { Operation } from 'src/app/Interface/Enums/operation';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cars-accounts',
@@ -24,6 +25,7 @@ export class CarsAccountsComponent implements OnInit {
   transaction: ITransactions;
   transsupp: ITransactions[] = [];
   BillDate: string = new Date().toLocaleString();
+  transact: boolean = false;
 
   constructor(
     private carServ: CarService,
@@ -31,9 +33,9 @@ export class CarsAccountsComponent implements OnInit {
     private fbBuild: FormBuilder
   ) {
     this.caraccountsform = fbBuild.group({
-      accountID: [this.carID],
+      accountID: [this.carID, [Validators.required]],
       accountType: [AccountType.Car],
-      amount: [''],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
       type: [''],
       operationID: [1],
       operation: [''],
@@ -55,27 +57,43 @@ export class CarsAccountsComponent implements OnInit {
       });
   }
   Paid() {
+    this.transact = true;
     this.caraccountsform.controls['type'].setValue(TransType.Paid);
     this.caraccountsform.controls['operation'].setValue(Operation.CarTrans);
-    if (this.caraccountsform.valid) {
-      this.transService
-        .addtransaction(this.caraccountsform.value)
-        .subscribe(() => {
-          this.getRemainig();
-          this.car.account =
-            <number>this.car.account -
-            this.caraccountsform.controls['amount'].value;
-          this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
-            this.Remaiing = Data.account;
+    if (this.caraccountsform.controls['amount'].value > this.Remaiing) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
+      if (this.caraccountsform.valid) {
+        this.transService
+          .addtransaction(this.caraccountsform.value)
+          .subscribe(() => {
+            this.getRemainig();
+            this.car.account =
+              <number>this.car.account -
+              this.caraccountsform.controls['amount'].value;
+            this.carServ.updateCar(this.carID, this.car).subscribe(() => {
+              this.Remaiing = 0;
+            });
+            this.caraccountsform.reset();
+            this.transact = false;
+            Swal.fire({
+              icon: 'success',
+              title: '',
+              text: 'تم الدفع بنجاح',
+            });
           });
-        });
+      }
     }
   }
 
   Get() {
+    this.transact = true;
     this.caraccountsform.controls['type'].setValue(TransType.Get);
     this.caraccountsform.controls['operation'].setValue(Operation.CarTrans);
-    console.log(this.caraccountsform.value);
     if (this.caraccountsform.valid) {
       this.transService
         .addtransaction(this.caraccountsform.value)
@@ -86,6 +104,13 @@ export class CarsAccountsComponent implements OnInit {
             this.caraccountsform.controls['amount'].value;
           this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
             this.Remaiing = Data.account;
+          });
+          this.caraccountsform.reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم التوريد بنجاح',
           });
         });
     }

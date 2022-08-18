@@ -1,7 +1,7 @@
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 import { Component, OnInit } from '@angular/core';
 import { ISupplier } from 'src/app/Interface/ISupplier';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { FormBuilder, FormControl } from '@angular/forms';
 import Swall from 'sweetalert2';
 import Swal from 'sweetalert2';
@@ -17,33 +17,46 @@ export class SupliersComponent implements OnInit {
   suppid: number;
   userSupplier: FormGroup;
   addsupp: ISupplier[] = [];
+  added: boolean = false;
+
   constructor(
     private _supplierservice: SupplierService,
     private fBuilder: FormBuilder
   ) {
     this.userSupplier = fBuilder.group({
-      name: [''],
-      phone: [''],
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.pattern('[0-9]{11,}'),
+        ],
+      ],
       notes: [''],
     });
   }
 
   addsupplier() {
-    this._supplierservice
-      .addSupplier(this.userSupplier.value)
-      .subscribe((result: ISupplier) => {
-        this.userSupplier.reset();
-        Swal.fire({
-          icon: 'success',
-          title: '',
-          text: 'تم الاضافة بنجاح',
-        });
-        this.sply.push(result);
+    this.added = true;
+    if (this.userSupplier.valid) {
+      this._supplierservice
+        .addSupplier(this.userSupplier.value)
+        .subscribe((result: ISupplier) => {
+          this.userSupplier.reset();
+          this.added = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الاضافة بنجاح',
+          });
+          this.sply.push(result);
 
-        this._supplierservice.getSupplier().subscribe((data: ISupplier[]) => {
-          this.sply = data;
+          this._supplierservice.getSupplier().subscribe((data: ISupplier[]) => {
+            this.sply = data;
+          });
         });
-      });
+    }
   }
   getSupp() {
     this._supplierservice.getSupplier().subscribe((data: ISupplier[]) => {

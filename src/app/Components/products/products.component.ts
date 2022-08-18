@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IProduct } from 'src/app/Interface/IProduct';
 import { ProductService } from 'src/app/Services/Product/product.service';
 import Swal from 'sweetalert2';
@@ -15,12 +15,16 @@ export class ProductsComponent implements OnInit {
   Addprodform: FormGroup;
   productID: number;
   newproduct = [];
+  added: boolean = false;
   constructor(private productService: ProductService, private fb: FormBuilder) {
     this.Addprodform = fb.group({
-      name: [''],
-      buyingPrice: [''],
-      sellingPrice: [''],
-      quantity: [''],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      buyingPrice: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      sellingPrice: [
+        '',
+        [Validators.required, Validators.pattern('[0-9]{1,}')],
+      ],
+      quantity: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
     });
   }
 
@@ -33,24 +37,40 @@ export class ProductsComponent implements OnInit {
   getproducts() {
     this.productService.getProducts().subscribe((data: IProduct[]) => {
       this.products = data;
-      console.log(this.products);
     });
   }
   //Add product
 
   Addproduct() {
-    this.productService.addProduct(this.Addprodform.value).subscribe(() => {
-      this.Addprodform.reset();
+    this.added = true;
+    if (
+      Number(this.Addprodform.controls['buyingPrice'].value) >=
+        Number(this.Addprodform.controls['sellingPrice'].value) &&
+      Number(this.Addprodform.controls['buyingPrice'].value) != 0 &&
+      Number(this.Addprodform.controls['sellingPrice'].value) != 0
+    ) {
       Swal.fire({
-        icon: 'success',
+        icon: 'error',
         title: '',
-        text: 'تم الاضافة بنجاح',
+        text: 'يجب ان يكون سعر البيع اكبر من سعر الشراء  ',
       });
-      this.productService.getProducts().subscribe((data: IProduct[]) => {
-        this.products = data;
-      });
-    });
-    this.newproduct.push(this.Addprodform.value);
+    } else {
+      if (this.Addprodform.valid) {
+        this.productService.addProduct(this.Addprodform.value).subscribe(() => {
+          this.Addprodform.reset();
+          this.added = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الاضافة بنجاح',
+          });
+          this.productService.getProducts().subscribe((data: IProduct[]) => {
+            this.products = data;
+          });
+        });
+        this.newproduct.push(this.Addprodform.value);
+      }
+    }
   }
 
   //delete product

@@ -31,6 +31,7 @@ export class ReceiptforstoreComponent implements OnInit {
   totalreciept: number;
   paidreceipt: string = 'ASD';
   remainingreceipt: number;
+  submit: boolean = false;
   constructor(
     private custServ: CustService,
     private Productserv: ProductService,
@@ -39,13 +40,13 @@ export class ReceiptforstoreComponent implements OnInit {
     private Route: Router
   ) {
     this.ExportRecieptForm = new FormGroup({
-      total: new FormControl(),
+      total: new FormControl(''),
       notes: new FormControl(''),
       date: new FormControl(this.BillDate),
-      paid: new FormControl(''),
+      paid: new FormControl('', [Validators.required]),
       remaining: new FormControl(''),
-      customerID: new FormControl(''),
-      customerName: new FormControl('', [Validators.required]),
+      customerID: new FormControl('', [Validators.required]),
+      customerName: new FormControl(''),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
@@ -61,7 +62,6 @@ export class ReceiptforstoreComponent implements OnInit {
   prdselect(id: number) {
     this.Selectedproduct = this.Products.find((w) => w.id == id);
     this.prdPrice = this.Selectedproduct.sellingPrice;
-    console.log(this.prdPrice);
   }
   AddtoTable() {
     this.ProductsAdded.push({
@@ -129,12 +129,23 @@ export class ReceiptforstoreComponent implements OnInit {
   }
 
   OnsSubmit() {
+    this.submit = true;
     let receipt: IExportReciept = this.ExportRecieptForm.value;
-    receipt.products = this.ProductsAdded;
-    this.Exportserv.addReciept(receipt).subscribe((data) => {
-      this.ExportRecieptForm.reset();
-      this.Route.navigate(['ExportRecieptPrint', data.id]);
-    });
+    if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
+      });
+    }
+    if (this.ProductsAdded.length > 0 && this.ExportRecieptForm.valid) {
+      receipt.products = this.ProductsAdded;
+      this.Exportserv.addReciept(receipt).subscribe((data) => {
+        this.ExportRecieptForm.reset();
+        this.submit = true;
+        this.Route.navigate(['ExportRecieptPrint', data.id]);
+      });
+    }
   }
   totalReciept() {
     let total: number = 0;
@@ -145,6 +156,6 @@ export class ReceiptforstoreComponent implements OnInit {
   }
   onSearchChange() {
     this.remainingreceipt =
-      Number(this.totalreciept) - Number(this.paidreceipt);
+      Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
   }
 }

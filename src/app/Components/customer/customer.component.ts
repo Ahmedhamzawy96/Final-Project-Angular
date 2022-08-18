@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ICustomer } from 'src/app/Interface/ICustomer';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import Swal from 'sweetalert2';
@@ -14,11 +14,19 @@ export class CustomerComponent implements OnInit {
   addCustomer: ICustomer[] = [];
   AddForm: FormGroup;
   customerID: number;
+  added: boolean = false;
 
   constructor(private csutServ: CustService, private fb: FormBuilder) {
     this.AddForm = fb.group({
-      name: [''],
-      phone: [''],
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.pattern('[0-9]{11,}'),
+        ],
+      ],
       notes: [''],
     });
   }
@@ -32,25 +40,26 @@ export class CustomerComponent implements OnInit {
   getcostomers() {
     this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
       this.Customers = data;
-      console.log(this.Customers);
     });
   }
   //Add coustomer
 
   Addcustomer() {
-    console.log(this.AddForm.value);
-    this.csutServ.addCustomer(this.AddForm.value).subscribe(() => {
-      this.AddForm.reset();
-      Swal.fire({
-        icon: 'success',
-        title: '',
-        text: 'تم الاضافة بنجاح',
+    this.added = true;
+    if (this.AddForm.valid) {
+      this.csutServ.addCustomer(this.AddForm.value).subscribe(() => {
+        this.AddForm.reset();
+        this.added = false;
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'تم الاضافة بنجاح',
+        });
+        this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
+          this.Customers = data;
+        });
       });
-
-      this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
-        this.Customers = data;
-      });
-    });
+    }
   }
 
   deletecustomer(id: number) {
@@ -69,14 +78,12 @@ export class CustomerComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         cancelButtonText: 'لا',
-
         confirmButtonText: 'نعم',
         reverseButtons: false,
       })
       .then((result) => {
         if (result.isConfirmed) {
-          console.log(this.customerID);
-          this.csutServ.deleteCustomer(id).subscribe((res) => {
+          this.csutServ.deleteCustomer(id).subscribe(() => {
             this.Customers = this.Customers.filter((item) => item.id !== id);
             console.log(' deleted successfully!');
           });

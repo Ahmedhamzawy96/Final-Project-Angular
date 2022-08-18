@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ICustomer } from 'src/app/Interface/ICustomer';
 import { ITransactions } from 'src/app/Interface/ITransactions';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import { transition } from '@angular/animations';
@@ -28,20 +28,20 @@ export class CustomerAccountsComponent implements OnInit {
   customertrans: ITransactions[] = [];
   BillDate: string = new Date().toLocaleString();
   customer: ICustomer;
+  transact: boolean = false;
   constructor(
     private csutServ: CustService,
     private transactionsService: TransactionsService,
     private fb: FormBuilder
   ) {
     this.customeraccountsform = fb.group({
-      accountID: [this.customerID],
+      accountID: [this.customerID, [Validators.required]],
       accountType: [AccountType.Customer],
-      amount: [''],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
       type: [''],
       operationID: [1],
       operation: [''],
       date: [this.BillDate],
-
       userName: [JSON.parse(localStorage.getItem('UserName'))],
       notes: [''],
     });
@@ -55,7 +55,6 @@ export class CustomerAccountsComponent implements OnInit {
   selectedcustomer(id: Number) {
     this.selcustomer = this.customers.find((c) => c.id == id);
     this.Custaccount = <number>this.selcustomer.account;
-
     this.transactionsService
       .transactionbytype(<number>this.selcustomer.id, AccountType.Customer)
       .subscribe((data) => {
@@ -67,53 +66,64 @@ export class CustomerAccountsComponent implements OnInit {
   }
 
   Paid() {
+    this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Paid);
     this.customeraccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
-    if (this.customeraccountsform.valid) {
-      this.transactionsService
-        .addtransaction(this.customeraccountsform.value)
-        .subscribe(() => {
-          this.selectedcustomer(this.customerID);
-          this.selcustomer.account =
-            <number>this.selcustomer.account -
-            this.customeraccountsform.controls['amount'].value;
-          this.csutServ
-            .updateCustomer(this.customerID, this.selcustomer)
-            .subscribe((Data) => {
-              this.Custaccount = <number>Data.account;
+    if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
+      if (this.customeraccountsform.valid) {
+        this.transactionsService
+          .addtransaction(this.customeraccountsform.value)
+          .subscribe(() => {
+            this.selectedcustomer(this.customerID);
+            this.selcustomer.account =
+              <number>this.selcustomer.account -
+              this.customeraccountsform.controls['amount'].value;
+            this.csutServ
+              .updateCustomer(this.customerID, this.selcustomer)
+              .subscribe(() => {
+                this.Custaccount = 0;
+              });
+            this.customeraccountsform.reset();
+            this.transact = false;
+            Swal.fire({
+              icon: 'success',
+              title: '',
+              text: 'تم الدفع  بنجاح',
             });
-          this.customeraccountsform.reset();
-          Swal.fire({
-            icon: 'success',
-            title: '',
-            text: 'تم الدفع  بنجاح',
           });
-        });
+      }
     }
   }
 
   Get() {
+    this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Get);
     this.customeraccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
-    console.log(this.customeraccountsform.value);
     if (this.customeraccountsform.valid) {
       this.transactionsService
         .addtransaction(this.customeraccountsform.value)
         .subscribe(() => {
           this.selectedcustomer(this.customerID);
           this.selcustomer.account =
-            <number>this.selcustomer.account +
-            this.customeraccountsform.controls['amount'].value;
+            Number(this.selcustomer.account) +
+            Number(this.customeraccountsform.controls['amount'].value);
           this.csutServ
             .updateCustomer(this.customerID, this.selcustomer)
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
           this.customeraccountsform.reset();
+          this.transact = true;
           Swal.fire({
             icon: 'success',
             title: '',

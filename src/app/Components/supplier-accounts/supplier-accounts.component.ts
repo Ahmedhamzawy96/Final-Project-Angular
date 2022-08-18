@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISupplier } from 'src/app/Interface/ISupplier';
 import { ITransactions } from 'src/app/Interface/ITransactions';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import { transition } from '@angular/animations';
@@ -26,6 +26,7 @@ export class SupplierAccountsComponent implements OnInit {
   transaction: ITransactions;
   transsupp: ITransactions[] = [];
   BillDate: string = new Date().toLocaleString();
+  transact: boolean = false;
 
   constructor(
     private _suppserve: SupplierService,
@@ -33,9 +34,9 @@ export class SupplierAccountsComponent implements OnInit {
     private fbBuild: FormBuilder
   ) {
     this.suppaccountsform = fbBuild.group({
-      accountID: [this.suppID],
+      accountID: [this.suppID, [Validators.required]],
       accountType: [AccountType.Supplier],
-      amount: [''],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
       type: [''],
       operationID: [1],
       operation: [''],
@@ -57,39 +58,49 @@ export class SupplierAccountsComponent implements OnInit {
       });
   }
   Paid() {
+    this.transact = true;
     this.suppaccountsform.controls['type'].setValue(TransType.Paid);
     this.suppaccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
-    if (this.suppaccountsform.valid) {
-      this.transService
-        .addtransaction(this.suppaccountsform.value)
-        .subscribe(() => {
-          this.getRemainig();
-          this.supp.account =
-            <number>this.supp.account -
-            this.suppaccountsform.controls['amount'].value;
-          this._suppserve
-            .updateSupplier(this.suppID, this.supp)
-            .subscribe((Data) => {
-              this.Remaiing = Data.account;
+    if (this.suppaccountsform.controls['amount'].value > this.Remaiing) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
+      if (this.suppaccountsform.valid) {
+        this.transService
+          .addtransaction(this.suppaccountsform.value)
+          .subscribe(() => {
+            this.getRemainig();
+            this.supp.account =
+              <number>this.supp.account -
+              this.suppaccountsform.controls['amount'].value;
+            this._suppserve
+              .updateSupplier(this.suppID, this.supp)
+              .subscribe(() => {
+                this.Remaiing = 0;
+              });
+            this.suppaccountsform.reset();
+            this.transact = false;
+            Swal.fire({
+              icon: 'success',
+              title: '',
+              text: 'تم الدفع بنجاح',
             });
-          this.suppaccountsform.reset();
-          Swal.fire({
-            icon: 'success',
-            title: '',
-            text: 'تم الدفع بنجاح',
           });
-        });
+      }
     }
   }
 
   Get() {
+    this.transact = true;
     this.suppaccountsform.controls['type'].setValue(TransType.Get);
     this.suppaccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
-    console.log(this.suppaccountsform.value);
     if (this.suppaccountsform.valid) {
       this.transService
         .addtransaction(this.suppaccountsform.value)
@@ -100,10 +111,11 @@ export class SupplierAccountsComponent implements OnInit {
             this.suppaccountsform.controls['amount'].value;
           this._suppserve
             .updateSupplier(this.suppID, this.supp)
-            .subscribe((Data) => {
-              this.Remaiing = Data.account;
+            .subscribe(() => {
+              this.Remaiing = 0;
             });
           this.suppaccountsform.reset();
+          this.transact = false;
           Swal.fire({
             icon: 'success',
             title: '',

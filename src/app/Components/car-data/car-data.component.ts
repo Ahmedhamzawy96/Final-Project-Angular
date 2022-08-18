@@ -15,14 +15,22 @@ export class CarDataComponent implements OnInit {
   carsdata: ICar[];
   cardataform: FormGroup;
   carID: number;
+  Addeded: boolean = false;
 
   constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       notes: new FormControl(''),
     });
 
     this.ngOnInit();
+  }
+  get name() {
+    return this.cardataform.get('name');
+  }
+
+  get notes() {
+    return this.cardataform.get('notes');
   }
 
   ngOnInit(): void {
@@ -33,6 +41,7 @@ export class CarDataComponent implements OnInit {
   }
 
   cardata() {
+    this.Addeded = true;
     if (this.cardataform.valid) {
       this.carserv.addCar(this.cardataform.value).subscribe(() => {
         this.cardataform.reset();
@@ -41,7 +50,7 @@ export class CarDataComponent implements OnInit {
           title: '',
           text: 'تم الاضافة بنجاح',
         });
-
+        this.Addeded = false;
         this.carserv.getCar().subscribe((Date) => {
           this.carsdata = Date;
         });

@@ -32,6 +32,19 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
+                    <div
+                      *ngIf="
+                        submit && ExportRecieptForm.controls['carID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          ExportRecieptForm.controls['carID'].errors['required']
+                        "
+                        >يجب اختيار العربة
+                      </small>
+                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -147,7 +160,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">اصناف الفاتورة</h5>
-                  <table class="table datatable">
+                  <table class="table">
                     <thead>
                       <tr>
                         <th></th>

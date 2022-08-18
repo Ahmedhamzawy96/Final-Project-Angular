@@ -25,8 +25,23 @@
                   id="Prod"
                   placeholder=" اسم المورد"
                   formControlName="name"
+                  [ngClass]="{
+                    'is-invalid': added && userSupplier.controls['name'].errors
+                  }"
                 />
-                <datalist id="custmer"> </datalist>
+                <div
+                  *ngIf="added && userSupplier.controls['name'].errors"
+                  class="text-danger"
+                >
+                  <small
+                    *ngIf="userSupplier.controls['name'].errors['required']"
+                    >يجب ادخال الاسم</small
+                  >
+                  <small
+                    *ngIf="userSupplier.controls['name'].errors['minlength']"
+                    >يجب الا يقل الاسم عن 4 حروف</small
+                  >
+                </div>
               </div>
             </div>
             <div class="row my-3">
@@ -37,7 +52,29 @@
                     type="text"
                     class="form-control"
                     formControlName="phone"
+                    [ngClass]="{
+                      'is-invalid':
+                        added && userSupplier.controls['phone'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="added && userSupplier.controls['phone'].errors"
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="userSupplier.controls['phone'].errors['required']"
+                      >يجب ادخال رقم الهاتف</small
+                    >
+                    <small
+                      *ngIf="userSupplier.controls['phone'].errors['minlength']"
+                      >يجب الا يقل رقم الهاتف عن 11 رقم</small
+                    >
+                    <br />
+                    <small
+                      *ngIf="userSupplier.controls['phone'].errors['pattern']"
+                      >يجب ان يتكون من ارقام فقط</small
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col">
@@ -65,7 +102,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات الموردين</h5>
-          <table class="table datatable">
+          <table class="table">
             <thead>
               <tr>
                 <th></th>
