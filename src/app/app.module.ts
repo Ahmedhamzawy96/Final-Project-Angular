@@ -37,6 +37,7 @@ import { StartComponent } from './Components/start/start.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
+import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { HomeComponent } from './Components/home/home.component';
     ErorrComponent,
     ExportRecRefundComponent,
     HomeComponent,
+    CarRecPrintComponent,
   ],
   imports: [
     BrowserModule,
