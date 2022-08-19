@@ -33,6 +33,7 @@ export class ReceiptforcarComponent implements OnInit {
   paidreceipt: string = 'ASD';
   remainingreceipt: number;
   submit: boolean = false;
+  tableNotValid: boolean = false;
   constructor(
     private CarServ: CarService,
     private Productserv: ProductService,
@@ -44,7 +45,10 @@ export class ReceiptforcarComponent implements OnInit {
       total: new FormControl(),
       notes: new FormControl(''),
       date: new FormControl(this.BillDate),
-      paid: new FormControl(''),
+      paid: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{1,}'),
+      ]),
       remaining: new FormControl(''),
       carID: new FormControl('', [Validators.required]),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
@@ -65,14 +69,43 @@ export class ReceiptforcarComponent implements OnInit {
     this.prdPrice = this.Selectedproduct.sellingPrice;
   }
   AddtoTable() {
-    this.ProductsAdded.push({
-      productName: this.Selectedproduct.name,
-      productPrice: this.prdPrice,
-      quantity: this.prdQuantity,
-      totalPrice: this.prdPrice * this.prdQuantity,
-      productID: this.Selectedproduct.id,
-    });
-    this.totalReciept();
+    let prod = this.Selectedproduct;
+    if (this.prdQuantity == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون الكمية اكبر من الصفر',
+      });
+    } else if (this.prdQuantity > prod.quantity) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'كمية الصنف في المخزن لا تسمح',
+      });
+    } else if (this.prdPrice < prod.sellingPrice || this.prdPrice == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'سعر البيع يجب ان يكون مساوي او اكبر من سعر البيع الاصلي',
+      });
+    } else if (this.ProductsAdded.find((A) => A.productID == prod.id)) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'تم اضافة الصنف من قبل ',
+      });
+    } else {
+      this.ProductsAdded.push({
+        productName: this.Selectedproduct.name,
+        productPrice: this.prdPrice,
+        quantity: this.prdQuantity,
+        totalPrice: this.prdPrice * this.prdQuantity,
+        productID: this.Selectedproduct.id,
+      });
+      this.totalReciept();
+    }
+    this.prdQuantity = 0;
+    this.prdPrice = 0;
   }
   deletefromTable() {
     //#region
@@ -115,12 +148,34 @@ export class ReceiptforcarComponent implements OnInit {
     //#endregion
   }
   changeTable(id: Number, quantity: number, price: number) {
+    this.tableNotValid = true;
+    let mainProd = this.Products.find((A) => A.id == id);
     let pro = this.ProductsAdded.find((prod) => prod.productID == id);
-    pro.quantity = quantity;
-    pro.productPrice = quantity;
-
-    pro.totalPrice = price * quantity;
-    this.totalReciept();
+    if (quantity == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون الكمية اكبر من الصفر',
+      });
+    } else if (quantity > mainProd.quantity) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'كمية الصنف في المخزن لا تسمح',
+      });
+    } else if (price < mainProd.sellingPrice || price == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'سعر البيع يجب ان يكون مساوي او اكبر من سعر البيع الاصلي',
+      });
+    } else {
+      pro.quantity = quantity;
+      pro.productPrice = price;
+      pro.totalPrice = price * quantity;
+      this.totalReciept();
+      this.tableNotValid = false;
+    }
   }
   getRemain() {
     this.ExportRecieptForm.controls['remaining'].setValue(
@@ -138,13 +193,27 @@ export class ReceiptforcarComponent implements OnInit {
         title: '',
         text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
       });
-    }
-    if (this.ProductsAdded.length > 0 && this.ExportRecieptForm.valid) {
+    } else if (
+      this.ExportRecieptForm.controls['total'].value <
+      this.ExportRecieptForm.controls['paid'].value
+    ) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
+      });
+    } else if (
+      this.ProductsAdded.length > 0 &&
+      this.ExportRecieptForm.valid &&
+      !this.tableNotValid
+    ) {
+      console.log('hi');
       receipt.products = this.ProductsAdded;
       this.Exportserv.addReciept(receipt).subscribe((data) => {
         this.ExportRecieptForm.reset();
         this.submit = true;
         this.Route.navigate(['CarRecieptPrint', data.id]);
+        console.log('hi');
       });
     }
   }
@@ -157,6 +226,6 @@ export class ReceiptforcarComponent implements OnInit {
   }
   onSearchChange() {
     this.remainingreceipt =
-      Number(this.totalreciept) - Number(this.paidreceipt);
+      Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
   }
 }

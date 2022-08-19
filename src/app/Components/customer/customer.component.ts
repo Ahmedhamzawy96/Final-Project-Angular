@@ -15,16 +15,17 @@ export class CustomerComponent implements OnInit {
   AddForm: FormGroup;
   customerID: number;
   added: boolean = false;
+  tableNotValid: boolean = false;
 
   constructor(private csutServ: CustService, private fb: FormBuilder) {
     this.AddForm = fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       phone: [
         '',
         [
           Validators.required,
           Validators.minLength(11),
-          Validators.pattern('[0-9]{11,}'),
+          Validators.pattern('[0-9]{11}'),
         ],
       ],
       notes: [''],
@@ -106,12 +107,33 @@ export class CustomerComponent implements OnInit {
     notes: string,
     ref: HTMLInputElement
   ) {
-    let upcustomer = this.Customers.find((upcustomerr) => upcustomerr.id == id);
-    upcustomer.name = name;
-    upcustomer.phone = phone;
-    upcustomer.notes = notes;
-    this.updatecustomer;
-    this.csutServ.updateCustomer(<number>upcustomer.id, upcustomer).subscribe();
-    ref.checked = false;
+    this.tableNotValid = true;
+    let regex: RegExp = new RegExp('[0-9]{11}');
+    if (name.length < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب الا يقل الاسم عن 4 حروف',
+      });
+    } else if (!phone.match(regex)) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب يجب ان يتكون رقم الهاتف من 11 رقم ',
+      });
+    } else {
+      let upcustomer = this.Customers.find(
+        (upcustomerr) => upcustomerr.id == id
+      );
+      upcustomer.name = name;
+      upcustomer.phone = phone;
+      upcustomer.notes = notes;
+      this.updatecustomer;
+      this.csutServ
+        .updateCustomer(<number>upcustomer.id, upcustomer)
+        .subscribe();
+      ref.checked = false;
+      this.tableNotValid = true;
+    }
   }
 }

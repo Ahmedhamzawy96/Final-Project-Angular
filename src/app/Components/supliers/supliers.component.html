@@ -28,6 +28,9 @@
                   [ngClass]="{
                     'is-invalid': added && userSupplier.controls['name'].errors
                   }"
+                  [ngClass]="{
+                    'is-valid': userSupplier.controls['name'].valid
+                  }"
                 />
                 <div
                   *ngIf="added && userSupplier.controls['name'].errors"
@@ -55,6 +58,9 @@
                     [ngClass]="{
                       'is-invalid':
                         added && userSupplier.controls['phone'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': userSupplier.controls['phone'].valid
                     }"
                   />
                   <div
@@ -137,6 +143,8 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemName="ngModel"
+                      minlength="3"
                       [value]="item.name"
                       (change)="
                         updatesupplier(
@@ -147,6 +155,14 @@
                           radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemName.invalid || tableNotValid) &&
+                          (itemName.dirty || itemName.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemName.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>
@@ -160,6 +176,9 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemPhone="ngModel"
+                      pattern="[0-9]{11,}"
+                      required
                       [value]="item.phone"
                       (change)="
                         updatesupplier(
@@ -170,6 +189,14 @@
                           radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemPhone.invalid || tableNotValid) &&
+                          (itemPhone.dirty || itemPhone.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemPhone.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>

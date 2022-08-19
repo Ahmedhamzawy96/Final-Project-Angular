@@ -85,6 +85,9 @@
                         transact &&
                         customeraccountsform.controls['amount'].errors
                     }"
+                    [ngClass]="{
+                      'is-valid': customeraccountsform.controls['amount'].valid
+                    }"
                   />
                   <div
                     *ngIf="

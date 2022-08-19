@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   productID: number;
   newproduct = [];
   added: boolean = false;
+  tableNotValid: boolean = false;
   constructor(private productService: ProductService, private fb: FormBuilder) {
     this.Addprodform = fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -117,15 +118,33 @@ export class ProductsComponent implements OnInit {
     name: string,
     buyingPrice: number,
     sellingPrice: number,
-    quantity: number
+    quantity: number,
+    ref: HTMLInputElement
   ) {
-    let upproduct = this.products.find((upproductt) => upproductt.id == id);
-    upproduct.name = name;
-    upproduct.buyingPrice = buyingPrice;
-    upproduct.sellingPrice = sellingPrice;
-    upproduct.quantity = quantity;
-    this.productService
-      .updateProduct(<number>upproduct.id, upproduct)
-      .subscribe();
+    this.tableNotValid = true;
+    if (name.length < 2) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان يتكون الاسم من حرفان علي الاقل ',
+      });
+    } else if (sellingPrice < buyingPrice) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان يكون سعر البيع اكبر من سعر الشراء ',
+      });
+    } else {
+      let upproduct = this.products.find((upproductt) => upproductt.id == id);
+      upproduct.name = name;
+      upproduct.buyingPrice = buyingPrice;
+      upproduct.sellingPrice = sellingPrice;
+      upproduct.quantity = quantity;
+      this.productService
+        .updateProduct(<number>upproduct.id, upproduct)
+        .subscribe();
+      ref.checked = false;
+      this.tableNotValid = false;
+    }
   }
 }

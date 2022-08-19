@@ -120,7 +120,33 @@
                           class="form-control"
                           [(ngModel)]="prdQuantity"
                           [ngModelOptions]="{ standalone: true }"
+                          #prodQuantity="ngModel"
+                          pattern="[0-9]{1,}"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              prodQuantity.invalid &&
+                              (prodQuantity.dirty || prodQuantity.touched)
+                          }"
+                          [ngClass]="{
+                            'is-valid': prodQuantity.valid
+                          }"
                         />
+                        <div
+                          *ngIf="
+                            prodQuantity.invalid &&
+                            (prodQuantity.dirty || prodQuantity.touched)
+                          "
+                          class="text-danger"
+                        >
+                          <small *ngIf="prodQuantity.errors['required']">
+                            يجب ادخال الكمية
+                          </small>
+                          <br />
+                          <small *ngIf="prodQuantity.errors['pattern']">
+                            يجب ادخال ارقام
+                          </small>
+                        </div>
                       </div>
                     </div>
                     <div class="col">
@@ -134,7 +160,33 @@
                           class="form-control"
                           [(ngModel)]="prdPrice"
                           [ngModelOptions]="{ standalone: true }"
+                          #prodPrice="ngModel"
+                          pattern="[0-9]{1,}"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              prodPrice.invalid &&
+                              (prodPrice.dirty || prodPrice.touched)
+                          }"
+                          [ngClass]="{
+                            'is-valid': prodPrice.valid
+                          }"
                         />
+                        <div
+                          *ngIf="
+                            prodPrice.invalid &&
+                            (prodPrice.dirty || prodPrice.touched)
+                          "
+                          class="text-danger"
+                        >
+                          <small *ngIf="prodPrice.errors['required']">
+                            يجب ادخال سعر البيع
+                          </small>
+                          <br />
+                          <small *ngIf="prodPrice.errors['pattern']">
+                            يجب ادخال ارقام
+                          </small>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -144,6 +196,7 @@
                         (click)="AddtoTable()"
                         type="button"
                         class="btn btn-primary"
+                        [disabled]="prodPrice.invalid || prodQuantity.invalid"
                       >
                         اضافة
                       </button>
@@ -197,6 +250,7 @@
                               [ngModelOptions]="{ standalone: true }"
                               type="number"
                               class="form-control"
+                              #itemQuantity="ngModel"
                               [value]="item.quantity"
                               (change)="
                                 changeTable(
@@ -205,6 +259,14 @@
                                   item.productPrice
                                 )
                               "
+                              [ngClass]="{
+                                'is-invalid':
+                                  (itemQuantity.invalid || tableNotValid) &&
+                                  (itemQuantity.dirty || itemQuantity.touched)
+                              }"
+                              [ngClass]="{
+                                'is-valid': itemQuantity.valid && !tableNotValid
+                              }"
                             />
                           </div>
                         </td>
@@ -218,6 +280,7 @@
                               [ngModelOptions]="{ standalone: true }"
                               type="number"
                               class="form-control"
+                              #itemPrice="ngModel"
                               [value]="item.productPrice"
                               (change)="
                                 changeTable(
@@ -226,6 +289,14 @@
                                   item.productPrice
                                 )
                               "
+                              [ngClass]="{
+                                'is-invalid':
+                                  (itemPrice.invalid || tableNotValid) &&
+                                  (itemPrice.dirty || itemPrice.touched)
+                              }"
+                              [ngClass]="{
+                                'is-valid': itemPrice.valid && !tableNotValid
+                              }"
                             />
                           </div>
                         </td>
@@ -280,7 +351,38 @@
                         [(ngModel)]="paidreceipt"
                         class="form-control"
                         formControlName="paid"
+                        [ngClass]="{
+                          'is-invalid':
+                            submit && ExportRecieptForm.controls['paid'].errors
+                        }"
+                        [ngClass]="{
+                          'is-valid': ExportRecieptForm.controls['paid'].valid
+                        }"
                       />
+                      <div
+                        *ngIf="
+                          submit && ExportRecieptForm.controls['paid'].errors
+                        "
+                        class="text-danger"
+                      >
+                        <small
+                          *ngIf="
+                            ExportRecieptForm.controls['paid'].errors[
+                              'required'
+                            ]
+                          "
+                        >
+                          يجب ادخال المبلغ المدفوع
+                        </small>
+                        <br />
+                        <small
+                          *ngIf="
+                            ExportRecieptForm.controls['paid'].errors['pattern']
+                          "
+                        >
+                          يجب ادخال ارقام
+                        </small>
+                      </div>
                     </div>
                   </div>
                   <div class="col mb-3">

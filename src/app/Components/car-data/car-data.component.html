@@ -29,6 +29,9 @@
                     [ngClass]="{
                       'is-invalid': Addeded && name.errors
                     }"
+                    [ngClass]="{
+                      'is-valid': cardataform.controls['name'].valid
+                    }"
                   />
                   <div *ngIf="Addeded && name.errors" class="text-danger">
                     <small *ngIf="name.errors['required']"
@@ -38,9 +41,6 @@
                       >يجب الا يقل الاسم عن 4 حروف</small
                     >
                   </div>
-                  <!-- <datalist id="custmer">
-                    <option *ngFor="let item of car" [value]="item"></option>
-                  </datalist> -->
                 </div>
               </div>
               <div class="row my-3 col col-lg-6">
@@ -101,10 +101,21 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemName="ngModel"
+                      required
+                      minlength="3"
                       [value]="item.name"
                       (change)="
                         updatecar(item.id, item.name, item.notes, radioInput)
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemName.invalid || tableNotValid) &&
+                          (itemName.dirty || itemName.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemName.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>

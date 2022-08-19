@@ -91,7 +91,9 @@ export class CustomerAccountsComponent implements OnInit {
               .subscribe(() => {
                 this.Custaccount = 0;
               });
-            this.customeraccountsform.reset();
+            this.customeraccountsform.controls['accountID'].reset();
+            this.customeraccountsform.controls['amount'].reset();
+            this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
               icon: 'success',
@@ -122,7 +124,9 @@ export class CustomerAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
-          this.customeraccountsform.reset();
+          this.customeraccountsform.controls['accountID'].reset();
+          this.customeraccountsform.controls['amount'].reset();
+          this.customeraccountsform.controls['notes'].reset();
           this.transact = true;
           Swal.fire({
             icon: 'success',

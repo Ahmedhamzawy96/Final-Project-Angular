@@ -26,7 +26,24 @@
                 id="Prod"
                 placeholder=" اسم"
                 [(ngModel)]="name"
+                #itemName="ngModel"
+                required
+                minlength="3"
+                [ngClass]="{
+                  'is-invalid': Addeded && itemName.errors
+                }"
+                [ngClass]="{
+                  'is-valid': itemName.valid
+                }"
               />
+              <div *ngIf="Addeded && itemName.errors" class="text-danger">
+                <small *ngIf="itemName.errors['required']"
+                  >يجب ادخال الاسم</small
+                >
+                <small *ngIf="itemName.errors['minlength']"
+                  >يجب الا يقل الاسم عن 4 حروف</small
+                >
+              </div>
             </div>
           </div>
           <div class="row mb-3">
@@ -47,7 +64,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">بيانات النفقات</h5>
-          <table class="table datatable">
+          <table class="table">
             <thead>
               <tr class="text-center">
                 <th></th>
@@ -79,8 +96,19 @@
                       [(ngModel)]="item.name"
                       type="text"
                       class="form-control"
+                      #itemName="ngModel"
+                      required
+                      minlength="3"
                       [value]="item.name"
-                      (change)="changeTable(item.id, item.name)"
+                      (change)="changeTable(item.id, item.name, radioInput)"
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemName.invalid || tableNotValid) &&
+                          (itemName.dirty || itemName.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemName.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>

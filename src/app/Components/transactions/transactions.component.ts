@@ -62,16 +62,15 @@ export class TransactionsComponent implements OnInit {
       });
       this.transact.push(data);
     });
-    console.log(this.transact);
   }
 
-  UpdateTrans() {
-    // this.Trans.updatetransaction(this.id, this.UserTransaction.value).subscribe(
-    //   (upd: ITransactions) => {
-    //     this.transact.push(upd);
-    //   }
-    // );
-  }
+  // UpdateTrans() {
+  //   // this.Trans.updatetransaction(this.id, this.UserTransaction.value).subscribe(
+  //   //   (upd: ITransactions) => {
+  //   //     this.transact.push(upd);
+  //   //   }
+  //   // );
+  // }
 
   ngOnInit(): void {
     this.getdatatotable();

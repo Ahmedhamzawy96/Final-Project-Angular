@@ -16,6 +16,7 @@ export class CarDataComponent implements OnInit {
   cardataform: FormGroup;
   carID: number;
   Addeded: boolean = false;
+  tableNotValid: boolean = false;
 
   constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
@@ -98,10 +99,20 @@ export class CarDataComponent implements OnInit {
   }
 
   updatecar(id: Number, name: string, notes: string, ref: HTMLInputElement) {
-    let upcar = this.carsdata.find((upcarr) => upcarr.id == id);
-    upcar.name = name;
-    upcar.notes = notes;
-    this.carserv.updateCar(<number>upcar.id, upcar).subscribe();
-    ref.checked = false;
+    this.tableNotValid = true;
+    if (name.length < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب الا يقل الاسم عن 4 حروف',
+      });
+    } else {
+      let upcar = this.carsdata.find((upcarr) => upcarr.id == id);
+      upcar.name = name;
+      upcar.notes = notes;
+      this.carserv.updateCar(<number>upcar.id, upcar).subscribe();
+      ref.checked = false;
+      this.tableNotValid = false;
+    }
   }
 }

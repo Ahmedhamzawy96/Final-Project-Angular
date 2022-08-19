@@ -22,6 +22,8 @@ export class ExpendnsComponent implements OnInit {
   name: string;
   Expand: IExpenses[] = [];
   userexpendne: FormGroup;
+  Addeded: boolean = false;
+  tableNotValid: boolean = false;
   constructor(private exserv: ExpendsService) {}
 
   ngOnInit(): void {
@@ -31,21 +33,36 @@ export class ExpendnsComponent implements OnInit {
   }
 
   addexpend() {
-    this.exserv.addExpends({ name: this.name }).subscribe((data) => {
-      this.name = ' ';
-      Swal.fire({
-        icon: 'success',
-        title: '',
-        text: 'تم الاضافة بنجاح',
+    this.Addeded = true;
+    if (this.name.length > 2) {
+      this.exserv.addExpends({ name: this.name }).subscribe((data) => {
+        this.name = ' ';
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'تم الاضافة بنجاح',
+        });
+        this.Addeded = false;
+        this.Expand.push(data);
       });
-      this.Expand.push(data);
-    });
+    }
   }
 
-  changeTable(id: Number, name: string) {
-    let ex = this.Expand.find((ex) => ex.id == id);
-    ex.name = name;
-    this.exserv.updateExpends(<number>id, ex).subscribe();
+  changeTable(id: Number, name: string, ref: HTMLInputElement) {
+    this.tableNotValid = true;
+    if (name.length < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب الا يقل الاسم عن 4 حروف',
+      });
+    } else {
+      let ex = this.Expand.find((ex) => ex.id == id);
+      ex.name = name;
+      this.exserv.updateExpends(<number>id, ex).subscribe();
+      ref.checked = false;
+      this.tableNotValid = false;
+    }
   }
   deletexpend() {
     const swalWithBootstrapButtons = Swal.mixin({
