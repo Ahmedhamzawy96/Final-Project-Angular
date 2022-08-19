@@ -35,14 +35,11 @@ import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
-<<<<<<< HEAD
 import {MatTabsModule} from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
-=======
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
 
->>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,11 +69,8 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     ExportRecRefundComponent,
     HomeComponent,
     CarRecPrintComponent,
-<<<<<<< HEAD
     ReportCustomerAccountsComponent,
-=======
     ReceiptfromcarComponent,
->>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
   ],
   imports: [
     BrowserModule,

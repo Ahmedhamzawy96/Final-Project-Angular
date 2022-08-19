@@ -112,7 +112,6 @@ export class UsersComponent implements OnInit {
       this.users = data;
       // console.log(this.users);
     });
-<<<<<<< HEAD
     this.carserv.getavaliablecar().subscribe(Data=>
       {
         this.avaliabelcars=Data
@@ -120,31 +119,6 @@ export class UsersComponent implements OnInit {
     
 }
 
-  updateuser(username: string, password: string,inpCheckbox: HTMLInputElement) {
-    let upuser = this.users.find(upduser => upduser.userName== username);
-    upuser.password = password;
-   if(upuser.carID!=null)
-   {
-    this.userserv.userupdate(upuser.userName, upuser).subscribe();
-   }
-   else
-   {
-    this.userserv.userupdate(upuser.userName, {userName:upuser.userName,password:upuser.password,type:upuser.type}).subscribe();
-
-   }
-   Swal.fire(
-    'تم التعديل!',
-    'تم حفظ كلمة السر الحديدة',
-    'success'
-  )
-  inpCheckbox.checked=false;
-
-=======
-    this.carserv.getavaliablecar().subscribe((Data) => {
-      this.avaliabelcars = Data;
-    });
->>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
-  }
 
   updateuser(
     username: string,
