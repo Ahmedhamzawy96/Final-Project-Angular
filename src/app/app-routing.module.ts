@@ -104,12 +104,12 @@ const routes: Routes = [
       {
         path: 'Receiptforstore',
         component: ReceiptforstoreComponent,
-        canActivate: [EmployeeGuard],
+        canActivate: [CarDriverGuard],
       },
       {
         path: 'ReceiptFormCar',
         component: ReceiptfromcarComponent,
-        canActivate: [AuthGuard],
+        canActivate: [EmployeeGuard],
       },
       {
         path: 'ImportRecieptPrint/:id',

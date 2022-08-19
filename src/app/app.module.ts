@@ -38,6 +38,12 @@ import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
+<<<<<<< Updated upstream
+=======
+import {MatTabsModule} from '@angular/material/tabs';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
+>>>>>>> Stashed changes
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
 
 @NgModule({
@@ -72,7 +78,12 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     ExportRecRefundComponent,
     HomeComponent,
     CarRecPrintComponent,
+<<<<<<< Updated upstream
     ReceiptfromcarComponent,
+=======
+    ReportCustomerAccountsComponent,
+    ReceiptfromcarComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,

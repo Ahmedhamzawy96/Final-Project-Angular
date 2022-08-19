@@ -106,16 +106,25 @@ export class UsersComponent implements OnInit {
         }
       });
   }
-
   getusers() {
     this.userserv.getUsers().subscribe((data: IUsers[]) => {
       this.users = data;
       // console.log(this.users);
     });
+<<<<<<< Updated upstream
     this.carserv.getavaliablecar().subscribe((Data) => {
       this.avaliabelcars = Data;
     });
   }
+=======
+    this.carserv.getavaliablecar().subscribe(Data=>
+      {
+        this.avaliabelcars=Data
+      })
+}
+
+
+>>>>>>> Stashed changes
 
   updateuser(
     username: string,

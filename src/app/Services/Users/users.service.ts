@@ -36,6 +36,14 @@ export class UsersService {
   //     return this.us.putuser("Users",username,User);
   //   }
 
+<<<<<<< Updated upstream
+=======
+    // usertype(type:number):Observable<IUsers[]>{
+
+    //  return this.us.getuerbytype("Users",type)
+    // }
+  
+>>>>>>> Stashed changes
   //   usertype(type:number):Observable<IUsers[]>{
 
   //    return this.us.getuerbytype("Users",type)

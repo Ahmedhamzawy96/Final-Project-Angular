@@ -84,7 +84,18 @@ export class GenericService {
     ).pipe(retry(3), catchError(this.handleError));
   }
 
+<<<<<<< Updated upstream
   //Delete Function by username
+=======
+    // Begin assigning parameters
+    params = params.append('sdate', sdate);
+    params = params.append('edate', edate);
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,{ params: params }
+    ).pipe(retry(3), catchError(this.handleError));
+  }
+
+>>>>>>> Stashed changes
   // Deleteuser(RouteURL: string, user: string): Observable<any> {
   //   return this.Client.delete<any>(
   //     `${environment.APIUrl}/${RouteURL}/${user}`,
