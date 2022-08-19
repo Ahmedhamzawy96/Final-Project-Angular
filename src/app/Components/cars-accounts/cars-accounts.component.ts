@@ -78,7 +78,9 @@ export class CarsAccountsComponent implements OnInit {
             this.carServ.updateCar(this.carID, this.car).subscribe(() => {
               this.Remaiing = 0;
             });
-            this.caraccountsform.reset();
+            this.caraccountsform.controls['accountID'].reset();
+            this.caraccountsform.controls['amount'].reset();
+            this.caraccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
               icon: 'success',
@@ -105,7 +107,9 @@ export class CarsAccountsComponent implements OnInit {
           this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
             this.Remaiing = Data.account;
           });
-          this.caraccountsform.reset();
+          this.caraccountsform.controls['accountID'].reset();
+          this.caraccountsform.controls['amount'].reset();
+          this.caraccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({
             icon: 'success',

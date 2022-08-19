@@ -30,6 +30,7 @@ import { AdminGuard } from './Guards/Admin/admin.guard';
 import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
+import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -103,6 +104,11 @@ const routes: Routes = [
       {
         path: 'Receiptforstore',
         component: ReceiptforstoreComponent,
+        canActivate: [EmployeeGuard],
+      },
+      {
+        path: 'ReceiptFormCar',
+        component: ReceiptfromcarComponent,
         canActivate: [AuthGuard],
       },
       {
@@ -113,7 +119,6 @@ const routes: Routes = [
       {
         path: 'ExportRecieptPrint/:id',
         component: ExportRecieptPrintComponent,
-        canActivate: [CarDriverGuard],
       },
       {
         path: 'CarRecieptPrint/:id',

@@ -85,6 +85,9 @@
                         transact &&
                         customeraccountsform.controls['amount'].errors
                     }"
+                    [ngClass]="{
+                      'is-valid': customeraccountsform.controls['amount'].valid
+                    }"
                   />
                   <div
                     *ngIf="
@@ -189,7 +192,7 @@
                     فاتورة شراء رقم {{ item.operationID }}
                   </div>
                   <div *ngSwitchCase="5" class="text-center">
-                    معاملة مادية رقم {{ item.id }}
+                    توريد مبلغ مالى رقم {{ item.operationID }}
                   </div>
                 </td>
                 <td>{{ item.date }}</td>

@@ -83,7 +83,9 @@ export class SupplierAccountsComponent implements OnInit {
               .subscribe(() => {
                 this.Remaiing = 0;
               });
-            this.suppaccountsform.reset();
+            this.suppaccountsform.controls['accountID'].reset();
+            this.suppaccountsform.controls['amount'].reset();
+            this.suppaccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
               icon: 'success',
@@ -114,7 +116,9 @@ export class SupplierAccountsComponent implements OnInit {
             .subscribe(() => {
               this.Remaiing = 0;
             });
-          this.suppaccountsform.reset();
+          this.suppaccountsform.controls['accountID'].reset();
+          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({
             icon: 'success',

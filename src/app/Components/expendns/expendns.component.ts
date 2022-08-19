@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IExpenses } from 'src/app/Interface/IExpenses';
 import {
   FormGroup,
@@ -22,7 +22,8 @@ export class ExpendnsComponent implements OnInit {
   name: string;
   Expand: IExpenses[] = [];
   userexpendne: FormGroup;
-  changeradio:number=-1;
+  Addeded: boolean = false;
+  tableNotValid: boolean = false;
   constructor(private exserv: ExpendsService) {}
 
   ngOnInit(): void {
@@ -32,69 +33,67 @@ export class ExpendnsComponent implements OnInit {
   }
 
   addexpend() {
-    this.exserv.addExpends({ name: this.name }).subscribe((data) => {
-      this.name = ' ';
-      Swal.fire({
-        icon: 'success',
-        title: '',
-        text: 'تم الاضافة بنجاح',
+    this.Addeded = true;
+    if (this.name.length > 2) {
+      this.exserv.addExpends({ name: this.name }).subscribe((data) => {
+        this.name = ' ';
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'تم الاضافة بنجاح',
+        });
+        this.Addeded = false;
+        this.Expand.push(data);
       });
-      this.Expand.push(data);
-    });
+    }
   }
 
-  changeTable(id: Number, name: string,ref:HTMLInputElement) {
-    let ex = this.Expand.find((ex) => ex.id == id);
-    ex.name = name;
-    this.exserv.updateExpends(<number>id, ex).subscribe();
-    ref.checked=false;
-    this.changeradio=-1;
+  changeTable(id: Number, name: string, ref: HTMLInputElement) {
+    this.tableNotValid = true;
+    if (name.length < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب الا يقل الاسم عن 4 حروف',
+      });
+    } else {
+      let ex = this.Expand.find((ex) => ex.id == id);
+      ex.name = name;
+      this.exserv.updateExpends(<number>id, ex).subscribe();
+      ref.checked = false;
+      this.tableNotValid = false;
+    }
   }
   deletexpend() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success m-2',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: 'حذف  البند',
+        text: 'هل انت متاكد من حذفه هذا البند',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'لا',
 
-if(this.changeradio!=-1)
-{    const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success m-2',
-    cancelButton: 'btn btn-danger',
-  },
-  buttonsStyling: false,
-});
-swalWithBootstrapButtons
-  .fire({
-    title: 'حذف  البند',
-    text: 'هل انت متاكد من حذفه هذا البند',
-    icon: 'warning',
-    showCancelButton: true,
-    cancelButtonText: 'لا',
-
-    confirmButtonText: 'نعم',
-    reverseButtons: false,
-  })
-  .then((result) => {
-    if (result.isConfirmed) {
-      this.exserv.deleteExpends(this.id).subscribe((Date) => {
-        this.exserv.getExpends().subscribe((Data) => {
-          this.Expand = Data;
-        });
+        confirmButtonText: 'نعم',
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.exserv.deleteExpends(this.id).subscribe((Date) => {
+            this.exserv.getExpends().subscribe((Data) => {
+              this.Expand = Data;
+            });
+          });
+          swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف البند', 'success');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف البند', 'error');
+        }
       });
-      swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف البند', 'success');
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف البند', 'error');
-    }
-  });
-this.changeradio=-1;
-}
-else{
-  Swal.fire({
-    icon: 'error',
-    title: '',
-    text: 'برجاء اختيار البند',
-  });
-}
   }
-  radiochange()
-{
-  this.changeradio=this.id;
-}
 }
