@@ -1,3 +1,4 @@
+import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { EmployeeGuard } from './Guards/Employee/employee.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,10 +20,7 @@ import { SupliersComponent } from './Components/supliers/supliers.component';
 import { SupplierAccountsComponent } from './Components/supplier-accounts/supplier-accounts.component';
 import { TransactionsComponent } from './Components/transactions/transactions.component';
 import { UsersComponent } from './Components/users/users.component';
-import { ReportsComponent } from './Components/reports/reports.component';
-import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
-import { SpreportsComponent } from './Components/spreports/spreports.component';
-import { CarreportComponent } from './Components/carreport/carreport.component';
+import { ReportsComponent } from './Components/Reports-Folder/reports-main/reports.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { AuthGuard } from './Guards/Auth/auth.guard';
@@ -120,12 +118,11 @@ const routes: Routes = [
         component: CarRecPrintComponent,
         canActivate: [CarDriverGuard],
       },
-      { path: 'users', component: UsersComponent },
-      { path: 'reports', component: ReportsComponent },
-      { path: 'custmers-reports', component: CustmersReportsComponent },
-      { path: 'spreports', component: SpreportsComponent },
-      { path: 'carreport', component: CarreportComponent },
-      { path: 'ExportRecRefund', component: ExportRecRefundComponent },
+      { path: 'users', component: UsersComponent ,canActivate: [AdminGuard] },
+      { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
+      { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
+      { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
+
     ],
   },
   { path: '**', component: ErorrComponent },

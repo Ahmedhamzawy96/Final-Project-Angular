@@ -29,16 +29,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
 import { UsersComponent } from './Components/users/users.component';
-import { ReportsComponent } from './Components/reports/reports.component';
-import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
-import { SpreportsComponent } from './Components/spreports/spreports.component';
-import { CarreportComponent } from './Components/carreport/carreport.component';
+import { ReportsComponent } from './Components/Reports-Folder/reports-main/reports.component';
 import { StartComponent } from './Components/start/start.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,14 +62,12 @@ import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.c
     ExportRecieptPrintComponent,
     UsersComponent,
     ReportsComponent,
-    CustmersReportsComponent,
-    SpreportsComponent,
-    CarreportComponent,
     StartComponent,
     ErorrComponent,
     ExportRecRefundComponent,
     HomeComponent,
     CarRecPrintComponent,
+    ReportCustomerAccountsComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +80,10 @@ import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.c
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     FormsModule,
+    MatTabsModule,
+    BsDatepickerModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

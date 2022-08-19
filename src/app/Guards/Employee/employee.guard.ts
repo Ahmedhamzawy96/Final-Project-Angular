@@ -11,7 +11,7 @@ export class EmployeeGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (JSON.parse(localStorage.getItem('Type'))!=UserType.Employee)
+      if (JSON.parse(localStorage.getItem('Type'))!=UserType.Car)
       {
         return true;
       }

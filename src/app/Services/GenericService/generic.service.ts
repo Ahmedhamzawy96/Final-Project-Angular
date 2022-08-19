@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
@@ -83,7 +84,17 @@ export class GenericService {
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
+   //transaction
+   getRepoTransaction(RouteURL: string, id: number, type: number,sdate:any,edate:any): Observable<any> {
+    let params = new HttpParams();
 
+    // Begin assigning parameters
+    params = params.append('sdate', sdate);
+    params = params.append('edate', edate);
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,{ params: params }
+    ).pipe(retry(3), catchError(this.handleError));
+  }
   //Delete Function by username
   Deleteuser(RouteURL: string, user: string): Observable<any> {
     return this.Client.delete<any>(
@@ -101,7 +112,7 @@ export class GenericService {
   }
 
   //get user by type
-  getuerbytype(RouteURL: string, type: number): Observable<any> {
+  getuerbytype(RouteURL: string, type: number,item:any): Observable<any> {
     return this.Client.get<any>(
       `${environment.APIUrl}/${RouteURL}/${type}`,
       this.httpOptions

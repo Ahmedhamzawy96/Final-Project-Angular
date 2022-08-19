@@ -123,7 +123,6 @@ getusers() {
    }
    else
    {
-
     this.userserv.userupdate(upuser.userName, {userName:upuser.userName,password:upuser.password,type:upuser.type}).subscribe();
 
    }

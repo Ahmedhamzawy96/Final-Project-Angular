@@ -38,10 +38,10 @@ export class UsersService {
       return this.us.putuser("Users",username,User);
     }
 
-    usertype(type:number):Observable<IUsers[]>{
+    // usertype(type:number):Observable<IUsers[]>{
 
-     return this.us.getuerbytype("Users",type)
-    }
+    //  return this.us.getuerbytype("Users",type)
+    // }
   
 }
 
