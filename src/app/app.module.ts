@@ -29,23 +29,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ExportRecieptPrintComponent } from './Components/export-reciept-print/export-reciept-print.component';
 import { UsersComponent } from './Components/users/users.component';
-import { ReportsComponent } from './Components/reports/reports.component';
-import { CustmersReportsComponent } from './Components/custmers-reports/custmers-reports.component';
-import { SpreportsComponent } from './Components/spreports/spreports.component';
-import { CarreportComponent } from './Components/carreport/carreport.component';
+import { ReportsComponent } from './Components/Reports-Folder/reports-main/reports.component';
 import { StartComponent } from './Components/start/start.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
 import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
-<<<<<<< Updated upstream
-=======
+<<<<<<< HEAD
 import {MatTabsModule} from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
->>>>>>> Stashed changes
+=======
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
 
+>>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,20 +67,16 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     ExportRecieptPrintComponent,
     UsersComponent,
     ReportsComponent,
-    CustmersReportsComponent,
-    SpreportsComponent,
-    CarreportComponent,
     StartComponent,
     ErorrComponent,
     ExportRecRefundComponent,
     HomeComponent,
     CarRecPrintComponent,
-<<<<<<< Updated upstream
-    ReceiptfromcarComponent,
-=======
+<<<<<<< HEAD
     ReportCustomerAccountsComponent,
-    ReceiptfromcarComponent
->>>>>>> Stashed changes
+=======
+    ReceiptfromcarComponent,
+>>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
   ],
   imports: [
     BrowserModule,
@@ -96,6 +89,10 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     FormsModule,
+    MatTabsModule,
+    BsDatepickerModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
