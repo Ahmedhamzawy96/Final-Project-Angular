@@ -28,10 +28,10 @@ export class ImportRecieptComponent implements OnInit {
   productName: string;
   remainig: number;
   paid: number;
-  radioChange:number=-1;
   ImportRecieptForm: FormGroup;
   protected Suppliers: ISupplier[] = [];
-  //RecieptID:Number;
+  submit: boolean = false;
+  tableNotValid: boolean = false;
   constructor(
     private SuppServ: SupplierService,
     private ProdServ: ProductService,
@@ -43,16 +43,17 @@ export class ImportRecieptComponent implements OnInit {
       total: new FormControl(''),
       notes: new FormControl(''),
       date: new FormControl(this.BillDate),
-      paid: new FormControl(''),
+      paid: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{1,}'),
+      ]),
       remaining: new FormControl(''),
-      supid: new FormControl(''),
+      supid: new FormControl('', [Validators.required]),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
   }
   deleteProd() {
-    if(this.radioChange!=-1)
-    {
-      //#region
+    //#region
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success m-2',
@@ -86,28 +87,23 @@ export class ImportRecieptComponent implements OnInit {
         }
       });
     //#endregion
-    this.radioChange=-1;
-  
-    }
-    else
-    {
+  }
+
+  change(id: number, value: number) {
+    this.tableNotValid = true;
+    let pro = this.ImportProducts.find((prod) => prod.productID == id);
+    if (value == 0) {
       Swal.fire({
         icon: 'error',
         title: '',
-        text:'برجاء اختيار منتج',
+        text: 'يجب ان تكون الكمية اكبر من الصفر',
       });
+    } else {
+      pro.quantity = value;
+      pro.totalPrice = pro.buyingPrice * value;
+      this.totalReciept();
+      this.tableNotValid = false;
     }
-    
-  }
-
-    
-    change(id: number, value: number,ref: HTMLInputElement) {
-    let pro = this.ImportProducts.find((prod) => prod.productID == id);
-    pro.quantity = value;
-    pro.totalPrice = pro.buyingPrice * value;
-    this.totalReciept();
-    this.radioChange=-1;
-    ref.checked = false;
   }
   totalReciept() {
     let total: number = 0;
@@ -125,14 +121,32 @@ export class ImportRecieptComponent implements OnInit {
   }
 
   addProduct(id: number) {
-    this.ImportProducts.push({
-      productID: id,
-      productName: this.productName,
-      quantity: this.Quantity,
-      buyingPrice: this.prodbuyingPrice,
-      totalPrice: this.prodbuyingPrice * this.Quantity,
-    });
-    this.totalReciept();
+    let prod = this.Products.find((A) => A.id == id);
+    if (this.Quantity == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون الكمية اكبر من الصفر',
+      });
+    } else if (this.ImportProducts.find((A) => A.productID == prod.id)) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'تم اضافة الصنف من قبل ',
+      });
+    } else {
+      this.ImportProducts.push({
+        productID: id,
+        productName: this.productName,
+        quantity: this.Quantity,
+        buyingPrice: this.prodbuyingPrice,
+        totalPrice: this.prodbuyingPrice * this.Quantity,
+      });
+      this.totalReciept();
+    }
+    this.Quantity = 0;
+    this.prodbuyingPrice = 0;
+    this.prodSellingPrice = 0;
   }
 
   getProduct(id: number) {
@@ -143,12 +157,35 @@ export class ImportRecieptComponent implements OnInit {
     });
   }
   Submit() {
+    this.submit = true;
     let reciept: IImportReciept = this.ImportRecieptForm.value;
     reciept.importProducts = this.ImportProducts;
-    this.imporRecServ.addReciept(reciept).subscribe((Data) => {
-      this.ImportRecieptForm.reset();
-      this.Route.navigate(['ImportRecieptPrint', Data.id]);
-    });
+    if (this.ImportProducts.length == 0 && this.ImportRecieptForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
+      });
+    } else if (
+      this.ImportRecieptForm.controls['total'].value <
+      this.ImportRecieptForm.controls['paid'].value
+    ) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
+      });
+    } else if (
+      this.ImportProducts.length > 0 &&
+      this.ImportRecieptForm.valid &&
+      !this.tableNotValid
+    ) {
+      this.imporRecServ.addReciept(reciept).subscribe((Data) => {
+        this.ImportRecieptForm.reset();
+        this.submit = true;
+        this.Route.navigate(['ImportRecieptPrint', Data.id]);
+      });
+    }
   }
   ngOnInit(): void {
     this.SuppServ.getSupplier().subscribe((Data) => {
@@ -157,9 +194,5 @@ export class ImportRecieptComponent implements OnInit {
     this.ProdServ.getProducts().subscribe((Data) => {
       this.Products = Data;
     });
-  }
-  ChangeRadio()
-  {
-    this.radioChange=this.prodID;
   }
 }

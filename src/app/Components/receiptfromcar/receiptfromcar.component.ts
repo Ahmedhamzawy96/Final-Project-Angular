@@ -1,21 +1,25 @@
-import { IExportReciept } from './../../Interface/IExportReciept';
-import { ExportProductService } from './../../Services/ExportProduct/export-product.service';
-import { IExportProduct } from 'src/app/Interface/IExportProduct';
-import { ProductService } from './../../Services/Product/product.service';
-import { IProduct } from 'src/app/Interface/IProduct';
-import { ICustomer } from 'src/app/Interface/ICustomer';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
-import { CustService } from 'src/app/Services/Customer/cust.service';
-import Swal from 'sweetalert2';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ICarProduct } from 'src/app/Interface/ICarProduct';
+import { ICustomer } from 'src/app/Interface/ICustomer';
+import { IExportProduct } from 'src/app/Interface/IExportProduct';
+import { IExportReciept } from 'src/app/Interface/IExportReciept';
+import { IProduct } from 'src/app/Interface/IProduct';
+import { CarProductService } from 'src/app/Services/CarProduct/car-product.service';
+import { CustService } from 'src/app/Services/Customer/cust.service';
+import { ExportProductService } from 'src/app/Services/ExportProduct/export-product.service';
+import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
+import { ProductService } from 'src/app/Services/Product/product.service';
+import { UsersService } from 'src/app/Services/Users/users.service';
+import Swal from 'sweetalert2';
+
 @Component({
-  selector: 'app-receiptforstore',
-  templateUrl: './receiptforstore.component.html',
-  styleUrls: ['./receiptforstore.component.css'],
+  selector: 'app-receiptfromcar',
+  templateUrl: './receiptfromcar.component.html',
+  styleUrls: ['./receiptfromcar.component.css'],
 })
-export class ReceiptforstoreComponent implements OnInit {
+export class ReceiptfromcarComponent implements OnInit {
   ExportRecieptForm: FormGroup;
   Products: IProduct[];
   Customers: ICustomer[];
@@ -36,7 +40,8 @@ export class ReceiptforstoreComponent implements OnInit {
     private Productserv: ProductService,
     private Exportserv: ExportRecieptService,
     private expProd: ExportProductService,
-    private Route: Router
+    private Route: Router,
+    private UserServ: UsersService
   ) {
     this.ExportRecieptForm = new FormGroup({
       total: new FormControl(''),
@@ -57,9 +62,12 @@ export class ReceiptforstoreComponent implements OnInit {
     this.custServ.getCustomers().subscribe((data) => {
       this.Customers = data;
     });
-
-    this.Productserv.getProducts().subscribe((data) => {
-      this.Products = data;
+    this.UserServ.getUsersByID(
+      JSON.parse(localStorage.getItem('UserName'))
+    ).subscribe((Data) => {
+      this.Productserv.getCarProducts(Data.carID).subscribe((Data) => {
+        this.Products = Data;
+      });
     });
   }
   prdselect(id: number) {
@@ -78,7 +86,7 @@ export class ReceiptforstoreComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: '',
-        text: 'كمية الصنف في المخزن لا تسمح',
+        text: 'كمية الصنف في مخزن السيارة لا تسمح',
       });
     } else if (this.prdPrice < prod.sellingPrice || this.prdPrice == 0) {
       Swal.fire({
@@ -159,7 +167,7 @@ export class ReceiptforstoreComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: '',
-        text: 'كمية الصنف في المخزن لا تسمح',
+        text: 'كمية الصنف في مخزن السيارة لا تسمح',
       });
     } else if (price < mainProd.sellingPrice || price == 0) {
       Swal.fire({

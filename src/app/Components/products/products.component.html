@@ -29,6 +29,9 @@
                     [ngClass]="{
                       'is-invalid': added && Addprodform.controls['name'].errors
                     }"
+                    [ngClass]="{
+                      'is-valid': Addprodform.controls['name'].valid
+                    }"
                   />
                   <div
                     *ngIf="added && Addprodform.controls['name'].errors"
@@ -53,6 +56,9 @@
                     [ngClass]="{
                       'is-invalid':
                         added && Addprodform.controls['quantity'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': Addprodform.controls['quantity'].valid
                     }"
                   />
                   <div
@@ -85,6 +91,9 @@
                     [ngClass]="{
                       'is-invalid':
                         added && Addprodform.controls['buyingPrice'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': Addprodform.controls['buyingPrice'].valid
                     }"
                   />
                   <div
@@ -119,6 +128,9 @@
                     [ngClass]="{
                       'is-invalid':
                         added && Addprodform.controls['sellingPrice'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': Addprodform.controls['sellingPrice'].valid
                     }"
                   />
                   <div
@@ -192,6 +204,9 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemName="ngModel"
+                      required
+                      minlength="2"
                       [value]="prod.name"
                       (change)="
                         updateproduct(
@@ -199,9 +214,18 @@
                           prod.name,
                           prod.buyingPrice,
                           prod.sellingPrice,
-                          prod.quantity
+                          prod.quantity,
+                          radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemName.invalid || tableNotValid) &&
+                          (itemName.dirty || itemName.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemName.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>
@@ -215,6 +239,9 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemQuantity="ngModel"
+                      required
+                      pattern="[0-9]{1,}"
                       [value]="prod.quantity"
                       (change)="
                         updateproduct(
@@ -222,32 +249,18 @@
                           prod.name,
                           prod.buyingPrice,
                           prod.sellingPrice,
-                          prod.quantity
+                          prod.quantity,
+                          radioInput
                         )
                       "
-                    />
-                  </div>
-                </td>
-                <td>
-                  <div *ngIf="!this.radioInput.checked">
-                    {{ prod.sellingPrice }}
-                  </div>
-                  <div *ngIf="this.radioInput.checked">
-                    <input
-                      [(ngModel)]="prod.sellingPrice"
-                      [ngModelOptions]="{ standalone: true }"
-                      type="text"
-                      class="form-control"
-                      [value]="prod.sellingPrice"
-                      (change)="
-                        updateproduct(
-                          prod.id,
-                          prod.name,
-                          prod.buyingPrice,
-                          prod.sellingPrice,
-                          prod.quantity
-                        )
-                      "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemQuantity.invalid || tableNotValid) &&
+                          (itemQuantity.dirty || itemQuantity.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemQuantity.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>
@@ -260,6 +273,9 @@
                       [(ngModel)]="prod.buyingPrice"
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
+                      #itemBuy="ngModel"
+                      required
+                      pattern="[0-9]{1,}"
                       class="form-control"
                       [value]="prod.buyingPrice"
                       (change)="
@@ -268,9 +284,53 @@
                           prod.name,
                           prod.buyingPrice,
                           prod.sellingPrice,
-                          prod.quantity
+                          prod.quantity,
+                          radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemBuy.invalid || tableNotValid) &&
+                          (itemBuy.dirty || itemBuy.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemBuy.valid && !tableNotValid
+                      }"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="!this.radioInput.checked">
+                    {{ prod.sellingPrice }}
+                  </div>
+                  <div *ngIf="this.radioInput.checked">
+                    <input
+                      [(ngModel)]="prod.sellingPrice"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      #itemSell="ngModel"
+                      required
+                      pattern="[0-9]{1,}"
+                      class="form-control"
+                      [value]="prod.sellingPrice"
+                      (change)="
+                        updateproduct(
+                          prod.id,
+                          prod.name,
+                          prod.buyingPrice,
+                          prod.sellingPrice,
+                          prod.quantity,
+                          radioInput
+                        )
+                      "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemSell.invalid || tableNotValid) &&
+                          (itemSell.dirty || itemSell.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemSell.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>
