@@ -26,6 +26,9 @@
                     [ngClass]="{
                       'is-invalid': added && AddForm.controls['name'].errors
                     }"
+                    [ngClass]="{
+                      'is-valid': AddForm.controls['name'].valid
+                    }"
                   />
                   <div
                     *ngIf="added && AddForm.controls['name'].errors"
@@ -53,6 +56,9 @@
                     class="form-control"
                     [ngClass]="{
                       'is-invalid': added && AddForm.controls['phone'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': AddForm.controls['phone'].valid
                     }"
                   />
                   <div
@@ -119,7 +125,6 @@
                     [value]="customers.id"
                     [(ngModel)]="customerID"
                     [ngModelOptions]="{ standalone: true }"
-                    (change)="ChangeRadio()"
                   />
                 </td>
                 <th scope="row">{{ customers.id }}</th>
@@ -133,6 +138,9 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemName="ngModel"
+                      minlength="3"
+                      required
                       [value]="customers.name"
                       (change)="
                         updatecustomer(
@@ -143,6 +151,14 @@
                           radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemName.invalid || tableNotValid) &&
+                          (itemName.dirty || itemName.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemName.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>
@@ -156,6 +172,9 @@
                       [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
+                      #itemPhone="ngModel"
+                      pattern="[0-9]{11,}"
+                      required
                       [value]="customers.phone"
                       (change)="
                         updatecustomer(
@@ -166,6 +185,14 @@
                           radioInput
                         )
                       "
+                      [ngClass]="{
+                        'is-invalid':
+                          (itemPhone.invalid || tableNotValid) &&
+                          (itemPhone.dirty || itemPhone.touched)
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemPhone.valid && !tableNotValid
+                      }"
                     />
                   </div>
                 </td>

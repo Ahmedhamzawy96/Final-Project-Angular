@@ -40,7 +40,7 @@ export class CustomerAccountsComponent implements OnInit {
       amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
       type: [''],
       operationID: [1],
-      operation: [3],
+      operation: [''],
       date: [this.BillDate],
       userName: [JSON.parse(localStorage.getItem('UserName'))],
       notes: [''],
@@ -69,7 +69,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Paid);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.CustomerTrans
+      Operation.SuppplierTrans
     );
     if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
       Swal.fire({
@@ -91,7 +91,9 @@ export class CustomerAccountsComponent implements OnInit {
               .subscribe(() => {
                 this.Custaccount = 0;
               });
-            this.customeraccountsform.reset();
+            this.customeraccountsform.controls['accountID'].reset();
+            this.customeraccountsform.controls['amount'].reset();
+            this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
               icon: 'success',
@@ -107,7 +109,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Get);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.CustomerTrans
+      Operation.SuppplierTrans
     );
     if (this.customeraccountsform.valid) {
       this.transactionsService
@@ -122,7 +124,9 @@ export class CustomerAccountsComponent implements OnInit {
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
-          this.customeraccountsform.reset();
+          this.customeraccountsform.controls['accountID'].reset();
+          this.customeraccountsform.controls['amount'].reset();
+          this.customeraccountsform.controls['notes'].reset();
           this.transact = true;
           Swal.fire({
             icon: 'success',

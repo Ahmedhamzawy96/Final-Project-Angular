@@ -18,7 +18,8 @@ export class SupliersComponent implements OnInit {
   userSupplier: FormGroup;
   addsupp: ISupplier[] = [];
   added: boolean = false;
-  radiochange:number=-1;
+  tableNotValid: boolean = false;
+
   constructor(
     private _supplierservice: SupplierService,
     private fBuilder: FormBuilder
@@ -65,55 +66,42 @@ export class SupliersComponent implements OnInit {
   }
 
   deletesupplier(id: number) {
-    if(this.radiochange!=-1)
-    {
+    const swalWithBootstrapButtons = Swall.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success m-2',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
 
-      const swalWithBootstrapButtons = Swall.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success m-2',
-          cancelButton: 'btn btn-danger',
-        },
-        buttonsStyling: false,
-      });
-  
-      swalWithBootstrapButtons
-        .fire({
-          title: 'حذف  المورد ',
-          text: 'هل انت متاكد من حذفه هذا المورد ',
-          icon: 'warning',
-          showCancelButton: true,
-          cancelButtonText: 'لا',
-  
-          confirmButtonText: 'نعم',
-          reverseButtons: false,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            console.log(this.suppid);
-            this._supplierservice.deleteSupplier(id).subscribe((res) => {
-              this.sply = this.sply.filter((item) => item.id !== id);
-              console.log(' deleted successfully!');
-            });
-            this.sply.pop();
-            swalWithBootstrapButtons.fire(
-              'تم الحذف',
-              'تم حذف المورد ',
-              'success'
-            );
-          } else if (result.dismiss === Swall.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف المورد ', 'error');
-          }
-        });
-    }
-    else
-    {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'برجاء اختيار مورد',
-      });
-    }
+    swalWithBootstrapButtons
+      .fire({
+        title: 'حذف  المورد ',
+        text: 'هل انت متاكد من حذفه هذا المورد ',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'لا',
 
+        confirmButtonText: 'نعم',
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          console.log(this.suppid);
+          this._supplierservice.deleteSupplier(id).subscribe((res) => {
+            this.sply = this.sply.filter((item) => item.id !== id);
+            console.log(' deleted successfully!');
+          });
+          this.sply.pop();
+          swalWithBootstrapButtons.fire(
+            'تم الحذف',
+            'تم حذف المورد ',
+            'success'
+          );
+        } else if (result.dismiss === Swall.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire('الغاء', 'لم يتم حذف المورد ', 'error');
+        }
+      });
   }
   updatesupplier(
     id: Number,
@@ -122,23 +110,35 @@ export class SupliersComponent implements OnInit {
     notes: string,
     ref: HTMLInputElement
   ) {
-    let sup = this.sply.find((upcustomerr) => upcustomerr.id == id);
-    sup.name = name;
-    sup.phone = phone;
-    sup.notes = notes;
-    this.updatesupplier;
-    this._supplierservice.updateSupplier(<number>sup.id, sup).subscribe();
-    ref.checked = false;
-    this.radiochange=-1
+    this.tableNotValid = true;
+    let regex: RegExp = new RegExp('[0-9]{11}');
+    if (name.length < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب الا يقل الاسم عن 4 حروف',
+      });
+    } else if (!phone.match(regex)) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب يجب ان يتكون رقم الهاتف من 11 رقم ',
+      });
+    } else {
+      let sup = this.sply.find((upcustomerr) => upcustomerr.id == id);
+      sup.name = name;
+      sup.phone = phone;
+      sup.notes = notes;
+      this.updatesupplier;
+      this._supplierservice.updateSupplier(<number>sup.id, sup).subscribe();
+      ref.checked = false;
+      this.tableNotValid = false;
+    }
   }
 
   ngOnInit(): void {
     this._supplierservice.getSupplier().subscribe((Data) => {
       this.sply = Data;
     });
-  }
-  ChangeRadio()
-  {
-    this.radiochange=this.suppid;
   }
 }
