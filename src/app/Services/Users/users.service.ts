@@ -36,8 +36,16 @@ export class UsersService {
   //     return this.us.putuser("Users",username,User);
   //   }
 
+<<<<<<< HEAD
+    // usertype(type:number):Observable<IUsers[]>{
+
+    //  return this.us.getuerbytype("Users",type)
+    // }
+  
+=======
   //   usertype(type:number):Observable<IUsers[]>{
 
   //    return this.us.getuerbytype("Users",type)
   //   }
+>>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
 }
