@@ -69,7 +69,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Paid);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.SuppplierTrans
+      Operation.CustomerTrans
     );
     if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
       Swal.fire({
@@ -84,8 +84,8 @@ export class CustomerAccountsComponent implements OnInit {
           .subscribe(() => {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
-              <number>this.selcustomer.account -
-              this.customeraccountsform.controls['amount'].value;
+              Number(this.selcustomer.account) -
+              Number(this.customeraccountsform.controls['amount'].value);
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
               .subscribe(() => {
@@ -109,7 +109,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.transact = true;
     this.customeraccountsform.controls['type'].setValue(TransType.Get);
     this.customeraccountsform.controls['operation'].setValue(
-      Operation.SuppplierTrans
+      Operation.CustomerTrans
     );
     if (this.customeraccountsform.valid) {
       this.transactionsService

@@ -73,8 +73,8 @@ export class CarsAccountsComponent implements OnInit {
           .subscribe(() => {
             this.getRemainig();
             this.car.account =
-              <number>this.car.account -
-              this.caraccountsform.controls['amount'].value;
+              Number(this.car.account) -
+              Number(this.caraccountsform.controls['amount'].value);
             this.carServ.updateCar(this.carID, this.car).subscribe(() => {
               this.Remaiing = 0;
             });
@@ -102,8 +102,8 @@ export class CarsAccountsComponent implements OnInit {
         .subscribe(() => {
           this.getRemainig();
           this.car.account =
-            <number>this.car.account +
-            this.caraccountsform.controls['amount'].value;
+            Number(this.car.account) +
+            Number(this.caraccountsform.controls['amount'].value);
           this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
             this.Remaiing = Data.account;
           });

@@ -76,8 +76,8 @@ export class SupplierAccountsComponent implements OnInit {
           .subscribe(() => {
             this.getRemainig();
             this.supp.account =
-              <number>this.supp.account -
-              this.suppaccountsform.controls['amount'].value;
+              Number(this.supp.account) -
+              Number(this.suppaccountsform.controls['amount'].value);
             this._suppserve
               .updateSupplier(this.suppID, this.supp)
               .subscribe(() => {
@@ -109,8 +109,8 @@ export class SupplierAccountsComponent implements OnInit {
         .subscribe(() => {
           this.getRemainig();
           this.supp.account =
-            <number>this.supp.account +
-            this.suppaccountsform.controls['amount'].value;
+            Number(this.supp.account) +
+            Number(this.suppaccountsform.controls['amount'].value);
           this._suppserve
             .updateSupplier(this.suppID, this.supp)
             .subscribe(() => {

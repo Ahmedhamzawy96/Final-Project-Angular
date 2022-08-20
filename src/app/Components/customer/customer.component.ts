@@ -25,7 +25,7 @@ export class CustomerComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(11),
-          Validators.pattern('[0-9]{11}'),
+          Validators.pattern('[0-9]{10,11}'),
         ],
       ],
       notes: [''],
@@ -108,7 +108,7 @@ export class CustomerComponent implements OnInit {
     ref: HTMLInputElement
   ) {
     this.tableNotValid = true;
-    let regex: RegExp = new RegExp('[0-9]{11}');
+    let regex: RegExp = new RegExp('[0-9]{10,11}');
     if (name.length < 3) {
       Swal.fire({
         icon: 'error',
