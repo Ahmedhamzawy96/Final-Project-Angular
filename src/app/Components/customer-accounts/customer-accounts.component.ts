@@ -37,7 +37,8 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform = fb.group({
       accountID: [this.customerID, [Validators.required]],
       accountType: [AccountType.Customer],
-      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      remaining: ['0'],
       type: [''],
       operationID: [1],
       operation: [''],
@@ -71,7 +72,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
-    if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
+    if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -85,14 +86,14 @@ export class CustomerAccountsComponent implements OnInit {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
               Number(this.selcustomer.account) -
-              Number(this.customeraccountsform.controls['amount'].value);
+              Number(this.customeraccountsform.controls['paid'].value);
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
               .subscribe(() => {
                 this.Custaccount = 0;
               });
             this.customeraccountsform.controls['accountID'].reset();
-            this.customeraccountsform.controls['amount'].reset();
+            this.customeraccountsform.controls['paid'].reset();
             this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
@@ -118,14 +119,14 @@ export class CustomerAccountsComponent implements OnInit {
           this.selectedcustomer(this.customerID);
           this.selcustomer.account =
             Number(this.selcustomer.account) +
-            Number(this.customeraccountsform.controls['amount'].value);
+            Number(this.customeraccountsform.controls['paid'].value);
           this.csutServ
             .updateCustomer(this.customerID, this.selcustomer)
             .subscribe((Data) => {
               this.Custaccount = <number>Data.account;
             });
           this.customeraccountsform.controls['accountID'].reset();
-          this.customeraccountsform.controls['amount'].reset();
+          this.customeraccountsform.controls['paid'].reset();
           this.customeraccountsform.controls['notes'].reset();
           this.transact = true;
           Swal.fire({

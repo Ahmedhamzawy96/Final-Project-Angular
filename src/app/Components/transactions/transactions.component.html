@@ -64,31 +64,29 @@
                     id="Amount"
                     type="text"
                     class="form-control"
-                    formControlName="amount"
+                    formControlName="paid"
                     [ngClass]="{
                       'is-invalid':
-                        transact && suppaccountsform.controls['amount'].errors
+                        transact && suppaccountsform.controls['paid'].errors
                     }"
                     [ngClass]="{
-                      'is-valid': suppaccountsform.controls['amount'].valid
+                      'is-valid': suppaccountsform.controls['paid'].valid
                     }"
                   />
                   <div
-                    *ngIf="
-                      transact && suppaccountsform.controls['amount'].errors
-                    "
+                    *ngIf="transact && suppaccountsform.controls['paid'].errors"
                     class="text-danger"
                   >
                     <small
                       *ngIf="
-                        suppaccountsform.controls['amount'].errors['required']
+                        suppaccountsform.controls['paid'].errors['required']
                       "
                       >يجب ادخال المبلغ
                     </small>
                     <br />
                     <small
                       *ngIf="
-                        suppaccountsform.controls['amount'].errors['pattern']
+                        suppaccountsform.controls['paid'].errors['pattern']
                       "
                       >يجب ادخال ارقام
                     </small>
@@ -151,6 +149,7 @@
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
                 <th class="text-center">اسم البند</th>
+                <th class="text-center">الاجمالي</th>
                 <th class="text-center">المبلغ</th>
                 <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
@@ -162,7 +161,8 @@
               <tr class="text-center" *ngFor="let item of trans">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
-                <td>{{ item.amount }}</td>
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
                 <td>
                   <div *ngIf="item.type == 0">دفع</div>
                   <div *ngIf="item.type == 1">توريد</div>

@@ -36,7 +36,8 @@ export class SupplierAccountsComponent implements OnInit {
     this.suppaccountsform = fbBuild.group({
       accountID: [this.suppID, [Validators.required]],
       accountType: [AccountType.Supplier],
-      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      remaining: ['0'],
       type: [''],
       operationID: [1],
       operation: [''],
@@ -63,7 +64,7 @@ export class SupplierAccountsComponent implements OnInit {
     this.suppaccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
-    if (this.suppaccountsform.controls['amount'].value > this.Remaiing) {
+    if (this.suppaccountsform.controls['paid'].value > this.Remaiing) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -77,14 +78,14 @@ export class SupplierAccountsComponent implements OnInit {
             this.getRemainig();
             this.supp.account =
               Number(this.supp.account) -
-              Number(this.suppaccountsform.controls['amount'].value);
+              Number(this.suppaccountsform.controls['paid'].value);
             this._suppserve
               .updateSupplier(this.suppID, this.supp)
               .subscribe(() => {
                 this.Remaiing = 0;
               });
             this.suppaccountsform.controls['accountID'].reset();
-            this.suppaccountsform.controls['amount'].reset();
+            this.suppaccountsform.controls['paid'].reset();
             this.suppaccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
@@ -98,6 +99,7 @@ export class SupplierAccountsComponent implements OnInit {
   }
 
   Get() {
+    console.log(this.suppaccountsform.value);
     this.transact = true;
     this.suppaccountsform.controls['type'].setValue(TransType.Get);
     this.suppaccountsform.controls['operation'].setValue(
@@ -110,14 +112,14 @@ export class SupplierAccountsComponent implements OnInit {
           this.getRemainig();
           this.supp.account =
             Number(this.supp.account) +
-            Number(this.suppaccountsform.controls['amount'].value);
+            Number(this.suppaccountsform.controls['paid'].value);
           this._suppserve
             .updateSupplier(this.suppID, this.supp)
             .subscribe(() => {
               this.Remaiing = 0;
             });
           this.suppaccountsform.controls['accountID'].reset();
-          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['paid'].reset();
           this.suppaccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({

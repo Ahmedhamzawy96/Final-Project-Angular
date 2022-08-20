@@ -84,16 +84,30 @@ export class GenericService {
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
-   //transaction
-   getRepoTransaction(RouteURL: string, id: number, type: number,sdate:any,edate:any): Observable<any> {
+  //transaction
+  getRepoTransaction(
+    RouteURL: string,
+    id: number,
+    type: number,
+    sdate: any,
+    edate: any
+  ): Observable<any> {
     let params = new HttpParams();
 
     // Begin assigning parameters
     params = params.append('sdate', sdate);
     params = params.append('edate', edate);
     return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,{ params: params }
+      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,
+      { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
 
+  refund(RouteURL: string, id: Number, item: any): Observable<any> {
+    return this.Client.post<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}`,
+      JSON.stringify(item),
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
+  }
 }
