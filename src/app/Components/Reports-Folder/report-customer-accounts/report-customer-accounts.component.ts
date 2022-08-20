@@ -17,32 +17,36 @@ import { ReportService } from 'src/app/Services/Reports/report.service';
 export class ReportCustomerAccountsComponent implements OnInit {
 
   constructor(private transerve:TransactionsService,private rout : ActivatedRoute,private custserv:CustService,private repserv:ReportService) { }
-  transactions:ITransactions[];
-  customertrans: ITransactions[] = [];
-  BillDate: string = new Date().toLocaleString();
-  selcustomer: ICustomer;
-  custid:string;
-  transact: boolean = false;
-  Date:string=new Date().toLocaleString();
-  date:Date[]=this.repserv.getDates();
+transactions:ITransactions[];
+BillDate: string = new Date().toLocaleString();
+selcustomer: ICustomer;
+custid:string;
+Date:string=new Date().toLocaleString();
+date:Date[]=this.repserv.getDates();
 Total:number=0;
+totalPaid:number=0;
 
   ngOnInit(): void {
     this.custid = this.rout.snapshot.paramMap.get('id');
     this.custserv.getCustomerByID(parseInt(this.custid)).subscribe(data=>
       {
         this.selcustomer=data;
-      })
-    this.repserv
-      .Custtransactions(parseInt(this.custid), AccountType.Customer,this.date)
-      .subscribe((data) => {
-        this.transactions = data;
-        this.transactions.forEach((element) => {
-          element.Name = this.selcustomer.name;
-          if(element.type==TransType.Get)
-          { this.Total+=element.amount;}
+        this.repserv
+        .Custtransactions(parseInt(this.custid), AccountType.Customer,this.date)
+        .subscribe((data) => {
+          this.transactions = data;
+          this.transactions.forEach((element) => {
+            element.Name = this.selcustomer.name;
+            if(element.type==TransType.Get)
+            { this.Total+=element.amount;
+            }
+            else if(element.type==TransType.Paid){
+              this.totalPaid+=element.amount;
+            }
+          });
         });
-      });
+      })
+
   }
 
   Print() {
