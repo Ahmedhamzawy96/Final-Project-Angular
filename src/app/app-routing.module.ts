@@ -1,3 +1,6 @@
+import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
+import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
+import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { EmployeeGuard } from './Guards/Employee/employee.guard';
 import { NgModule } from '@angular/core';
@@ -127,7 +130,9 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
       { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
       { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
-
+      { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RSAccounts/:id', component: ReportsSupplierAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RSReceipts/:id', component: ReportsSupplierReceiptComponent,canActivate: [AdminGuard]},
     ],
   },
   { path: '**', component: ErorrComponent },

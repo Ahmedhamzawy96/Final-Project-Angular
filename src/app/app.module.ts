@@ -39,6 +39,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
+import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
+import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
+import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,9 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     CarRecPrintComponent,
     ReportCustomerAccountsComponent,
     ReceiptfromcarComponent,
+    ReportCustomerReceiptsComponent,
+    ReportsSupplierReceiptComponent,
+    ReportsSupplierAccountComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>تقرير كشف حساب</h1>
+        <h1>تقرير فواتير عميل</h1>
         <nav class="my-3">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -19,7 +19,7 @@
 <div class="row">
     <div class="text-center mt-2">
         <div > <img style="width: 150px;" src="/assets/img/LOGO.jpg" alt=""></div>
-         <h1 class="card-title">كشف حساب عميل </h1>
+         <h1 class="card-title">فواتير عميل </h1>
      </div>
      <h3 class="text-start mt-3">{{Date}}</h3>
 </div>
@@ -34,10 +34,12 @@
                             <th class="text-center">تفاصيل العمليه</th>
                             <th class="text-center">التاريخ</th>
                             <th class="text-center">ملاحظات</th>
+                            <th class="text-center">رقم الفاتورة</th>
+
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="text-center" *ngFor="let item of transactions">
+                          <tr class="text-center" *ngFor="let item of transactionsReceipts">
                             <th>{{ item.id }}</th>
                             <td>{{ item.Name }}</td>
                             <td>{{ item.amount }}</td>
@@ -47,7 +49,7 @@
                             </td>
                             <td [ngSwitch]="item.operation" class="text-center">
                               <div *ngSwitchCase="2" class="text-center">
-                                فاتورة شراء رقم {{ item.operationID }}
+                                فاتورة بيع رقم {{ item.operationID }}
                               </div>
                               <div *ngSwitchCase="5" class="text-center">
                                 معاملة مادية رقم {{ item.id }}
@@ -55,6 +57,7 @@
                             </td>
                             <td>{{ item.date }}</td>
                             <td>{{ item.notes }}</td>
+                            <td><a [routerLink]="['/ExportRecieptPrint/',item.operationID ]" routerLinkActive="router-link-active"  >{{ item.operationID }}</a> </td>
                           </tr>
                         </tbody>
                       </table>
