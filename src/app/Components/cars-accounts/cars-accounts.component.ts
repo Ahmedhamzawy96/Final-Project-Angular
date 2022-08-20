@@ -35,7 +35,8 @@ export class CarsAccountsComponent implements OnInit {
     this.caraccountsform = fbBuild.group({
       accountID: [this.carID, [Validators.required]],
       accountType: [AccountType.Car],
-      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      remaining: ['0'],
       type: [''],
       operationID: [1],
       operation: [''],
@@ -60,7 +61,7 @@ export class CarsAccountsComponent implements OnInit {
     this.transact = true;
     this.caraccountsform.controls['type'].setValue(TransType.Paid);
     this.caraccountsform.controls['operation'].setValue(Operation.CarTrans);
-    if (this.caraccountsform.controls['amount'].value > this.Remaiing) {
+    if (this.caraccountsform.controls['paid'].value > this.Remaiing) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -74,12 +75,12 @@ export class CarsAccountsComponent implements OnInit {
             this.getRemainig();
             this.car.account =
               Number(this.car.account) -
-              Number(this.caraccountsform.controls['amount'].value);
+              Number(this.caraccountsform.controls['paid'].value);
             this.carServ.updateCar(this.carID, this.car).subscribe(() => {
               this.Remaiing = 0;
             });
             this.caraccountsform.controls['accountID'].reset();
-            this.caraccountsform.controls['amount'].reset();
+            this.caraccountsform.controls['paid'].reset();
             this.caraccountsform.controls['notes'].reset();
             this.transact = false;
             Swal.fire({
@@ -103,12 +104,12 @@ export class CarsAccountsComponent implements OnInit {
           this.getRemainig();
           this.car.account =
             Number(this.car.account) +
-            Number(this.caraccountsform.controls['amount'].value);
+            Number(this.caraccountsform.controls['paid'].value);
           this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
             this.Remaiing = Data.account;
           });
           this.caraccountsform.controls['accountID'].reset();
-          this.caraccountsform.controls['amount'].reset();
+          this.caraccountsform.controls['paid'].reset();
           this.caraccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({

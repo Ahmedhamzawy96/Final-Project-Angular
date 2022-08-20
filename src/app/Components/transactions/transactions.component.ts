@@ -39,7 +39,8 @@ export class TransactionsComponent implements OnInit {
     this.suppaccountsform = fbBuild.group({
       accountID: [this.expandID, [Validators.required]],
       accountType: [AccountType.Treasure],
-      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      remaining: [''],
       type: [''],
       operationID: [0],
       operation: [''],
@@ -58,7 +59,7 @@ export class TransactionsComponent implements OnInit {
         .addtransaction(this.suppaccountsform.value)
         .subscribe(() => {
           this.suppaccountsform.controls['accountID'].reset();
-          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['paid'].reset();
           this.suppaccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({
@@ -81,7 +82,7 @@ export class TransactionsComponent implements OnInit {
         .addtransaction(this.suppaccountsform.value)
         .subscribe(() => {
           this.suppaccountsform.controls['accountID'].reset();
-          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['paid'].reset();
           this.suppaccountsform.controls['notes'].reset();
           this.transact = false;
           Swal.fire({

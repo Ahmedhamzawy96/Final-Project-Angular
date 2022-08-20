@@ -1,4 +1,5 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IExportProduct } from 'src/app/Interface/IExportProduct';
 import { IExportReciept } from 'src/app/Interface/IExportReciept';
@@ -6,6 +7,7 @@ import { IProduct } from 'src/app/Interface/IProduct';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
+import { RefundService } from 'src/app/Services/Refund/refund.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,13 +22,16 @@ export class ExportRecRefundComponent implements OnInit {
   Selectedproduct: IProduct;
   tableNotValid: boolean = false;
   newRecieptProducts: IExportProduct[] = [];
+  refundRec: FormGroup;
   NewRecieptValue: number = 0;
+  BillDate: string = new Date().toLocaleString();
 
   constructor(
     private rout: ActivatedRoute,
     private reciept: ExportRecieptService,
     private CustSer: CustService,
-    private prodsServ: ProductService
+    private prodsServ: ProductService,
+    private refundServ: RefundService
   ) {}
 
   changeTable(
@@ -54,25 +59,29 @@ export class ExportRecRefundComponent implements OnInit {
       });
       input.value = '0';
     } else {
-      if (quantity > 0) {
+      if (quantity >= 0) {
         let newPro = this.newRecieptProducts.find((A) => A.productID == id);
         if (newPro == null) {
           let value: number = 0;
-          this.newRecieptProducts.push({
-            quantity: quantity,
-            productID: mainProd.productID,
-            productName: mainProd.productName,
-            productPrice: mainProd.productPrice,
-            totalPrice: mainProd.productPrice * quantity,
-          });
+          if (quantity != 0) {
+            this.newRecieptProducts.push({
+              quantity: mainProd.quantity - quantity,
+              productID: mainProd.productID,
+              productName: mainProd.productName,
+              productPrice: mainProd.productPrice,
+              totalPrice:
+                mainProd.productPrice * (mainProd.quantity - quantity),
+            });
+          }
           this.newRecieptProducts.forEach((element) => {
             value += element.productPrice * element.quantity;
           });
           this.NewRecieptValue = value;
         } else {
           let value: number = 0;
-          newPro.quantity = quantity;
-          newPro.totalPrice = mainProd.productPrice * quantity;
+          newPro.quantity = mainProd.quantity - quantity;
+          newPro.totalPrice =
+            mainProd.productPrice * (mainProd.quantity - quantity);
           this.newRecieptProducts.forEach((element) => {
             value += element.productPrice * element.quantity;
           });
@@ -81,12 +90,54 @@ export class ExportRecRefundComponent implements OnInit {
       }
       this.tableNotValid = false;
       ref.checked = false;
+      console.log(this.newRecieptProducts);
     }
   }
 
+  onSubmit() {
+    let total: number = 0;
+    this.newRecieptProducts.forEach((element) => {
+      if (element.quantity == 0) {
+        let index = this.newRecieptProducts.indexOf(element);
+        this.newRecieptProducts.splice(index, 1);
+      } else {
+        total += element.totalPrice;
+      }
+    });
+    this.refundRec = new FormGroup({
+      total: new FormControl(total),
+      notes: new FormControl(
+        `${this.ExportReciept.id}  فاتورة مرتجع لفاتورة اصل رقم`
+      ),
+      date: new FormControl(this.BillDate),
+      paid: new FormControl(0),
+      remaining: new FormControl(this.NewRecieptValue),
+      customerID: new FormControl(this.ExportReciept.customerID),
+      userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
+    });
+    if (this.newRecieptProducts.length != 0) {
+      let rec: IExportReciept = this.refundRec.value;
+      rec.products = this.newRecieptProducts;
+      this.refundServ
+        .exportRecRefund(this.ExportReciept.id, rec)
+        .subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم حفظ المرتجع بنجاح',
+          });
+        });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: ' لا يوجد مرتجع',
+      });
+    }
+  }
   ngOnInit(): void {
     this.recieptID = this.rout.snapshot.paramMap.get('id');
-    this.reciept.getRecieptsByID(3).subscribe((Data) => {
+    this.reciept.getRecieptsByID(1).subscribe((Data) => {
       this.ExportReciept = Data;
       this.CustSer.getCustomerByID(this.ExportReciept.customerID).subscribe(
         (Date) => {

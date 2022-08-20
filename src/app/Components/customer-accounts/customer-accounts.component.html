@@ -79,27 +79,24 @@
                     id="Amount"
                     type="text"
                     class="form-control"
-                    formControlName="amount"
+                    formControlName="paid"
                     [ngClass]="{
                       'is-invalid':
-                        transact &&
-                        customeraccountsform.controls['amount'].errors
+                        transact && customeraccountsform.controls['paid'].errors
                     }"
                     [ngClass]="{
-                      'is-valid': customeraccountsform.controls['amount'].valid
+                      'is-valid': customeraccountsform.controls['paid'].valid
                     }"
                   />
                   <div
                     *ngIf="
-                      transact && customeraccountsform.controls['amount'].errors
+                      transact && customeraccountsform.controls['paid'].errors
                     "
                     class="text-danger"
                   >
                     <small
                       *ngIf="
-                        customeraccountsform.controls['amount'].errors[
-                          'required'
-                        ]
+                        customeraccountsform.controls['paid'].errors['required']
                       "
                       >يجب ادخال المبلغ
                     </small>
@@ -171,6 +168,7 @@
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
                 <th class="text-center">اسم العميل</th>
+                <th class="text-center">الاجمالي</th>
                 <th class="text-center">المبلغ</th>
                 <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
@@ -182,17 +180,21 @@
               <tr class="text-center" *ngFor="let item of transactions">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
-                <td>{{ item.amount }}</td>
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
                   <div *ngSwitchCase="0" class="text-center">دفع</div>
                   <div *ngSwitchCase="1" class="text-center">توريد</div>
                 </td>
-                <td [ngSwitch]="item.operation" class="text-center">
-                  <div *ngSwitchCase="2" class="text-center">
-                    فاتورة شراء رقم {{ item.operationID }}
+                <td>
+                  <div *ngIf="item.operation == 2">
+                    فاتورة بيع رقم {{ item.operationID }}
                   </div>
-                  <div *ngSwitchCase="5" class="text-center">
+                  <div *ngIf="item.operation == 3 && item.type == 1">
                     توريد مبلغ مالى رقم {{ item.operationID }}
+                  </div>
+                  <div *ngIf="item.operation == 5 && item.type == 0">
+                    دفع مبلغ مالي
                   </div>
                 </td>
                 <td>{{ item.date }}</td>
