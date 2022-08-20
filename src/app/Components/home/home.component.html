@@ -3,63 +3,228 @@
     <div class="pagetitle">
       <div class="row">
         <div class="col">
-          <img src="/assets/img/LOGO.jpg" alt="" />
-          <h3>محمد مختار للادوات الصحية</h3>
-          <h4>موبيل: 01091676218</h4>
-          <h4>واتساب: 01153081411</h4>
-        </div>
-        <div class="col">
-          <img
-            src="/assets/img/background2.jpeg"
-            class="rounded-top"
-            alt="..."
-          />
+          <img src="/assets/img/LOGO.jpg" alt="" width="200" height="60" />
         </div>
       </div>
     </div>
   </section>
-  <section class="container services my-5">
-    <div
-      class="my-5 pb-5 servicecontent row d-flex align-items-center justify-content-center"
-    >
-      <div class="card border-info mb-3" style="max-width: 18rem">
-        <h4 class="bi bi-people">العملاء</h4>
-        <div class="card-body text-info">
-          <h5 class="card-title">بيانات العملاء</h5>
-          <a class="justify-content-start" routerLink="/customer">
-            <p class="card-text">لإضــــــــــــافة عميل جديد</p>
+  <section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+      <div
+        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+      >
+        <div *ngIf="type == 0 || type == 1 || type == 2">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">العملاء</h5>
+                  <a class="justify-content-start" routerLink="/customer">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: #000"
+                        class="bi bi-person-bounding-box"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">فواتير البيع</h5>
+                  <a
+                    class="justify-content-start"
+                    routerLink="/Receiptforstore"
+                  >
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: cornflowerblue"
+                        class="bi bi-cart4"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 2">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">فواتير البيع</h5>
+                  <a class="justify-content-start" routerLink="/ReceiptFormCar">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: cornflowerblue"
+                        class="bi bi-cart4"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">المنتجات</h5>
+                  <a class="justify-content-start" routerLink="/products">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: darkgoldenrod"
+                        class="bi bi-shop"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 2">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">المنتجات</h5>
+                  <a class="justify-content-start" routerLink="/car-store">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: darkgoldenrod"
+                        class="bi bi-shop"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">فواتير الشراء</h5>
+                  <a class="justify-content-start" routerLink="/importreciept">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: darkslateblue"
+                        class="bx bx-file"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">الموردين</h5>
+                  <a class="justify-content-start" routerLink="/supliers">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: dimgrey"
+                        class="bi bi-person-badge-fill"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">الخزنة</h5>
+                  <a class="justify-content-start" routerLink="/Transaction">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: chocolate"
+                        class="bi bi-safe2-fill"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 0">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">التقارير</h5>
 
-            <div class="icon">
-              <i style="font-size: 100px" class="bx bxs-user-plus"></i>
+                  <a class="justify-content-start" routerLink="/reports">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: blueviolet"
+                        class="bi bi-graph-up"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
         </div>
-      </div>
-      <div class="card border-info mb-3" style="max-width: 18rem">
-        <h4 class="ri-bill-fill">الفواتير</h4>
-        <div class="card-body text-info">
-          <h5 class="card-title">عمليه البيع</h5>
-          <a class="justify-content-start" routerLink="/Receiptforstore">
-            <p class="card-text">فـــــــاتورة البيع</p>
-            <div class="icon">
-              <i style="font-size: 100px" class="bx bx-file"></i>
+        <div *ngIf="type == 0">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">المستخدمين</h5>
+                  <a class="justify-content-start" routerLink="/users">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: darkcyan"
+                        class="bi bi-people"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
         </div>
-      </div>
-      <div class="card border-info mb-3" style="max-width: 18rem">
-        <h4 class="ri ri-store-2-line">المنتجات</h4>
-        <div class="card-body text-info">
-          <h5 class="card-title">المخزن</h5>
-          <a
-            class="nav-link collapsed justify-content-start"
-            routerLink="/products"
-          >
-            <p class="card-text">لإضــــــــــــافة منتج جديد</p>
-            <div class="icon">
-              <i style="font-size: 100px" class="bx bxs-cart-add"></i>
+        <div *ngIf="type == 0 || type == 1">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">العربات</h5>
+                  <a class="justify-content-start" routerLink="/car-data">
+                    <div class="icon">
+                      <i
+                        style="font-size: 100px; color: firebrick"
+                        class="bi bi-truck"
+                      ></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>

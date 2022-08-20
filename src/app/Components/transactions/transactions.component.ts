@@ -3,165 +3,104 @@ import { Operation } from './../../Interface/Enums/operation';
 import { AccountType } from './../../Interface/Enums/account-type';
 import { ExpendsService } from 'src/app/Services/Expends/expends.service';
 import { IExpenses } from 'src/app/Interface/IExpenses';
-import { Component, EventEmitter, OnInit, Output, Type } from '@angular/core';
-import { asapScheduler, concatWith, Observable } from 'rxjs';
 import { ITransactions } from 'src/app/Interface/ITransactions';
 import {
   FormGroup,
   ReactiveFormsModule,
   FormBuilder,
   FormControl,
+  Validators,
 } from '@angular/forms';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import Swal from 'sweetalert2';
-
+import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {
-  //@Output() TransUpdated = new EventEmitter<ITransactions[]>();
-
-  notes: string;
-  amount: number;
-  BillDate: string = new Date().toLocaleString();
-  user: string;
-  receiver: string;
-  receiptID: number;
-  receiptType: string;
-
-  id: number;
-  transact: ITransactions[] = [];
   expenses: IExpenses[];
+  nameSupp: string;
+  suppaccountsform: FormGroup;
+  expandID: number;
   selectex: IExpenses;
-  transDELNUL = null;
+  trans: ITransactions[];
+  transaction: ITransactions;
+  transsupp: ITransactions[] = [];
+  BillDate: string = new Date().toLocaleString();
+  transact: boolean = false;
+
   constructor(
-    private Trans: TransactionsService,
-    private exServ: ExpendsService
-  ) {}
-
-  addTrans() {
-    let trans: ITransactions = {
-      accountID: this.id,
-      accountType: AccountType.Treasure,
-      amount: this.amount,
-      date: this.BillDate,
-      notes: this.notes,
-      operation: Operation.Expense,
-      type: TransType.Paid,
-      userName: 'asd',
-      id: 0,
-      Name: '',
-    };
-    this.Trans.addtransaction(trans).subscribe((data) => {
-      Swal.fire({
-        icon: 'success',
-        title: '',
-        text: 'تم الاضافة بنجاح',
-      });
-      this.transact.push(data);
+    private _expanserve: ExpendsService,
+    private transService: TransactionsService,
+    private fbBuild: FormBuilder
+  ) {
+    this.suppaccountsform = fbBuild.group({
+      accountID: [this.expandID, [Validators.required]],
+      accountType: [AccountType.Treasure],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      type: [''],
+      operationID: [0],
+      operation: [''],
+      date: [this.BillDate],
+      userName: [JSON.parse(localStorage.getItem('UserName'))],
+      notes: [''],
     });
   }
 
-  // UpdateTrans() {
-  //   // this.Trans.updatetransaction(this.id, this.UserTransaction.value).subscribe(
-  //   //   (upd: ITransactions) => {
-  //   //     this.transact.push(upd);
-  //   //   }
-  //   // );
-  // }
-
-  ngOnInit(): void {
-    this.getdatatotable();
-  }
-
-  getdatatotable() {
-    this.exServ.getExpends().subscribe((data) => {
-      this.expenses = data;
-    });
-  }
-
-  selectchange() {
-    this.selectex = this.expenses.find((w) => w.id == this.id);
-    console.log(this.selectex);
-
-    this.Trans.transactionbytype(this.id, AccountType.Treasure).subscribe(
-      (Date) => {
-        this.transact = Date;
-        this.transact.forEach((element) => {
-          element.Name = this.selectex.name;
+  Paid() {
+    this.transact = true;
+    this.suppaccountsform.controls['type'].setValue(TransType.Paid);
+    this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
+    if (this.suppaccountsform.valid) {
+      this.transService
+        .addtransaction(this.suppaccountsform.value)
+        .subscribe(() => {
+          this.suppaccountsform.controls['accountID'].reset();
+          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['notes'].reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الدفع بنجاح',
+          });
+          this.transService.gettransaction().subscribe((Data) => {
+            this.trans = Data;
+          });
         });
-        console.log(this.transact);
-      }
-    );
+    }
   }
-
-  deleteTrans() {
-    this.Trans.deletetransaction(this.id).subscribe((Date) => {
-      this.getdatatotable();
+  Get() {
+    this.transact = true;
+    this.suppaccountsform.controls['type'].setValue(TransType.Get);
+    this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
+    if (this.suppaccountsform.valid) {
+      this.transService
+        .addtransaction(this.suppaccountsform.value)
+        .subscribe(() => {
+          this.suppaccountsform.controls['accountID'].reset();
+          this.suppaccountsform.controls['amount'].reset();
+          this.suppaccountsform.controls['notes'].reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم التوريد بنجاح',
+          });
+          this.transService.gettransaction().subscribe((Data) => {
+            this.trans = Data;
+          });
+        });
+    }
+  }
+  ngOnInit(): void {
+    this._expanserve.getExpends().subscribe((Data) => {
+      this.expenses = Data;
     });
-  }
-
-  updatetrans() {
-    // this.Trans.updateReciept(this.id,).subscribe(result =>{
-    // let updatingtransaction:ITransactions;
-    // };
-    // this.Trans.updatetransaction(this.id,updatingtransaction).subscribe();
+    this.transService.gettransaction().subscribe((Data) => {
+      this.trans = Data;
+    });
   }
 }
-
-//    deletefromTable() {
-
-//     //#region
-//     const swalWithBootstrapButtons = Swal.mixin({
-//      customClass: {
-//        confirmButton: 'btn btn-success m-2',
-//        cancelButton: 'btn btn-danger'
-//      },
-//      buttonsStyling: false
-//    })
-
-//    swalWithBootstrapButtons.fire({
-//      title: 'حذف  المنتج',
-//      text: 'هل انت متاكد من حذفه هذا المنتج',
-//      icon: 'warning',
-//      showCancelButton: true,
-//      cancelButtonText: 'لا',
-
-//      confirmButtonText: 'نعم',
-//      reverseButtons: false
-//    }).then((result) => {
-//      if (result.isConfirmed) {
-
-//        let prod:IExportProduct= this.ProductsAdded.find( pro => pro.productID == this.selectedid);
-//        let index:number = this.ProductsAdded.indexOf( prod);
-//        this.ProductsAdded.splice(index,1);
-//        this.totalReciept();
-//        this.getRemain();
-//     swalWithBootstrapButtons.fire(
-//        'تم الحذف',
-//        'تم حذف المنتج',
-//        'success'
-//      )
-//      } else if (
-//        /* Read more about handling dismissals below */
-//        result.dismiss === Swal.DismissReason.cancel
-//      ) {
-//        swalWithBootstrapButtons.fire(
-//          'الغاء',
-//          'لم يتم حذف المنتج',
-//          'error'
-//        )
-//      }
-//    })
-//     //#endregion
-//  }
-//  changeTable(id:Number , quantity:number,price:number){
-//    let pro = this.ProductsAdded.find(prod => prod.productID == id);
-//    pro.quantity =  quantity;
-//    pro.productPrice =  quantity;
-
-//    pro.totalPrice = price * quantity;
-//    this.totalReciept()
-//  }
