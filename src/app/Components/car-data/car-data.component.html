@@ -36,10 +36,13 @@
                   <div *ngIf="Addeded && name.errors" class="text-danger">
                     <small *ngIf="name.errors['required']"
                       >يجب ادخال الاسم</small
-                    >
+                    ><br />
                     <small *ngIf="name.errors['minlength']"
                       >يجب الا يقل الاسم عن 4 حروف</small
-                    >
+                    ><br />
+                    <small *ngIf="name.errors['pattern']"
+                      >يجب انيحتوي الاسم علي حروف فقط
+                    </small>
                   </div>
                 </div>
               </div>
