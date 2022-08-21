@@ -89,17 +89,25 @@ export class GenericService {
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
-   //transaction
-   getRepoTransaction(RouteURL: string, id: number, type: number,sdate:any,edate:any): Observable<any> {
+  //transaction
+  getRepoTransaction(
+    RouteURL: string,
+    id: number,
+    type: number,
+    sdate: any,
+    edate: any
+  ): Observable<any> {
     let params = new HttpParams();
 
     // Begin assigning parameters
     params = params.append('sdate', sdate);
     params = params.append('edate', edate);
     return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,{ params: params }
+      `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,
+      { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   //Delete Function by username
 <<<<<<< HEAD
@@ -129,44 +137,18 @@ export class GenericService {
       { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
   refund(RouteURL: string, id: Number, item: any): Observable<any> {
     return this.Client.post<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`,
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
       JSON.stringify(item),
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
-
-  //get user by type
-  getuerbytype(RouteURL: string, type: number,item:any): Observable<any> {
-    return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/${type}`,
-      this.httpOptions
-    ).pipe(retry(3), catchError(this.handleError));
-  }
-=======
-  // Deleteuser(RouteURL: string, user: string): Observable<any> {
-  //   return this.Client.delete<any>(
-  //     `${environment.APIUrl}/${RouteURL}/${user}`,
-  //     this.httpOptions
-  //   ).pipe(retry(3), catchError(this.handleError));
-  // }
-  // //Put Function by username
-  // putuser(RouteURL: string, username: string, item: any): Observable<any> {
-  //   return this.Client.put<any>(
-  //     `${environment.APIUrl}/${RouteURL}/${username}`,
-  //     JSON.stringify(item),
-  //     this.httpOptions
-  //   ).pipe(retry(3), catchError(this.handleError));
-  // }
-  // //get user by type
-  // getuerbytype(RouteURL: string, type: number): Observable<any> {
-  //   return this.Client.get<any>(
-  //     `${environment.APIUrl}/${RouteURL}/${type}`,
-  //     this.httpOptions
-  //   ).pipe(retry(3), catchError(this.handleError));
-  // }
->>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
 }

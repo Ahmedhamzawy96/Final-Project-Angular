@@ -11,12 +11,12 @@
       </ol>
     </nav>
   </div>
-
   <section dir="rtl">
     <div class="col">
       <div class="card">
-        <div class="card-body container">
+        <div class="card-body">
           <h5 class="card-title">اضافه تعامل</h5>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
           <div class="row my-3">
             <div class="col-lg-6 col-12">
@@ -30,6 +30,8 @@
                   </mat-select>
                 </mat-form-field>
 =======
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
           <form [formGroup]="suppaccountsform">
             <div class="row my-3">
               <div class="col-12 col-lg-6 my-md-2">
@@ -41,7 +43,10 @@
                         formControlName="accountID"
                         [(ngModel)]="expandID"
                         [(value)]="expandID"
+<<<<<<< HEAD
                         (selectionChange)="selectedExpenses()"
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
                       >
                         <mat-option
                           *ngFor="let item of expenses"
@@ -69,54 +74,89 @@
                     </div>
                   </div>
                 </div>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
               </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <label for="Amount" class="col-form-label"> المبلغ</label>
-              <div class="col-sm-10">
+              <div class="col-12 col-lg-6 my-md-2">
+                <label for="Amount" class="col-form-label">
+                  المبلغ المدفوع</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    id="Amount"
+                    type="text"
+                    class="form-control"
+                    formControlName="paid"
+                    [ngClass]="{
+                      'is-invalid':
+                        transact && suppaccountsform.controls['paid'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': suppaccountsform.controls['paid'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="transact && suppaccountsform.controls['paid'].errors"
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="
+                        suppaccountsform.controls['paid'].errors['required']
+                      "
+                      >يجب ادخال المبلغ
+                    </small>
+                    <br />
+                    <small
+                      *ngIf="
+                        suppaccountsform.controls['paid'].errors['pattern']
+                      "
+                      >يجب ادخال ارقام
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 my-md-2">
+                <div class="d-flex align-items-center my-3">
+                  <i class="bi bi-calendar-date"></i>
+                  <span class="mx-3">التاريخ</span>
+                </div>
                 <input
-                  id="Amount"
-                  type="number"
-                  name="amount"
-                  class="form-control"
-                  [(ngModel)]="amount"
+                  type="text"
+                  name="Date"
+                  formControlName="date"
+                  readonly
                 />
               </div>
-            </div>
-
-            <div class="col-12 col-lg-6 my-md-2">
-              <label for="Notes" class="col-form-label">ملاحظات</label>
-              <div class="col-sm-10">
-                <textarea
-                  id="my-textarea"
-                  class="form-control"
-                  name=""
-                  rows="2"
-                  [(ngModel)]="notes"
-                ></textarea>
+              <div class="col-12 col-lg-6 my-md-2">
+                <label for="Notes" class="col-form-label">ملاحظات</label>
+                <div class="col-sm-10">
+                  <textarea
+                    id="my-textarea"
+                    class="form-control"
+                    name=""
+                    rows="2"
+                    formControlName="notes"
+                  ></textarea>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-lg-6 my-md-2">
-              <div class="d-flex align-items-center my-3">
-                <i class="bi bi-calendar-date"></i>
-                <span class="mx-3">التاريخ</span>
-              </div>
-              <input type="text" name="Date" readonly [(ngModel)]="BillDate" />
-            </div>
-            <div class="row ms-5 mt-3">
               <div
                 class="col-12 col-lg-6 my-md-2 d-flex align-items-end mt-3 justify-content-start"
               >
                 <button
                   type="submit"
                   class="btn btn-primary px-4 mx-2 py-2"
-                  (click)="addTrans()"
+                  (click)="Paid()"
                 >
 <<<<<<< Updated upstream
                   دفع
                 </button>
-                <button type="submit" class="btn btn-success px-4 py-2">
+                <button
+                  type="submit"
+                  class="btn btn-success px-4 py-2"
+                  (click)="Get()"
+                >
                   توريد</button
 =======
                  دفع من الخزنة             </button>
@@ -130,11 +170,11 @@
                 >&nbsp; &nbsp;
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col col-12">
       <div class="card overflow-auto">
         <div class="card-body p-3">
           <h5 class="card-title">عرض التعاملات</h5>
@@ -143,6 +183,7 @@
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
                 <th class="text-center">اسم البند</th>
+                <th class="text-center">الاجمالي</th>
                 <th class="text-center">المبلغ</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
@@ -150,9 +191,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-center" *ngFor="let item of transact">
+              <tr class="text-center" *ngFor="let item of trans">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                 <td>{{ item.amount }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
@@ -170,23 +212,27 @@
                   </div>
                   <div *ngIf="item.type == 1">توريد مبلغ مالي</div>
 >>>>>>> Stashed changes
+=======
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
+                <td>
+                  <div *ngIf="item.type == 0">دفع</div>
+                  <div *ngIf="item.type == 1">توريد</div>
+                </td>
+                <td>
+                  <div *ngIf="item.operation == 0">
+                    <p *ngFor="let item of expenses">
+                      {{ item.name }}
+                    </p>
+                  </div>
+                  <div *ngIf="item.operation == 4">دفع مبلغ مالي</div>
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>
               </tr>
             </tbody>
           </table>
-          <div class="row">
-            <div class="d-flex align-items-center justify-content-center">
-              <button
-                type="button"
-                class="btn btn-danger rounded-3 mx-3 px-3"
-                (click)="deleteTrans()"
-              >
-                حذف
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

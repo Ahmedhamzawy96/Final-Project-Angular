@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import { ICar } from 'src/app/Interface/ICar';
@@ -14,10 +15,19 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { jsPDF } from "jspdf" ;
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { ICustomer } from 'src/app/Interface/ICustomer';
+=======
+import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
+import { ISupplier } from 'src/app/Interface/ISupplier';
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 import { ITransactions } from 'src/app/Interface/ITransactions';
-import { CustService } from 'src/app/Services/Customer/cust.service';
 import { TransactionsService } from 'src/app/Services/transactions.service';
+import { ReportService } from './../../../Services/Reports/report.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ICustomer } from 'src/app/Interface/ICustomer';
+import { CustService } from 'src/app/Services/Customer/cust.service';
 import { Router } from '@angular/router';
+import { AccountType } from 'src/app/Interface/Enums/account-type';
+import { Operation } from 'src/app/Interface/Enums/operation';
 
 @Component({
   selector: 'app-reports',
@@ -26,7 +36,22 @@ import { Router } from '@angular/router';
 })
 
 export class ReportsComponent implements OnInit {
+
+//#region Cust 
+custtransactions:ITransactions[];
+custtransactionsReceipts:ITransactions[]=[];
+customers: ICustomer[];
+selcustomer: ICustomer;
+Custaccount:number;
+customerID:number;
+CustReceiptID:number;
+CustCheckbox:boolean;
+CustminDate = new Date();
+CustmaxDate = new Date();
+CustRangeValue: Date[];
+//#endregion Cust
   
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   customers: ICustomer[];
   selcustomer: ICustomer;
@@ -77,10 +102,30 @@ TotalRangeValue: Date[];
   constructor(  private csutServ: CustService ,private SUPServ: SupplierService ,private router:Router,private repserv:ReportService
     ,private transServ:TransactionsService,private CARServ:CarService)
 >>>>>>> Stashed changes
+=======
+
+//#region SUP 
+SUPtransactions:ITransactions[];
+SUPtransactionsReceipts:ITransactions[]=[];
+Suppliers: ISupplier[];
+selSuplier: ISupplier;
+SUPaccount:number;
+SUPID:number;
+SUPReceiptID:number;
+SUPCheckbox:boolean;
+SUPminDate = new Date();
+SUPmaxDate = new Date();
+SUPRangeValue: Date[];
+//#endregion Cust
+  
+
+  constructor(  private csutServ: CustService ,private SUPServ: SupplierService ,private router:Router,private repserv:ReportService,private transServ:TransactionsService)
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
    {
     this.CustmaxDate.setDate(this.CustmaxDate.getDate() + 6);
     this.CustminDate.setDate(this.CustminDate.getDate() -1);
     this.CustRangeValue = [this.CustminDate, this.CustmaxDate];
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
@@ -96,13 +141,19 @@ TotalRangeValue: Date[];
     this.TotalminDate.setDate(this.TotalminDate.getDate() -1);
     this.TotalRangeValue = [this.TotalminDate, this.TotalmaxDate];
 >>>>>>> Stashed changes
+=======
+
+    this.SUPmaxDate.setDate(this.SUPmaxDate.getDate() + 7);
+    this.SUPRangeValue = [this.SUPminDate, this.SUPmaxDate];
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
     }
 
   ngOnInit(): void {
     this.csutServ.getCustomers().subscribe((data) => {
       this.customers = data;
-    });} 
+    });
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
       this.SUPServ.getSupplier().subscribe((data)=>{
@@ -113,19 +164,70 @@ TotalRangeValue: Date[];
     });
   } 
 >>>>>>> Stashed changes
+=======
+      this.SUPServ.getSupplier().subscribe((data)=>{
+      this.Suppliers=data;
+    });
+  } 
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
-  CustomerAccount(){
-    this.repserv.addDates(this.CustRangeValue)
-    this.router.navigate(['RCAccounts',this.customerID]);
+//#region Cust
+CustomerAccount(){
+  this.repserv.addDates(this.CustRangeValue)
+  this.router.navigate(['RCAccounts',this.customerID]);
+}
+CustomerReceipts()
+{
+  if(this.CustCheckbox)
+  {
+    this.router.navigate(['ExportRecieptPrint',this.CustReceiptID]);
   }
-  CustomerReceipts()
+  else
   {
 <<<<<<< Updated upstream
     this.repserv.addDates(this.CustRangeValue)
-    this.router.navigate(['ImportRecieptPrint',this.customerID]);
+    this.router.navigate(['RCReceipts',this.customerID]);
   }
+<<<<<<< HEAD
 =======
     this.repserv.addDates(this.SUPRangeValue)
+=======
+
+}
+fillCustomerReceipts()
+{
+  this.custtransactionsReceipts=[];
+  this.transServ
+  .transactionbytype(this.customerID, AccountType.Customer)
+  .subscribe((data) => {
+    this.custtransactions = data;
+
+    for (let index = 0; index <this.custtransactions.length; index++) {
+      if(this.custtransactions[index].operation==Operation.ExportReciept)
+      {
+        this.custtransactionsReceipts.push(this.custtransactions[index])
+      }
+    }
+
+})
+}
+//#endregion Cust
+
+//#region SUP
+SupplierAccount(){
+  this.repserv.addDates(this.SUPRangeValue)
+  this.router.navigate(['RSAccounts',this.SUPID]);
+}
+SupplierReceipts()
+{
+  if(this.SUPCheckbox)
+  {
+    this.router.navigate(['ImportRecieptPrint',this.SUPReceiptID]);
+  }
+  else
+  {
+    this.repserv.addDates(this.CustRangeValue)
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
     this.router.navigate(['RSReceipts',this.SUPID]);
   }
 
@@ -150,6 +252,7 @@ fillSupplierReceipts()
 //#endregion SUP
 
 
+<<<<<<< HEAD
 //#region CAR
 CARAccount(){
   this.repserv.addDates(this.CARRangeValue)
@@ -196,4 +299,6 @@ Totaleceipts()
 //#endregion Total
 
 >>>>>>> Stashed changes
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 }

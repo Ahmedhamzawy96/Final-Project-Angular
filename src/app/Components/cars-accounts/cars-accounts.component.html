@@ -77,32 +77,28 @@
                     id="Amount"
                     type="text"
                     class="form-control"
-                    formControlName="amount"
+                    formControlName="paid"
                     [ngClass]="{
                       'is-invalid':
-                        transact && caraccountsform.controls['amount'].errors
+                        transact && caraccountsform.controls['paid'].errors
                     }"
                     [ngClass]="{
-                      'is-valid': caraccountsform.controls['amount'].valid
+                      'is-valid': caraccountsform.controls['paid'].valid
                     }"
                   />
                   <div
-                    *ngIf="
-                      transact && caraccountsform.controls['amount'].errors
-                    "
+                    *ngIf="transact && caraccountsform.controls['paid'].errors"
                     class="text-danger"
                   >
                     <small
                       *ngIf="
-                        caraccountsform.controls['amount'].errors['required']
+                        caraccountsform.controls['paid'].errors['required']
                       "
                       >يجب ادخال المبلغ
                     </small>
                     <br />
                     <small
-                      *ngIf="
-                        caraccountsform.controls['amount'].errors['pattern']
-                      "
+                      *ngIf="caraccountsform.controls['paid'].errors['pattern']"
                       >يجب ادخال ارقام
                     </small>
                   </div>
@@ -159,6 +155,7 @@
               <tr class="text-center m-3 p-2">
                 <th>كود</th>
                 <th class="text-center">اسم العربة</th>
+                <th class="text-center">الاجمالي</th>
                 <th class="text-center">المدفوعات</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
@@ -169,10 +166,16 @@
               <tr class="text-center" *ngFor="let item of trans">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
-                <td>{{ item.amount }}</td>
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
                 <td>
                   <div *ngIf="item.operation == 2">فاتورة توريد لعربة</div>
-                  <div *ngIf="item.operation == 3">توريد مبلغ مالي</div>
+                  <div *ngIf="item.operation == 3 && item.type == 1">
+                    توريد مبلغ مالي
+                  </div>
+                  <div *ngIf="item.operation == 3 && item.type == 0">
+                    دفع مبلغ مالي
+                  </div>
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>

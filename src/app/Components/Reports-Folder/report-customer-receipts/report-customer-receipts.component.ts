@@ -43,6 +43,7 @@ export class ReportCustomerReceiptsComponent implements OnInit {
         )
         .subscribe((data) => {
           this.transactions = data;
+<<<<<<< HEAD
           this.transactions.forEach(element => {
             if (element.operation == Operation.ExportReciept)
               {
@@ -53,6 +54,14 @@ export class ReportCustomerReceiptsComponent implements OnInit {
               }
           });
 
+=======
+          for (let index = 0; index < this.transactions.length; index++) {
+            if (this.transactions[index].operation == Operation.ExportReciept) {
+              this.transactionsReceipts.push(this.transactions[index]);
+              this.totalPaid += this.transactions[index].paid;
+            }
+          }
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
         });
     });
   }

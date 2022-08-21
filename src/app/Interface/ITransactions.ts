@@ -2,7 +2,8 @@ export interface ITransactions {
   id: number;
   accountID: number;
   accountType: number;
-  amount: number;
+  paid?: number;
+  remaining?: number;
   type: number;
   operationID?: number;
   operation: number;

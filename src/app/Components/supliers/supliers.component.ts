@@ -31,7 +31,7 @@ export class SupliersComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(11),
-          Validators.pattern('[0-9]{11,}'),
+          Validators.pattern('[0-9]{11}'),
         ],
       ],
       notes: [''],

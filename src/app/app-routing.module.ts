@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
@@ -7,6 +8,11 @@ import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/rep
 import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
 import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
 >>>>>>> Stashed changes
+=======
+import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
+import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
+import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { EmployeeGuard } from './Guards/Employee/employee.guard';
 import { NgModule } from '@angular/core';
@@ -111,12 +117,12 @@ const routes: Routes = [
       {
         path: 'Receiptforstore',
         component: ReceiptforstoreComponent,
-        canActivate: [EmployeeGuard],
+        canActivate: [CarDriverGuard],
       },
       {
         path: 'ReceiptFormCar',
         component: ReceiptfromcarComponent,
-        canActivate: [AuthGuard],
+        canActivate: [EmployeeGuard],
       },
       {
         path: 'ImportRecieptPrint/:id',
@@ -136,6 +142,7 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
       { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
       { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
       { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
@@ -146,6 +153,11 @@ const routes: Routes = [
       { path: 'RTotal', component: ReportsTotalComponent,canActivate: [AdminGuard]},
 >>>>>>> Stashed changes
 
+=======
+      { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RSAccounts/:id', component: ReportsSupplierAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RSReceipts/:id', component: ReportsSupplierReceiptComponent,canActivate: [AdminGuard]},
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
     ],
   },
   { path: '**', component: ErorrComponent },

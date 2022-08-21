@@ -7,7 +7,10 @@ import { TransactionsService } from 'src/app/Services/transactions.service';
 import { ReportService } from 'src/app/Services/Reports/report.service';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { TransType } from 'src/app/Interface/Enums/TransType';
+<<<<<<< HEAD
 import { Operation } from 'src/app/Interface/Enums/operation';
+=======
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
 @Component({
   selector: 'app-reports-supplier-account',
@@ -40,6 +43,7 @@ export class ReportsSupplierAccountComponent implements OnInit {
           this.transactions = data;
           this.transactions.forEach((element) => {
             element.Name = this.selsupplier.name;
+<<<<<<< HEAD
             if (element.operation == Operation.ImportReciept)
             {
               this.Total+=(element.paid+element.remaining);
@@ -51,6 +55,12 @@ export class ReportsSupplierAccountComponent implements OnInit {
                   { this.Total+=(element.paid);}
               else if( element.type==TransType.Paid)
                 { this.totalPaid+=element.paid}
+=======
+            if (element.type == TransType.Get) {
+              this.Total += element.paid;
+            } else if (element.type == TransType.Paid) {
+              this.totalPaid += element.paid;
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
             }
           });
         });

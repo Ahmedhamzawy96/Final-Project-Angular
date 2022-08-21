@@ -1,177 +1,249 @@
+<main dir="rtl" id="main" class="main ">
+  <mat-tab-group>
+    <mat-tab label="العملاء">
 
-<main  dir="rtl"  id="main" class="main ">
- <mat-tab-group>
-  <mat-tab label="العملاء">
+      <div class="col ">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" class="card-title"> العميل </h3>
 
-    <div class="col ">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title" class="card-title">   العميل </h3>
-
-          <div class="row justify-content-between">
-            <div class="col-xs-12 col-12 col-md-4 form-group ">
-              <label  for="Date" class="col-form-label">التاريخ </label>
-              <input type="text"
-                     placeholder="Daterangepicker"
-                     class="form-control"
-                     bsDaterangepicker
-                     [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}"
-                     [(ngModel)]=" CustRangeValue">
-            </div>
-            <div class="col-12 col-lg-6 ">
-              <label for="inputText" class="col-form-label">اسم العميل</label>
-              <div class="col-sm-10">
-                <div>
-                  <mat-form-field>
-                    <mat-select
-                      [(value)]="customerID">
-                      <mat-option
-                        *ngFor="let custmer of customers"
-                        [value]="custmer.id">
-                        {{ custmer.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+            <div class="row justify-content-between">
+              <div class="col-xs-12 col-12 col-md-4 form-group ">
+                <label for="Date" class="col-form-label">التاريخ </label>
+                <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                  [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}" [(ngModel)]=" CustRangeValue">
+              </div>
+              <div class="col-12 col-lg-6 ">
+                <label for="inputText" class="col-form-label">اسم العميل</label>
+                <div class="col-sm-10">
+                  <div>
+                    <mat-form-field>
+                      <mat-select [(value)]="customerID"  (selectionChange)="fillCustomerReceipts()" >
+                        <mat-option *ngFor="let custmer of customers" [value]="custmer.id">
+                          {{ custmer.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>     
-      </div>
-    </div>
-
-<div class="overflow-hidden">
-  <div class=" row ">
-    <div class="col  ">
-      <div class="card ">
-        <div class="card-body">
-          <h3 class="card-title" class="card-title">   العميل </h3>
-            <div class="row">
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-primary" type="button" (click)="CustomerReceipts()">عرض التقرير </button>
-              </div>
-            </div>      
         </div>
       </div>
-    </div> 
-    <div class="col ">
-      <div class="card">
-        <div class="card-body ">
-          <h3 class="card-title" class="card-title">   كشف حساب العميل </h3>
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-primary" type="button" (click)="CustomerAccount()">عرض التقرير </button>
-            </div>      
-        </div>
-      </div>
-    </div>
-  </div>
-      
-</div>
-  
-  </mat-tab>
 
+      <div class="overflow-hidden">
+        <div class=" row ">
+          <div class="col-12 col-md-6   ">
+            <div class="card ">
+              <div class="card-body" style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> فواتير العميل </h3>
+                <div class="row  ">
+                  <div class="">
+                    <input class="form-check-input" type="checkbox" name="remember" id="rememberMe"
+                      [(ngModel)]="CustCheckbox" />
+                    <label class="form-check-label mx-3" for="rememberMe">فاتورة</label>
 
+                  </div>
 
-  <mat-tab   label="الموردين"> 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"> مبيعات الموردين </h5>
-  
-          <form action="">
-  
-            <div class="row">
-              <div class="row my-3 col col-lg-6">
-                <label for="Date" class="col-form-label">من : </label>
-                <div class="col-sm-10">
-                  <input  class="form-control" type="date" id="Date" name="Date">
-                  
-                    
-               
+                  <div *ngIf="CustCheckbox" class="col">
+                    <div>
+                      <mat-form-field>
+                        <mat-select [(value)]="CustReceiptID">
+                          <mat-option *ngFor="let trans of custtransactionsReceipts" [value]="trans.operationID">
+                            {{ trans.operationID }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row my-3 col col-lg-6">
-                <label  for="Date" class="col-form-label">إلي : </label>
-                <div class="col-sm-10">
-                  <input  class="form-control" type="date" id="Date" name="Date"><br>
+                <div class="col my-4">
+
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary" type="button" (click)="CustomerReceipts()">عرض التقرير </button>
+                  </div>
                 </div>
               </div>
             </div>
-  
-            <div class="row mb-3">
-              <div class="col d-flex justify-content-center">
-                <button class="btn btn-primary" type="submit">عرض التقرير </button>
+          </div>
+          <div class="col-12 col-md-6 ">
+            <div class="card">
+              <div class="card-body  " style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> كشف حساب العميل </h3>
+                <div style="height: 43px ;"></div>
+                <div class="col d-flex justify-content-center align-items-center">
+                  <button class="btn btn-primary" type="button" (click)="CustomerAccount()">عرض التقرير </button>
+                </div>
               </div>
-            </div>      
-          </form>  
-          
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+
+
+    <mat-tab label="الموردين">
+      <div class="col ">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" class="card-title"> المورد </h3>
+
+            <div class="row justify-content-between">
+              <div class="col-xs-12 col-12 col-md-4 form-group ">
+                <label for="Date" class="col-form-label">التاريخ </label>
+                <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                  [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}" [(ngModel)]=" SUPRangeValue">
+              </div>
+              <div class="col-12 col-lg-6 ">
+                <label for="inputText" class="col-form-label">اسم المورد</label>
+                <div class="col-sm-10">
+                  <div>
+                    <mat-form-field>
+                      <mat-select [(value)]="SUPID"  (selectionChange)="fillSupplierReceipts()" >
+                        <mat-option *ngFor="let SUP of Suppliers" [value]="SUP.id">
+                          {{ SUP.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  
-      <!-- 2 -->
-  
+
+      <div class="overflow-hidden">
+        <div class=" row ">
+          <div class="col-12 col-md-6   ">
+            <div class="card ">
+              <div class="card-body" style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> فواتير المورد </h3>
+                <div class="row  ">
+                  <div class="">
+                    <input class="form-check-input" type="checkbox" name="remember" id="rememberMe"
+                      [(ngModel)]="SUPCheckbox" />
+                    <label class="form-check-label mx-3" for="rememberMe">فاتورة</label>
+
+                  </div>
+
+                  <div *ngIf="SUPCheckbox" class="col">
+                    <div>
+                      <mat-form-field>
+                        <mat-select [(value)]="SUPReceiptID">
+                          <mat-option *ngFor="let trans of SUPtransactionsReceipts" [value]="trans.operationID">
+                            {{ trans.operationID }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col my-4">
+
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary" type="button" (click)="SupplierReceipts()">عرض التقرير </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 ">
+            <div class="card">
+              <div class="card-body  " style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> كشف حساب المورد </h3>
+                <div style="height: 43px ;"></div>
+                <div class="col d-flex justify-content-center align-items-center">
+                  <button class="btn btn-primary" type="button" (click)="SupplierAccount()">عرض التقرير </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+
+
+    <mat-tab label="العربات">
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"> كشف حساب الموردين</h5>
+            <h5 class="card-title"> مبيعات العربات </h5>
+
             <form action="">
-    
+
               <div class="row">
                 <div class="row my-3 col col-lg-6">
                   <label for="Date" class="col-form-label">من : </label>
                   <div class="col-sm-10">
-                    <input  class="form-control" type="date" id="Date" name="Date">
-          
+                    <input class="form-control" type="date" id="Date" name="Date">
+
+
+
                   </div>
                 </div>
                 <div class="row my-3 col col-lg-6">
-                  <label  for="Date" class="col-form-label">إلي : </label>
+                  <label for="Date" class="col-form-label">إلي : </label>
                   <div class="col-sm-10">
-                    <input  class="form-control" type="date" id="Date" name="Date"><br>
+                    <input class="form-control" type="date" id="Date" name="Date"><br>
                   </div>
                 </div>
               </div>
-    
+
               <div class="row mb-3">
                 <div class="col d-flex justify-content-center">
                   <button class="btn btn-primary" type="submit">عرض التقرير </button>
                 </div>
-              </div>      
-            </form>  
-            
+              </div>
+            </form>
+
           </div>
         </div>
-      </div>
-  </mat-tab>
 
+        <!-- 2 -->
 
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"> كشف حساب العربات</h5>
+              <form action="">
 
-  <mat-tab label="العربات"> 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"> مبيعات العربات </h5>
-  
-          <form action="">
-  
-            <div class="row">
-              <div class="row my-3 col col-lg-6">
-                <label for="Date" class="col-form-label">من : </label>
-                <div class="col-sm-10">
-                  <input  class="form-control" type="date" id="Date" name="Date">
-                  
-                    
-               
+                <div class="row">
+                  <div class="row my-3 col col-lg-6">
+                    <label for="Date" class="col-form-label">من : </label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="date" id="Date" name="Date">
+
+                    </div>
+                  </div>
+                  <div class="row my-3 col col-lg-6">
+                    <label for="Date" class="col-form-label">إلي : </label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="date" id="Date" name="Date"><br>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row my-3 col col-lg-6">
-                <label  for="Date" class="col-form-label">إلي : </label>
-                <div class="col-sm-10">
-                  <input  class="form-control" type="date" id="Date" name="Date"><br>
+
+                <div class="row mb-3">
+                  <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary" type="submit">عرض التقرير </button>
+                  </div>
                 </div>
-              </div>
+              </form>
+
             </div>
+<<<<<<< HEAD
   
             <div class="row mb-3">
               <div class="col d-flex justify-content-center">
@@ -334,7 +406,14 @@
     </mat-tab>
 
 >>>>>>> Stashed changes
+=======
+          </div>
+        </div>
+>>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
-  
-</mat-tab-group>
+      </div>
+    </mat-tab>
+
+
+  </mat-tab-group>
 </main>
