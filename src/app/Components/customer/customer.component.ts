@@ -85,8 +85,9 @@ export class CustomerComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.csutServ.deleteCustomer(id).subscribe(() => {
-            this.Customers = this.Customers.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
+            this.csutServ.getCustomers().subscribe((data: ICustomer[]) => {
+              this.Customers = data;
+            });
           });
           this.Customers.pop();
           swalWithBootstrapButtons.fire(

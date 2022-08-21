@@ -7,6 +7,7 @@ import { TransactionsService } from 'src/app/Services/transactions.service';
 import { ReportService } from 'src/app/Services/Reports/report.service';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { TransType } from 'src/app/Interface/Enums/TransType';
+import { Operation } from 'src/app/Interface/Enums/operation';
 
 @Component({
   selector: 'app-reports-supplier-account',
@@ -39,10 +40,17 @@ export class ReportsSupplierAccountComponent implements OnInit {
           this.transactions = data;
           this.transactions.forEach((element) => {
             element.Name = this.selsupplier.name;
-            if (element.type == TransType.Get) {
-              this.Total += element.paid;
-            } else if (element.type == TransType.Paid) {
-              this.totalPaid += element.paid;
+            if (element.operation == Operation.ImportReciept)
+            {
+              this.Total+=(element.paid+element.remaining);
+              this.totalPaid+=element.paid;
+            }
+            else if(element.operation == Operation.SuppplierTrans)
+            {
+              if( element.type==TransType.Get)
+                  { this.Total+=(element.paid);}
+              else if( element.type==TransType.Paid)
+                { this.totalPaid+=element.paid}
             }
           });
         });

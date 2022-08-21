@@ -174,79 +174,112 @@
     </mat-tab>
 
 
-
     <mat-tab label="العربات">
-      <div class="col">
+      <div class="col ">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"> مبيعات العربات </h5>
+            <h3 class="card-title" class="card-title"> العربات </h3>
 
-            <form action="">
-
-              <div class="row">
-                <div class="row my-3 col col-lg-6">
-                  <label for="Date" class="col-form-label">من : </label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="date" id="Date" name="Date">
-
-
-
-                  </div>
-                </div>
-                <div class="row my-3 col col-lg-6">
-                  <label for="Date" class="col-form-label">إلي : </label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="date" id="Date" name="Date"><br>
+            <div class="row justify-content-between">
+              <div class="col-xs-12 col-12 col-md-4 form-group ">
+                <label for="Date" class="col-form-label">التاريخ </label>
+                <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                  [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}" [(ngModel)]=" CARRangeValue">
+              </div>
+              <div class="col-12 col-lg-6 ">
+                <label for="inputText" class="col-form-label">اسم العربة</label>
+                <div class="col-sm-10">
+                  <div>
+                    <mat-form-field>
+                      <mat-select [(value)]="CARID"  (selectionChange)="fillCARReceipts()" >
+                        <mat-option *ngFor="let CAR of CARs" [value]="CAR.id">
+                          {{ CAR.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
-
-              <div class="row mb-3">
-                <div class="col d-flex justify-content-center">
-                  <button class="btn btn-primary" type="submit">عرض التقرير </button>
-                </div>
-              </div>
-            </form>
-
+            </div>
           </div>
         </div>
+      </div>
 
-        <!-- 2 -->
+      <div class="overflow-hidden">
+        <div class=" row ">
+          <div class="col-12 col-md-6   ">
+            <div class="card ">
+              <div class="card-body" style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> فواتير العربة </h3>
+                <div class="row  ">
+                  <div class="">
+                    <input class="form-check-input" type="checkbox" name="remember" id="rememberMe"
+                      [(ngModel)]="CARCheckbox" />
+                    <label class="form-check-label mx-3" for="rememberMe">فاتورة</label>
 
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"> كشف حساب العربات</h5>
-              <form action="">
+                  </div>
 
+                  <div *ngIf="CARCheckbox" class="col">
+                    <div>
+                      <mat-form-field>
+                        <mat-select [(value)]="CARReceiptID">
+                          <mat-option *ngFor="let trans of CARtransactionsReceipts" [value]="trans.operationID">
+                            {{ trans.operationID }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col my-4">
+
+                </div>
                 <div class="row">
-                  <div class="row my-3 col col-lg-6">
-                    <label for="Date" class="col-form-label">من : </label>
-                    <div class="col-sm-10">
-                      <input class="form-control" type="date" id="Date" name="Date">
-
-                    </div>
-                  </div>
-                  <div class="row my-3 col col-lg-6">
-                    <label for="Date" class="col-form-label">إلي : </label>
-                    <div class="col-sm-10">
-                      <input class="form-control" type="date" id="Date" name="Date"><br>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
                   <div class="col d-flex justify-content-center">
-                    <button class="btn btn-primary" type="submit">عرض التقرير </button>
+                    <button class="btn btn-primary" type="button" (click)="CARReceipts()">عرض التقرير </button>
                   </div>
                 </div>
-              </form>
-
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 ">
+            <div class="card">
+              <div class="card-body  " style="height: 252px ;">
+                <h3 class="card-title" class="card-title"> كشف حساب العربة </h3>
+                <div style="height: 43px ;"></div>
+                <div class="col d-flex justify-content-center align-items-center">
+                  <button class="btn btn-primary" type="button" (click)="CARAccount()">عرض التقرير </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
       </div>
+
+    </mat-tab>
+
+    <mat-tab label="الاجمالى">
+      <div class="col ">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" class="card-title"> صافى الربح- </h3>
+
+            <div class="row justify-content-between align-items-center">
+              <div class="col-xs-12 col-12 col-md-4 form-group ">
+                <label for="Date" class="col-form-label">التاريخ </label>
+                <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                  [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}" [(ngModel)]=" TotalRangeValue">
+              </div>
+                <div class="col-md-4 col">
+                  <button class="btn btn-primary" type="button" (click)="Totaleceipts()">عرض التقرير </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </mat-tab>
 
 

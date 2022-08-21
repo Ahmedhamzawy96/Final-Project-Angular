@@ -23,7 +23,7 @@ export class CarDataComponent implements OnInit {
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.pattern('[a-zA-z]'),
+        // Validators.pattern('[a-zA-z]'),
       ]),
       notes: new FormControl(''),
     });
@@ -85,7 +85,9 @@ export class CarDataComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.carserv.deleteCar(id).subscribe(() => {
-            this.carsdata = this.carsdata.filter((item) => item.id !== id);
+            this.carserv.getCar().subscribe((Date) => {
+              this.carsdata = Date;
+            });
           });
           this.carsdata.pop();
           swalWithBootstrapButtons.fire(

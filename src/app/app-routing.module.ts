@@ -1,3 +1,6 @@
+import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
+import { ReportsCARReceiptsComponent } from './Components/Reports-Folder/reports-car-receipts/reports-car-receipts.component';
+import { ReportsCARAccountComponent } from './Components/Reports-Folder/reports-car-account/reports-car-account.component';
 import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
 import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
 import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
@@ -155,37 +158,19 @@ const routes: Routes = [
         component: CarRecPrintComponent,
         canActivate: [CarDriverGuard],
       },
-      { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
-      {
-        path: 'reports',
-        component: ReportsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'ExportRecRefund',
-        component: ExportRecRefundComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCAccounts/:id',
-        component: ReportCustomerAccountsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCReceipts/:id',
-        component: ReportCustomerReceiptsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RSAccounts/:id',
-        component: ReportsSupplierAccountComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RSReceipts/:id',
-        component: ReportsSupplierReceiptComponent,
-        canActivate: [AdminGuard],
-      },
+
+      { path: 'users', component: UsersComponent ,canActivate: [AdminGuard] },
+      { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
+      { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
+      { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
+      { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RSAccounts/:id', component: ReportsSupplierAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RSReceipts/:id', component: ReportsSupplierReceiptComponent,canActivate: [AdminGuard]},
+      { path: 'RCARAccounts/:id', component: ReportsCARAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RCARReceipts/:id', component: ReportsCARReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RTotal', component: ReportsTotalComponent,canActivate: [AdminGuard]},
+
+
     ],
   },
   { path: '**', component: ErorrComponent },

@@ -27,6 +27,7 @@
                         formControlName="accountID"
                         [(ngModel)]="expandID"
                         [(value)]="expandID"
+                        (selectionChange)="selectedExpenses()"
                       >
                         <mat-option
                           *ngFor="let item of expenses"
@@ -125,14 +126,13 @@
                   class="btn btn-primary px-4 mx-2 py-2"
                   (click)="Paid()"
                 >
-                  دفع
-                </button>
+                 دفع من الخزنة             </button>
                 <button
                   type="submit"
                   class="btn btn-success px-4 py-2"
                   (click)="Get()"
                 >
-                  توريد</button
+                  توريد الى الخزنة</button
                 >&nbsp; &nbsp;
               </div>
             </div>
@@ -151,7 +151,6 @@
                 <th class="text-center">اسم البند</th>
                 <th class="text-center">الاجمالي</th>
                 <th class="text-center">المبلغ</th>
-                <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
                 <th class="text-center">ملاحظات</th>
@@ -164,16 +163,10 @@
                 <td>{{ item.paid + item.remaining }}</td>
                 <td>{{ item.paid }}</td>
                 <td>
-                  <div *ngIf="item.type == 0">دفع</div>
-                  <div *ngIf="item.type == 1">توريد</div>
-                </td>
-                <td>
-                  <div *ngIf="item.operation == 0">
-                    <p *ngFor="let item of expenses">
-                      {{ item.name }}
-                    </p>
+                  <div *ngIf="item.type == 0">
+                   دفع مبلغ مالى 
                   </div>
-                  <div *ngIf="item.operation == 4">دفع مبلغ مالي</div>
+                  <div *ngIf="item.type == 1">توريد مبلغ مالي</div>
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>

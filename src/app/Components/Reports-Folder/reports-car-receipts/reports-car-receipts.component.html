@@ -21,7 +21,7 @@
                   <div>
                     <img style="width: 150px" src="/assets/img/LOGO.jpg" alt="" />
                   </div>
-                  <h1 class="card-title">فواتير مورد</h1>
+                  <h1 class="card-title">فواتير عربة</h1>
                 </div>
                 <h3 class="text-start mt-3">{{ Date }}</h3>
               </div>
@@ -29,10 +29,10 @@
               <table class="table overflow-scroll">
                 <thead class="">
                   <tr class="text-center m-3 p-2">
-                    <th>كود</th>
-                    <th class="text-center">اسم المورد</th>
+                  <th>كود</th>
+                    <th class="text-center">اسم العربة</th>
                     <th class="text-center">الاجمالي</th>
-                    <th class="text-center">المدفوع</th>
+                    <th class="text-center">المدفوعات</th>
                     <th class="text-center">تفاصيل العمليه</th>
                     <th class="text-center">التاريخ</th>
                     <th class="text-center">ملاحظات</th>
@@ -48,23 +48,20 @@
                   <td>{{ item.Name }}</td>
                   <td>{{ item.paid + item.remaining }}</td>
                   <td>{{ item.paid }}</td>
-              
                   <td>
-                    <div *ngIf="item.operation == 1">
-                      فاتورة شراء رقم {{ item.operationID }}
+                    <div *ngIf="item.operation == 2">فاتورة توريد لعربة</div>
+                    <div *ngIf="item.operation == 3 && item.type == 1">
+                      توريد مبلغ مالي
                     </div>
-                    <div *ngIf="item.operation == 4 && item.type == 1">
-                      {{item.id}}توريد مبلغ مالى رقم 
-                    </div>
-                    <div *ngIf="item.operation == 4 && item.type == 0">
-                      {{item.id}} دفع مبلغ مالي
+                    <div *ngIf="item.operation == 3 && item.type == 0">
+                      دفع مبلغ مالي
                     </div>
                   </td>
                   <td>{{ item.date }}</td>
                   <td>{{ item.notes }}</td>
                     <td>
                       <a
-                        [routerLink]="['/ExportRecieptPrint/', item.operationID]"
+                        [routerLink]="['/CarRecieptPrint/', item.operationID]"
                         routerLinkActive="router-link-active"
                         >{{ item.operationID }}</a
                       >

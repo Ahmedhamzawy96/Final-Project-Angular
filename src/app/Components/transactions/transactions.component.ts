@@ -25,8 +25,8 @@ export class TransactionsComponent implements OnInit {
   suppaccountsform: FormGroup;
   expandID: number;
   selectex: IExpenses;
-  trans: ITransactions[];
-  transaction: ITransactions;
+  alltrans:ITransactions[];
+  trans: ITransactions[]=[];
   transsupp: ITransactions[] = [];
   BillDate: string = new Date().toLocaleString();
   transact: boolean = false;
@@ -40,7 +40,7 @@ export class TransactionsComponent implements OnInit {
       accountID: [this.expandID, [Validators.required]],
       accountType: [AccountType.Treasure],
       paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
-      remaining: [''],
+      remaining: ['0'],
       type: [''],
       operationID: [0],
       operation: [''],
@@ -49,12 +49,24 @@ export class TransactionsComponent implements OnInit {
       notes: [''],
     });
   }
-
+  selectedExpenses() {
+    this.selectex = this.expenses.find((c) => c.id ==this.expandID);
+    this.transService
+      .transactionbytype(<number>this.selectex.id, AccountType.Treasure)
+      .subscribe((data) => {
+        this.trans = data;
+        console.log(data)
+        this.trans.forEach((element) => {
+          element.Name = this.selectex.name;
+        });
+      });
+  }
   Paid() {
     this.transact = true;
     this.suppaccountsform.controls['type'].setValue(TransType.Paid);
     this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
     if (this.suppaccountsform.valid) {
+      console.log(this.suppaccountsform.value)
       this.transService
         .addtransaction(this.suppaccountsform.value)
         .subscribe(() => {
@@ -67,9 +79,7 @@ export class TransactionsComponent implements OnInit {
             title: '',
             text: 'تم الدفع بنجاح',
           });
-          this.transService.gettransaction().subscribe((Data) => {
-            this.trans = Data;
-          });
+
         });
     }
   }
@@ -90,18 +100,13 @@ export class TransactionsComponent implements OnInit {
             title: '',
             text: 'تم التوريد بنجاح',
           });
-          this.transService.gettransaction().subscribe((Data) => {
-            this.trans = Data;
-          });
+
         });
     }
   }
   ngOnInit(): void {
     this._expanserve.getExpends().subscribe((Data) => {
       this.expenses = Data;
-    });
-    this.transService.gettransaction().subscribe((Data) => {
-      this.trans = Data;
     });
   }
 }

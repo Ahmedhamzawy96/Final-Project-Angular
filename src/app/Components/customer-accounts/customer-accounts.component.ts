@@ -72,20 +72,14 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
-    if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
-      });
-    } else {
+  
       if (this.customeraccountsform.valid) {
         this.transactionsService
           .addtransaction(this.customeraccountsform.value)
           .subscribe(() => {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
-              Number(this.selcustomer.account) -
+              Number(this.selcustomer.account) +
               Number(this.customeraccountsform.controls['paid'].value);
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
@@ -104,7 +98,7 @@ export class CustomerAccountsComponent implements OnInit {
           });
       }
     }
-  }
+  
 
   Get() {
     this.transact = true;
@@ -112,13 +106,20 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
+      if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المورد اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
     if (this.customeraccountsform.valid) {
       this.transactionsService
         .addtransaction(this.customeraccountsform.value)
         .subscribe(() => {
           this.selectedcustomer(this.customerID);
           this.selcustomer.account =
-            Number(this.selcustomer.account) +
+            Number(this.selcustomer.account) -
             Number(this.customeraccountsform.controls['paid'].value);
           this.csutServ
             .updateCustomer(this.customerID, this.selcustomer)
@@ -136,5 +137,5 @@ export class CustomerAccountsComponent implements OnInit {
           });
         });
     }
-  }
+  }}
 }

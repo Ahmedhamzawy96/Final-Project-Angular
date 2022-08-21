@@ -43,8 +43,9 @@ export class LoginComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'خطأ',
-              text: 'البيانات غير صحيحة اعد المحاولة مرا اخرا !',
+              text: 'البيانات غير صحيحة حاول مرة اخرى !',
             });
+            this.LoginForm.reset();
           }
         }
       );

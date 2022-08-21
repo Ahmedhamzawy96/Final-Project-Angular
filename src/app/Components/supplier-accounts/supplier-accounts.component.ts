@@ -97,7 +97,6 @@ export class SupplierAccountsComponent implements OnInit {
       }
     }
   }
-
   Get() {
     console.log(this.suppaccountsform.value);
     this.transact = true;

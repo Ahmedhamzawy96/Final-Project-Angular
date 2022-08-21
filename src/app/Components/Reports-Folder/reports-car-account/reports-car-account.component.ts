@@ -1,55 +1,54 @@
-import { TransType } from './../../../Interface/Enums/TransType';
-import { Operation } from './../../../Interface/Enums/operation';
-import { CustService } from './../../../Services/Customer/cust.service';
-import { ITransactions } from './../../../Interface/ITransactions';
-import { TransactionsService } from './../../../Services/transactions.service';
-import { Component, OnInit, Type } from '@angular/core';
-import { ICustomer } from 'src/app/Interface/ICustomer';
+import { ICar } from 'src/app/Interface/ICar';
+import { CarService } from 'src/app/Services/Car/car.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { ReportService } from 'src/app/Services/Reports/report.service';
+import { ITransactions } from 'src/app/Interface/ITransactions';
+import { AccountType } from 'src/app/Interface/Enums/account-type';
+import { Operation } from 'src/app/Interface/Enums/operation';
+import { TransType } from 'src/app/Interface/Enums/TransType';
 
 @Component({
-  selector: 'app-report-customer-accounts',
-  templateUrl: './report-customer-accounts.component.html',
-  styleUrls: ['./report-customer-accounts.component.css'],
+  selector: 'app-reports-car-account',
+  templateUrl: './reports-car-account.component.html',
+  styleUrls: ['./reports-car-account.component.css']
 })
-export class ReportCustomerAccountsComponent implements OnInit {
+export class ReportsCARAccountComponent implements OnInit {
+
   constructor(
-    private transerve: TransactionsService,
     private rout: ActivatedRoute,
-    private custserv: CustService,
+    private CARserv: CarService,
     private repserv: ReportService
   ) {}
   transactions: ITransactions[];
   BillDate: string = new Date().toLocaleString();
-  selcustomer: ICustomer;
-  custid: string;
+  selCAR: ICar;
+  CARid: string;
   Date: string = new Date().toLocaleString();
   date: Date[] = this.repserv.getDates();
   Total: number = 0;
   totalPaid: number = 0;
 
   ngOnInit(): void {
-    this.custid = this.rout.snapshot.paramMap.get('id');
-    this.custserv.getCustomerByID(parseInt(this.custid)).subscribe((data) => {
-      this.selcustomer = data;
+    this.CARid = this.rout.snapshot.paramMap.get('id');
+    this.CARserv.getCarByID(parseInt(this.CARid)).subscribe((data) => {
+      this.selCAR = data;
       this.repserv
         .Custtransactions(
-          parseInt(this.custid),
-          AccountType.Customer,
+          parseInt(this.CARid),
+          AccountType.Car,
           this.date
         )
         .subscribe((data) => {
           this.transactions = data;
           this.transactions.forEach((element) => {
-            element.Name = this.selcustomer.name;
+            element.Name = this.selCAR.name;
             if (element.operation == Operation.ExportReciept)
             {
               this.Total+=(element.paid+element.remaining);
               this.totalPaid+=element.paid;
             }
-            else if(element.operation == Operation.CustomerTrans)
+            else if(element.operation == Operation.CarTrans)
             {
               if( element.type==TransType.Paid)
                   { this.Total+=(element.paid);}
@@ -72,3 +71,7 @@ export class ReportCustomerAccountsComponent implements OnInit {
     document.body.innerHTML = originalContents;
   }
 }
+
+
+
+ 

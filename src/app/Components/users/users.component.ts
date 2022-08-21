@@ -41,7 +41,6 @@ export class UsersComponent implements OnInit {
       carID: [''],
     });
   }
-
   Adduser() {
     if (this.AddUser.controls['carID'].value == '') {
       this.senduser = {
@@ -49,16 +48,41 @@ export class UsersComponent implements OnInit {
         userName: this.AddUser.controls['userName'].value,
         type: this.AddUser.controls['type'].value,
       };
-      this.userserv.addUsers(this.senduser).subscribe();
+      this.userserv.addUsers(this.senduser).subscribe(data=>{
+        this.userserv.getUsers().subscribe((data: IUsers[]) => {
+          this.users = data;})
+        this.carserv.getavaliablecar().subscribe(Data=>
+          {
+            this.avaliabelcars=Data
+          });
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الاضافة بنجاح',
+          });
+        });
+      
     } else {
       this.userserv.addUsers(this.AddUser.value).subscribe((res) => {
         this.userserv.getUsers().subscribe((data: IUsers[]) => {
           this.users = data;
-          console.log(this.users);
+          this.userserv.getUsers().subscribe((data: IUsers[]) => {
+            this.users = data;})
+          this.carserv.getavaliablecar().subscribe(Data=>
+            {
+              this.avaliabelcars=Data
+            });
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الاضافة بنجاح',
+          });
         });
       });
+
     }
     this.getusers();
+    this.AddUser.reset();
   }
 
   deleteuser(usname: string) {
@@ -85,8 +109,7 @@ export class UsersComponent implements OnInit {
         if (result.isConfirmed) {
           console.log(this.Username);
           this.userserv.deleteUsers(usname).subscribe((res) => {
-            this.users = this.users.filter((item) => item.userName !== usname);
-            console.log(' deleted successfully!');
+            this.getusers();
           });
           this.users.pop();
           swalWithBootstrapButtons.fire(
@@ -110,12 +133,11 @@ export class UsersComponent implements OnInit {
   getusers() {
     this.userserv.getUsers().subscribe((data: IUsers[]) => {
       this.users = data;
-      // console.log(this.users);
     });
     this.carserv.getavaliablecar().subscribe(Data=>
       {
         this.avaliabelcars=Data
-      })
+      });
     
 }
 

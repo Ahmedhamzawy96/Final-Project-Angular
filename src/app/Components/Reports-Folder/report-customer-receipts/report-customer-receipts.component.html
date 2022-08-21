@@ -31,8 +31,8 @@
                 <tr class="text-center m-3 p-2">
                   <th>كود</th>
                   <th class="text-center">اسم العميل</th>
-                  <th class="text-center">المبلغ</th>
-                  <th class="text-center">نوع العمليه</th>
+                  <th class="text-center">الاجمالي</th>
+                  <th class="text-center">المدفوع</th>
                   <th class="text-center">تفاصيل العمليه</th>
                   <th class="text-center">التاريخ</th>
                   <th class="text-center">ملاحظات</th>
@@ -44,23 +44,24 @@
                   class="text-center"
                   *ngFor="let item of transactionsReceipts"
                 >
-                  <th>{{ item.id }}</th>
-                  <td>{{ item.Name }}</td>
-                  <td>{{ item.paid }}</td>
-                  <td [ngSwitch]="item.type" class="text-center">
-                    <div *ngSwitchCase="0" class="text-center">دفع</div>
-                    <div *ngSwitchCase="1" class="text-center">توريد</div>
-                  </td>
-                  <td [ngSwitch]="item.operation" class="text-center">
-                    <div *ngSwitchCase="2" class="text-center">
-                      فاتورة بيع رقم {{ item.operationID }}
-                    </div>
-                    <div *ngSwitchCase="5" class="text-center">
-                      معاملة مادية رقم {{ item.id }}
-                    </div>
-                  </td>
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.notes }}</td>
+                <th>{{ item.id }}</th>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
+            
+                <td>
+                  <div *ngIf="item.operation == 2">
+                    فاتورة بيع رقم {{ item.operationID }}
+                  </div>
+                  <div *ngIf="item.operation == 5 && item.type == 1">
+                    {{item.id}}توريد مبلغ مالى رقم 
+                  </div>
+                  <div *ngIf="item.operation == 5 && item.type == 0">
+                    {{item.id}} دفع مبلغ مالي
+                  </div>
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.notes }}</td>
                   <td>
                     <a
                       [routerLink]="['/ExportRecieptPrint/', item.operationID]"
@@ -79,9 +80,7 @@
                 <h2>المدفوع {{ totalPaid }}</h2>
               </div>
 
-              <div class="col">
-                <h2>الحساب الحالى {{ selcustomer.account }}</h2>
-              </div>
+
             </div>
           </div>
         </div>

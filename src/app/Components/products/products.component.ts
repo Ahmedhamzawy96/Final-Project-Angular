@@ -97,10 +97,9 @@ export class ProductsComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          console.log(this.productID);
+          
           this.productService.deleteProduct(id).subscribe((res) => {
-            this.products = this.products.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
+            this.getproducts();
           });
           this.products.pop();
           swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف الصنف ', 'success');
