@@ -1,0 +1,68 @@
+<main id="main" class="main">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">المرتجعات</h3>
+        <div class="row mb-4">
+          <div class="row mb-3 col-lg-6">
+            <label for="ProductName" class="col-sm-2 col-form-label"
+              >نوع المرتجع
+            </label>
+            <div class="col-sm-10">
+              <mat-form-field>
+                <mat-label>أختر نوع المرتجع</mat-label>
+                <mat-select
+                  [(ngModel)]="RefundType"
+                  (selectionChange)="selectchange()"
+                >
+                  <mat-option value="0">مرتجع فاتورة بيع</mat-option>
+                  <mat-option value="1">مرتجع فاتورة شراء</mat-option>
+                  <mat-option value="2">مرتجع فاتورة بيع عربة </mat-option>
+                  <mat-option value="3">مرتجع فاتورة توريد عربة </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row mb-3 col-lg-6">
+            <label for="ProductName" class="col-sm-2 col-form-label"
+              >رقم الفاتورة
+            </label>
+            <div class="col-sm-10">
+              <mat-form-field>
+                <mat-select [(ngModel)]="recID">
+                  <div
+                    *ngIf="
+                      RefundType == 0 || RefundType == 2 || RefundType == 3
+                    "
+                  >
+                    <mat-option
+                      [value]="item.id"
+                      *ngFor="let item of SotreReciepts"
+                    >
+                      {{ item.id }}
+                    </mat-option>
+                  </div>
+                  <div *ngIf="RefundType == 1">
+                    <mat-option
+                      [value]="item.id"
+                      *ngFor="let item of importReciets"
+                    >
+                      {{ item.id }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" (click)="add()">
+              عرض
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
