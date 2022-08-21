@@ -179,24 +179,6 @@
               <tr class="text-center" *ngFor="let item of transactions">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                <td>{{ item.amount }}</td>
-=======
-                <td>{{ item.paid + item.remaining }}</td>
-                <td>{{ item.paid }}</td>
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
-                <td [ngSwitch]="item.type" class="text-center">
-                  <div *ngSwitchCase="0" class="text-center">دفع</div>
-                  <div *ngSwitchCase="1" class="text-center">توريد</div>
-                </td>
-                <td>
-                  <div *ngIf="item.operation == 2">
-                    فاتورة بيع رقم {{ item.operationID }}
-                  </div>
-                  <div *ngIf="item.operation == 3 && item.type == 1">
-                    توريد مبلغ مالى رقم {{ item.operationID }}
-=======
                 <td>{{ item.paid + item.remaining }}</td>
                 <td>{{ item.paid }}</td>
 
@@ -206,7 +188,6 @@
                   </div>
                   <div *ngIf="item.operation == 5 && item.type == 1">
                     توريد مبلغ مالى رقم 
->>>>>>> Stashed changes
                   </div>
                   <div *ngIf="item.operation == 5 && item.type == 0">
                     دفع مبلغ مالي

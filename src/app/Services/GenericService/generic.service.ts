@@ -107,21 +107,6 @@ export class GenericService {
       { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-  //Delete Function by username
-<<<<<<< HEAD
-  Deleteuser(RouteURL: string, user: string): Observable<any> {
-    return this.Client.delete<any>(
-      `${environment.APIUrl}/${RouteURL}/${user}`,
-      this.httpOptions
-    ).pipe(retry(3), catchError(this.handleError));
-  }
-  //Put Function by username
-  putuser(RouteURL: string, username: string, item: any): Observable<any> {
-    return this.Client.put<any>(
-      `${environment.APIUrl}/${RouteURL}/${username}`,
-=======
   getTotalTransaction(
     RouteURL: string,
     sdate: any,
@@ -137,16 +122,10 @@ export class GenericService {
       { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
   refund(RouteURL: string, id: Number, item: any): Observable<any> {
     return this.Client.post<any>(
       `${environment.APIUrl}/${RouteURL}/${id}`,
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
       JSON.stringify(item),
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));

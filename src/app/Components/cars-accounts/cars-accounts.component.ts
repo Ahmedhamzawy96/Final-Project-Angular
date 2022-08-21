@@ -74,18 +74,8 @@ export class CarsAccountsComponent implements OnInit {
           .subscribe(() => {
             this.getRemainig();
             this.car.account =
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-              <number>this.car.account -
-              this.caraccountsform.controls['amount'].value;
-=======
               Number(this.car.account) +
               Number(this.caraccountsform.controls['paid'].value);
->>>>>>> Stashed changes
-=======
-              Number(this.car.account) -
-              Number(this.caraccountsform.controls['paid'].value);
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
             this.carServ.updateCar(this.carID, this.car).subscribe(() => {
               this.Remaiing = 0;
             });
@@ -113,18 +103,8 @@ export class CarsAccountsComponent implements OnInit {
         .subscribe(() => {
           this.getRemainig();
           this.car.account =
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            <number>this.car.account +
-            this.caraccountsform.controls['amount'].value;
-=======
             Number(this.car.account) -
             Number(this.caraccountsform.controls['paid'].value);
->>>>>>> Stashed changes
-=======
-            Number(this.car.account) +
-            Number(this.caraccountsform.controls['paid'].value);
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
           this.carServ.updateCar(this.carID, this.car).subscribe((Data) => {
             this.Remaiing = Data.account;
           });

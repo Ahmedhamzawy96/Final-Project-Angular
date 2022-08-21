@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { ISupplier } from 'src/app/Interface/ISupplier';
 import { SupplierService } from './../../../Services/Supplier/supplier.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,9 +7,6 @@ import { TransactionsService } from 'src/app/Services/transactions.service';
 import { ReportService } from 'src/app/Services/Reports/report.service';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { Operation } from 'src/app/Interface/Enums/operation';
-=======
-import { Component, OnInit } from '@angular/core';
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
 @Component({
   selector: 'app-reports-supplier-receipt',
@@ -19,7 +15,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsSupplierReceiptComponent implements OnInit {
 
-<<<<<<< HEAD
   constructor(
     private rout: ActivatedRoute,
     private SUPtserv: SupplierService,
@@ -71,11 +66,6 @@ export class ReportsSupplierReceiptComponent implements OnInit {
     window.print();
 
     document.body.innerHTML = originalContents;
-=======
-  constructor() { }
-
-  ngOnInit(): void {
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
   }
 
 }

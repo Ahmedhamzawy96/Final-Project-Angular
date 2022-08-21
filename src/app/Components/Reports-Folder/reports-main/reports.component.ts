@@ -1,24 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import { ICar } from 'src/app/Interface/ICar';
 import { CarService } from 'src/app/Services/Car/car.service';
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 import { ISupplier } from 'src/app/Interface/ISupplier';
-import { ITransactions } from 'src/app/Interface/ITransactions';
-import { TransactionsService } from 'src/app/Services/transactions.service';
->>>>>>> Stashed changes
-import { ReportService } from './../../../Services/Reports/report.service';
-import { CustomerAccountsComponent } from './../../customer-accounts/customer-accounts.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { jsPDF } from "jspdf" ;
-import { AccountType } from 'src/app/Interface/Enums/account-type';
-import { ICustomer } from 'src/app/Interface/ICustomer';
-=======
-import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
-import { ISupplier } from 'src/app/Interface/ISupplier';
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 import { ITransactions } from 'src/app/Interface/ITransactions';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import { ReportService } from './../../../Services/Reports/report.service';
@@ -51,20 +34,6 @@ CustmaxDate = new Date();
 CustRangeValue: Date[];
 //#endregion Cust
   
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-  customers: ICustomer[];
-  selcustomer: ICustomer;
-  Custaccount:number;
-  customerID:number;
-  transactions: ITransactions[];
-  Date:string=new Date().toLocaleString();
-  
- CustminDate = new Date();
- CustmaxDate = new Date();
- CustRangeValue: Date[];
-  constructor(  private csutServ: CustService ,private router:Router,private repserv:ReportService)
-=======
 
 //#region SUP 
 SUPtransactions:ITransactions[];
@@ -101,33 +70,10 @@ TotalRangeValue: Date[];
 //#endregion total
   constructor(  private csutServ: CustService ,private SUPServ: SupplierService ,private router:Router,private repserv:ReportService
     ,private transServ:TransactionsService,private CARServ:CarService)
->>>>>>> Stashed changes
-=======
-
-//#region SUP 
-SUPtransactions:ITransactions[];
-SUPtransactionsReceipts:ITransactions[]=[];
-Suppliers: ISupplier[];
-selSuplier: ISupplier;
-SUPaccount:number;
-SUPID:number;
-SUPReceiptID:number;
-SUPCheckbox:boolean;
-SUPminDate = new Date();
-SUPmaxDate = new Date();
-SUPRangeValue: Date[];
-//#endregion Cust
-  
-
-  constructor(  private csutServ: CustService ,private SUPServ: SupplierService ,private router:Router,private repserv:ReportService,private transServ:TransactionsService)
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
    {
     this.CustmaxDate.setDate(this.CustmaxDate.getDate() + 6);
     this.CustminDate.setDate(this.CustminDate.getDate() -1);
     this.CustRangeValue = [this.CustminDate, this.CustmaxDate];
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 
     this.SUPmaxDate.setDate(this.SUPmaxDate.getDate() + 6);
     this.SUPminDate.setDate(this.SUPminDate.getDate() -1);
@@ -140,12 +86,6 @@ SUPRangeValue: Date[];
     this.TotalmaxDate.setDate(this.TotalmaxDate.getDate() + 6);
     this.TotalminDate.setDate(this.TotalminDate.getDate() -1);
     this.TotalRangeValue = [this.TotalminDate, this.TotalmaxDate];
->>>>>>> Stashed changes
-=======
-
-    this.SUPmaxDate.setDate(this.SUPmaxDate.getDate() + 7);
-    this.SUPRangeValue = [this.SUPminDate, this.SUPmaxDate];
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
     }
 
   ngOnInit(): void {
@@ -153,9 +93,6 @@ SUPRangeValue: Date[];
       this.customers = data;
     });
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
       this.SUPServ.getSupplier().subscribe((data)=>{
       this.Suppliers=data;
     });
@@ -163,13 +100,6 @@ SUPRangeValue: Date[];
       this.CARs=data;
     });
   } 
->>>>>>> Stashed changes
-=======
-      this.SUPServ.getSupplier().subscribe((data)=>{
-      this.Suppliers=data;
-    });
-  } 
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
 //#region Cust
 CustomerAccount(){
@@ -184,14 +114,9 @@ CustomerReceipts()
   }
   else
   {
-<<<<<<< Updated upstream
     this.repserv.addDates(this.CustRangeValue)
     this.router.navigate(['RCReceipts',this.customerID]);
   }
-<<<<<<< HEAD
-=======
-    this.repserv.addDates(this.SUPRangeValue)
-=======
 
 }
 fillCustomerReceipts()
@@ -226,8 +151,7 @@ SupplierReceipts()
   }
   else
   {
-    this.repserv.addDates(this.CustRangeValue)
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
+    this.repserv.addDates(this.SUPRangeValue)
     this.router.navigate(['RSReceipts',this.SUPID]);
   }
 
@@ -252,7 +176,6 @@ fillSupplierReceipts()
 //#endregion SUP
 
 
-<<<<<<< HEAD
 //#region CAR
 CARAccount(){
   this.repserv.addDates(this.CARRangeValue)
@@ -298,7 +221,4 @@ Totaleceipts()
 }
 //#endregion Total
 
->>>>>>> Stashed changes
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 }

@@ -26,7 +26,6 @@
               <h3 class="text-start mt-3">{{ Date }}</h3>
             </div>
 
-<<<<<<< HEAD
              <table class="table overflow-scroll">
             <thead class="">
               <tr class="text-center m-3 p-2">
@@ -62,42 +61,6 @@
               </tr>
             </tbody>
           </table>
-=======
-            <table class="table overflow-scroll">
-              <thead class="">
-                <tr class="text-center m-3 p-2">
-                  <th>كود</th>
-                  <th class="text-center">اسم المورد</th>
-                  <th class="text-center">المبلغ</th>
-                  <th class="text-center">نوع العمليه</th>
-                  <th class="text-center">تفاصيل العمليه</th>
-                  <th class="text-center">التاريخ</th>
-                  <th class="text-center">ملاحظات</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" *ngFor="let item of transactions">
-                  <th>{{ item.id }}</th>
-                  <td>{{ item.Name }}</td>
-                  <td>{{ item.paid }}</td>
-                  <td [ngSwitch]="item.type" class="text-center">
-                    <div *ngSwitchCase="0" class="text-center">دفع</div>
-                    <div *ngSwitchCase="1" class="text-center">توريد</div>
-                  </td>
-                  <td [ngSwitch]="item.operation" class="text-center">
-                    <div *ngSwitchCase="1" class="text-center">
-                      فاتورة شراء رقم {{ item.operationID }}
-                    </div>
-                    <div *ngSwitchCase="4" class="text-center">
-                      معاملة مادية رقم {{ item.id }}
-                    </div>
-                  </td>
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.notes }}</td>
-                </tr>
-              </tbody>
-            </table>
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
             <div class="row d-flex me-5">
               <div class="col">
                 <h2>الاجمالى {{ Total }}</h2>

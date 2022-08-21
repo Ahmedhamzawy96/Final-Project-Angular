@@ -39,21 +39,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
 import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
 import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
 import { ReportsCARAccountComponent } from './Components/Reports-Folder/reports-car-account/reports-car-account.component';
 import { ReportsCARReceiptsComponent } from './Components/Reports-Folder/reports-car-receipts/reports-car-receipts.component';
 import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
->>>>>>> Stashed changes
-=======
-import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
-import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
-import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
 
 @NgModule({
   declarations: [
@@ -86,22 +77,12 @@ import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/rep
     CarRecPrintComponent,
     ReportCustomerAccountsComponent,
     ReceiptfromcarComponent,
-<<<<<<< HEAD
-<<<<<<< Updated upstream
->>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
-=======
     ReportCustomerReceiptsComponent,
     ReportsSupplierReceiptComponent,
     ReportsSupplierAccountComponent,
     ReportsCARAccountComponent,
     ReportsCARReceiptsComponent,
     ReportsTotalComponent,
->>>>>>> Stashed changes
-=======
-    ReportCustomerReceiptsComponent,
-    ReportsSupplierReceiptComponent,
-    ReportsSupplierAccountComponent,
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
   ],
   imports: [
     BrowserModule,

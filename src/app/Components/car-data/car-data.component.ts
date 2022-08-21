@@ -20,23 +20,11 @@ export class CarDataComponent implements OnInit {
 
   constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-=======
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
         // Validators.pattern('[a-zA-z]'),
       ]),
->>>>>>> Stashed changes
-=======
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.pattern('[a-zA-z]'),
-      ]),
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
       notes: new FormControl(''),
     });
 

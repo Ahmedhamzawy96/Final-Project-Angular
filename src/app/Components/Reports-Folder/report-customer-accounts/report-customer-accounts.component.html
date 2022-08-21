@@ -1,71 +1,4 @@
 <main id="main" class="main">
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    <div class="pagetitle">
-        <h1>تقرير كشف حساب</h1>
-        <nav class="my-3">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a routerLink="/Home">الصفحة الرئيسية</a>
-                </li>
-                <li class="breadcrumb-item"></li>
-                <li class="breadcrumb-item active">التقارير</li>
-            </ol>
-        </nav>
-    </div>
-    <section class="section" id="print">
-        <div class="column row-md">
-          <div class="col">
-            <div class="card">
-                <div class="card-body">
-<div class="row">
-    <div class="text-center mt-2">
-        <div > <img style="width: 150px;" src="/assets/img/LOGO.jpg" alt=""></div>
-         <h1 class="card-title">كشف حساب عميل </h1>
-     </div>
-     <h3 class="text-start mt-3">{{Date}}</h3>
-</div>
-                   
-                    <table class="table overflow-scroll">
-                        <thead class="">
-                          <tr class="text-center m-3 p-2">
-                            <th>كود</th>
-                            <th class="text-center">اسم العميل</th>
-                            <th class="text-center">المبلغ</th>
-                            <th class="text-center">نوع العمليه</th>
-                            <th class="text-center">تفاصيل العمليه</th>
-                            <th class="text-center">التاريخ</th>
-                            <th class="text-center">ملاحظات</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="text-center" *ngFor="let item of transactions">
-                            <th>{{ item.id }}</th>
-                            <td>{{ item.Name }}</td>
-                            <td>{{ item.amount }}</td>
-                            <td [ngSwitch]="item.type" class="text-center">
-                              <div *ngSwitchCase="0" class="text-center">دفع</div>
-                              <div *ngSwitchCase="1" class="text-center">توريد</div>
-                            </td>
-                            <td [ngSwitch]="item.operation" class="text-center">
-                              <div *ngSwitchCase="2" class="text-center">
-                                فاتورة شراء رقم {{ item.operationID }}
-                              </div>
-                              <div *ngSwitchCase="5" class="text-center">
-                                معاملة مادية رقم {{ item.id }}
-                              </div>
-                            </td>
-                            <td>{{ item.date }}</td>
-                            <td>{{ item.notes }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="row"> <h2> الاجمالى {{Total}}</h2>
-                        <h2> الحساب الحالى {{selcustomer.account}}</h2></div>
-                    
-=======
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
   <div class="pagetitle">
     <h1>تقرير كشف حساب</h1>
     <nav class="my-3">
@@ -87,7 +20,6 @@
               <div class="text-center mt-2">
                 <div>
                   <img style="width: 150px" src="/assets/img/LOGO.jpg" alt="" />
-<<<<<<< HEAD
                 </div>
                 <h1 class="card-title">كشف حساب عميل</h1>
               </div>
@@ -129,57 +61,6 @@
               </tr>
             </tbody>
           </table>
-            <div class="row d-flex me-5">
-              <div class="col">
-                <h2>الاجمالى {{ Total }}</h2>
-              </div>
-              <div class="col">
-                <h2>المدفوع {{ totalPaid }}</h2>
-              </div>
->>>>>>> Stashed changes
-
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
-                </div>
-                <h1 class="card-title">كشف حساب عميل</h1>
-              </div>
-              <h3 class="text-start mt-3">{{ Date }}</h3>
-            </div>
-
-            <table class="table overflow-scroll">
-              <thead class="">
-                <tr class="text-center m-3 p-2">
-                  <th>كود</th>
-                  <th class="text-center">اسم العميل</th>
-                  <th class="text-center">المبلغ</th>
-                  <th class="text-center">نوع العمليه</th>
-                  <th class="text-center">تفاصيل العمليه</th>
-                  <th class="text-center">التاريخ</th>
-                  <th class="text-center">ملاحظات</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" *ngFor="let item of transactions">
-                  <th>{{ item.id }}</th>
-                  <td>{{ item.Name }}</td>
-                  <td>{{ item.paid }}</td>
-                  <td [ngSwitch]="item.type" class="text-center">
-                    <div *ngSwitchCase="0" class="text-center">دفع</div>
-                    <div *ngSwitchCase="1" class="text-center">توريد</div>
-                  </td>
-                  <td [ngSwitch]="item.operation" class="text-center">
-                    <div *ngSwitchCase="2" class="text-center">
-                      فاتورة شراء رقم {{ item.operationID }}
-                    </div>
-                    <div *ngSwitchCase="5" class="text-center">
-                      معاملة مادية رقم {{ item.id }}
-                    </div>
-                  </td>
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.notes }}</td>
-                </tr>
-              </tbody>
-            </table>
             <div class="row d-flex me-5">
               <div class="col">
                 <h2>الاجمالى {{ Total }}</h2>

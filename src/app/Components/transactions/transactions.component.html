@@ -16,22 +16,6 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">اضافه تعامل</h5>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-          <div class="row my-3">
-            <div class="col-lg-6 col-12">
-              <label for="Amount" class="col-form-label">نوع البند</label>
-              <div>
-                <mat-form-field>
-                  <mat-select [(value)]="id" (selectionChange)="selectchange()">
-                    <mat-option *ngFor="let ex of expenses" [value]="ex.id">
-                      {{ ex.name }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-=======
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
           <form [formGroup]="suppaccountsform">
             <div class="row my-3">
               <div class="col-12 col-lg-6 my-md-2">
@@ -43,10 +27,7 @@
                         formControlName="accountID"
                         [(ngModel)]="expandID"
                         [(value)]="expandID"
-<<<<<<< HEAD
                         (selectionChange)="selectedExpenses()"
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
                       >
                         <mat-option
                           *ngFor="let item of expenses"
@@ -74,10 +55,6 @@
                     </div>
                   </div>
                 </div>
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
               </div>
               <div class="col-12 col-lg-6 my-md-2">
                 <label for="Amount" class="col-form-label">
@@ -149,16 +126,6 @@
                   class="btn btn-primary px-4 mx-2 py-2"
                   (click)="Paid()"
                 >
-<<<<<<< Updated upstream
-                  دفع
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-success px-4 py-2"
-                  (click)="Get()"
-                >
-                  توريد</button
-=======
                  دفع من الخزنة             </button>
                 <button
                   type="submit"
@@ -166,7 +133,6 @@
                   (click)="Get()"
                 >
                   توريد الى الخزنة</button
->>>>>>> Stashed changes
                 >&nbsp; &nbsp;
               </div>
             </div>
@@ -194,16 +160,6 @@
               <tr class="text-center" *ngFor="let item of trans">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                <td>{{ item.amount }}</td>
-                <td [ngSwitch]="item.type" class="text-center">
-                  <div *ngSwitchCase="0" class="text-center">دفع</div>
-                  <div *ngSwitchCase="1" class="text-center">توريد</div>
-                </td>
-                <td [ngSwitch]="item.operation" class="text-center">
-                  دفع مبلغ مالى
-=======
                 <td>{{ item.paid + item.remaining }}</td>
                 <td>{{ item.paid }}</td>
                 <td>
@@ -211,22 +167,6 @@
                    دفع مبلغ مالى 
                   </div>
                   <div *ngIf="item.type == 1">توريد مبلغ مالي</div>
->>>>>>> Stashed changes
-=======
-                <td>{{ item.paid + item.remaining }}</td>
-                <td>{{ item.paid }}</td>
-                <td>
-                  <div *ngIf="item.type == 0">دفع</div>
-                  <div *ngIf="item.type == 1">توريد</div>
-                </td>
-                <td>
-                  <div *ngIf="item.operation == 0">
-                    <p *ngFor="let item of expenses">
-                      {{ item.name }}
-                    </p>
-                  </div>
-                  <div *ngIf="item.operation == 4">دفع مبلغ مالي</div>
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>

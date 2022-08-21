@@ -72,39 +72,15 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
-=======
-    if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
-      });
-    } else {
-=======
   
->>>>>>> Stashed changes
       if (this.customeraccountsform.valid) {
         this.transactionsService
           .addtransaction(this.customeraccountsform.value)
           .subscribe(() => {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-              <number>this.selcustomer.account -
-              this.customeraccountsform.controls['amount'].value;
-=======
               Number(this.selcustomer.account) +
               Number(this.customeraccountsform.controls['paid'].value);
->>>>>>> Stashed changes
-=======
-              Number(this.selcustomer.account) -
-              Number(this.customeraccountsform.controls['paid'].value);
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
               .subscribe(() => {
@@ -143,17 +119,8 @@ export class CustomerAccountsComponent implements OnInit {
         .subscribe(() => {
           this.selectedcustomer(this.customerID);
           this.selcustomer.account =
-<<<<<<< Updated upstream
-            Number(this.selcustomer.account) +
-<<<<<<< HEAD
-            Number(this.customeraccountsform.controls['amount'].value);
-=======
             Number(this.selcustomer.account) -
             Number(this.customeraccountsform.controls['paid'].value);
->>>>>>> Stashed changes
-=======
-            Number(this.customeraccountsform.controls['paid'].value);
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
           this.csutServ
             .updateCustomer(this.customerID, this.selcustomer)
             .subscribe((Data) => {

@@ -32,23 +32,6 @@ export class ReportCustomerAccountsComponent implements OnInit {
 
   ngOnInit(): void {
     this.custid = this.rout.snapshot.paramMap.get('id');
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    this.custserv.getCustomerByID(parseInt(this.custid)).subscribe(data=>
-      {
-        this.selcustomer=data;
-      })
-    this.repserv
-      .Custtransactions(parseInt(this.custid), AccountType.Customer,this.date)
-      .subscribe((data) => {
-        this.transactions = data;
-        this.transactions.forEach((element) => {
-          element.Name = this.selcustomer.name;
-          if(element.type==TransType.Get)
-          { this.Total+=element.amount;}
-=======
-=======
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
     this.custserv.getCustomerByID(parseInt(this.custid)).subscribe((data) => {
       this.selcustomer = data;
       this.repserv
@@ -61,7 +44,6 @@ export class ReportCustomerAccountsComponent implements OnInit {
           this.transactions = data;
           this.transactions.forEach((element) => {
             element.Name = this.selcustomer.name;
-<<<<<<< HEAD
             if (element.operation == Operation.ExportReciept)
             {
               this.Total+=(element.paid+element.remaining);
@@ -75,15 +57,6 @@ export class ReportCustomerAccountsComponent implements OnInit {
                 { this.totalPaid+=element.paid}
             }
           });
->>>>>>> Stashed changes
-=======
-            if (element.type == TransType.Get) {
-              this.Total += element.paid;
-            } else if (element.type == TransType.Paid) {
-              this.totalPaid += element.paid;
-            }
-          });
->>>>>>> 043f1e67cb6494457e57f3e74df888d22da96aeb
         });
     });
   }
