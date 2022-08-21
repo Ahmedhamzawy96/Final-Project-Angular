@@ -7,7 +7,6 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +21,7 @@ export class GenericService {
     }),
   };
 
+
   // set Header
   private setHeader(Key: string, value: string) {
     this.httpOptions.headers.set(Key, value);
@@ -30,7 +30,12 @@ export class GenericService {
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
-    } else {
+    } else if (error.status === 401)
+    {
+    return throwError(() => new Error('401'));
+
+    } 
+    else {
       console.error(
         `Backend returned code ${error.status}, body was: `,
         error.error
@@ -95,6 +100,7 @@ export class GenericService {
       `${environment.APIUrl}/${RouteURL}/${id}/${type}/`,{ params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
+<<<<<<< Updated upstream
   //Delete Function by username
 <<<<<<< HEAD
   Deleteuser(RouteURL: string, user: string): Observable<any> {
@@ -107,6 +113,27 @@ export class GenericService {
   putuser(RouteURL: string, username: string, item: any): Observable<any> {
     return this.Client.put<any>(
       `${environment.APIUrl}/${RouteURL}/${username}`,
+=======
+  getTotalTransaction(
+    RouteURL: string,
+    sdate: any,
+    edate: any
+  ): Observable<any> {
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('sdate', sdate);
+    params = params.append('edate', edate);
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}/`,
+      { params: params }
+    ).pipe(retry(3), catchError(this.handleError));
+  }
+
+  refund(RouteURL: string, id: Number, item: any): Observable<any> {
+    return this.Client.post<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}`,
+>>>>>>> Stashed changes
       JSON.stringify(item),
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));

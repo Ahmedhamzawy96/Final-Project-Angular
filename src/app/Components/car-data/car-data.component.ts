@@ -20,7 +20,15 @@ export class CarDataComponent implements OnInit {
 
   constructor(private carserv: CarService) {
     this.cardataform = new FormGroup({
+<<<<<<< Updated upstream
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+=======
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        // Validators.pattern('[a-zA-z]'),
+      ]),
+>>>>>>> Stashed changes
       notes: new FormControl(''),
     });
 
@@ -81,7 +89,9 @@ export class CarDataComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.carserv.deleteCar(id).subscribe(() => {
-            this.carsdata = this.carsdata.filter((item) => item.id !== id);
+            this.carserv.getCar().subscribe((Date) => {
+              this.carsdata = Date;
+            });
           });
           this.carsdata.pop();
           swalWithBootstrapButtons.fire(

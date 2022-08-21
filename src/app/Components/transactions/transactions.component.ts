@@ -21,10 +21,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {
+<<<<<<< Updated upstream
   //@Output() TransUpdated = new EventEmitter<ITransactions[]>();
 
   notes: string;
   amount: number;
+=======
+  expenses: IExpenses[];
+  nameSupp: string;
+  suppaccountsform: FormGroup;
+  expandID: number;
+  selectex: IExpenses;
+  alltrans:ITransactions[];
+  trans: ITransactions[]=[];
+  transsupp: ITransactions[] = [];
+>>>>>>> Stashed changes
   BillDate: string = new Date().toLocaleString();
   user: string;
   receiver: string;
@@ -37,6 +48,7 @@ export class TransactionsComponent implements OnInit {
   selectex: IExpenses;
   transDELNUL = null;
   constructor(
+<<<<<<< Updated upstream
     private Trans: TransactionsService,
     private exServ: ExpendsService
   ) {}
@@ -91,15 +103,92 @@ export class TransactionsComponent implements OnInit {
         this.transact = Date;
         this.transact.forEach((element) => {
           element.Name = this.selectex.name;
+=======
+    private _expanserve: ExpendsService,
+    private transService: TransactionsService,
+    private fbBuild: FormBuilder
+  ) {
+    this.suppaccountsform = fbBuild.group({
+      accountID: [this.expandID, [Validators.required]],
+      accountType: [AccountType.Treasure],
+      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      remaining: ['0'],
+      type: [''],
+      operationID: [0],
+      operation: [''],
+      date: [this.BillDate],
+      userName: [JSON.parse(localStorage.getItem('UserName'))],
+      notes: [''],
+    });
+  }
+  selectedExpenses() {
+    this.selectex = this.expenses.find((c) => c.id ==this.expandID);
+    this.transService
+      .transactionbytype(<number>this.selectex.id, AccountType.Treasure)
+      .subscribe((data) => {
+        this.trans = data;
+        console.log(data)
+        this.trans.forEach((element) => {
+          element.Name = this.selectex.name;
+        });
+      });
+  }
+  Paid() {
+    this.transact = true;
+    this.suppaccountsform.controls['type'].setValue(TransType.Paid);
+    this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
+    if (this.suppaccountsform.valid) {
+      console.log(this.suppaccountsform.value)
+      this.transService
+        .addtransaction(this.suppaccountsform.value)
+        .subscribe(() => {
+          this.suppaccountsform.controls['accountID'].reset();
+          this.suppaccountsform.controls['paid'].reset();
+          this.suppaccountsform.controls['notes'].reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الدفع بنجاح',
+          });
+
+        });
+    }
+  }
+  Get() {
+    this.transact = true;
+    this.suppaccountsform.controls['type'].setValue(TransType.Get);
+    this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
+    if (this.suppaccountsform.valid) {
+      this.transService
+        .addtransaction(this.suppaccountsform.value)
+        .subscribe(() => {
+          this.suppaccountsform.controls['accountID'].reset();
+          this.suppaccountsform.controls['paid'].reset();
+          this.suppaccountsform.controls['notes'].reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم التوريد بنجاح',
+          });
+
+>>>>>>> Stashed changes
         });
         console.log(this.transact);
       }
     );
   }
+<<<<<<< Updated upstream
 
   deleteTrans() {
     this.Trans.deletetransaction(this.id).subscribe((Date) => {
       this.getdatatotable();
+=======
+  ngOnInit(): void {
+    this._expanserve.getExpends().subscribe((Data) => {
+      this.expenses = Data;
+>>>>>>> Stashed changes
     });
   }
 

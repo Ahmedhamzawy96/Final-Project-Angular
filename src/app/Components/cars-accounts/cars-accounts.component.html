@@ -135,14 +135,14 @@
                   class="btn btn-primary px-4 mx-2 py-2"
                   (click)="Paid()"
                 >
-                  دفع
+          دفع للعربة
                 </button>
                 <button
                   type="submit"
                   class="btn btn-success px-4 py-2"
                   (click)="Get()"
                 >
-                  توريد</button
+                  توريد من العربة</button
                 >&nbsp; &nbsp;
               </div>
             </div>
@@ -160,7 +160,6 @@
                 <th>كود</th>
                 <th class="text-center">اسم العربة</th>
                 <th class="text-center">المدفوعات</th>
-                <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
                 <th class="text-center">ملاحظات</th>
@@ -171,10 +170,6 @@
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
                 <td>{{ item.amount }}</td>
-                <td>
-                  <div *ngIf="item.type == 0">دفع</div>
-                  <div *ngIf="item.type == 1">توريد</div>
-                </td>
                 <td>
                   <div *ngIf="item.operation == 2">فاتورة توريد لعربة</div>
                   <div *ngIf="item.operation == 3">توريد مبلغ مالي</div>

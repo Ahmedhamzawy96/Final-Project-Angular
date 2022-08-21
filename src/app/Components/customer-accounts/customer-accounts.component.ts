@@ -71,6 +71,7 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
+<<<<<<< Updated upstream
     if (this.customeraccountsform.controls['amount'].value > this.Custaccount) {
       Swal.fire({
         icon: 'error',
@@ -78,14 +79,22 @@ export class CustomerAccountsComponent implements OnInit {
         text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
       });
     } else {
+=======
+  
+>>>>>>> Stashed changes
       if (this.customeraccountsform.valid) {
         this.transactionsService
           .addtransaction(this.customeraccountsform.value)
           .subscribe(() => {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
+<<<<<<< Updated upstream
               <number>this.selcustomer.account -
               this.customeraccountsform.controls['amount'].value;
+=======
+              Number(this.selcustomer.account) +
+              Number(this.customeraccountsform.controls['paid'].value);
+>>>>>>> Stashed changes
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
               .subscribe(() => {
@@ -103,7 +112,7 @@ export class CustomerAccountsComponent implements OnInit {
           });
       }
     }
-  }
+  
 
   Get() {
     this.transact = true;
@@ -111,14 +120,26 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.SuppplierTrans
     );
+      if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المورد اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
     if (this.customeraccountsform.valid) {
       this.transactionsService
         .addtransaction(this.customeraccountsform.value)
         .subscribe(() => {
           this.selectedcustomer(this.customerID);
           this.selcustomer.account =
+<<<<<<< Updated upstream
             Number(this.selcustomer.account) +
             Number(this.customeraccountsform.controls['amount'].value);
+=======
+            Number(this.selcustomer.account) -
+            Number(this.customeraccountsform.controls['paid'].value);
+>>>>>>> Stashed changes
           this.csutServ
             .updateCustomer(this.customerID, this.selcustomer)
             .subscribe((Data) => {
@@ -135,5 +156,5 @@ export class CustomerAccountsComponent implements OnInit {
           });
         });
     }
-  }
+  }}
 }

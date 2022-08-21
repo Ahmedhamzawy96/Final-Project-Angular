@@ -41,6 +41,15 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 =======
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
+<<<<<<< Updated upstream
+=======
+import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
+import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
+import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
+import { ReportsCARAccountComponent } from './Components/Reports-Folder/reports-car-account/reports-car-account.component';
+import { ReportsCARReceiptsComponent } from './Components/Reports-Folder/reports-car-receipts/reports-car-receipts.component';
+import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
+>>>>>>> Stashed changes
 
 >>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
 @NgModule({
@@ -76,7 +85,16 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
     ReportCustomerAccountsComponent,
 =======
     ReceiptfromcarComponent,
+<<<<<<< Updated upstream
 >>>>>>> 06fafa74c9476b4174e60853a37deda696b99dc5
+=======
+    ReportCustomerReceiptsComponent,
+    ReportsSupplierReceiptComponent,
+    ReportsSupplierAccountComponent,
+    ReportsCARAccountComponent,
+    ReportsCARReceiptsComponent,
+    ReportsTotalComponent,
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,

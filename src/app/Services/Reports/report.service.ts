@@ -1,3 +1,4 @@
+import { reportTotal } from './../../Interface/ReportTotal';
 import { ITransactions } from './../../Interface/ITransactions';
 import { GenericService } from './../GenericService/generic.service';
 import { Injectable, Type } from '@angular/core';
@@ -16,5 +17,8 @@ Custtransactions(id:number,Type:number,date:Date[]):Observable<ITransactions[]> 
   return this.genserv.getRepoTransaction("Report",id,Type,date[0].toLocaleString(),
   date[date.length-1].toLocaleString());
 }
-
+getImportProduct(date:Date[]):Observable<reportTotal>{
+  return this.genserv.getTotalTransaction("Report/Total",date[0].toLocaleString(),
+  date[date.length-1].toLocaleString());
+}
 }

@@ -87,10 +87,10 @@ export class SupliersComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          console.log(this.suppid);
           this._supplierservice.deleteSupplier(id).subscribe((res) => {
-            this.sply = this.sply.filter((item) => item.id !== id);
-            console.log(' deleted successfully!');
+            this._supplierservice.getSupplier().subscribe((Data) => {
+              this.sply = Data;
+            });
           });
           this.sply.pop();
           swalWithBootstrapButtons.fire(

@@ -17,6 +17,7 @@
       <div class="card">
         <div class="card-body container">
           <h5 class="card-title">اضافه تعامل</h5>
+<<<<<<< Updated upstream
           <div class="row my-3">
             <div class="col-lg-6 col-12">
               <label for="Amount" class="col-form-label">نوع البند</label>
@@ -28,6 +29,47 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
+=======
+          <form [formGroup]="suppaccountsform">
+            <div class="row my-3">
+              <div class="col-12 col-lg-6 my-md-2">
+                <label for="inputText" class="col-form-label">نوع البند</label>
+                <div class="col-sm-10">
+                  <div>
+                    <mat-form-field>
+                      <mat-select
+                        formControlName="accountID"
+                        [(ngModel)]="expandID"
+                        [(value)]="expandID"
+                        (selectionChange)="selectedExpenses()"
+                      >
+                        <mat-option
+                          *ngFor="let item of expenses"
+                          [value]="item.id"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <div
+                      *ngIf="
+                        transact &&
+                        suppaccountsform.controls['accountID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          suppaccountsform.controls['accountID'].errors[
+                            'required'
+                          ]
+                        "
+                        >يجب اختيار البند</small
+                      >
+                    </div>
+                  </div>
+                </div>
+>>>>>>> Stashed changes
               </div>
             </div>
             <div class="col-md-6 col-12">
@@ -71,10 +113,20 @@
                   class="btn btn-primary px-4 mx-2 py-2"
                   (click)="addTrans()"
                 >
+<<<<<<< Updated upstream
                   دفع
                 </button>
                 <button type="submit" class="btn btn-success px-4 py-2">
                   توريد</button
+=======
+                 دفع من الخزنة             </button>
+                <button
+                  type="submit"
+                  class="btn btn-success px-4 py-2"
+                  (click)="Get()"
+                >
+                  توريد الى الخزنة</button
+>>>>>>> Stashed changes
                 >&nbsp; &nbsp;
               </div>
             </div>
@@ -92,7 +144,6 @@
                 <th>كود</th>
                 <th class="text-center">اسم البند</th>
                 <th class="text-center">المبلغ</th>
-                <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
                 <th class="text-center">ملاحظات</th>
@@ -102,6 +153,7 @@
               <tr class="text-center" *ngFor="let item of transact">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
+<<<<<<< Updated upstream
                 <td>{{ item.amount }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
                   <div *ngSwitchCase="0" class="text-center">دفع</div>
@@ -109,6 +161,15 @@
                 </td>
                 <td [ngSwitch]="item.operation" class="text-center">
                   دفع مبلغ مالى
+=======
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
+                <td>
+                  <div *ngIf="item.type == 0">
+                   دفع مبلغ مالى 
+                  </div>
+                  <div *ngIf="item.type == 1">توريد مبلغ مالي</div>
+>>>>>>> Stashed changes
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.notes }}</td>

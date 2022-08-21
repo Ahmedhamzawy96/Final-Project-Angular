@@ -96,7 +96,6 @@ export class SupplierAccountsComponent implements OnInit {
       }
     }
   }
-
   Get() {
     this.transact = true;
     this.suppaccountsform.controls['type'].setValue(TransType.Get);

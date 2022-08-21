@@ -147,14 +147,14 @@
                   class="btn btn-primary px-4 mx-2 py-2"
                   (click)="Paid()"
                 >
-                  دفع
+                    دفع للعميل
                 </button>
                 <button
                   type="submit"
                   class="btn btn-success px-4 py-2"
                   (click)="Get()"
                 >
-                  توريد</button
+                  توريد من العميل</button
                 >&nbsp; &nbsp;
               </div>
             </div>
@@ -172,7 +172,6 @@
                 <th>كود</th>
                 <th class="text-center">اسم العميل</th>
                 <th class="text-center">المبلغ</th>
-                <th class="text-center">نوع العمليه</th>
                 <th class="text-center">تفاصيل العمليه</th>
                 <th class="text-center">التاريخ</th>
                 <th class="text-center">ملاحظات</th>
@@ -182,6 +181,7 @@
               <tr class="text-center" *ngFor="let item of transactions">
                 <th>{{ item.id }}</th>
                 <td>{{ item.Name }}</td>
+<<<<<<< Updated upstream
                 <td>{{ item.amount }}</td>
                 <td [ngSwitch]="item.type" class="text-center">
                   <div *ngSwitchCase="0" class="text-center">دفع</div>
@@ -193,6 +193,17 @@
                   </div>
                   <div *ngSwitchCase="5" class="text-center">
                     توريد مبلغ مالى رقم {{ item.operationID }}
+=======
+                <td>{{ item.paid + item.remaining }}</td>
+                <td>{{ item.paid }}</td>
+
+                <td>
+                  <div *ngIf="item.operation == 2">
+                    فاتورة بيع رقم {{ item.operationID }}
+                  </div>
+                  <div *ngIf="item.operation == 5 && item.type == 1">
+                    توريد مبلغ مالى رقم 
+>>>>>>> Stashed changes
                   </div>
                 </td>
                 <td>{{ item.date }}</td>

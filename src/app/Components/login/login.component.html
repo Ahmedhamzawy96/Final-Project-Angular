@@ -1,12 +1,12 @@
-<main>
+<main class="main">
   <div class="container" dir="rtl">
     <section
       class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
     >
       <div class="container">
-        <div class="row justify-content-center">
+        <div class="row  justify-content-center">
           <div
-            class="col-lg-6 col-md-4 d-flex flex-column align-items-center justify-content-center"
+            class=" col-lg-6 col-md-4 d-flex flex-column align-items-center justify-content-center"
           >
             <div class="d-flex justify-content-center py-4">
               <a routerLink="/" class="logo d-flex align-items-center w-auto">
@@ -19,7 +19,7 @@
                   <h3 class="card-title text-center pb-0 fs-8">تسجيل الدخول</h3>
                 </div>
                 <form
-                  style="width: 400px; height: 320px"
+                  style="width: 350px; height: 320px"
                   [formGroup]="LoginForm"
                   (ngSubmit)="onSubmit()"
                   class="row g-2"

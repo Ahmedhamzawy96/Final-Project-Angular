@@ -29,6 +29,7 @@ Total:number=0;
 
   ngOnInit(): void {
     this.custid = this.rout.snapshot.paramMap.get('id');
+<<<<<<< Updated upstream
     this.custserv.getCustomerByID(parseInt(this.custid)).subscribe(data=>
       {
         this.selcustomer=data;
@@ -41,6 +42,33 @@ Total:number=0;
           element.Name = this.selcustomer.name;
           if(element.type==TransType.Get)
           { this.Total+=element.amount;}
+=======
+    this.custserv.getCustomerByID(parseInt(this.custid)).subscribe((data) => {
+      this.selcustomer = data;
+      this.repserv
+        .Custtransactions(
+          parseInt(this.custid),
+          AccountType.Customer,
+          this.date
+        )
+        .subscribe((data) => {
+          this.transactions = data;
+          this.transactions.forEach((element) => {
+            element.Name = this.selcustomer.name;
+            if (element.operation == Operation.ExportReciept)
+            {
+              this.Total+=(element.paid+element.remaining);
+              this.totalPaid+=element.paid;
+            }
+            else if(element.operation == Operation.CustomerTrans)
+            {
+              if( element.type==TransType.Paid)
+                  { this.Total+=(element.paid);}
+              else if( element.type==TransType.Get)
+                { this.totalPaid+=element.paid}
+            }
+          });
+>>>>>>> Stashed changes
         });
       });
   }
