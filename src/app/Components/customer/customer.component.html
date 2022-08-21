@@ -37,9 +37,9 @@
                     <small *ngIf="AddForm.controls['name'].errors['required']"
                       >يجب ادخال الاسم</small
                     >
-                    <small *ngIf="AddForm.controls['name'].errors['minlength']"
-                      >يجب الا يقل الاسم عن 4 حروف</small
-                    >
+                    <small *ngIf="AddForm.controls['name'].errors['minlength']">
+                      يجب الا يقل الاسم عن 3 حروف
+                    </small>
                   </div>
                 </div>
               </div>
@@ -73,7 +73,7 @@
                     >
                     <br />
                     <small *ngIf="AddForm.controls['phone'].errors['pattern']"
-                      >يجب ان يتكون من ارقام فقط</small
+                      >يجب ان يتكون من ارقام فقط ولا يزيد عن 11 رقم</small
                     >
                   </div>
                 </div>
@@ -173,7 +173,8 @@
                       type="text"
                       class="form-control"
                       #itemPhone="ngModel"
-                      pattern="[0-9]{10,11}"
+                      maxlength="11"
+                      pattern="^(010|011|015|012)[0-9]{11}"
                       required
                       [value]="customers.phone"
                       (change)="

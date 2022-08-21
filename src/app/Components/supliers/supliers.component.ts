@@ -25,13 +25,13 @@ export class SupliersComponent implements OnInit {
     private fBuilder: FormBuilder
   ) {
     this.userSupplier = fBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       phone: [
         '',
         [
           Validators.required,
           Validators.minLength(11),
-          Validators.pattern('[0-9]{11}'),
+          Validators.pattern('^(010|011|015|012)[0-9]{11}'),
         ],
       ],
       notes: [''],
@@ -111,7 +111,7 @@ export class SupliersComponent implements OnInit {
     ref: HTMLInputElement
   ) {
     this.tableNotValid = true;
-    let regex: RegExp = new RegExp('[0-9]{11}');
+    let regex: RegExp = new RegExp('^(010|011|015|012)[0-9]{11}');
     if (name.length < 3) {
       Swal.fire({
         icon: 'error',

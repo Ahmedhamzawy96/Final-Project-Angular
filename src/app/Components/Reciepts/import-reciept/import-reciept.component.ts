@@ -45,7 +45,7 @@ export class ImportRecieptComponent implements OnInit {
       date: new FormControl(this.BillDate),
       paid: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]{1,}'),
+        Validators.pattern('((d+)+(.d+))|([0-9])$'),
       ]),
       remaining: new FormControl(''),
       supid: new FormControl('', [Validators.required]),

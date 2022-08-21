@@ -20,10 +20,13 @@ export class ProductsComponent implements OnInit {
   constructor(private productService: ProductService, private fb: FormBuilder) {
     this.Addprodform = fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      buyingPrice: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      buyingPrice: [
+        '',
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
+      ],
       sellingPrice: [
         '',
-        [Validators.required, Validators.pattern('[0-9]{1,}')],
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
       ],
       quantity: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
     });
@@ -97,7 +100,6 @@ export class ProductsComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
           this.productService.deleteProduct(id).subscribe((res) => {
             this.getproducts();
           });

@@ -37,7 +37,10 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform = fb.group({
       accountID: [this.customerID, [Validators.required]],
       accountType: [AccountType.Customer],
-      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: [
+        '',
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
+      ],
       remaining: ['0'],
       type: [''],
       operationID: [1],
@@ -72,19 +75,58 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
-  
+
+    if (this.customeraccountsform.valid) {
+      this.transactionsService
+        .addtransaction(this.customeraccountsform.value)
+        .subscribe(() => {
+          this.selectedcustomer(this.customerID);
+          this.selcustomer.account =
+            Number(this.selcustomer.account) +
+            Number(this.customeraccountsform.controls['paid'].value);
+          this.csutServ
+            .updateCustomer(this.customerID, this.selcustomer)
+            .subscribe(() => {
+              this.Custaccount = 0;
+            });
+          this.customeraccountsform.controls['accountID'].reset();
+          this.customeraccountsform.controls['paid'].reset();
+          this.customeraccountsform.controls['notes'].reset();
+          this.transact = false;
+          Swal.fire({
+            icon: 'success',
+            title: '',
+            text: 'تم الدفع  بنجاح',
+          });
+        });
+    }
+  }
+
+  Get() {
+    this.transact = true;
+    this.customeraccountsform.controls['type'].setValue(TransType.Get);
+    this.customeraccountsform.controls['operation'].setValue(
+      Operation.CustomerTrans
+    );
+    if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان تكون قيمة المبلغ المورد اقل من او يساوي قيمة المبلغ المتبقي ',
+      });
+    } else {
       if (this.customeraccountsform.valid) {
         this.transactionsService
           .addtransaction(this.customeraccountsform.value)
           .subscribe(() => {
             this.selectedcustomer(this.customerID);
             this.selcustomer.account =
-              Number(this.selcustomer.account) +
+              Number(this.selcustomer.account) -
               Number(this.customeraccountsform.controls['paid'].value);
             this.csutServ
               .updateCustomer(this.customerID, this.selcustomer)
-              .subscribe(() => {
-                this.Custaccount = 0;
+              .subscribe((Data) => {
+                this.Custaccount = <number>Data.account;
               });
             this.customeraccountsform.controls['accountID'].reset();
             this.customeraccountsform.controls['paid'].reset();
@@ -93,49 +135,13 @@ export class CustomerAccountsComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: '',
-              text: 'تم الدفع  بنجاح',
+              text: 'تم التوريد بنجاح',
+            });
+            this.csutServ.getCustomers().subscribe((data) => {
+              this.customers = data;
             });
           });
       }
     }
-  
-
-  Get() {
-    this.transact = true;
-    this.customeraccountsform.controls['type'].setValue(TransType.Get);
-    this.customeraccountsform.controls['operation'].setValue(
-      Operation.CustomerTrans
-    );
-      if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان تكون قيمة المبلغ المورد اقل من او يساوي قيمة المبلغ المتبقي ',
-      });
-    } else {
-    if (this.customeraccountsform.valid) {
-      this.transactionsService
-        .addtransaction(this.customeraccountsform.value)
-        .subscribe(() => {
-          this.selectedcustomer(this.customerID);
-          this.selcustomer.account =
-            Number(this.selcustomer.account) -
-            Number(this.customeraccountsform.controls['paid'].value);
-          this.csutServ
-            .updateCustomer(this.customerID, this.selcustomer)
-            .subscribe((Data) => {
-              this.Custaccount = <number>Data.account;
-            });
-          this.customeraccountsform.controls['accountID'].reset();
-          this.customeraccountsform.controls['paid'].reset();
-          this.customeraccountsform.controls['notes'].reset();
-          this.transact = true;
-          Swal.fire({
-            icon: 'success',
-            title: '',
-            text: 'تم التوريد بنجاح',
-          });
-        });
-    }
-  }}
+  }
 }

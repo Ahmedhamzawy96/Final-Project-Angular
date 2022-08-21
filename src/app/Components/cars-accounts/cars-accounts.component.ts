@@ -35,7 +35,10 @@ export class CarsAccountsComponent implements OnInit {
     this.caraccountsform = fbBuild.group({
       accountID: [this.carID, [Validators.required]],
       accountType: [AccountType.Car],
-      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: [
+        '',
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
+      ],
       remaining: ['0'],
       type: [''],
       operationID: [1],

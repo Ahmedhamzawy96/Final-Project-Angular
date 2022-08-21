@@ -25,8 +25,8 @@ export class TransactionsComponent implements OnInit {
   suppaccountsform: FormGroup;
   expandID: number;
   selectex: IExpenses;
-  alltrans:ITransactions[];
-  trans: ITransactions[]=[];
+  alltrans: ITransactions[];
+  trans: ITransactions[] = [];
   transsupp: ITransactions[] = [];
   BillDate: string = new Date().toLocaleString();
   transact: boolean = false;
@@ -39,7 +39,10 @@ export class TransactionsComponent implements OnInit {
     this.suppaccountsform = fbBuild.group({
       accountID: [this.expandID, [Validators.required]],
       accountType: [AccountType.Treasure],
-      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: [
+        '',
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
+      ],
       remaining: ['0'],
       type: [''],
       operationID: [0],
@@ -50,12 +53,12 @@ export class TransactionsComponent implements OnInit {
     });
   }
   selectedExpenses() {
-    this.selectex = this.expenses.find((c) => c.id ==this.expandID);
+    this.selectex = this.expenses.find((c) => c.id == this.expandID);
     this.transService
       .transactionbytype(<number>this.selectex.id, AccountType.Treasure)
       .subscribe((data) => {
         this.trans = data;
-        console.log(data)
+        console.log(data);
         this.trans.forEach((element) => {
           element.Name = this.selectex.name;
         });
@@ -66,7 +69,7 @@ export class TransactionsComponent implements OnInit {
     this.suppaccountsform.controls['type'].setValue(TransType.Paid);
     this.suppaccountsform.controls['operation'].setValue(Operation.Expense);
     if (this.suppaccountsform.valid) {
-      console.log(this.suppaccountsform.value)
+      console.log(this.suppaccountsform.value);
       this.transService
         .addtransaction(this.suppaccountsform.value)
         .subscribe(() => {
@@ -79,7 +82,6 @@ export class TransactionsComponent implements OnInit {
             title: '',
             text: 'تم الدفع بنجاح',
           });
-
         });
     }
   }
@@ -100,7 +102,6 @@ export class TransactionsComponent implements OnInit {
             title: '',
             text: 'تم التوريد بنجاح',
           });
-
         });
     }
   }
