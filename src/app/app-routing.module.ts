@@ -28,13 +28,17 @@ import { TransactionsComponent } from './Components/transactions/transactions.co
 import { UsersComponent } from './Components/users/users.component';
 import { ReportsComponent } from './Components/Reports-Folder/reports-main/reports.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
-import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
+import { ExportRecRefundComponent } from './Components/Refunds/export-rec-refund/export-rec-refund.component';
 import { AuthGuard } from './Guards/Auth/auth.guard';
 import { AdminGuard } from './Guards/Admin/admin.guard';
 import { CarDriverGuard } from './Guards/Car-Driver/car-driver.guard';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
+import { MainRefundComponent } from './Components/Refunds/main-refund/main-refund.component';
+import { ImportRecRefundComponent } from './Components/Refunds/import-rec-refund/import-rec-refund.component';
+import { FromCarRefundComponent } from './Components/Refunds/from-car-refund/from-car-refund.component';
+import { ToCarRefundComponent } from './Components/Refunds/to-car-refund/to-car-refund.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -78,6 +82,31 @@ const routes: Routes = [
       {
         path: 'customer',
         component: CustomerComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'Refund',
+        component: MainRefundComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'ExportRecRefund/:id',
+        component: ExportRecRefundComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'ImportRecRefund/:id',
+        component: ImportRecRefundComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'FromCarRecRefund/:id',
+        component: FromCarRefundComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'ToCarRecRefund/:id',
+        component: ToCarRefundComponent,
         canActivate: [AuthGuard],
       },
       {
@@ -129,6 +158,7 @@ const routes: Routes = [
         component: CarRecPrintComponent,
         canActivate: [CarDriverGuard],
       },
+
       { path: 'users', component: UsersComponent ,canActivate: [AdminGuard] },
       { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
       { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
@@ -139,6 +169,7 @@ const routes: Routes = [
       { path: 'RCARAccounts/:id', component: ReportsCARAccountComponent,canActivate: [AdminGuard]},
       { path: 'RCARReceipts/:id', component: ReportsCARReceiptsComponent,canActivate: [AdminGuard]},
       { path: 'RTotal', component: ReportsTotalComponent,canActivate: [AdminGuard]},
+
 
     ],
   },

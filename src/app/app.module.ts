@@ -32,19 +32,26 @@ import { UsersComponent } from './Components/users/users.component';
 import { ReportsComponent } from './Components/Reports-Folder/reports-main/reports.component';
 import { StartComponent } from './Components/start/start.component';
 import { ErorrComponent } from './Components/erorr/erorr.component';
-import { ExportRecRefundComponent } from './Components/export-rec-refund/export-rec-refund.component';
+import { ExportRecRefundComponent } from './Components/Refunds/export-rec-refund/export-rec-refund.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CarRecPrintComponent } from './Components/car-rec-print/car-rec-print.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReportCustomerAccountsComponent } from './Components/Reports-Folder/report-customer-accounts/report-customer-accounts.component';
 import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfromcar.component';
 import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
 import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
 import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
+
 import { ReportsCARAccountComponent } from './Components/Reports-Folder/reports-car-account/reports-car-account.component';
 import { ReportsCARReceiptsComponent } from './Components/Reports-Folder/reports-car-receipts/reports-car-receipts.component';
 import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
+
+import { ImportRecRefundComponent } from './Components/Refunds/import-rec-refund/import-rec-refund.component';
+import { FromCarRefundComponent } from './Components/Refunds/from-car-refund/from-car-refund.component';
+import { ToCarRefundComponent } from './Components/Refunds/to-car-refund/to-car-refund.component';
+import { MainRefundComponent } from './Components/Refunds/main-refund/main-refund.component';
+
 
 @NgModule({
   declarations: [
@@ -80,9 +87,16 @@ import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total
     ReportCustomerReceiptsComponent,
     ReportsSupplierReceiptComponent,
     ReportsSupplierAccountComponent,
+
     ReportsCARAccountComponent,
     ReportsCARReceiptsComponent,
     ReportsTotalComponent,
+
+    ImportRecRefundComponent,
+    FromCarRefundComponent,
+    ToCarRefundComponent,
+    MainRefundComponent,
+
   ],
   imports: [
     BrowserModule,
