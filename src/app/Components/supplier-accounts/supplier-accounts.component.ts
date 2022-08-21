@@ -36,7 +36,10 @@ export class SupplierAccountsComponent implements OnInit {
     this.suppaccountsform = fbBuild.group({
       accountID: [this.suppID, [Validators.required]],
       accountType: [AccountType.Supplier],
-      paid: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      paid: [
+        '',
+        [Validators.required, Validators.pattern('((d+)+(.d+))|([0-9])$')],
+      ],
       remaining: ['0'],
       type: [''],
       operationID: [1],

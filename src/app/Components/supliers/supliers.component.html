@@ -42,7 +42,7 @@
                   >
                   <small
                     *ngIf="userSupplier.controls['name'].errors['minlength']"
-                    >يجب الا يقل الاسم عن 4 حروف</small
+                    >يجب الا يقل الاسم عن 3 حروف</small
                   >
                 </div>
               </div>
@@ -73,12 +73,13 @@
                     >
                     <small
                       *ngIf="userSupplier.controls['phone'].errors['minlength']"
-                      >يجب الا يقل رقم الهاتف عن 11 رقم</small
+                    >
+                      الا يقل رقم الهاتف عن 11 رقم</small
                     >
                     <br />
                     <small
                       *ngIf="userSupplier.controls['phone'].errors['pattern']"
-                      >يجب ان يتكون من ارقام فقط</small
+                      >يجب ان يتكون من ارقام فقط ولا يزيد عن 11 رقم</small
                     >
                   </div>
                 </div>
@@ -177,7 +178,7 @@
                       type="text"
                       class="form-control"
                       #itemPhone="ngModel"
-                      pattern="[0-9]{11}"
+                      pattern="^(010|011|015|012)[0-9]{11}"
                       required
                       [value]="item.phone"
                       (change)="

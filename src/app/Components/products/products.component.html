@@ -275,7 +275,7 @@
                       type="text"
                       #itemBuy="ngModel"
                       required
-                      pattern="[0-9]{1,}"
+                      pattern="((d+)+(.d+))|([0-9])$"
                       class="form-control"
                       [value]="prod.buyingPrice"
                       (change)="
@@ -310,7 +310,7 @@
                       type="text"
                       #itemSell="ngModel"
                       required
-                      pattern="[0-9]{1,}"
+                      pattern="((d+)+(.d+))|([0-9])$"
                       class="form-control"
                       [value]="prod.sellingPrice"
                       (change)="
