@@ -1,0 +1,463 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1 style="text-align: right">فاتورة بيع</h1>
+    <nav class="my-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/Home">الصفحة الرئيسية</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="column row-md">
+      <form [formGroup]="ExportRecieptForm" (ngSubmit)="OnsSubmit()">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">تفاصيل الفاتورة</h5>
+              <div class="row">
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-calendar-date"></i>
+                    <span class="mx-3">التاريخ</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="Date"
+                    formControlName="date"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="mx-3">المستخدم</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="User"
+                    formControlName="userName"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="mx-3">الملاحظات</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="User"
+                    formControlName="notes"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-box-seam"></i>
+                    <span class="mx-3">العميل</span>
+                  </div>
+                  <div>
+                    <ngx-select
+                      [items]="Customers"
+                      formControlName="customerID"
+                      optionValueField="id"
+                      optionTextField="name"
+                    ></ngx-select>
+                    <div
+                      *ngIf="
+                        submit &&
+                        ExportRecieptForm.controls['customerID'].errors
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="
+                          ExportRecieptForm.controls['customerID'].errors[
+                            'required'
+                          ]
+                        "
+                        >يجب اختيار العميل
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <section class="section">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">اضافة الاصناف</h5>
+                  <div class="row mb-3">
+                    <label for="ProductName" class="col-sm-2 col-form-label"
+                      >اسم الصنف</label
+                    >
+                    <div class="col-sm-10">
+                      <div>
+                        <ngx-select
+                          [items]="Products"
+                          optionValueField="id"
+                          optionTextField="name"
+                          [(ngModel)]="PrdID"
+                          [ngModelOptions]="{ standalone: true }"
+                          (ngModelChange)="prdselect(PrdID)"
+                        ></ngx-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-3">
+                    <div class="col">
+                      <label for="Amount" class="col-form-label">الكمية</label>
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          min="0"
+                          class="form-control"
+                          [(ngModel)]="prdQuantity"
+                          [ngModelOptions]="{ standalone: true }"
+                          #prodQuantity="ngModel"
+                          pattern="[0-9]{1,}"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              prodQuantity.invalid &&
+                              (prodQuantity.dirty || prodQuantity.touched)
+                          }"
+                          [ngClass]="{
+                            'is-valid': prodQuantity.valid
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            prodQuantity.invalid &&
+                            (prodQuantity.dirty || prodQuantity.touched)
+                          "
+                          class="text-danger"
+                        >
+                          <small *ngIf="prodQuantity.errors['required']">
+                            يجب ادخال الكمية
+                          </small>
+                          <br />
+                          <small *ngIf="prodQuantity.errors['pattern']">
+                            يجب ادخال ارقام
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="SellingPrice" class="col-form-label"
+                        >سعر البيع</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          min="0"
+                          class="form-control"
+                          [(ngModel)]="prdPrice"
+                          [ngModelOptions]="{ standalone: true }"
+                          #prodPrice="ngModel"
+                          pattern="^[+]?([.]\d+|\d+[.]?\d*)$"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              prodPrice.invalid &&
+                              (prodPrice.dirty || prodPrice.touched)
+                          }"
+                          [ngClass]="{
+                            'is-valid': prodPrice.valid
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            prodPrice.invalid &&
+                            (prodPrice.dirty || prodPrice.touched)
+                          "
+                          class="text-danger"
+                        >
+                          <small *ngIf="prodPrice.errors['required']">
+                            يجب ادخال سعر البيع
+                          </small>
+                          <br />
+                          <small *ngIf="prodPrice.errors['pattern']">
+                            يجب ادخال ارقام
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col d-flex justify-content-center">
+                      <button
+                        (click)="AddtoTable()"
+                        type="button"
+                        [disabled]="prodPrice.invalid || prodQuantity.invalid"
+                        class="btn btn-primary"
+                      >
+                        اضافة
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col">
+          <section class="section col">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">اصناف الفاتورة</h5>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th scope="col">كود</th>
+                        <th scope="col">الصنف</th>
+                        <th scope="col">الكمية</th>
+                        <th scope="col">سعر البيـــع</th>
+                        <th scope="col">الاجمالي</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of ProductsAdded">
+                        <td>
+                          <input
+                            #radioInput
+                            class="form-check-input"
+                            [ngModelOptions]="{ standalone: true }"
+                            type="radio"
+                            name="gridRadios"
+                            id="gridRadios1"
+                            [value]="item.productID"
+                            [(ngModel)]="Selectedproduct"
+                          />
+                        </td>
+                        <th>{{ item.productID }}</th>
+                        <td>{{ item.productName }}</td>
+                        <td class="col col-2">
+                          <div *ngIf="!this.radioInput.checked">
+                            {{ item.quantity }}
+                          </div>
+                          <div *ngIf="this.radioInput.checked">
+                            <input
+                              [(ngModel)]="item.quantity"
+                              [ngModelOptions]="{ standalone: true }"
+                              type="text"
+                              pattern="[0-9]{1,}"
+                              required
+                              class="form-control"
+                              #itemQuantity="ngModel"
+                              [value]="item.quantity"
+                              (change)="
+                                changeTable(
+                                  item.productID,
+                                  item.quantity,
+                                  item.productPrice
+                                )
+                              "
+                              [ngClass]="{
+                                'is-invalid':
+                                  (itemQuantity.invalid || tableNotValid) &&
+                                  (itemQuantity.dirty || itemQuantity.touched)
+                              }"
+                              [ngClass]="{
+                                'is-valid': itemQuantity.valid && !tableNotValid
+                              }"
+                            />
+                          </div>
+                        </td>
+                        <td class="col col-2">
+                          <div *ngIf="!this.radioInput.checked">
+                            {{ item.productPrice }}
+                          </div>
+                          <div *ngIf="this.radioInput.checked">
+                            <input
+                              [(ngModel)]="item.productPrice"
+                              [ngModelOptions]="{ standalone: true }"
+                              type="text"
+                              pattern="^[+]?([.]\d+|\d+[.]?\d*)$"
+                              required
+                              class="form-control"
+                              #itemPrice="ngModel"
+                              [value]="item.productPrice"
+                              (change)="
+                                changeTable(
+                                  item.productID,
+                                  item.quantity,
+                                  item.productPrice
+                                )
+                              "
+                              [ngClass]="{
+                                'is-invalid':
+                                  (itemPrice.invalid || tableNotValid) &&
+                                  (itemPrice.dirty || itemPrice.touched)
+                              }"
+                              [ngClass]="{
+                                'is-valid': itemPrice.valid && !tableNotValid
+                              }"
+                            />
+                          </div>
+                        </td>
+                        <td>{{ item.totalPrice }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="d-flex justify-content-center">
+                    <button
+                      class="btn btn-danger mx-3"
+                      type="button"
+                      (click)="deletefromTable()"
+                    >
+                      حذف
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col">
+          <section class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">حساب الفاتورة</h5>
+                <div class="row">
+                  <div class="col-12 col-md mb-3">
+                    <label for="Amount" class="col-form-label"> الاجمالي</label>
+                    <div class="col-12">
+                      <input
+                        type="number"
+                        name="TotalReciept"
+                        class="form-control"
+                        [(ngModel)]="totalBeforeDisc"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="onSearchChange()"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 col-md mb-3">
+                    <label for="Amount" class="col-form-label"
+                      >الاجملي بعد الخصم</label
+                    >
+                    <div class="col-12">
+                      <input
+                        type="number"
+                        [(ngModel)]="totalreciept"
+                        (ngModelChange)="onSearchChange()"
+                        readonly
+                        name="TotalReciept"
+                        class="form-control"
+                        formControlName="total"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 col-md mb-3">
+                    <label for="Amount" class="col-form-label"
+                      >المبلغ المدفوع</label
+                    >
+                    <div class="col-12">
+                      <input
+                        type="text"
+                        name="Paid"
+                        (change)="onSearchChange()"
+                        class="form-control"
+                        formControlName="paid"
+                        [ngClass]="{
+                          'is-invalid':
+                            submit && ExportRecieptForm.controls['paid'].errors
+                        }"
+                        [ngClass]="{
+                          'is-valid': ExportRecieptForm.controls['paid'].valid
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          submit && ExportRecieptForm.controls['paid'].errors
+                        "
+                        class="text-danger"
+                      >
+                        <small
+                          *ngIf="
+                            ExportRecieptForm.controls['paid'].errors[
+                              'required'
+                            ]
+                          "
+                        >
+                          يجب ادخال المبلغ المدفوع
+                        </small>
+                        <br />
+                        <small
+                          *ngIf="
+                            ExportRecieptForm.controls['paid'].errors['pattern']
+                          "
+                        >
+                          يجب ادخال ارقام
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md mb-3">
+                    <label for="Amount" class="col-form-label">الخصم %</label>
+                    <div class="col-12">
+                      <input
+                        [(ngModel)]="Disc"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        pattern="[0-9]{1,}"
+                        class="form-control"
+                        #itemDisc="ngModel"
+                        [value]="0"
+                        (change)="discount(itemDisc.value)"
+                        [ngClass]="{
+                          'is-invalid':
+                            itemDisc.invalid &&
+                            (itemDisc.dirty || itemDisc.touched)
+                        }"
+                        [ngClass]="{
+                          'is-valid': itemDisc.valid && itemDisc.touched
+                        }"
+                      />
+                      <div *ngIf="itemDisc.errors" class="text-danger">
+                        <br />
+                        <small *ngIf="itemDisc.errors['pattern']">
+                          يجب ادخال ارقام
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md mb-3">
+                    <label for="Amount" class="col-form-label"
+                      >المبلغ المتبقي</label
+                    >
+                    <div class="col-12">
+                      <input
+                        type="number"
+                        [(ngModel)]="remainingreceipt"
+                        name="Remaining"
+                        readonly
+                        class="form-control"
+                        formControlName="remaining"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary my-3">حفظ</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>

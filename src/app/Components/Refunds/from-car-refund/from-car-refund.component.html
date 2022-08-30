@@ -1,0 +1,154 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>مرتجع فاتورة بيع</h1>
+    <nav class="my-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/Home">الصفحة الرئيسية</a>
+        </li>
+        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item active">الفواتير</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="column row-md" id="Print">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">تفاصيل الفاتورة</h5>
+            <div class="row">
+              <div class="col col-lg-3">
+                <div class="d-flex align-items-center my-3">
+                  <i class="bi bi-calendar-date"></i>
+                  <span class="mx-3">التاريخ</span>
+                </div>
+                <p>{{ ExportReciept.date }}</p>
+              </div>
+              <div class="col col-lg-3">
+                <div class="d-flex align-items-center my-3">
+                  <i class="bi bi-person-circle"></i>
+                  <span class="mx-3">المستخدم</span>
+                </div>
+                <p>{{ ExportReciept.userName }}</p>
+              </div>
+              <div class="col col-lg-3">
+                <div class="d-flex align-items-center my-3">
+                  <i class="bi bi-receipt"></i>
+                  <span class="mx-3">رقم الفاتورة</span>
+                </div>
+                <p>{{ ExportReciept.id }}</p>
+              </div>
+              <div class="col col-lg-3">
+                <div class="d-flex align-items-center my-3">
+                  <i class="bi bi-box-seam"></i>
+                  <span class="mx-3">العميل</span>
+                </div>
+                <p>{{ CustomerName }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card overflow-auto">
+          <div class="card-body">
+            <h5 class="card-title">اصناف الفاتورة</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th scope="col">كود</th>
+                  <th scope="col">الصنف</th>
+                  <th scope="col">الكمية</th>
+                  <th scope="col">كمية المترجع</th>
+                  <th scope="col">سعر البيع</th>
+                  <th scope="col">الاجمالي</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of ExportReciept.products">
+                  <td>
+                    <input
+                      #radioInput
+                      class="form-check-input"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="radio"
+                      name="gridRadios"
+                      id="gridRadios1"
+                      [value]="item.productID"
+                      [(ngModel)]="Selectedproduct"
+                    />
+                  </td>
+                  <th scope="row">{{ item.productID }}</th>
+                  <td>{{ item.productName }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>
+                    <input
+                      ngModel
+                      type="number"
+                      pattern="[0-9]{1,}"
+                      required
+                      class="form-control"
+                      #itemQuantity
+                      [disabled]="!radioInput.checked"
+                      (change)="
+                        changeTable(
+                          item.productID,
+                          itemQuantity.value,
+                          radioInput,
+                          itemQuantity
+                        )
+                      "
+                      [ngClass]="{
+                        'is-invalid': itemQuantity.oninvalid
+                      }"
+                      [ngClass]="{
+                        'is-valid': itemQuantity.oninvalid && !tableNotValid
+                      }"
+                    />
+                  </td>
+                  <td>
+                    {{ item.totalPrice / item.quantity }}
+                  </td>
+                  <td>{{ item.totalPrice }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">حساب الفاتورة</h5>
+            <div class="row">
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label">الاجمالي </label>
+                <div class="col-12">
+                  <p>{{ ExportReciept.total }}</p>
+                </div>
+              </div>
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label"
+                  >الاجمالي بعد المترجع</label
+                >
+                <div class="col-12">
+                  <input
+                    type="number"
+                    class="form-control"
+                    disabled
+                    [(ngModel)]="NewRecieptValue"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary my-3" (click)="onSubmit()">حفظ</button>
+    </div>
+  </section>
+</main>
