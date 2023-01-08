@@ -11,9 +11,10 @@ import { TransType } from 'src/app/Interface/Enums/TransType';
 @Component({
   selector: 'app-reports-car-account',
   templateUrl: './reports-car-account.component.html',
-  styleUrls: ['./reports-car-account.component.css'],
+  styleUrls: ['./reports-car-account.component.css']
 })
 export class ReportsCARAccountComponent implements OnInit {
+
   constructor(
     private rout: ActivatedRoute,
     private CARserv: CarService,
@@ -33,20 +34,26 @@ export class ReportsCARAccountComponent implements OnInit {
     this.CARserv.getCarByID(parseInt(this.CARid)).subscribe((data) => {
       this.selCAR = data;
       this.repserv
-        .Custtransactions(parseInt(this.CARid), AccountType.Car, this.date)
+        .Custtransactions(
+          parseInt(this.CARid),
+          AccountType.Car,
+          this.date
+        )
         .subscribe((data) => {
           this.transactions = data;
           this.transactions.forEach((element) => {
             element.Name = this.selCAR.name;
-            if (element.operation == Operation.ExportReciept) {
-              this.Total += element.paid + element.remaining;
-              this.totalPaid += element.paid;
-            } else if (element.operation == Operation.CarTrans) {
-              if (element.type == TransType.Paid) {
-                this.Total += element.paid;
-              } else if (element.type == TransType.Get) {
-                this.totalPaid += element.paid;
-              }
+            if (element.operation == Operation.ExportReciept)
+            {
+              this.Total+=(element.paid+element.remaining);
+              this.totalPaid+=element.paid;
+            }
+            else if(element.operation == Operation.CarTrans)
+            {
+              if( element.type==TransType.Paid)
+                  { this.Total+=(element.paid);}
+              else if( element.type==TransType.Get)
+                { this.totalPaid+=element.paid}
             }
           });
         });
@@ -64,3 +71,7 @@ export class ReportsCARAccountComponent implements OnInit {
     document.body.innerHTML = originalContents;
   }
 }
+
+
+
+ 

@@ -18,31 +18,35 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.LoginForm = this.formBuilder.group({
-      userName: ['', Validators.required],
+      userName: [
+        '',
+        Validators.required,
+        //  Validators.pattern("[a-z])(?=.[A-Z]).{8,16}$")]
+      ],
       password: ['', [Validators.required]],
     });
   }
   onSubmit() {
     this.submitted = true;
     if (this.LoginForm.valid) {
-      this.loginServ
-        .Login(<LoginUser>this.LoginForm.value)
-        .subscribe((Data) => {
+      this.loginServ.Login(<LoginUser>this.LoginForm.value).subscribe(
+        (Data) => {
           localStorage.setItem('Token', JSON.stringify(Data.token)),
             localStorage.setItem('UserName', JSON.stringify(Data.userName)),
             localStorage.setItem('Type', JSON.stringify(Data.type));
-          this.router.navigate(['/Home']).then(() => {
-            window.location.reload();
-          });
-          if (Data == 0) {
+          this.router.navigate(['/Home']);
+        },
+        (error) => {
+          if (error == 'Error: 401') {
             Swal.fire({
               icon: 'error',
               title: 'خطأ',
-              text: 'البيانات غير صحيحة حاول مرة اخرى!',
+              text: 'البيانات غير صحيحة حاول مرة اخرى !',
             });
             this.LoginForm.reset();
           }
-        });
+        }
+      );
     }
   }
   ngOnInit() {}

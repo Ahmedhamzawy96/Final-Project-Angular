@@ -159,58 +159,24 @@ const routes: Routes = [
         canActivate: [CarDriverGuard],
       },
 
-      { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
-      {
-        path: 'reports',
-        component: ReportsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'ExportRecRefund',
-        component: ExportRecRefundComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCAccounts/:id',
-        component: ReportCustomerAccountsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCReceipts/:id',
-        component: ReportCustomerReceiptsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RSAccounts/:id',
-        component: ReportsSupplierAccountComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RSReceipts/:id',
-        component: ReportsSupplierReceiptComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCARAccounts/:id',
-        component: ReportsCARAccountComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RCARReceipts/:id',
-        component: ReportsCARReceiptsComponent,
-        canActivate: [AdminGuard],
-      },
-      {
-        path: 'RTotal',
-        component: ReportsTotalComponent,
-        canActivate: [AdminGuard],
-      },
+      { path: 'users', component: UsersComponent ,canActivate: [AdminGuard] },
+      { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
+      { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
+      { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
+      { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RSAccounts/:id', component: ReportsSupplierAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RSReceipts/:id', component: ReportsSupplierReceiptComponent,canActivate: [AdminGuard]},
+      { path: 'RCARAccounts/:id', component: ReportsCARAccountComponent,canActivate: [AdminGuard]},
+      { path: 'RCARReceipts/:id', component: ReportsCARReceiptsComponent,canActivate: [AdminGuard]},
+      { path: 'RTotal', component: ReportsTotalComponent,canActivate: [AdminGuard]},
+
+
     ],
   },
   { path: '**', component: ErorrComponent },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

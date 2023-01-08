@@ -43,14 +43,16 @@ export class ReportCustomerReceiptsComponent implements OnInit {
         )
         .subscribe((data) => {
           this.transactions = data;
-          this.transactions.forEach((element) => {
-            if (element.operation == Operation.ExportReciept) {
-              element.Name = this.selcustomer.name;
-              this.transactionsReceipts.push(element);
-              this.Total += element.paid + element.remaining;
-              this.totalPaid += element.paid;
-            }
+          this.transactions.forEach(element => {
+            if (element.operation == Operation.ExportReciept)
+              {
+                element.Name=this.selcustomer.name
+                this.transactionsReceipts.push(element);
+                this.Total+=(element.paid+element.remaining);
+                this.totalPaid+=element.paid;
+              }
           });
+
         });
     });
   }
