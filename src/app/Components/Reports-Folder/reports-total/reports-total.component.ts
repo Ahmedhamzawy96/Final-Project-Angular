@@ -6,24 +6,21 @@ import { ITransactions } from 'src/app/Interface/ITransactions';
 @Component({
   selector: 'app-reports-total',
   templateUrl: './reports-total.component.html',
-  styleUrls: ['./reports-total.component.css']
+  styleUrls: ['./reports-total.component.css'],
 })
 export class ReportsTotalComponent implements OnInit {
-
-  constructor(private repoServ:ReportService) { }
+  constructor(private repoServ: ReportService) {}
   transactions: ITransactions[];
-  Reporttotal:reportTotal
+  Reporttotal: reportTotal;
   BillDate: string = new Date().toLocaleString();
   Date: string = new Date().toLocaleString();
   date: Date[] = this.repoServ.getDates();
   Total: number = 0;
   totalPaid: number = 0;
   ngOnInit(): void {
-    this.repoServ.getImportProduct(this.date) .subscribe((data) =>
-     {
-   
-        this.Reporttotal=data;
-     })
+    this.repoServ.getImportProduct(this.date).subscribe((data) => {
+      this.Reporttotal = data;
+    });
   }
   Print() {
     let printContents = document.getElementById('print').innerHTML;
@@ -35,5 +32,4 @@ export class ReportsTotalComponent implements OnInit {
 
     document.body.innerHTML = originalContents;
   }
-
 }

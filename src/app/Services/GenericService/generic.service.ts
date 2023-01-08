@@ -5,6 +5,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GenericService {
   token: string;
-  constructor(private Client: HttpClient) {}
+  constructor(private Client: HttpClient, private route: Router) {}
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,7 +21,6 @@ export class GenericService {
       Authorization: `Bearer ${JSON.parse(localStorage.getItem('Token'))}`,
     }),
   };
-
 
   // set Header
   private setHeader(Key: string, value: string) {
@@ -30,12 +30,10 @@ export class GenericService {
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
-    } else if (error.status === 401)
-    {
-    return throwError(() => new Error('401'));
-
-    } 
-    else {
+    } else if (error.status === 401) {
+      this.route.navigate(['/Login']);
+      localStorage.clear();
+    } else {
       console.error(
         `Backend returned code ${error.status}, body was: `,
         error.error
@@ -117,10 +115,9 @@ export class GenericService {
     // Begin assigning parameters
     params = params.append('sdate', sdate);
     params = params.append('edate', edate);
-    return this.Client.get<any>(
-      `${environment.APIUrl}/${RouteURL}/`,
-      { params: params }
-    ).pipe(retry(3), catchError(this.handleError));
+    return this.Client.get<any>(`${environment.APIUrl}/${RouteURL}/`, {
+      params: params,
+    }).pipe(retry(3), catchError(this.handleError));
   }
 
   refund(RouteURL: string, id: Number, item: any): Observable<any> {

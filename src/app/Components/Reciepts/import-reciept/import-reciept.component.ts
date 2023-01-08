@@ -156,9 +156,7 @@ export class ImportRecieptComponent implements OnInit {
       });
       this.totalReciept();
     }
-    this.Quantity = 0;
-    this.prodbuyingPrice = 0;
-    this.prodSellingPrice = 0;
+    this.Quantity = null;
   }
 
   getProduct(id: number) {

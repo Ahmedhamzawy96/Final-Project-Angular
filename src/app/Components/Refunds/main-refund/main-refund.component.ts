@@ -39,7 +39,6 @@ export class MainRefundComponent implements OnInit {
 
     if (this.RefundType != 1) {
       this.refundServ.FilterReceipt(this.RefundType).subscribe((Data) => {
-        console.log(Data);
         this.SotreReciepts = Data;
       });
     } else {

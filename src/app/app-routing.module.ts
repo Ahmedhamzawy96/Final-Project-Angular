@@ -39,6 +39,9 @@ import { MainRefundComponent } from './Components/Refunds/main-refund/main-refun
 import { ImportRecRefundComponent } from './Components/Refunds/import-rec-refund/import-rec-refund.component';
 import { FromCarRefundComponent } from './Components/Refunds/from-car-refund/from-car-refund.component';
 import { ToCarRefundComponent } from './Components/Refunds/to-car-refund/to-car-refund.component';
+import { StoreReportComponent } from './Components/Reports-Folder/reports-store/store-report.component';
+import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/reports-customer-total/reports-customer-total.component';
+import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -159,24 +162,73 @@ const routes: Routes = [
         canActivate: [CarDriverGuard],
       },
 
-      { path: 'users', component: UsersComponent ,canActivate: [AdminGuard] },
-      { path: 'reports', component: ReportsComponent ,canActivate: [AdminGuard]},
-      { path: 'ExportRecRefund', component: ExportRecRefundComponent,canActivate: [AdminGuard]},
-      { path: 'RCAccounts/:id', component: ReportCustomerAccountsComponent,canActivate: [AdminGuard]},
-      { path: 'RCReceipts/:id', component: ReportCustomerReceiptsComponent,canActivate: [AdminGuard]},
-      { path: 'RSAccounts/:id', component: ReportsSupplierAccountComponent,canActivate: [AdminGuard]},
-      { path: 'RSReceipts/:id', component: ReportsSupplierReceiptComponent,canActivate: [AdminGuard]},
-      { path: 'RCARAccounts/:id', component: ReportsCARAccountComponent,canActivate: [AdminGuard]},
-      { path: 'RCARReceipts/:id', component: ReportsCARReceiptsComponent,canActivate: [AdminGuard]},
-      { path: 'RTotal', component: ReportsTotalComponent,canActivate: [AdminGuard]},
-
-
+      { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
+      {
+        path: 'reports',
+        component: ReportsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'ExportRecRefund',
+        component: ExportRecRefundComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCAccounts/:id',
+        component: ReportCustomerAccountsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCReceipts/:id',
+        component: ReportCustomerReceiptsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RSAccounts/:id',
+        component: ReportsSupplierAccountComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RSReceipts/:id',
+        component: ReportsSupplierReceiptComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCARAccounts/:id',
+        component: ReportsCARAccountComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCARReceipts/:id',
+        component: ReportsCARReceiptsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RTotal',
+        component: ReportsTotalComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'SotreTotal',
+        component: StoreReportComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'CustTotal',
+        component: ReportsCustomerTotalComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'SuppTotal',
+        component: ReportsSupplierTotalComponent,
+        canActivate: [AdminGuard],
+      },
     ],
   },
   { path: '**', component: ErorrComponent },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

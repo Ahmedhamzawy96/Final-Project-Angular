@@ -80,6 +80,21 @@
               </div>
             </div>
           </div>
+
+          <div class="col-12  ">
+            <div class="card">
+              <div class="card-body  " style="height: 252px ;">
+                <div class="text-center py-5">
+                  <h1 class="card-title" class="card-title"> اجمالي حساب العملاء</h1>
+                  <div class="row justify-content-center">
+                      <div class="col-md-4 col">
+                        <a class="btn btn-primary" routerLink="/CustTotal" >عرض التقرير </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -163,6 +178,20 @@
                 <div style="height: 43px ;"></div>
                 <div class="col d-flex justify-content-center align-items-center">
                   <button class="btn btn-primary" type="button" (click)="SupplierAccount()">عرض التقرير </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12  ">
+            <div class="card">
+              <div class="card-body  " style="height: 252px ;">
+                <div class="text-center py-5">
+                  <h1 class="card-title" class="card-title"> اجمالي حساب الموردين</h1>
+                  <div class="row justify-content-center">
+                      <div class="col-md-4 col">
+                        <a class="btn btn-primary" routerLink="/SuppTotal" >عرض التقرير </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -263,7 +292,7 @@
       <div class="col ">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title" class="card-title"> صافى الربح- </h3>
+            <h3 class="card-title" class="card-title"> صافى الربح </h3>
 
             <div class="row justify-content-between align-items-center">
               <div class="col-xs-12 col-12 col-md-4 form-group ">
@@ -278,8 +307,23 @@
           </div>
         </div>
       </div>
+    </mat-tab>
 
-
+    <mat-tab label="المخزن">
+      <div class="col ">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <h3 class="card-title" class="card-title">اجمالي المخزن</h3>
+              <div class="row justify-content-center">
+                  <div class="col-md-4 col">
+                    <a class="btn btn-primary" routerLink="/SotreTotal" >عرض التقرير </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-tab>
 
 

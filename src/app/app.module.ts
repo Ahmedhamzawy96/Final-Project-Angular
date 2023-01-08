@@ -42,16 +42,17 @@ import { ReceiptfromcarComponent } from './Components/receiptfromcar/receiptfrom
 import { ReportCustomerReceiptsComponent } from './Components/Reports-Folder/report-customer-receipts/report-customer-receipts.component';
 import { ReportsSupplierReceiptComponent } from './Components/Reports-Folder/reports-supplier-receipt/reports-supplier-receipt.component';
 import { ReportsSupplierAccountComponent } from './Components/Reports-Folder/reports-supplier-account/reports-supplier-account.component';
-
 import { ReportsCARAccountComponent } from './Components/Reports-Folder/reports-car-account/reports-car-account.component';
 import { ReportsCARReceiptsComponent } from './Components/Reports-Folder/reports-car-receipts/reports-car-receipts.component';
 import { ReportsTotalComponent } from './Components/Reports-Folder/reports-total/reports-total.component';
-
 import { ImportRecRefundComponent } from './Components/Refunds/import-rec-refund/import-rec-refund.component';
 import { FromCarRefundComponent } from './Components/Refunds/from-car-refund/from-car-refund.component';
 import { ToCarRefundComponent } from './Components/Refunds/to-car-refund/to-car-refund.component';
 import { MainRefundComponent } from './Components/Refunds/main-refund/main-refund.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { StoreReportComponent } from './Components/Reports-Folder/reports-store/store-report.component';
+import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/reports-customer-total/reports-customer-total.component';
+import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
 
 @NgModule({
   declarations: [
@@ -87,15 +88,16 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ReportCustomerReceiptsComponent,
     ReportsSupplierReceiptComponent,
     ReportsSupplierAccountComponent,
-
     ReportsCARAccountComponent,
     ReportsCARReceiptsComponent,
     ReportsTotalComponent,
-
     ImportRecRefundComponent,
     FromCarRefundComponent,
     ToCarRefundComponent,
     MainRefundComponent,
+    StoreReportComponent,
+    ReportsCustomerTotalComponent,
+    ReportsSupplierTotalComponent,
   ],
   imports: [
     BrowserModule,

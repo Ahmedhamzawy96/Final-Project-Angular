@@ -95,7 +95,7 @@ export class ReceiptfromcarComponent implements OnInit {
         title: '',
         text: 'كمية الصنف في مخزن السيارة لا تسمح',
       });
-    } else if (this.prdPrice < prod.sellingPrice || this.prdPrice == 0) {
+    } else if (this.prdPrice < prod.buyingPrice || this.prdPrice == 0) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -117,8 +117,7 @@ export class ReceiptfromcarComponent implements OnInit {
       });
       this.totalReciept();
     }
-    this.prdQuantity = 0;
-    this.prdPrice = 0;
+    this.prdQuantity = null;
   }
   deletefromTable() {
     //#region

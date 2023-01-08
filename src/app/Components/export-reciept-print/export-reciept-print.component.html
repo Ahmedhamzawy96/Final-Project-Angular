@@ -18,33 +18,33 @@
           <div class="card-body">
             <h5 class="card-title">تفاصيل الفاتورة</h5>
             <div class="row">
-              <div class="col col-lg-3">
+              <div class="col col-md-6 col-lg-3">
                 <div class="d-flex align-items-center my-3">
                   <i class="bi bi-calendar-date"></i>
                   <span class="mx-3">التاريخ</span>
                 </div>
                 <p>{{ ExportReciept.date }}</p>
               </div>
-              <div class="col col-lg-3">
+              <div class="col col-md-6 col-lg-3">
                 <div class="d-flex align-items-center my-3">
                   <i class="bi bi-person-circle"></i>
                   <span class="mx-3">المستخدم</span>
                 </div>
                 <p>{{ ExportReciept.userName }}</p>
               </div>
-              <div class="col col-lg-3">
+              <div class="col col-md-6 col-lg-3">
                 <div class="d-flex align-items-center my-3">
                   <i class="bi bi-receipt"></i>
                   <span class="mx-3">رقم الفاتورة</span>
                 </div>
                 <p>{{ ExportReciept.id }}</p>
               </div>
-              <div class="col col-lg-3">
+              <div class="col col-md-6 col-lg-3">
                 <div class="d-flex align-items-center my-3">
                   <i class="bi bi-box-seam"></i>
                   <span class="mx-3">العميل</span>
                 </div>
-                <p>{{ CustomerName }}</p>
+                <p>{{ Customer.name }}</p>
               </div>
             </div>
           </div>
@@ -52,9 +52,9 @@
       </div>
       <div class="col">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body overflow-auto">
             <h5 class="card-title">اصناف الفاتورة</h5>
-            <table class="table">
+            <table class="table ">
               <thead>
                 <tr>
                   <th scope="col">كود</th>
@@ -104,6 +104,14 @@
                 >
                 <div class="col-12">
                   <p>{{ ExportReciept.remaining }}</p>
+                </div>
+              </div>
+              <div class="col mb-3">
+                <label for="Amount" class="col-form-label"
+                  >الحساب الحالي للعميل</label
+                >
+                <div class="col-12">
+                  <p>{{ Customer.account }}</p>
                 </div>
               </div>
             </div>
