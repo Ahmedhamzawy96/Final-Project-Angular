@@ -42,6 +42,8 @@ import { ToCarRefundComponent } from './Components/Refunds/to-car-refund/to-car-
 import { StoreReportComponent } from './Components/Reports-Folder/reports-store/store-report.component';
 import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/reports-customer-total/reports-customer-total.component';
 import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
+import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
+import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -70,7 +72,7 @@ const routes: Routes = [
       {
         path: 'customer-accounts',
         component: CustomerAccountsComponent,
-        canActivate: [CarDriverGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'car-data',
@@ -221,6 +223,16 @@ const routes: Routes = [
       {
         path: 'SuppTotal',
         component: ReportsSupplierTotalComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'CARSRR/:id',
+        component: CarSellReceiptReportComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'ٌStoreNetProfit',
+        component: ReportTotalStoreComponent,
         canActivate: [AdminGuard],
       },
     ],
