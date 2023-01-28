@@ -20,6 +20,9 @@ export class CarStoreComponent implements OnInit {
   CarName: string;
   carID: number;
   CarCtrl: FormControl = new FormControl();
+  TotalSellPrice:number=0;
+  TotalPaidPrice:number=0;
+  usertype:any
   constructor(
     private CarServ: CarService,
     private CarProdServ: CarProductService,
@@ -31,10 +34,21 @@ export class CarStoreComponent implements OnInit {
   getcarProd(carid: number) {
     this.CarProdServ.getProducts(carid).subscribe((Data) => {
       this.carProduct = Data;
+      this.carProduct.forEach(element => {
+        this.TotalSellPrice+=element.sellingPrice
+        this.TotalPaidPrice+=element.buyingPrice
+      });
+     
+      console.log(this.carProduct)
+      console.log(this.TotalSellPrice)
+      console.log(this.TotalPaidPrice)
+
     });
   }
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('Type')) == 2) {
+    this.usertype=JSON.parse(localStorage.getItem('Type'))
+    console.log(this.usertype)
+    if(JSON.parse(localStorage.getItem('Type')) == 2) {
       this.UserServ.getUsersByID(
         JSON.parse(localStorage.getItem('UserName'))
       ).subscribe((Date) => {
