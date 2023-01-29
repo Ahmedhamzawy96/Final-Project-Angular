@@ -45,10 +45,21 @@ import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/repor
 import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
 import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: 'Login', component: LoginComponent },
-
+  { path: 'ExportRecieptPrint/:id',component: ExportRecieptPrintComponent},
+  {
+    path: 'ImportRecieptPrint/:id',
+    component: RecieptPrintComponent,
+    canActivate: [CarDriverGuard],
+  },
+        {
+        path: 'CarRecieptPrint/:id',
+        component: CarRecPrintComponent,
+        canActivate: [CarDriverGuard],
+      },
   {
     path: '',
     component: StartComponent,
@@ -149,21 +160,82 @@ const routes: Routes = [
         component: ReceiptfromcarComponent,
         canActivate: [EmployeeGuard],
       },
-      {
-        path: 'ImportRecieptPrint/:id',
-        component: RecieptPrintComponent,
-        canActivate: [CarDriverGuard],
-      },
-      {
-        path: 'ExportRecieptPrint/:id',
-        component: ExportRecieptPrintComponent,
-      },
-      {
-        path: 'CarRecieptPrint/:id',
-        component: CarRecPrintComponent,
-        canActivate: [CarDriverGuard],
-      },
+      // {
+      //   path: 'ImportRecieptPrint/:id',
+      //   component: RecieptPrintComponent,
+      //   canActivate: [CarDriverGuard],
+      // },
+      // {
+      //   path: 'ExportRecieptPrint/:id',
+      //   component: ExportRecieptPrintComponent,
+      // },
+      // {
+      //   path: 'CarRecieptPrint/:id',
+      //   component: CarRecPrintComponent,
+      //   canActivate: [CarDriverGuard],
+      // },
 
+      { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
+      {
+        path: 'reports',
+        component: ReportsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'ExportRecRefund',
+        component: ExportRecRefundComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCAccounts/:id',
+        component: ReportCustomerAccountsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCReceipts/:id',
+        component: ReportCustomerReceiptsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RSAccounts/:id',
+        component: ReportsSupplierAccountComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RSReceipts/:id',
+        component: ReportsSupplierReceiptComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCARAccounts/:id',
+        component: ReportsCARAccountComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RCARReceipts/:id',
+        component: ReportsCARReceiptsComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'RTotal',
+        component: ReportsTotalComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'SotreTotal',
+        component: StoreReportComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'CustTotal',
+        component: ReportsCustomerTotalComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'SuppTotal',
+        component: ReportsSupplierTotalComponent,
+        canActivate: [AdminGuard],
+      },
       { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
       {
         path: 'reports',

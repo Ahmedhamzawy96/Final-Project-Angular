@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { GenericService } from '../GenericService/generic.service';
 import { IProduct } from 'src/app/Interface/IProduct';
+import { IProductPrice } from 'src/app/Interface/iproduct-price';
 @Injectable({
   providedIn: 'root',
 })
@@ -33,4 +34,9 @@ export class ProductService {
   getCarProducts(carID: number): Observable<IProduct[]> {
     return this.Serv.getAll(`Product/car/${carID}`);
   }
+
+//Uppdate Product Price 
+UpdateProductPrice(id:number , productPrice:IProductPrice){
+  return this.Serv.put("Product/UpdateProductPrice",id,productPrice);
+}
 }
