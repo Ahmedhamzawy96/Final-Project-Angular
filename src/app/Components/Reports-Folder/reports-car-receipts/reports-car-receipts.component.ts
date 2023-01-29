@@ -10,10 +10,9 @@ import { Operation } from 'src/app/Interface/Enums/operation';
 @Component({
   selector: 'app-reports-car-receipts',
   templateUrl: './reports-car-receipts.component.html',
-  styleUrls: ['./reports-car-receipts.component.css']
+  styleUrls: ['./reports-car-receipts.component.css'],
 })
 export class ReportsCARReceiptsComponent implements OnInit {
-
   constructor(
     private rout: ActivatedRoute,
     private carserv: CarService,
@@ -34,23 +33,20 @@ export class ReportsCARReceiptsComponent implements OnInit {
     this.carserv.getCarByID(parseInt(this.carid)).subscribe((data) => {
       this.selcar = data;
       this.repserv
-        .Custtransactions(
-          parseInt(this.carid),
-          AccountType.Car,
-          this.date
-        )
+        .Custtransactions(parseInt(this.carid), AccountType.Car, this.date)
         .subscribe((data) => {
           this.transactions = data;
-          this.transactions.forEach(element => {
-            if (element.operation == Operation.ExportReciept&&element.accountType==AccountType.Car)
-              {
-                element.Name=this.selcar.name
-                this.transactionsReceipts.push(element);
-                this.Total+=(element.paid+element.remaining);
-                this.totalPaid+=element.paid;
-              }
+          this.transactions.forEach((element) => {
+            if (
+              element.operation == Operation.ExportReciept &&
+              element.accountType == AccountType.Car
+            ) {
+              element.Name = this.selcar.name;
+              this.transactionsReceipts.push(element);
+              this.Total += element.paid + element.remaining;
+              this.totalPaid += element.paid;
+            }
           });
-
         });
     });
   }

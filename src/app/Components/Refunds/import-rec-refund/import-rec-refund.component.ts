@@ -112,6 +112,29 @@ export class ImportRecRefundComponent implements OnInit {
     }
   }
 
+  tab() {
+    if (this.newRecieptProducts.length != 0) {
+      this.ImportReciept.importProducts.forEach((element) => {
+        if (
+          !this.newRecieptProducts.find((A) => A.productID == element.productID)
+        ) {
+          this.newRecieptProducts.push({
+            productID: element.productID,
+            productName: element.productName,
+            buyingPrice: element.buyingPrice,
+            quantity: element.quantity,
+            totalPrice: element.totalPrice,
+          });
+        }
+      });
+    }
+    let value: number = 0;
+    this.newRecieptProducts.forEach((element) => {
+      value += element.buyingPrice * element.quantity;
+    });
+    this.NewRecieptValue = value;
+  }
+
   onSubmit() {
     let total: number = 0;
     this.newRecieptProducts.forEach((element) => {
@@ -128,24 +151,11 @@ export class ImportRecRefundComponent implements OnInit {
       supid: new FormControl(this.ImportReciept.supid),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
-    if (this.newRecieptProducts.length != 0) {
-      this.ImportReciept.importProducts.forEach((element) => {
-        if (
-          !this.newRecieptProducts.find((A) => A.productID == element.productID)
-        ) {
-          this.newRecieptProducts.push({
-            productID: element.productID,
-            productName: element.productName,
-            buyingPrice: element.buyingPrice,
-            quantity: element.quantity,
-            totalPrice: element.totalPrice,
-          });
-        }
-      });
-      this.newRecieptProducts = this.newRecieptProducts.filter(
-        (A) => A.quantity != 0
-      );
-      let rec: IImportReciept = this.refundRec.value;
+    this.newRecieptProducts = this.newRecieptProducts.filter(
+      (A) => A.quantity != 0
+    );
+    let rec: IImportReciept = this.refundRec.value;
+    if (this.newRecieptProducts.length != 0 || rec.total != 0) {
       rec.importProducts = this.newRecieptProducts;
       this.refundServ
         .importRecRefund(this.ImportReciept.id, rec)
@@ -157,7 +167,7 @@ export class ImportRecRefundComponent implements OnInit {
           });
           this.route.navigate(['Refund']);
         });
-    } else {
+    } else if (this.newRecieptProducts.length == 0 && rec.total == 0 ) {
       Swal.fire({
         icon: 'error',
         title: '',

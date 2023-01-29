@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ICustomer } from 'src/app/Interface/ICustomer';
 import { IExportReciept } from 'src/app/Interface/IExportReciept';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
@@ -13,7 +14,7 @@ import { ProductService } from 'src/app/Services/Product/product.service';
 export class ExportRecieptPrintComponent implements OnInit {
   recieptID: string;
   ExportReciept: IExportReciept;
-  CustomerName: string;
+  Customer: ICustomer;
   constructor(
     private rout: ActivatedRoute,
     private reciept: ExportRecieptService,
@@ -38,7 +39,7 @@ export class ExportRecieptPrintComponent implements OnInit {
       console.log(this.ExportReciept);
       this.CustSer.getCustomerByID(this.ExportReciept.customerID).subscribe(
         (Date) => {
-          this.CustomerName = Date.name;
+          this.Customer = Date;
         }
       );
       this.ExportReciept.products.forEach((element) => {

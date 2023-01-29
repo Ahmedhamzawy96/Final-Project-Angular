@@ -110,6 +110,28 @@ export class ToCarRefundComponent implements OnInit {
       ref.checked = false;
     }
   }
+  tab() {
+    if (this.newRecieptProducts.length != 0) {
+      this.ExportReciept.products.forEach((element) => {
+        if (
+          !this.newRecieptProducts.find((A) => A.productID == element.productID)
+        ) {
+          this.newRecieptProducts.push({
+            productID: element.productID,
+            productName: element.productName,
+            productPrice: element.productPrice,
+            quantity: element.quantity,
+            totalPrice: element.totalPrice,
+          });
+        }
+      });
+    }
+    let value: number = 0;
+    this.newRecieptProducts.forEach((element) => {
+      value += element.productPrice * element.quantity;
+    });
+    this.NewRecieptValue = value;
+  }
 
   onSubmit() {
     let total: number = 0;
@@ -127,24 +149,11 @@ export class ToCarRefundComponent implements OnInit {
       carID: new FormControl(this.ExportReciept.carID),
       userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
     });
-    if (this.newRecieptProducts.length != 0) {
-      this.ExportReciept.products.forEach((element) => {
-        if (
-          !this.newRecieptProducts.find((A) => A.productID == element.productID)
-        ) {
-          this.newRecieptProducts.push({
-            productID: element.productID,
-            productName: element.productName,
-            productPrice: element.productPrice,
-            quantity: element.quantity,
-            totalPrice: element.totalPrice,
-          });
-        }
-      });
-      this.newRecieptProducts = this.newRecieptProducts.filter(
-        (A) => A.quantity != 0
-      );
-      let rec: IExportReciept = this.refundRec.value;
+    this.newRecieptProducts = this.newRecieptProducts.filter(
+      (A) => A.quantity != 0
+    );
+    let rec: IExportReciept = this.refundRec.value;
+    if (this.newRecieptProducts.length != 0 || rec.total != 0) {
       rec.products = this.newRecieptProducts;
       this.refundServ
         .toCarRecRefund(this.ExportReciept.id, rec)
@@ -156,7 +165,7 @@ export class ToCarRefundComponent implements OnInit {
           });
           this.route.navigate(['Refund']);
         });
-    } else {
+    } else if (this.newRecieptProducts.length == 0 && rec.total == 0 ) {
       Swal.fire({
         icon: 'error',
         title: '',

@@ -11,10 +11,9 @@ import { Operation } from 'src/app/Interface/Enums/operation';
 @Component({
   selector: 'app-reports-supplier-receipt',
   templateUrl: './reports-supplier-receipt.component.html',
-  styleUrls: ['./reports-supplier-receipt.component.css']
+  styleUrls: ['./reports-supplier-receipt.component.css'],
 })
 export class ReportsSupplierReceiptComponent implements OnInit {
-
   constructor(
     private rout: ActivatedRoute,
     private SUPtserv: SupplierService,
@@ -32,27 +31,20 @@ export class ReportsSupplierReceiptComponent implements OnInit {
   ngOnInit(): void {
     this.Supid = this.rout.snapshot.paramMap.get('id');
     this.SUPtserv.getSupplierByID(parseInt(this.Supid)).subscribe((data) => {
-      console.log(data)
       this.selSupplier = data;
       this.repserv
-        .Custtransactions(
-          parseInt(this.Supid),
-          AccountType.Supplier,
-          this.date
-        )
+        .Custtransactions(parseInt(this.Supid), AccountType.Supplier, this.date)
         .subscribe((data) => {
           this.transactions = data;
-          console.log(data)
-          this.transactions.forEach(element => {
-            if (element.operation == Operation.ImportReciept)
-              {
-                element.Name=this.selSupplier.name
-                this.transactionsReceipts.push(element);
-                this.Total+=(element.paid+element.remaining);
-                this.totalPaid+=element.paid;
-              }
+          console.log(data);
+          this.transactions.forEach((element) => {
+            if (element.operation == Operation.ImportReciept) {
+              element.Name = this.selSupplier.name;
+              this.transactionsReceipts.push(element);
+              this.Total += element.paid + element.remaining;
+              this.totalPaid += element.paid;
+            }
           });
-
         });
     });
   }
@@ -67,5 +59,4 @@ export class ReportsSupplierReceiptComponent implements OnInit {
 
     document.body.innerHTML = originalContents;
   }
-
 }

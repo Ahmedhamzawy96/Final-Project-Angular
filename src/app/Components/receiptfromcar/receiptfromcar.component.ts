@@ -41,6 +41,8 @@ export class ReceiptfromcarComponent implements OnInit {
   tableNotValid: boolean = false;
   Disc: number;
   totalBeforeDisc: number;
+  CustomerAccount:number =0;
+  CustID:number;
   constructor(
     private custServ: CustService,
     private Productserv: ProductService,
@@ -95,7 +97,7 @@ export class ReceiptfromcarComponent implements OnInit {
         title: '',
         text: 'كمية الصنف في مخزن السيارة لا تسمح',
       });
-    } else if (this.prdPrice < prod.sellingPrice || this.prdPrice == 0) {
+    } else if (this.prdPrice < prod.buyingPrice || this.prdPrice == 0) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -117,8 +119,7 @@ export class ReceiptfromcarComponent implements OnInit {
       });
       this.totalReciept();
     }
-    this.prdQuantity = 0;
-    this.prdPrice = 0;
+    this.prdQuantity = null;
   }
   deletefromTable() {
     //#region
@@ -213,7 +214,7 @@ export class ReceiptfromcarComponent implements OnInit {
     this.getRemain();
   }
 
-  OnsSubmit() {
+  OnSubmit() {
     this.submit = true;
     let receipt: IExportReciept = this.ExportRecieptForm.value;
     if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
@@ -223,13 +224,14 @@ export class ReceiptfromcarComponent implements OnInit {
         text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
       });
     } else if (
-      this.ExportRecieptForm.controls['total'].value <
-      this.ExportRecieptForm.controls['paid'].value
+      // this.ExportRecieptForm.controls['total'].value <
+      // this.ExportRecieptForm.controls['paid'].value
+      this.ExportRecieptForm.controls['paid'].value > (this.ExportRecieptForm.controls['total'].value + this.CustomerAccount)
     ) {
       Swal.fire({
         icon: 'error',
         title: '',
-        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
+        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي حساب العميل و اجمالي الفاتورة ',
       });
     } else if (
       this.ProductsAdded.length > 0 &&
@@ -255,5 +257,10 @@ export class ReceiptfromcarComponent implements OnInit {
   onSearchChange() {
     this.remainingreceipt =
       Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
+  }
+  GetCustomerAccount(id:number){
+    this.custServ.getCustomerByID(id).subscribe((data) => {
+      this.CustomerAccount = Number(data.account);
+    })
   }
 }

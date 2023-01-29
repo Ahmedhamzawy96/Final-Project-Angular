@@ -48,17 +48,64 @@
               </div>
             </div>
             <div class="row my-3">
-              <div class="col col-lg-6">
-                <label for="phone" class="col-form-label">رقم الهاتف</label>
+              <div class="col col-lg-4">
+                <label for="Mobilenumber" class="col-form-label"
+                  >رقم الهاتف</label
+                >
                 <div class="col-sm-10">
                   <input
                     type="text"
-                    class="form-control"
                     formControlName="phone"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': added && userSupplier.controls['phone'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': userSupplier.controls['phone'].valid
+                    }"
                   />
+                  <div
+                    *ngIf="added && userSupplier.controls['phone'].errors"
+                    class="text-danger"
+                  >
+                    <small *ngIf="userSupplier.controls['phone'].errors['pattern']"
+                      >يجب رقم هاتف صحيح</small
+                    >
+                  </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col col-lg-4">
+                <label for="Mobilenumber" class="col-form-label"
+                  >حساب العميل </label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    formControlName="account"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        added && userSupplier.controls['account'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': userSupplier.controls['account'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="added && userSupplier.controls['account'].errors"
+                    class="text-danger"
+                  >
+                    <br />
+                    <small
+                      *ngIf="
+                      userSupplier.controls['account'].errors['pattern']
+                      "
+                      >يجب ادخال ارقام
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-lg-4">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
                   <input

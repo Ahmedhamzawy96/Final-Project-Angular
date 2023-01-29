@@ -44,17 +44,15 @@ export class ReportCustomerAccountsComponent implements OnInit {
           this.transactions = data;
           this.transactions.forEach((element) => {
             element.Name = this.selcustomer.name;
-            if (element.operation == Operation.ExportReciept)
-            {
-              this.Total+=(element.paid+element.remaining);
-              this.totalPaid+=element.paid;
-            }
-            else if(element.operation == Operation.CustomerTrans)
-            {
-              if( element.type==TransType.Paid)
-                  { this.Total+=(element.paid);}
-              else if( element.type==TransType.Get)
-                { this.totalPaid+=element.paid}
+            if (element.operation == Operation.ExportReciept) {
+              this.Total += element.paid + element.remaining;
+              this.totalPaid += element.paid;
+            } else if (element.operation == Operation.CustomerTrans) {
+              if (element.type == TransType.Paid) {
+                this.Total += element.paid;
+              } else if (element.type == TransType.Get) {
+                this.totalPaid += element.paid;
+              }
             }
           });
         });

@@ -9,6 +9,7 @@ import { IImportProduct } from 'src/app/Interface/IImportProduct';
 import { IProduct } from 'src/app/Interface/IProduct';
 import { ISupplier } from 'src/app/Interface/ISupplier';
 import { IImportReciept } from 'src/app/Interface/IImportReciept';
+import { IProductPrice } from 'src/app/Interface/iproduct-price';
 
 @Component({
   selector: 'app-import-reciept',
@@ -85,6 +86,7 @@ export class ImportRecieptComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          debugger;
           let prod: IImportProduct = this.ImportProducts.find(
             (pro) => pro.productID == this.prodID
           );
@@ -147,6 +149,11 @@ export class ImportRecieptComponent implements OnInit {
         text: 'تم اضافة الصنف من قبل ',
       });
     } else {
+      debugger;
+      if(this.prodbuyingPrice != prod.sellingPrice || this.prodbuyingPrice != prod.buyingPrice) {
+        let updatedPrice:IProductPrice = {buyingPrice: this.prodbuyingPrice ,sellingPrice : this.prodSellingPrice}; 
+        this.ProdServ.UpdateProductPrice(id,updatedPrice).subscribe();
+      }
       this.ImportProducts.push({
         productID: id,
         productName: this.productName,
@@ -156,9 +163,7 @@ export class ImportRecieptComponent implements OnInit {
       });
       this.totalReciept();
     }
-    this.Quantity = 0;
-    this.prodbuyingPrice = 0;
-    this.prodSellingPrice = 0;
+    this.Quantity = null;
   }
 
   getProduct(id: number) {

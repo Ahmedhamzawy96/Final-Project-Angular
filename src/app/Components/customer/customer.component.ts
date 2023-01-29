@@ -20,7 +20,8 @@ export class CustomerComponent implements OnInit {
   constructor(private csutServ: CustService, private fb: FormBuilder) {
     this.AddForm = fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      phone: [''],
+      phone: ['',[Validators.pattern('^01[0125][0-9]{8}$')]],
+      account: [' ' , [Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)]],
       notes: [''],
     });
   }

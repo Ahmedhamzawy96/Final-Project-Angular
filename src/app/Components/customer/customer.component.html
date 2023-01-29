@@ -45,7 +45,7 @@
               </div>
             </div>
             <div class="row my-3">
-              <div class="col col-lg-6">
+              <div class="col col-lg-4">
                 <label for="Mobilenumber" class="col-form-label"
                   >رقم الهاتف</label
                 >
@@ -54,10 +54,55 @@
                     type="text"
                     formControlName="phone"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid': added && AddForm.controls['phone'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': AddForm.controls['phone'].valid
+                    }"
                   />
+                  <div
+                    *ngIf="added && AddForm.controls['phone'].errors"
+                    class="text-danger"
+                  >
+                    <small *ngIf="AddForm.controls['phone'].errors['pattern']"
+                      >يجب رقم هاتف صحيح</small
+                    >
+                  </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col col-lg-4">
+                <label for="Mobilenumber" class="col-form-label"
+                  >حساب العميل </label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    formControlName="account"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        added && AddForm.controls['account'].errors
+                    }"
+                    [ngClass]="{
+                      'is-valid': AddForm.controls['account'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="added && AddForm.controls['account'].errors"
+                    class="text-danger"
+                  >
+                    <br />
+                    <small
+                      *ngIf="
+                      AddForm.controls['account'].errors['pattern']
+                      "
+                      >يجب ادخال ارقام
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-lg-4">
                 <label for="notes" class="col-form-label">الملاحظات </label>
                 <div class="col-sm-10">
                   <input

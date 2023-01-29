@@ -24,13 +24,9 @@
                     <i class="bi bi-calendar-date"></i>
                     <span class="mx-3">التاريخ</span>
                   </div>
-                  <input
-                    type="text"
-                    name="Date"
-                    formControlName="date"
-                    class="form-control"
-                    readonly
-                  />
+                  <h3>
+                    {{BillDate | date: 'dd'}}/{{BillDate | date:'MM'}}/{{BillDate | date: 'yyyy'}}
+                  </h3>
                 </div>
                 <div class="col">
                   <div class="d-flex align-items-center my-3">
@@ -123,7 +119,7 @@
                           [(ngModel)]="prdQuantity"
                           [ngModelOptions]="{ standalone: true }"
                           #prodQuantity="ngModel"
-                          pattern="[0-9]{1,}"
+                          pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                           required
                           [ngClass]="{
                             'is-invalid':
@@ -250,9 +246,9 @@
                             <input
                               [(ngModel)]="item.quantity"
                               [ngModelOptions]="{ standalone: true }"
-                              type="text"
+                              type="number"
                               required
-                              pattern="[0-9]{1,}"
+                              pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                               class="form-control"
                               #itemQuantity="ngModel"
                               [value]="item.quantity"

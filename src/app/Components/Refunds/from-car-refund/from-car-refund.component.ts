@@ -111,6 +111,28 @@ export class FromCarRefundComponent implements OnInit {
       ref.checked = false;
     }
   }
+  tab() {
+    if (this.newRecieptProducts.length != 0) {
+      this.ExportReciept.products.forEach((element) => {
+        if (
+          !this.newRecieptProducts.find((A) => A.productID == element.productID)
+        ) {
+          this.newRecieptProducts.push({
+            productID: element.productID,
+            productName: element.productName,
+            productPrice: element.productPrice,
+            quantity: element.quantity,
+            totalPrice: element.totalPrice,
+          });
+        }
+      });
+    }
+    let value: number = 0;
+    this.newRecieptProducts.forEach((element) => {
+      value += element.productPrice * element.quantity;
+    });
+    this.NewRecieptValue = value;
+  }
 
   onSubmit() {
     let total: number = 0;
@@ -128,24 +150,11 @@ export class FromCarRefundComponent implements OnInit {
       customerID: new FormControl(this.ExportReciept.customerID),
       userName: new FormControl(this.ExportReciept.userName),
     });
-    if (this.newRecieptProducts.length != 0) {
-      this.ExportReciept.products.forEach((element) => {
-        if (
-          !this.newRecieptProducts.find((A) => A.productID == element.productID)
-        ) {
-          this.newRecieptProducts.push({
-            productID: element.productID,
-            productName: element.productName,
-            productPrice: element.productPrice,
-            quantity: element.quantity,
-            totalPrice: element.totalPrice,
-          });
-        }
-      });
-      this.newRecieptProducts = this.newRecieptProducts.filter(
-        (A) => A.quantity != 0
-      );
-      let rec: IExportReciept = this.refundRec.value;
+    this.newRecieptProducts = this.newRecieptProducts.filter(
+      (A) => A.quantity != 0
+    );
+    let rec: IExportReciept = this.refundRec.value;
+    if (this.newRecieptProducts.length != 0 || rec.total != 0) {
       rec.products = this.newRecieptProducts;
       this.refundServ
         .FromCarRecRefund(this.ExportReciept.id, rec)
@@ -157,7 +166,7 @@ export class FromCarRefundComponent implements OnInit {
           });
           this.route.navigate(['Refund']);
         });
-    } else {
+    } else if (this.newRecieptProducts.length == 0 && rec.total == 0 )  {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -185,26 +194,5 @@ export class FromCarRefundComponent implements OnInit {
           });
       });
     });
-
-    // this.recieptID = this.rout.snapshot.paramMap.get('id');
-    // console.log(this.recieptID )
-    // this.reciept.getRecieptsByID(Number(this.recieptID)).subscribe((Data) => {
-    //   this.ExportReciept = Data;
-    //   console.log(Data)
-    //   this.custSer
-    //     .getCustomerByID(this.ExportReciept.customerID)
-    //     .subscribe((Date) => {
-    //       this.CustomerName = Date.name;
-    //     });
-    //   this.ExportReciept.products.forEach((element) => {
-    //     this.prodsServ
-    //       .getProductsByID(<number>element.productID)
-    //       .subscribe((Data) => {
-    //         this.ExportReciept.products.find(
-    //           (pro) => pro.productID == element.productID
-    //         ).productName = Data.name;
-    //       });
-    //   });
-    // });
   }
 }
