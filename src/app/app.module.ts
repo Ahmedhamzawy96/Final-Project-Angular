@@ -53,6 +53,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { StoreReportComponent } from './Components/Reports-Folder/reports-store/store-report.component';
 import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/reports-customer-total/reports-customer-total.component';
 import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
+import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
+import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +100,8 @@ import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/repor
     StoreReportComponent,
     ReportsCustomerTotalComponent,
     ReportsSupplierTotalComponent,
+    CarSellReceiptReportComponent,
+    ReportTotalStoreComponent,
   ],
   imports: [
     BrowserModule,

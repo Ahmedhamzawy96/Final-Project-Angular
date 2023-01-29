@@ -210,6 +210,11 @@ this.CARtransactions.forEach(element => {
 
 })
 }
+CARSellReceipt()
+{
+  this.repserv.addDates(this.CARRangeValue);
+  this.router.navigate(['CARSRR',this.CARID]);
+}
 //#endregion CAR
 
 //#region Total
@@ -217,7 +222,11 @@ Totaleceipts()
 {
   this.repserv.addDates(this.TotalRangeValue)
   this.router.navigate(['RTotal']);
-
+}
+TotalStoreReceipts()
+{
+  this.repserv.addDates(this.TotalRangeValue)
+  this.router.navigate(['ٌStoreNetProfit']);
 }
 //#endregion Total
 
