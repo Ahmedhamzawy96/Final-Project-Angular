@@ -16,6 +16,7 @@
           <h3 class="card-title">مخزن العربه</h3>
           <form>
             <div class="row mb-3">
+              
               <label for="ProductName" class="col-sm-2 col-form-label"
                 >العربة</label
               >
@@ -43,6 +44,31 @@
               </div>
             </div>
           </form>
+          <div class="row" *ngIf="usertype=='0'">
+            <div class="col-md-4">
+              <div class="d-flex align-items-center my-3">
+                <span class="mx-3">اجمالى سعر الشراء</span>
+              </div>
+              <input
+                [(ngModel)]="TotalPaidPrice"
+                type="text"
+                class="form-control"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex align-items-center my-3">
+                <span class="mx-3">اجمالى سعر البيع</span>
+              </div>
+              <input
+              [(ngModel)]="TotalSellPrice"
+                type="text"
+                class="form-control"
+                readonly
+              />
+            </div>
+          </div>
+         
         </div>
       </div>
     </div>

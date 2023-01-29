@@ -105,6 +105,22 @@ export class GenericService {
       { params: params }
     ).pipe(retry(3), catchError(this.handleError));
   }
+  getRepoTransactionNoType(
+    RouteURL: string,
+    id: number,
+    sdate: any,
+    edate: any
+  ): Observable<any> {
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('sdate', sdate);
+    params = params.append('edate', edate);
+    return this.Client.get<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}/`,
+      { params: params }
+    ).pipe(retry(3), catchError(this.handleError));
+  }
   getTotalTransaction(
     RouteURL: string,
     sdate: any,

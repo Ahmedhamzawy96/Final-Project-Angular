@@ -3,6 +3,7 @@ import { ITransactions } from './../../Interface/ITransactions';
 import { GenericService } from './../GenericService/generic.service';
 import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { Transacwithtotal } from 'src/app/Interface/transacwithtotal';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,21 @@ export class ReportService {
   getImportProduct(date: Date[]): Observable<reportTotal> {
     return this.genserv.getTotalTransaction(
       'Report/Total',
+      date[0].toDateString(),
+      date[date.length - 1].toDateString()
+    );
+  }
+  getCarSellTransactions(carid:number,date: Date[]): Observable<Transacwithtotal> {
+    return this.genserv.getRepoTransactionNoType(
+      'Report',
+      carid,
+      date[0].toDateString(),
+      date[date.length - 1].toDateString()
+    );
+  }
+  geTotalStore(date: Date[]): Observable<Transacwithtotal> {
+    return this.genserv.getTotalTransaction(
+      'Report/StoreTotal',
       date[0].toDateString(),
       date[date.length - 1].toDateString()
     );
