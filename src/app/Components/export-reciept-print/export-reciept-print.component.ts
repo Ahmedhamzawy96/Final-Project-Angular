@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICustomer } from 'src/app/Interface/ICustomer';
 import { IExportReciept } from 'src/app/Interface/IExportReciept';
 import { CustService } from 'src/app/Services/Customer/cust.service';
@@ -19,19 +19,20 @@ export class ExportRecieptPrintComponent implements OnInit {
     private rout: ActivatedRoute,
     private reciept: ExportRecieptService,
     private CustSer: CustService,
-    private prodsServ: ProductService
+    private prodsServ: ProductService,
+    private Route: Router,
   ) {}
   Print() {
     let printContents = document.getElementById('Print').innerHTML;
     let originalContents = document.body.innerHTML;
-
     document.body.innerHTML = printContents;
-
     window.print();
-
     document.body.innerHTML = originalContents;
+    location.reload();  }
+  btnClick():void{
+    this.Route.navigateByUrl('/Home');
   }
-
+  
   ngOnInit(): void {
     this.recieptID = this.rout.snapshot.paramMap.get('id');
     this.reciept.getRecieptsByID(parseInt(this.recieptID)).subscribe((Data) => {
@@ -40,6 +41,7 @@ export class ExportRecieptPrintComponent implements OnInit {
       this.CustSer.getCustomerByID(this.ExportReciept.customerID).subscribe(
         (Date) => {
           this.Customer = Date;
+          console.log(this.Customer);
         }
       );
       this.ExportReciept.products.forEach((element) => {

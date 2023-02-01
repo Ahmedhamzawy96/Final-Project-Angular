@@ -1,4 +1,4 @@
 export interface IExpenses{
-  id?:Number,
+  id?:number,
   name:string
 }

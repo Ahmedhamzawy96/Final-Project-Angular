@@ -1,6 +1,6 @@
 export interface IProduct{
 
-  id:Number,
+  id:number,
   name:string,
   buyingPrice:number,
   sellingPrice:number,

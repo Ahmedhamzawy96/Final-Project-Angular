@@ -2,7 +2,7 @@ import { IExportProduct } from "./IExportProduct";
 
 export interface IExportReciept{
 
-  id:Number,
+  id:number,
   total:number,
   notes:string,
   date:Date,

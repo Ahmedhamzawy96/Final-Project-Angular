@@ -1,6 +1,6 @@
 export interface ICarProduct
 {
-  quantity:Number,
+  quantity:number,
   carID:number,
   productID:number,
   productName?:string,

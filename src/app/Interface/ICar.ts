@@ -1,8 +1,8 @@
 
 export interface ICar
 {
-  id:Number,
+  id:number,
   name:string,
-  account:Number,
+  account:number,
   notes: string
   }
