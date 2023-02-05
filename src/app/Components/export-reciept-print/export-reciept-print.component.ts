@@ -5,6 +5,7 @@ import { IExportReciept } from 'src/app/Interface/IExportReciept';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-export-reciept-print',
@@ -19,17 +20,25 @@ export class ExportRecieptPrintComponent implements OnInit {
     private rout: ActivatedRoute,
     private reciept: ExportRecieptService,
     private CustSer: CustService,
-    private prodsServ: ProductService
+    private prodsServ: ProductService,
+    private PrintReciept:RecieptPrintService
   ) {}
   Print() {
-    let printContents = document.getElementById('Print').innerHTML;
-    let originalContents = document.body.innerHTML;
+    this.PrintReciept.ExportRecieptPrint(this.ExportReciept.id).subscribe(data => {
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = `فاتورة رقم - ${this.ExportReciept.id}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
+    // let printContents = document.getElementById('Print').innerHTML;
+    // let originalContents = document.body.innerHTML;
 
-    document.body.innerHTML = printContents;
+    // document.body.innerHTML = printContents;
 
-    window.print();
+    // window.print();
 
-    document.body.innerHTML = originalContents;
+    // document.body.innerHTML = originalContents;
   }
 
   ngOnInit(): void {

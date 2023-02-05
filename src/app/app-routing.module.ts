@@ -49,22 +49,22 @@ import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-to
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: 'Login', component: LoginComponent },
-  { path: 'ExportRecieptPrint/:id',component: ExportRecieptPrintComponent},
-  {
-    path: 'ImportRecieptPrint/:id',
-    component: RecieptPrintComponent,
-    canActivate: [CarDriverGuard],
-  },
-        {
-        path: 'CarRecieptPrint/:id',
-        component: CarRecPrintComponent,
-        canActivate: [CarDriverGuard],
-      },
   {
     path: '',
     component: StartComponent,
     children: [
       { path: 'Home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'ExportRecieptPrint/:id',component: ExportRecieptPrintComponent},
+      {
+        path: 'ImportRecieptPrint/:id',
+        component: RecieptPrintComponent,
+        canActivate: [CarDriverGuard],
+      },
+            {
+            path: 'CarRecieptPrint/:id',
+            component: CarRecPrintComponent,
+            canActivate: [CarDriverGuard],
+          },
       {
         path: 'importreciept',
         component: ImportRecieptComponent,

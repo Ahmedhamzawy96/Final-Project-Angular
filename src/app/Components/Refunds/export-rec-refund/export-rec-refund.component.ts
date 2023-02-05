@@ -158,13 +158,13 @@ export class ExportRecRefundComponent implements OnInit {
       console.log(rec);
       this.refundServ
         .exportRecRefund(this.ExportReciept.id, rec)
-        .subscribe(() => {
+        .subscribe((data) => {
           Swal.fire({
             icon: 'success',
             title: '',
             text: 'تم حفظ المرتجع بنجاح',
           });
-          this.route.navigate(['Refund']);
+          this.route.navigate(['ExportRecieptPrint', data]);
         });
     } else if (this.newRecieptProducts.length == 0 && rec.total == 0 ) {
       console.log(this.newRecieptProducts);

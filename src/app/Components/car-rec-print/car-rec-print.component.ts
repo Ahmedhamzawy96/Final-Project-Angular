@@ -4,6 +4,7 @@ import { IExportReciept } from 'src/app/Interface/IExportReciept';
 import { CarService } from 'src/app/Services/Car/car.service';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-car-rec-print',
@@ -18,7 +19,7 @@ export class CarRecPrintComponent implements OnInit {
     private rout: ActivatedRoute,
     private reciept: ExportRecieptService,
     private CarSer: CarService,
-    private prodsServ: ProductService
+    private prodsServ: ProductService,
   ) {}
   Print() {
     let printContents = document.getElementById('main').innerHTML;

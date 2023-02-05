@@ -159,13 +159,13 @@ export class ImportRecRefundComponent implements OnInit {
       rec.importProducts = this.newRecieptProducts;
       this.refundServ
         .importRecRefund(this.ImportReciept.id, rec)
-        .subscribe(() => {
+        .subscribe((Data) => {
           Swal.fire({
             icon: 'success',
             title: '',
             text: 'تم حفظ المرتجع بنجاح',
           });
-          this.route.navigate(['Refund']);
+          this.route.navigate(['ImportRecieptPrint', Data]);
         });
     } else if (this.newRecieptProducts.length == 0 && rec.total == 0 ) {
       Swal.fire({
