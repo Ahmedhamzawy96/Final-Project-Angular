@@ -55,6 +55,7 @@ import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/repor
 import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
 import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
 import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
+import { NgxPrintModule } from 'ngx-print';
 @NgModule({
   declarations: [
     AppComponent,
@@ -118,6 +119,7 @@ import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-to
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     NgxSelectModule,
+    NgxPrintModule
   ],
   providers: [],
   bootstrap: [AppComponent],

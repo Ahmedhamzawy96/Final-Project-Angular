@@ -1,7 +1,7 @@
 import { IImportProduct } from "./IImportProduct";
 export interface IImportReciept{
 
-  id:Number,
+  id:number,
   total:number,
   notes:string,
   date:string,

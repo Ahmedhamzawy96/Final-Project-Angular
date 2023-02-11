@@ -1,9 +1,9 @@
 
 export interface ICustomer{
-  id?:Number,
+  id?:number,
   name:string,
   phone:string,
-  account:Number,
+  account:number,
   notes: string,
 }
 

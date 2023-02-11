@@ -1,8 +1,8 @@
 export interface IExportProduct{
   
-  exportRecieptID?:Number,
+  exportRecieptID?:number,
   productName:string,
-  productID:Number
+  productID:number
   quantity:number,
   totalPrice:number,
   productPrice:number,
