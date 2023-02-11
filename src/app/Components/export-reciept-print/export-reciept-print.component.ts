@@ -5,6 +5,7 @@ import { IExportReciept } from 'src/app/Interface/IExportReciept';
 import { CustService } from 'src/app/Services/Customer/cust.service';
 import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-export-reciept-print',
@@ -31,6 +32,7 @@ export class ExportRecieptPrintComponent implements OnInit {
     location.reload();  }
   btnClick():void{
     this.Route.navigateByUrl('/Home');
+
   }
   
   ngOnInit(): void {

@@ -11,26 +11,22 @@
   </div>
   <section class="section">
     <div class="column row-md">
-      <form [formGroup]="ExportRecieptForm" (ngSubmit)="OnsSubmit()">
+      <form [formGroup]="ExportRecieptForm" (ngSubmit)="OnSubmit()">
         <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">تفاصيل الفاتورة</h5>
               <div class="row">
-                <div class="col">
+                <div class="col-md-3">
                   <div class="d-flex align-items-center my-3">
                     <i class="bi bi-calendar-date"></i>
                     <span class="mx-3">التاريخ</span>
                   </div>
-                  <input
-                    type="text"
-                    name="Date"
-                    formControlName="date"
-                    class="form-control"
-                    readonly
-                  />
+                  <h3>
+                    {{BillDate | date: 'dd'}}/{{BillDate | date:'MM'}}/{{BillDate | date: 'yyyy'}}
+                  </h3>
                 </div>
-                <div class="col">
+                <div class="col-md-3">
                   <div class="d-flex align-items-center my-3">
                     <i class="bi bi-person-circle"></i>
                     <span class="mx-3">المستخدم</span>
@@ -40,23 +36,10 @@
                     name="User"
                     formControlName="userName"
                     class="form-control"
-                    class="text-center"
                     readonly
                   />
                 </div>
-                <div class="col">
-                  <div class="d-flex align-items-center my-3">
-                    <i class="bi bi-journal-bookmark-fill"></i>
-                    <span class="mx-3">الملاحظات</span>
-                  </div>
-                  <input
-                    type="text"
-                    name="User"
-                    formControlName="notes"
-                    class="form-control"
-                  />
-                </div>
-                <div class="col">
+                <div class="col-md-3">
                   <div class="d-flex align-items-center my-3">
                     <i class="bi bi-box-seam"></i>
                     <span class="mx-3">العميل</span>
@@ -67,6 +50,8 @@
                       formControlName="customerID"
                       optionValueField="id"
                       optionTextField="name"
+                      [(ngModel)]="CustID"
+                      (ngModelChange)="GetCustomerAccount(CustID)"
                     ></ngx-select>
                     <div
                       *ngIf="
@@ -85,6 +70,30 @@
                       </small>
                     </div>
                   </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="mx-3">حساب العميل</span>
+                  </div>
+                  <input
+                  type="text"
+                  class="form-control"
+                  [value]="CustomerAccount"
+                  readonly
+                />
+                </div>
+                <div class="col-md-3">
+                  <div class="d-flex align-items-center my-3">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="mx-3">الملاحظات</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="User"
+                    formControlName="notes"
+                    class="form-control"
+                  />
                 </div>
               </div>
             </div>
@@ -118,13 +127,13 @@
                       <label for="Amount" class="col-form-label">الكمية</label>
                       <div class="col-sm-10">
                         <input
-                          type="text"
+                          type="number"
                           min="0"
                           class="form-control"
                           [(ngModel)]="prdQuantity"
                           [ngModelOptions]="{ standalone: true }"
                           #prodQuantity="ngModel"
-                          pattern="[0-9]{1,}"
+                          pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                           required
                           [ngClass]="{
                             'is-invalid':
@@ -251,8 +260,8 @@
                             <input
                               [(ngModel)]="item.quantity"
                               [ngModelOptions]="{ standalone: true }"
-                              type="text"
-                              pattern="[0-9]{1,}"
+                              type="number"
+                              pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                               required
                               class="form-control"
                               #itemQuantity="ngModel"

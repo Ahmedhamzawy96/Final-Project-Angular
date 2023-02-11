@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IImportReciept } from 'src/app/Interface/IImportReciept';
 import { ImportReceiptService } from 'src/app/Services/Import Receipt/import-receipt.service';
 import { ProductService } from 'src/app/Services/Product/product.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 import { SupplierService } from 'src/app/Services/Supplier/supplier.service';
 
 @Component({
@@ -18,17 +19,25 @@ export class RecieptPrintComponent implements OnInit {
     private rout: ActivatedRoute,
     private reciept: ImportReceiptService,
     private suppSer: SupplierService,
-    private prodsServ: ProductService
+    private prodsServ: ProductService,
+    private PrintReciept:RecieptPrintService
   ) {}
   Print() {
-    let printContents = document.getElementById('Print').innerHTML;
-    let originalContents = document.body.innerHTML;
+    this.PrintReciept.ImportRecieptPrint(this.ImportReciept.id).subscribe(data => {
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = `فاتورة رقم - ${this.ImportReciept.id}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
+    // let printContents = document.getElementById('Print').innerHTML;
+    // let originalContents = document.body.innerHTML;
 
-    document.body.innerHTML = printContents;
+    // document.body.innerHTML = printContents;
 
-    window.print();
+    // window.print();
 
-    document.body.innerHTML = originalContents;
+    // document.body.innerHTML = originalContents;
   }
 
   ngOnInit(): void {

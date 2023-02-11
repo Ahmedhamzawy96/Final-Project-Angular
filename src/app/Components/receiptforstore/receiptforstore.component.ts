@@ -34,6 +34,10 @@ export class ReceiptforstoreComponent implements OnInit {
   tableNotValid: boolean = false;
   Disc: number;
   totalBeforeDisc: number;
+  CustomerAccount:number =0;
+  CustID:number;
+  UserName:string = JSON.parse(localStorage.getItem('UserName'));
+  remainingValue:number =0;
   constructor(
     private custServ: CustService,
     private Productserv: ProductService,
@@ -49,11 +53,11 @@ export class ReceiptforstoreComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/),
       ]),
-      remaining: new FormControl(''),
+      remaining: new FormControl('0'),
       customerID: new FormControl('', [Validators.required]),
       customerName: new FormControl(''),
 
-      userName: new FormControl(JSON.parse(localStorage.getItem('UserName'))),
+      userName: new FormControl(this.UserName),
     });
   }
   ngOnInit(): void {
@@ -70,6 +74,9 @@ export class ReceiptforstoreComponent implements OnInit {
     this.Selectedproduct = this.Products.find((w) => w.id == id);
     this.prdPrice = this.Selectedproduct.sellingPrice;
   }
+
+
+
   AddtoTable() {
     let prod = this.Selectedproduct;
     if (this.prdQuantity == 0) {
@@ -132,7 +139,7 @@ export class ReceiptforstoreComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           let prod: IExportProduct = this.ProductsAdded.find(
-            (pro) => pro.productID == this.selectedid
+            (pro) => pro.productID == this.selectedid 
           );
           let index: number = this.ProductsAdded.indexOf(prod);
           this.ProductsAdded.splice(index, 1);
@@ -179,6 +186,7 @@ export class ReceiptforstoreComponent implements OnInit {
     }
   }
   getRemain() {
+    debugger;
     this.ExportRecieptForm.controls['remaining'].setValue(
       this.ExportRecieptForm.controls['total'].value -
         this.ExportRecieptForm.controls['paid'].value
@@ -200,7 +208,7 @@ export class ReceiptforstoreComponent implements OnInit {
 
     this.getRemain();
   }
-  OnsSubmit() {
+  OnSubmit() {
     this.submit = true;
     let receipt: IExportReciept = this.ExportRecieptForm.value;
     if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
@@ -210,13 +218,13 @@ export class ReceiptforstoreComponent implements OnInit {
         text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
       });
     } else if (
-      this.ExportRecieptForm.controls['total'].value <
-      this.ExportRecieptForm.controls['paid'].value
+      
+      this.ExportRecieptForm.controls['paid'].value > (this.ExportRecieptForm.controls['total'].value + this.CustomerAccount)
     ) {
       Swal.fire({
         icon: 'error',
         title: '',
-        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
+        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي حساب العميل و اجمالي الفاتورة ',
       });
     } else if (
       this.ProductsAdded.length > 0 &&
@@ -224,6 +232,9 @@ export class ReceiptforstoreComponent implements OnInit {
       !this.tableNotValid
     ) {
       receipt.products = this.ProductsAdded;
+      receipt.remaining = receipt.total-receipt.paid;
+      console.log(receipt);
+      debugger;
       this.Exportserv.addReciept(receipt).subscribe((data) => {
         this.ExportRecieptForm.reset();
         this.submit = true;
@@ -240,7 +251,13 @@ export class ReceiptforstoreComponent implements OnInit {
     this.totalBeforeDisc = total;
   }
   onSearchChange() {
-    this.remainingreceipt =
-      Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
+    let Value = Number(this.totalreciept) - this.ExportRecieptForm.controls['paid'].value;
+    this.remainingreceipt = Value;
+    this.remainingValue = (Value <= 0) ? 0 : Value;
+  }
+  GetCustomerAccount(id:number){
+    this.custServ.getCustomerByID(id).subscribe((data) => {
+      this.CustomerAccount = Number(data.account);
+    })
   }
 }

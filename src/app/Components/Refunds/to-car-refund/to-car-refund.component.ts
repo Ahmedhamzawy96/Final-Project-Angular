@@ -157,13 +157,13 @@ export class ToCarRefundComponent implements OnInit {
       rec.products = this.newRecieptProducts;
       this.refundServ
         .toCarRecRefund(this.ExportReciept.id, rec)
-        .subscribe(() => {
+        .subscribe((data) => {
           Swal.fire({
             icon: 'success',
             title: '',
             text: 'تم حفظ المرتجع بنجاح',
           });
-          this.route.navigate(['Refund']);
+          this.route.navigate(['CarRecieptPrint', data]);
         });
     } else if (this.newRecieptProducts.length == 0 && rec.total == 0 ) {
       Swal.fire({

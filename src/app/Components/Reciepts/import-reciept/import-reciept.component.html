@@ -24,13 +24,9 @@
                     <i class="bi bi-calendar-date"></i>
                     <span class="mx-3">التاريخ</span>
                   </div>
-                  <input
-                    type="text"
-                    name="Date"
-                    formControlName="date"
-                    class="form-control"
-                    readonly
-                  />
+                  <h3>
+                    {{BillDate | date: 'dd'}}/{{BillDate | date:'MM'}}/{{BillDate | date: 'yyyy'}}
+                  </h3>
                 </div>
                 <div class="col">
                   <div class="d-flex align-items-center my-3">
@@ -111,12 +107,12 @@
                     <label for="Amount" class="col-form-label">الكمية</label>
                     <div class="col-sm-10">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         [ngModelOptions]="{ standalone: true }"
                         [(ngModel)]="Quantity"
                         #prodQuantity="ngModel"
-                        pattern="[0-9]{1,}"
+                        pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                         required
                         [ngClass]="{
                           'is-invalid':
@@ -152,8 +148,8 @@
                       <input
                         type="number"
                         class="form-control"
-                        disabled
-                        [value]="prodbuyingPrice"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="prodbuyingPrice"
                       />
                     </div>
                   </div>
@@ -165,8 +161,8 @@
                       <input
                         type="number"
                         class="form-control"
-                        disabled
-                        [value]="prodSellingPrice"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="prodSellingPrice"
                       />
                     </div>
                   </div>
@@ -229,8 +225,8 @@
                           <input
                             [(ngModel)]="prod.quantity"
                             [ngModelOptions]="{ standalone: true }"
-                            type="text"
-                            pattern="[0-9]{1,}"
+                            type="number"
+                            pattern="^([1-9][0-9]*|[١-٩][٠-٩]*)$"
                             required
                             class="form-control"
                             #itemQuantity="ngModel"
