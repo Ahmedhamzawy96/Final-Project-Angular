@@ -25,8 +25,8 @@ export class SupliersComponent implements OnInit {
   ) {
     this.userSupplier = fBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      phone: ['',[Validators.pattern('^01[0125][0-9]{8}$')]],
-      account: [' ' , [Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)]],
+      phone: ['',[Validators.pattern('^01[0,1,2,5]{1}[0-9]{8}$')]],
+      account: [' ' , [Validators.min(0),Validators.pattern(/([0-9\u0660-\u0669])+$/)]],
       notes: [''],
     });
   }
