@@ -167,11 +167,12 @@ export class ImportRecieptComponent implements OnInit {
   }
 
   getProduct(id: number) {
-    this.ProdServ.getProductsByID(id).subscribe((Data) => {
+    var Data=this.Products.find(x=>x.id==id)
+    // this.ProdServ.getProductsByID(id).subscribe((Data) => {
       this.prodbuyingPrice = Data.buyingPrice;
       this.prodSellingPrice = Data.sellingPrice;
       this.productName = Data.name;
-    });
+    // });
   }
   discount(values: any) {
     let disc = Number(values);
@@ -194,15 +195,15 @@ export class ImportRecieptComponent implements OnInit {
         title: '',
         text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
       });
-    } else if (
-      this.ImportRecieptForm.controls['total'].value <
-      this.ImportRecieptForm.controls['paid'].value
-    ) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
-      });
+    // } else if (
+    //   this.ImportRecieptForm.controls['total'].value <
+    //   this.ImportRecieptForm.controls['paid'].value
+    // ) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: '',
+    //     text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي الفاتورة ',
+    //   });
     } else if (
       this.ImportProducts.length > 0 &&
       this.ImportRecieptForm.valid &&

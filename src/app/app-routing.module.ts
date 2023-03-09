@@ -44,6 +44,8 @@ import { ReportsCustomerTotalComponent } from './Components/Reports-Folder/repor
 import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/reports-supplier-total/reports-supplier-total.component';
 import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
 import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
+import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-profit-margin-car/profit-margin-car.component';
+import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
 
 
 const routes: Routes = [
@@ -305,6 +307,16 @@ const routes: Routes = [
       {
         path: 'ٌStoreNetProfit',
         component: ReportTotalStoreComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'CarProfit/:id',
+        component: ProfitMarginCarComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'StoreProfit',
+        component: ProfitMarginStoreComponent,
         canActivate: [AdminGuard],
       },
     ],
