@@ -37,7 +37,7 @@ export class CarsAccountsComponent implements OnInit {
       accountType: [AccountType.Car],
       paid: [
         '',
-        [Validators.required, Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)],
+        [Validators.required,Validators.min(0),Validators.pattern(/([0-9\u0660-\u0669])+$/)],
       ],
       remaining: ['0'],
       type: [''],
