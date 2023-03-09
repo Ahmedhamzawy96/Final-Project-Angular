@@ -36,7 +36,7 @@ export class CustomerAccountsComponent implements OnInit {
       accountType: [AccountType.Customer],
       paid: [
         '',
-        [Validators.required, Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)],
+        [Validators.required, Validators.pattern(/([0-9\u0660-\u0669])+$/)],
       ],
       remaining: ['0'],
       type: [''],

@@ -22,11 +22,11 @@ export class ProductsComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(2)]],
       buyingPrice: [
         '',
-        [Validators.required, Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)],
+        [Validators.required, Validators.min(0),Validators.pattern(/([0-9\u0660-\u0669])+$/)],
       ],
       sellingPrice: [
         '',
-        [Validators.required, Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/)],
+        [Validators.required, Validators.min(0),Validators.pattern(/([0-9\u0660-\u0669])+$/)],
       ],
       quantity: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
     });
