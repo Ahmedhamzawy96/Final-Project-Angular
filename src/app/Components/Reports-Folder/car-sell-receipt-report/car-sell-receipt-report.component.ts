@@ -48,10 +48,13 @@ export class CarSellReceiptReportComponent implements OnInit {
     // });
   
   this.repserv.getCarSellTransactions(parseInt(this.carid),this.date).subscribe
-  ((data)=>{this.transactions=data
-    console.log(this.transactions)
-  
-  } )
+  ((data)=>{this.transactions=data  
+  this.transactions.transactions.forEach((element)=>
+  {
+    console.log(element);
+    this.totalPaid += element.paid;  }
+  )
+} )
   }
 
   Print() {

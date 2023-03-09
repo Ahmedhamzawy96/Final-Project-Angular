@@ -215,6 +215,11 @@ CARSellReceipt()
   this.repserv.addDates(this.CARRangeValue);
   this.router.navigate(['CARSRR',this.CARID]);
 }
+CARProfitMargin()
+{
+  this.repserv.addDates(this.CARRangeValue);
+  this.router.navigate(['CarProfit',this.CARID]);
+}
 //#endregion CAR
 
 //#region Total
@@ -227,6 +232,11 @@ TotalStoreReceipts()
 {
   this.repserv.addDates(this.TotalRangeValue)
   this.router.navigate(['ٌStoreNetProfit']);
+}
+StoreProfitMargin()
+{
+  this.repserv.addDates(this.TotalRangeValue)
+  this.router.navigate(['StoreProfit']);
 }
 //#endregion Total
 

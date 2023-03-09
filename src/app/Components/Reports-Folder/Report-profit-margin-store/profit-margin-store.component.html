@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-      <h1>تقرير تعاملات المخزن</h1>
+      <h1>هامش ربح المخزن  </h1>
       <nav class="my-3">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -21,9 +21,9 @@
                   <div>
                     <img style="width: 150px" src="/assets/img/LOGO.jpg" alt="" />
                   </div>
-                  <h1 class="card-title">تعاملات المخزن</h1>
+                  <h1 class="card-title">هامش الربح</h1>
                 </div>
-                <h3 class="text-start mt-3">{{ Date }}</h3>
+                <h3 class="text-start mt-3">{{ Date| date: 'yyyy-MM-dd' }}</h3>
               </div>
               <div class="col">
                 <div class="card overflow-auto">
@@ -31,35 +31,34 @@
                     <table class="table overflow-scroll">
                       <thead class="">
                         <tr class="text-center m-3 p-2">
-                          <th>كود</th>
-                          <th class="text-center">تفاصيل العمليه</th>
-                          <th class="text-center">الاجمالي</th>
-                          <th class="text-center">المدفوع</th>
+                          <th class="text-center">اسم العميل</th>
+                          <th class="text-center"> سعر البيع</th>
+                          <th class="text-center"> سعر الشراء</th>
+                          <th class="text-center">صافى الربح</th>
                           <th class="text-center">التاريخ</th>
-                          <th class="text-center">ملاحظات</th>
+                          <th class="text-center">رقم الفاتورة</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="text-center" *ngFor="let item of transactions.transactions">
-                          <th>{{ item.id }}</th>
-                        
-  
-                          <td>
-                            <div *ngIf="item.operation == 2">
-                              فاتورة بيع رقم {{ item.operationID }}
-                            </div>
-                            <div *ngIf="(item.operation == 5 ||item.operation==4)&& item.type == 1">
-                             توريد مبلغ مالى رقم  {{ item.id }}
-                            </div>
-                            <div *ngIf="(item.operation == 5 ||item.operation==4)&& item.type == 0">
-                               دفع مبلغ مالي {{ item.id }}
-                            </div>
-
-                          </td>
-                          <td>{{ item.paid + item.remaining }}</td>
-                          <td>{{ item.paid }}</td>
+                        <tr
+                          class="text-center"
+                          *ngFor="let item of ProfitMargin.receipts"
+                        >
+                          <th>{{ item.customerName }}</th>
+                          <td>{{ item.sellingPrice| number : '1.2-2'}}</td>
+                          <td>{{ item.buyingPrice | number : '1.2-2'}}</td>
+                          <td>{{  item.sellingPrice-item.buyingPrice| number : '1.2-2'}}</td>
                           <td>{{ item.date }}</td>
-                          <td>{{ item.notes }}</td>
+                          <td>
+                            <a
+                              [routerLink]="[
+                                '/ExportRecieptPrint/',
+                                item.id
+                              ]"
+                              routerLinkActive="router-link-active"
+                              >{{ item.id }}</a
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -70,16 +69,15 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="row my-4">
-                      <div class="col">
-                        <h2>اجمالى التحصيلات {{ totalPaid }}</h2>
+                      <div class="col-6">
+                        <h2>اجمالى سعر البيع {{ ProfitMargin.sellingPrice| number : '1.2-2' }}</h2>
                       </div>
-                      <div class="col">
-                        <h2>اجمالى توريدات العملاء {{ transactions.get}}</h2>
+                      <div class="col-6">
+                        <h2>اجمالى سعر الشراء{{ ProfitMargin.buyingprice| number : '1.2-2'}}</h2>
                       </div>
-                      <div class="col">
-                        <h2>اجمالى فواتير البيع {{  transactions.paid  }}</h2>
+                      <div class="col-12">
+                        <h2>صافى الربح {{ProfitMargin.sellingPrice- ProfitMargin.buyingprice| number : '1.2-2'}}</h2>
                       </div>
-                      
                     </div>
                   </div>
                 </div>

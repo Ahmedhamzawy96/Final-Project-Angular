@@ -21,16 +21,25 @@ export class ExportRecieptPrintComponent implements OnInit {
     private CustSer: CustService,
     private prodsServ: ProductService,
     private Route: Router,
+    private PrintReciept:RecieptPrintService
+
   ) {}
   Print() {
-    let printContents = document.getElementById('Print').innerHTML;
-    let originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    location.reload();  }
-  btnClick():void{
-    this.Route.navigateByUrl('/Home');
+    this.PrintReciept.ExportRecieptPrint(this.ExportReciept.id).subscribe(data => {
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = `فاتورة رقم - ${this.ExportReciept.id}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
+  //   let printContents = document.getElementById('Print').innerHTML;
+  //   let originalContents = document.body.innerHTML;
+  //   document.body.innerHTML = printContents;
+  //   window.print();
+  //   document.body.innerHTML = originalContents;
+  //   location.reload();  }
+  // btnClick():void{
+  //   this.Route.navigateByUrl('/Home');
 
   }
   

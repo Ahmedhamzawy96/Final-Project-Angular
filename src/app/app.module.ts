@@ -56,6 +56,8 @@ import { ReportsSupplierTotalComponent } from './Components/Reports-Folder/repor
 import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-sell-receipt-report/car-sell-receipt-report.component';
 import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
 import { NgxPrintModule } from 'ngx-print';
+import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-profit-margin-car/profit-margin-car.component';
+import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,6 +104,8 @@ import { NgxPrintModule } from 'ngx-print';
     ReportsSupplierTotalComponent,
     CarSellReceiptReportComponent,
     ReportTotalStoreComponent,
+    ProfitMarginCarComponent,
+    ProfitMarginStoreComponent,
   ],
   imports: [
     BrowserModule,

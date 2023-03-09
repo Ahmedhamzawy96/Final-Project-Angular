@@ -334,6 +334,14 @@
                     />
                   </div>
                 </td>
+                <td *ngIf="this.radioInput.checked">
+                  <button
+                  class="btn btn-danger mx-3"
+                  (click)="deleteproduct(productID)"
+                >
+                  حذف
+                </button>
+                </td>
               </tr>
             </tbody>
           </table>
