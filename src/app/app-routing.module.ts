@@ -46,6 +46,7 @@ import { CarSellReceiptReportComponent } from './Components/Reports-Folder/car-s
 import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-total-store/report-total-store.component';
 import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-profit-margin-car/profit-margin-car.component';
 import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
+import { RecieptPricePreviewComponent } from './Components/reciept-price-preview/reciept-price-preview.component';
 
 
 const routes: Routes = [
@@ -100,6 +101,11 @@ const routes: Routes = [
       {
         path: 'customer',
         component: CustomerComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'RecieptPricePreview',
+        component: RecieptPricePreviewComponent,
         canActivate: [AuthGuard],
       },
       {

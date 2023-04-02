@@ -37,6 +37,9 @@
                           <th class="text-center">المدفوع</th>
                           <th class="text-center">التاريخ</th>
                           <th class="text-center">ملاحظات</th>
+                          <th class="text-center">
+                            
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -60,6 +63,16 @@
                           <td>{{ item.paid }}</td>
                           <td>{{ item.date }}</td>
                           <td>{{ item.notes }}</td>
+                          <td>
+                            <a
+                              [routerLink]="[
+                                '/CarRecieptPrint/',
+                                item.operationID
+                              ]"
+                              routerLinkActive="router-link-active"
+                              >{{ item.operationID }}</a
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </table>

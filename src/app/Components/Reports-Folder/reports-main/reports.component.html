@@ -17,13 +17,24 @@
                 <label for="inputText" class="col-form-label">اسم العميل</label>
                 <div class="col-sm-10">
                   <div>
-                    <mat-form-field>
+                    <ngx-select
+                    [items]="customers"
+                    [(ngModel)]="customerID"
+                    (select)="fillCustomerReceipts()"
+                    optionValueField="id"
+                    optionTextField="name"
+                  ></ngx-select>
+
+
+
+
+                    <!-- <mat-form-field>
                       <mat-select [(value)]="customerID"  (selectionChange)="fillCustomerReceipts()" >
                         <mat-option *ngFor="let custmer of customers" [value]="custmer.id">
                           {{ custmer.name }}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                   </div>
                 </div>
               </div>
@@ -47,14 +58,24 @@
                   </div>
 
                   <div *ngIf="CustCheckbox" class="col">
-                    <div>
+                    <div class="py-2">
+                      <ngx-select
+                      [items]="custtransactionsReceipts"
+                      [(ngModel)]="CustReceiptID"
+                      optionValueField="id"
+                      optionTextField="name"
+                    ></ngx-select>    
+
+
+
+<!-- 
                       <mat-form-field>
                         <mat-select [(value)]="CustReceiptID">
                           <mat-option *ngFor="let trans of custtransactionsReceipts" [value]="trans.operationID">
                             {{ trans.operationID }}
                           </mat-option>
                         </mat-select>
-                      </mat-form-field>
+                      </mat-form-field> -->
                     </div>
                   </div>
                 </div>
@@ -114,13 +135,23 @@
                 <label for="inputText" class="col-form-label">اسم المورد</label>
                 <div class="col-sm-10">
                   <div>
-                    <mat-form-field>
+                    <ngx-select
+                    [items]="Suppliers"
+                    [(ngModel)]="SUPID"
+                    (select)="fillSupplierReceipts()"
+                    optionValueField="id"
+                    optionTextField="name"
+                  ></ngx-select>
+
+
+
+                    <!-- <mat-form-field>
                       <mat-select [(value)]="SUPID"  (selectionChange)="fillSupplierReceipts()" >
                         <mat-option *ngFor="let SUP of Suppliers" [value]="SUP.id">
                           {{ SUP.name }}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                   </div>
                 </div>
               </div>
@@ -144,14 +175,24 @@
                   </div>
 
                   <div *ngIf="SUPCheckbox" class="col">
-                    <div>
-                      <mat-form-field>
+                    <div class="py-2">
+                      <ngx-select
+                      [items]="SUPtransactionsReceipts"
+                      [(ngModel)]="SUPReceiptID"
+                      optionValueField="id"
+                      optionTextField="name"
+                    ></ngx-select>  
+
+
+
+
+                      <!-- <mat-form-field>
                         <mat-select [(value)]="SUPReceiptID">
                           <mat-option *ngFor="let trans of SUPtransactionsReceipts" [value]="trans.operationID">
                             {{ trans.operationID }}
                           </mat-option>
                         </mat-select>
-                      </mat-form-field>
+                      </mat-form-field> -->
                     </div>
                   </div>
                 </div>
@@ -210,13 +251,21 @@
                 <label for="inputText" class="col-form-label">اسم العربة</label>
                 <div class="col-sm-10">
                   <div>
-                    <mat-form-field>
+
+                    <ngx-select
+                    [items]="CARs"
+                    [(ngModel)]="CARID"
+                    (select)="fillCARReceipts()"
+                    optionValueField="id"
+                    optionTextField="name"
+                  ></ngx-select>
+                    <!-- <mat-form-field>
                       <mat-select [(value)]="CARID"  (selectionChange)="fillCARReceipts()" >
                         <mat-option *ngFor="let CAR of CARs" [value]="CAR.id">
                           {{ CAR.name }}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                   </div>
                 </div>
               </div>
@@ -239,14 +288,22 @@
                   </div>
 
                   <div *ngIf="CARCheckbox" class="col">
-                    <div>
-                      <mat-form-field>
+                    <div class="py-2">
+                      <ngx-select
+                      [items]="CARtransactionsReceipts"
+                      [(ngModel)]="CARReceiptID"
+                      optionValueField="id"
+                      optionTextField="name"
+                    ></ngx-select>  
+
+
+                      <!-- <mat-form-field>
                         <mat-select [(value)]="CARReceiptID">
                           <mat-option *ngFor="let trans of CARtransactionsReceipts" [value]="trans.operationID">
                             {{ trans.operationID }}
                           </mat-option>
                         </mat-select>
-                      </mat-form-field>
+                      </mat-form-field> -->
                     </div>
                   </div>
                 </div>
@@ -276,7 +333,34 @@
             <div class="card">
               <div class="card-body  " style="height: 252px ;">
                 <h3 class="card-title" class="card-title"> فواتير بيع العربة </h3>
-                <div style="height: 43px ;"></div>
+                <div class="row  ">
+                  <div class="">
+                    <input class="form-check-input" type="checkbox" name="remember" id="rememberMe2"
+                      [(ngModel)]="CarERCheckbox" />
+                    <label class="form-check-label mx-3" for="rememberMe2">فاتورة</label>
+
+                  </div>
+
+                  <div *ngIf="CarERCheckbox" class="col">
+                    <div class="py-2">
+                      <ngx-select
+                      [items]="CARtransactionsEReceipts"
+                      [(ngModel)]="CARReceiptID"
+                      optionValueField="id"
+                      optionTextField="name"
+                    ></ngx-select>  
+
+
+                      <!-- <mat-form-field>
+                        <mat-select [(value)]="CARReceiptID">
+                          <mat-option *ngFor="let trans of CARtransactionsReceipts" [value]="trans.operationID">
+                            {{ trans.operationID }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> -->
+                    </div>
+                  </div>
+                </div>
                 <div class="col d-flex justify-content-center align-items-center">
                   <button class="btn btn-primary" type="button" (click)="CARSellReceipt()">عرض التقرير </button>
                 </div>

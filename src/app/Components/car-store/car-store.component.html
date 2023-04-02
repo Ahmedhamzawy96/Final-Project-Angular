@@ -82,6 +82,8 @@
                 <th scope="col">كود</th>
                 <th scope="col">اسم المنتج</th>
                 <th scope="col">الكميه</th>
+                <th *ngIf="Type == 0" scope="col"></th>
+
               </tr>
             </thead>
             <tbody>
@@ -89,6 +91,11 @@
                 <th scope="row">{{ prod.productID }}</th>
                 <td>{{ prod.productName }}</td>
                 <td>{{ prod.quantity }}</td>
+                <td *ngIf="prod.quantity==0 && Type == 0">
+                  <span class="text-danger h4" #Product (click)="Delete(prod.productID,Product)">
+                    <i class="bi bi-x-circle"></i>
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>

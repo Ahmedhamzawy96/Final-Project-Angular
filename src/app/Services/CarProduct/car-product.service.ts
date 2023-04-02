@@ -31,4 +31,8 @@ export class CarProductService {
   deleteProduct(id:number):Observable<ICarProduct>{
     return this.serv.Delete("CarProduct",id);
   }
+
+  deleteCarProduct(id:number,CarId:number):Observable<ICarProduct>{
+    return this.serv.DeleteWithCarID("CarProduct",id,CarId);
+  }
 }
