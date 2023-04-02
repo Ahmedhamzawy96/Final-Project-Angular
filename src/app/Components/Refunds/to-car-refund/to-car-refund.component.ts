@@ -134,6 +134,7 @@ export class ToCarRefundComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger;
     let total: number = 0;
     this.newRecieptProducts.forEach((element) => {
       total += element.totalPrice;

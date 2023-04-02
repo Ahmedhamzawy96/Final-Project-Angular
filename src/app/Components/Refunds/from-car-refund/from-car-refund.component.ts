@@ -148,7 +148,7 @@ export class FromCarRefundComponent implements OnInit {
       paid: new FormControl(0),
       remaining: new FormControl(this.NewRecieptValue),
       customerID: new FormControl(this.ExportReciept.customerID),
-      userName: new FormControl(this.ExportReciept.userName),
+      userName: new FormControl(this.ExportReciept.userName)
     });
     this.newRecieptProducts = this.newRecieptProducts.filter(
       (A) => A.quantity != 0

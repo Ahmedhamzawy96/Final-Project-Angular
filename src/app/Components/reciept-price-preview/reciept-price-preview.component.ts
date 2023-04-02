@@ -1,22 +1,20 @@
-import { IExportReciept } from './../../Interface/IExportReciept';
-import { ExportProductService } from './../../Services/ExportProduct/export-product.service';
-import { IExportProduct } from 'src/app/Interface/IExportProduct';
-import { ProductService } from './../../Services/Product/product.service';
-import { IProduct } from 'src/app/Interface/IProduct';
-import { ICustomer } from 'src/app/Interface/ICustomer';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ExportRecieptService } from 'src/app/Services/ExportReceipt/export-reciept.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ICustomer } from 'src/app/Interface/ICustomer';
+import { IExportProduct } from 'src/app/Interface/IExportProduct';
+import { IExportReciept } from 'src/app/Interface/IExportReciept';
+import { IProduct } from 'src/app/Interface/IProduct';
 import { CustService } from 'src/app/Services/Customer/cust.service';
+import { ProductService } from 'src/app/Services/Product/product.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-receiptforstore',
-  templateUrl: './receiptforstore.component.html',
-  styleUrls: ['./receiptforstore.component.css'],
+  selector: 'app-reciept-price-preview',
+  templateUrl: './reciept-price-preview.component.html',
+  styleUrls: ['./reciept-price-preview.component.css']
 })
-export class ReceiptforstoreComponent implements OnInit {
+export class RecieptPricePreviewComponent implements OnInit {
   ExportRecieptForm: FormGroup;
   Products: IProduct[] = [];
   Customers: ICustomer[] = [];
@@ -41,26 +39,17 @@ export class ReceiptforstoreComponent implements OnInit {
   constructor(
     private custServ: CustService,
     private Productserv: ProductService,
-    private Exportserv: ExportRecieptService,
-    private expProd: ExportProductService,
-    private Route: Router
-  ) {
+    private PrintReciept: RecieptPrintService,
+  ) { 
     this.ExportRecieptForm = new FormGroup({
       total: new FormControl(''),
       notes: new FormControl(''),
       date: new FormControl(this.BillDate),
-      paid: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[+]?([.]\d+|\d+[.]?\d*)$/),
-      ]),
       remaining: new FormControl('0'),
-      customerID: new FormControl('', [Validators.required]),
-      customerName: new FormControl(''),
-      currentAccount:new FormControl(''),
-      previousAccount:new FormControl(''),
       userName: new FormControl(this.UserName),
     });
   }
+
   ngOnInit(): void {
     this.custServ.getCustomers().subscribe((data) => {
       this.Customers = data;
@@ -70,7 +59,6 @@ export class ReceiptforstoreComponent implements OnInit {
       this.Products = data;
     });
   }
-
   prdselect(id: number) {
     this.Selectedproduct = this.Products.find((w) => w.id == id);
     this.prdPrice = this.Selectedproduct.sellingPrice;
@@ -86,13 +74,7 @@ export class ReceiptforstoreComponent implements OnInit {
         title: '',
         text: 'يجب ان تكون الكمية اكبر من الصفر',
       });
-    } else if (this.prdQuantity > prod.quantity) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'كمية الصنف في المخزن لا تسمح',
-      });
-    } else if (this.prdPrice < prod.buyingPrice || this.prdPrice == 0) {
+    }  else if (this.prdPrice < prod.buyingPrice || this.prdPrice == 0) {
       Swal.fire({
         icon: 'error',
         title: '',
@@ -145,7 +127,6 @@ export class ReceiptforstoreComponent implements OnInit {
           let index: number = this.ProductsAdded.indexOf(prod);
           this.ProductsAdded.splice(index, 1);
           this.totalReciept();
-          this.getRemain();
           swalWithBootstrapButtons.fire('تم الحذف', 'تم حذف المنتج', 'success');
         } else if (
           /* Read more about handling dismissals below */
@@ -166,12 +147,6 @@ export class ReceiptforstoreComponent implements OnInit {
         title: '',
         text: 'يجب ان تكون الكمية اكبر من الصفر',
       });
-    } else if (quantity > mainProd.quantity) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'كمية الصنف في المخزن لا تسمح',
-      });
     } else if (price < mainProd.sellingPrice || price == 0) {
       Swal.fire({
         icon: 'error',
@@ -185,13 +160,6 @@ export class ReceiptforstoreComponent implements OnInit {
       this.totalReciept();
       this.tableNotValid = false;
     }
-  }
-  getRemain() {
-    debugger;
-    this.ExportRecieptForm.controls['remaining'].setValue(
-      this.ExportRecieptForm.controls['total'].value -
-        this.ExportRecieptForm.controls['paid'].value
-    );
   }
   discount(values: any) {
     let disc = Number(values);
@@ -207,43 +175,6 @@ export class ReceiptforstoreComponent implements OnInit {
       );
     }
 
-    this.getRemain();
-  }
-  OnSubmit() {
-    this.submit = true;
-    let receipt: IExportReciept = this.ExportRecieptForm.value;
-    if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان تحتوي الفاتورة علي صنف واحد علي الاقل ',
-      });
-    } else if (
-      
-      this.ExportRecieptForm.controls['paid'].value > (this.ExportRecieptForm.controls['total'].value + this.CustomerAccount)
-    ) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان يكون المبلغ المدفوع اقل من او يساوي اجمالي حساب العميل و اجمالي الفاتورة ',
-      });
-    } else if (
-      this.ProductsAdded.length > 0 &&
-      this.ExportRecieptForm.valid &&
-      !this.tableNotValid
-    ) {
-      receipt.products = this.ProductsAdded;
-      receipt.remaining = receipt.total-receipt.paid;
-      receipt.currentAccount = this.CustomerAccount + receipt.remaining;
-      receipt.previousAccount = this.CustomerAccount;
-      console.log(receipt);
-      debugger;
-      this.Exportserv.addReciept(receipt).subscribe((data) => {
-        this.ExportRecieptForm.reset();
-        this.submit = true;
-        this.Route.navigate(['ExportRecieptPrint', data.id]);
-      });
-    }
   }
   totalReciept() {
     let total: number = 0;
@@ -263,4 +194,35 @@ export class ReceiptforstoreComponent implements OnInit {
       this.CustomerAccount = Number(data.account);
     })
   }
+  OnSubmit() {
+    console.log("dddd");
+    this.submit = true;
+    let receipt: IExportReciept = this.ExportRecieptForm.value;
+    console.log(this.ProductsAdded);
+    console.log(this.ExportRecieptForm.valid);
+
+    if (this.ProductsAdded.length == 0 && this.ExportRecieptForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'يجب ان يحتوي عرض السعر علي صنف واحد علي الاقل ',
+      });
+    }  else if (
+      this.ProductsAdded.length > 0 &&
+      this.ExportRecieptForm.valid &&
+      !this.tableNotValid
+    ) {
+      receipt.products = this.ProductsAdded;
+      console.log(receipt);
+      debugger;
+      this.PrintReciept.RecieptPreview(receipt).subscribe((data) => {
+        const x = `data:application/pdf;base64,${data}`;
+        var link = document.createElement('a');
+      link.href = x;
+      link.download = `عرض سعر.pdf`;
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+      });
+    }
+  }
+
 }

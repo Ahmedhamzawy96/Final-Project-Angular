@@ -22,11 +22,11 @@ export class ReportsComponent implements OnInit {
 
 //#region Cust 
 custtransactions:ITransactions[];
-custtransactionsReceipts:ITransactions[]=[];
+custtransactionsReceipts:Number[]=[];
 customers: ICustomer[];
 selcustomer: ICustomer;
 Custaccount:number;
-customerID:number;
+customerID:any;
 CustReceiptID:number;
 CustCheckbox:boolean;
 CustminDate = new Date();
@@ -37,7 +37,7 @@ CustRangeValue: Date[];
 
 //#region SUP 
 SUPtransactions:ITransactions[];
-SUPtransactionsReceipts:ITransactions[]=[];
+SUPtransactionsReceipts:Number[]=[];
 Suppliers: ISupplier[];
 selSuplier: ISupplier;
 SUPaccount:number;
@@ -52,13 +52,16 @@ SUPRangeValue: Date[];
 
 //#region CAR
 CARtransactions:ITransactions[];
-CARtransactionsReceipts:ITransactions[]=[];
+CARtransactionsReceipts:Number[]=[];
+CAREtransactions:ITransactions[];
+CARtransactionsEReceipts:Number[]=[];
 CARs: ICar[];
 selCAR: ICar;
 CARaccount:number;
 CARID:number;
 CARReceiptID:number;
 CARCheckbox:boolean;
+CarERCheckbox:boolean;
 CARminDate = new Date();
 CARmaxDate = new Date();
 CARRangeValue: Date[];
@@ -108,6 +111,7 @@ CustomerAccount(){
 }
 CustomerReceipts()
 {
+  debugger;
   if(this.CustCheckbox)
   {
     this.router.navigate(['ExportRecieptPrint',this.CustReceiptID]);
@@ -121,16 +125,19 @@ CustomerReceipts()
 }
 fillCustomerReceipts()
 {
+  debugger;
+  console.log(this.customerID);
   this.custtransactionsReceipts=[];
   this.transServ
   .transactionbytype(this.customerID, AccountType.Customer)
   .subscribe((data) => {
     this.custtransactions = data;
+    console.log(this.custtransactions , data)
 
     for (let index = 0; index <this.custtransactions.length; index++) {
       if(this.custtransactions[index].operation==Operation.ExportReciept)
       {
-        this.custtransactionsReceipts.push(this.custtransactions[index])
+        this.custtransactionsReceipts.push(this.custtransactions[index].operationID)
       }
     }
 
@@ -168,7 +175,7 @@ fillSupplierReceipts()
       if(this.SUPtransactions[index].operation==Operation.ImportReciept)
       {
         console.log(this.SUPtransactions[index])
-        this.SUPtransactionsReceipts.push(this.SUPtransactions[index])
+        this.SUPtransactionsReceipts.push(this.SUPtransactions[index].operationID)
       }
     }
 })
@@ -201,19 +208,42 @@ fillCARReceipts()
   .transactionbytype(this.CARID, AccountType.Car)
   .subscribe((data) => {
     this.CARtransactions = data;
-this.CARtransactions.forEach(element => {
-  if(element.operation==Operation.ExportReciept&&element.accountType==AccountType.Car)
-      {
-        this.CARtransactionsReceipts.push(element)
-      }
+    this.CARtransactions.forEach(element => {
+      if(element.operation==Operation.ExportReciept&&element.accountType==AccountType.Car)
+        {
+          this.CARtransactionsReceipts.push(element.operationID);
+        }
 });
+console.log(this.CARtransactionsReceipts);
 
 })
+this.transServ.Cartransactionbytype(this.CARID,AccountType.Customer)
+.subscribe((data) => {
+  this.CAREtransactions = data;
+  this.CAREtransactions.forEach(element => {
+    if(element.operation==Operation.ExportReciept&&element.accountType==AccountType.Customer)
+      {
+        this.CARtransactionsEReceipts.push(element.operationID);
+      }
+});
+console.log(this.CARtransactionsEReceipts);
+
+})
+
+
 }
 CARSellReceipt()
 {
-  this.repserv.addDates(this.CARRangeValue);
-  this.router.navigate(['CARSRR',this.CARID]);
+  debugger;
+  if(this.CarERCheckbox)
+  {
+    this.router.navigate(['CarRecieptPrint',this.CARReceiptID]);
+  }
+  else
+  {
+    this.repserv.addDates(this.CARRangeValue);
+    this.router.navigate(['CARSRR',this.CARID]);
+  }
 }
 CARProfitMargin()
 {

@@ -20,16 +20,25 @@ export class CarRecPrintComponent implements OnInit {
     private reciept: ExportRecieptService,
     private CarSer: CarService,
     private prodsServ: ProductService,
+    private PrintReciept:RecieptPrintService
+
   ) {}
   Print() {
-    let printContents = document.getElementById('main').innerHTML;
-    let originalContents = document.body.innerHTML;
+    this.PrintReciept.ExportRecieptPrint(this.ExportReciept.id).subscribe(data => {
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = `فاتورة رقم - ${this.ExportReciept.id}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
+    // let printContents = document.getElementById('main').innerHTML;
+    // let originalContents = document.body.innerHTML;
 
-    document.body.innerHTML = printContents;
+    // document.body.innerHTML = printContents;
 
-    window.print();
+    // window.print();
 
-    document.body.innerHTML = originalContents;
+    // document.body.innerHTML = originalContents;
   }
 
   ngOnInit(): void {

@@ -80,6 +80,13 @@ export class GenericService {
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
+
+  DeleteWithCarID(RouteURL: string, id: any,CarId:any): Observable<any> {
+    return this.Client.delete<any>(
+      `${environment.APIUrl}/${RouteURL}/${id}/${CarId}`,
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
+  }
   //transaction
   getTransaction(RouteURL: string, id: number, type: number): Observable<any> {
     return this.Client.get<any>(

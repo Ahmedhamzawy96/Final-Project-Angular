@@ -97,13 +97,22 @@
             <i class="bi bi-circle"></i> <span class="mx-3"> فاتورة بيع</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="justify-content-start" routerLink="/Receiptforcar">
-            <i class="bi bi-circle"></i>
-            <span class="mx-3"> فاتورة توريد عربه</span>
-          </a>
-        </li>
       </ul>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed justify-content-start"
+        routerLink="/RecieptPricePreview"
+      >
+      <i class="ri-bill-fill"></i>
+      <span class="mx-3">عرض سعر</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="Type == 2">
+      <a class="justify-content-start" routerLink="/ReceiptFormCar">
+        <i class="bi bi-circle"></i>
+        <span class="mx-3">فاتورة بيع العربة</span>
+      </a>
     </li>
     <li class="nav-item">
       <a

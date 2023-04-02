@@ -56,15 +56,15 @@
                     <div class="row my-4 text-center">
                       <div class="col-4">
                         <h2>اجمالي التكلفة</h2>
-                        <p> {{prodTotalBuy}} </p>
+                        <p> {{prodTotalBuy | number: '.2'}} </p>
                       </div>
                       <div class="col-4">
                         <h2>اجمالي البيع</h2>
-                        <p> {{prodTotalSell}} </p>
+                        <p> {{prodTotalSell | number: '.2'}} </p>
                       </div>
                       <div class="col-4">
                         <h2>الربح</h2>
-                        <p> {{prodTotalSell - prodTotalBuy}} </p>
+                        <p> {{prodTotalSell - prodTotalBuy | number: '.2'}} </p>
                       </div>
                     </div>
                   </div>

@@ -1,7 +1,6 @@
 import { IExportProduct } from "./IExportProduct";
 
 export interface IExportReciept{
-
   id:number,
   total:number,
   notes:string,
@@ -11,6 +10,8 @@ export interface IExportReciept{
   customerID?:number;
   userName:string,
   carID?:number,
+  currentAccount?:number
+  previousAccount?:number
   products:IExportProduct[]
 
 }

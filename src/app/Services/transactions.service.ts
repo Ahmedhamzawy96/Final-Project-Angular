@@ -38,4 +38,8 @@ export class TransactionsService {
   transactionbytype(id: number, type: number): Observable<ITransactions[]> {
     return this.Serv.getTransaction('Transactions', id, type);
   }
+
+  Cartransactionbytype(id: number, type: number): Observable<ITransactions[]> {
+    return this.Serv.getTransaction('Transactions/CarTransaction', id, type);
+  }
 }
