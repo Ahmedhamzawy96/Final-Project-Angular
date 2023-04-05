@@ -239,6 +239,8 @@ export class ReceiptfromcarComponent implements OnInit {
       !this.tableNotValid
     ) {
       receipt.products = this.ProductsAdded;
+      receipt.previousAccount = this.CustomerAccount;
+      receipt.currentAccount = this.CustomerAccount + receipt.remaining;
       this.Exportserv.addReciept(receipt).subscribe((data) => {
         this.ExportRecieptForm.reset();
         this.submit = true;
