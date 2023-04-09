@@ -39,4 +39,8 @@ export class ProductService {
 UpdateProductPrice(id:number , productPrice:IProductPrice){
   return this.Serv.put("Product/UpdateProductPrice",id,productPrice);
 }
+//GetProductByQuantity
+getProductByQuantity(Quantity:Number): Observable<IProduct[]>{
+  return this.Serv.getOne("Product/ProductByQuantity",Quantity);
+}
 }

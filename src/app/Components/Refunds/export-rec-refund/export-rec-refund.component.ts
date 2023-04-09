@@ -19,6 +19,7 @@ export class ExportRecRefundComponent implements OnInit {
   recieptID: string;
   ExportReciept: IExportReciept;
   CustomerName: string;
+  CustAccount:number;
   Selectedproduct: IProduct;
   ExProducts: IExportProduct[];
   tableNotValid: boolean = false;
@@ -155,6 +156,8 @@ export class ExportRecRefundComponent implements OnInit {
     let rec: IExportReciept = this.refundRec.value;
     if (this.newRecieptProducts.length != 0 || rec.total != 0) {
       rec.products = this.newRecieptProducts;
+      rec.currentAccount = this.CustAccount + rec.remaining;
+      rec.previousAccount = this.CustAccount;
       console.log(rec);
       this.refundServ
         .exportRecRefund(this.ExportReciept.id, rec)
@@ -180,8 +183,9 @@ export class ExportRecRefundComponent implements OnInit {
     this.reciept.getRecieptsByID(Number(this.recieptID)).subscribe((Data) => {
       this.ExportReciept = Data;
       this.CustSer.getCustomerByID(this.ExportReciept.customerID).subscribe(
-        (Date) => {
-          this.CustomerName = Date.name;
+        (date) => {
+          this.CustomerName = date.name;
+          this.CustAccount=date.account;
         }
       );
       this.ExportReciept.products.forEach((element) => {
