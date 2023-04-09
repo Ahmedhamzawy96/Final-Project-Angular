@@ -20,6 +20,7 @@ export class FromCarRefundComponent implements OnInit {
   recieptID: string;
   ExportReciept: IExportReciept;
   CustomerName: string;
+  CustAccount:number;
   Selectedproduct: IProduct;
   tableNotValid: boolean = false;
   newRecieptProducts: IExportProduct[] = [];
@@ -156,6 +157,8 @@ export class FromCarRefundComponent implements OnInit {
     let rec: IExportReciept = this.refundRec.value;
     if (this.newRecieptProducts.length != 0 || rec.total != 0) {
       rec.products = this.newRecieptProducts;
+      rec.currentAccount = this.CustAccount + rec.remaining;
+      rec.previousAccount = this.CustAccount;
       this.refundServ
         .FromCarRecRefund(this.ExportReciept.id, rec)
         .subscribe((data) => {
@@ -181,8 +184,9 @@ export class FromCarRefundComponent implements OnInit {
       console.log(Data);
       this.custSer
         .getCustomerByID(this.ExportReciept.customerID)
-        .subscribe((Date) => {
-          this.CustomerName = Date.name;
+        .subscribe((date) => {
+          this.CustomerName = date.name;
+          this.CustAccount=date.account;
         });
       this.ExportReciept.products.forEach((element) => {
         this.prodsServ

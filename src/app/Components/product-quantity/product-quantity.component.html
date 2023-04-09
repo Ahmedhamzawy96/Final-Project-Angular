@@ -1,0 +1,71 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>المنتجات</h1>
+      <nav class="mt-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/Home">الصقحة الرئيسية </a>
+          </li>
+          <li class="breadcrumb-item"></li>
+          <li class="breadcrumb-item active">النواقص</li>
+        </ol>
+      </nav>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">
+                بحث
+            </h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label py-2">
+                            الكمية
+                        </label>
+                        <div class="col-md-12">
+                            <input
+                            [(ngModel)]="Quantity"
+                            [ngModelOptions]="{ standalone: true }"
+                            type="number"
+                            min="0"
+                            class="form-control"
+                          />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center align-items-end">
+                    <button class="btn btn-primary" (click)="GetProducts()">بحث</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">بيانات المنتجات</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">كود</th>
+                  <th scope="col">اسم المنتج</th>
+                  <th scope="col">الكمية</th>
+                  <th scope="col">ثمن الشراء</th>
+                  <th scope="col">ثمن البيع</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let prod of Products">
+                  <td>{{prod.id}}</td>
+                  <td>{{prod.name}}</td>
+                  <td>{{prod.quantity}}</td>
+                  <td>{{prod.buyingPrice}}</td>
+                  <td>{{prod.sellingPrice}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>

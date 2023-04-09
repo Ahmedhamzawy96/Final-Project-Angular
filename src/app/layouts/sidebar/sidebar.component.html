@@ -186,14 +186,67 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
+
+
+    <!-- <li class="nav-item" *ngIf="Type == 0 || Type == 1">
       <a
         class="nav-link collapsed justify-content-start"
         routerLink="/products"
       >
         <i class="ri ri-store-2-line"></i> <span class="mx-3">المخزن</span>
       </a>
+    </li> -->
+
+
+
+
+
+    <li class="nav-item" *ngIf="Type == 0 || Type == 1">
+      <a
+        class="nav-link collapsed justify-content-between"
+        data-bs-target="#products-nav"
+        data-bs-toggle="collapse"
+        href="#"
+      >
+        <div class="d-flex align-items-center">
+          <i class="ri ri-store-2-line"></i>
+          <span class="mx-3">المخزن</span>
+        </div>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <ul
+        id="products-nav"
+        class="nav-content collapse"
+        data-bs-parent="#sidebar-nav"
+      >
+        <li class="nav-item">
+          <a class="justify-content-start" routerLink="/products">
+            <i class="bi bi-circle"></i> <span class="mx-3">الاصناف</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="justify-content-start" routerLink="/ProductQuantity">
+            <i class="bi bi-circle"></i> <span class="mx-3">النواقص</span>
+          </a>
+        </li>
+      </ul>
     </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <li class="nav-item" >
       <a class="nav-link collapsed justify-content-start" routerLink="/Refund">
         <i class="bi bi-cart-x"></i> <span class="mx-3">المرتجعات</span>

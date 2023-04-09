@@ -47,6 +47,7 @@ import { ReportTotalStoreComponent } from './Components/Reports-Folder/report-to
 import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-profit-margin-car/profit-margin-car.component';
 import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
 import { RecieptPricePreviewComponent } from './Components/reciept-price-preview/reciept-price-preview.component';
+import { ProductQuantityComponent } from './Components/product-quantity/product-quantity.component';
 
 
 const routes: Routes = [
@@ -141,6 +142,11 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+        canActivate: [CarDriverGuard],
+      },
+      {
+        path: 'ProductQuantity',
+        component: ProductQuantityComponent,
         canActivate: [CarDriverGuard],
       },
       {

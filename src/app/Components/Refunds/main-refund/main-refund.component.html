@@ -28,7 +28,23 @@
               >رقم الفاتورة
             </label>
             <div class="col-sm-10">
-              <mat-form-field>
+              <div *ngIf="RefundType == 0 || RefundType == 2 || RefundType == 3 ">
+                  <ngx-select
+                  [items]="SotreReciepts"
+                  [(ngModel)]="recID"
+                  optionValueField="id"
+                  optionTextField="name"
+                ></ngx-select>  
+              </div>
+              <div *ngIf="RefundType == 1">
+                <ngx-select
+                [items]="importReciets"
+                [(ngModel)]="recID"
+                optionValueField="id"
+                optionTextField="name"
+              ></ngx-select>  
+            </div>
+              <!-- <mat-form-field>
                 <mat-select [(ngModel)]="recID">
                   <div
                     *ngIf="
@@ -51,7 +67,8 @@
                     </mat-option>
                   </div>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
+
             </div>
           </div>
         </div>
