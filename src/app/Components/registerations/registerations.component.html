@@ -1,0 +1,118 @@
+<main>
+    <div class="container" dir="rtl">
+      <section
+        class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div
+              class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center"
+            >
+            
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">تسجيل</h5>
+                  </div>
+                  <form
+                    class="row g-3"
+                    [formGroup]="RegisterForm"
+                    (ngSubmit)="onSubmit()"
+                  >
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label"
+                        >اسم المستخدم</label
+                      >
+                      <input
+                        type="text"
+                        formControlName="userName"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && RegisterForm.controls.userName.errors
+                        }"
+                        id="yourUsername"
+                      />
+                      <div
+                        *ngIf="submitted && RegisterForm.controls.userName.errors"
+                        class="text-danger"
+                      >
+                        <div *ngIf="RegisterForm.controls.userName.errors.required">
+                          قم بادخال الاسم !
+                        </div>
+                        <div *ngIf="RegisterForm.controls.userName.errors.userName">
+                          قم بادخال الاسم !
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label"
+                        >كلمة المرور</label
+                      >
+                      <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && RegisterForm.controls.password.errors
+                        }"
+                        id="yourPassword"
+                      />
+                      <div
+                        *ngIf="submitted && RegisterForm.controls.password.errors"
+                        class="text-danger"
+                      >
+                        <div *ngIf="RegisterForm.controls.password.errors.required">
+                          قم بادخال كلمه المرور
+                        </div>
+                        <div *ngIf="RegisterForm.controls.password.errors.password">
+                          اخل كلمه مرور صحيحه!
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <label for="mobile" class="form-label"
+                          > الموبيل</label
+                        >
+                        <input
+                          type="tel"
+                          formControlName="password"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted && RegisterForm.controls.password.errors
+                          }"
+                          id="yourPassword"
+                        />
+                        <div
+                          *ngIf="submitted && RegisterForm.controls.mobile.errors"
+                          class="text-danger"
+                        >
+                          <div *ngIf="RegisterForm.controls.mobile.errors.required">
+                            قم بادخال  رقم الهاتف
+                          </div>
+                          <div *ngIf="RegisterForm.controls.mobile.errors.mobile">
+                            قم بادخال  رقم الهاتف
+                          </div>
+                        </div>
+                      </div>
+
+               
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100 mb-4" type="submit">
+                        تسجيل الدخول
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  

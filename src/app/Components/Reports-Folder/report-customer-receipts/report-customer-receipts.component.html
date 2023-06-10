@@ -1,4 +1,48 @@
 <main id="main" class="main">
+ 
+ 
+  <div class="col ">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title" class="card-title"> العميل </h3>
+
+        <div class="row justify-content-between">
+          <div class="col-xs-12 col-12 col-md-4 form-group ">
+            <label for="Date" class="col-form-label">التاريخ </label>
+            <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+              [bsConfig]="{ isAnimated: true ,containerClass: 'theme-dark-blue'}" [(ngModel)]=" CustRangeValue">
+          </div>
+          <div class="col-12 col-lg-6 ">
+            <label for="inputText" class="col-form-label">اسم العميل</label>
+            <div class="col-sm-10">
+              <div>
+                <ngx-select
+                [items]="customers"
+                [(ngModel)]="customerID"
+                (select)="fillCustomerReceipts()"
+                optionValueField="id"
+                optionTextField="name"
+              ></ngx-select>
+
+
+
+
+                <!-- <mat-form-field>
+                  <mat-select [(value)]="customerID"  (selectionChange)="fillCustomerReceipts()" >
+                    <mat-option *ngFor="let custmer of customers" [value]="custmer.id">
+                      {{ custmer.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
   <div class="pagetitle">
     <h1>تقرير فواتير عميل</h1>
     <nav class="my-3">
@@ -18,9 +62,7 @@
           <div class="card-body">
             <div class="row">
               <div class="text-center mt-2">
-                <div>
-                  <img style="width: 150px" src="/assets/img/LOGO.jpg" alt="" />
-                </div>
+             
                 <h1 class="card-title">فواتير عميل</h1>
               </div>
               <h3 class="text-start mt-3">{{ Date }}</h3>
@@ -80,20 +122,7 @@
                 </div>
               </div>
             </div>
-            <div class="col">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row my-4">
-                    <div class="col-6">
-                      <h2>الاجمالى {{ Total }}</h2>
-                    </div>
-                    <div class="col-6">
-                      <h2>المدفوع {{ totalPaid }}</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+         
           </div>
         </div>
       </div>
