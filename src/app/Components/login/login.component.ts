@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
   constructor(
      private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    
   ) {
     this.LoginForm = this.formBuilder.group({
       userName: ['', Validators.required],
@@ -21,7 +22,31 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-    
+
+    this.submitted = true;
+    if (this.LoginForm.valid) {
+      this.loginServ
+        .Login(<LoginUser>this.LoginForm.value)
+        .subscribe((Data) => {
+          debugger;
+          if (Data == 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'خطأ',
+              text: 'البيانات غير صحيحة حاول مرة اخرى!',
+            });
+            this.LoginForm.reset();
+          }else{
+            localStorage.setItem('Token', JSON.stringify(Data.token)),
+            localStorage.setItem('UserName', JSON.stringify(Data.userName)),
+            localStorage.setItem('Type', JSON.stringify(Data.type));
+            this.router.navigate(['/Home']).then(() => {
+            window.location.reload();
+        });
+          }
+        });
+    }
+
   }
   ngOnInit() {}
 }
