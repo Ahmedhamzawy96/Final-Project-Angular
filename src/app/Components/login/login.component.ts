@@ -28,12 +28,7 @@ export class LoginComponent implements OnInit {
       this.loginServ
         .Login(<LoginUser>this.LoginForm.value)
         .subscribe((Data) => {
-          localStorage.setItem('Token', JSON.stringify(Data.token)),
-            localStorage.setItem('UserName', JSON.stringify(Data.userName)),
-            localStorage.setItem('Type', JSON.stringify(Data.type));
-          this.router.navigate(['/Home']).then(() => {
-            window.location.reload();
-          });
+          debugger;
           if (Data == 0) {
             Swal.fire({
               icon: 'error',
@@ -41,6 +36,13 @@ export class LoginComponent implements OnInit {
               text: 'البيانات غير صحيحة حاول مرة اخرى!',
             });
             this.LoginForm.reset();
+          }else{
+            localStorage.setItem('Token', JSON.stringify(Data.token)),
+            localStorage.setItem('UserName', JSON.stringify(Data.userName)),
+            localStorage.setItem('Type', JSON.stringify(Data.type));
+            this.router.navigate(['/Home']).then(() => {
+            window.location.reload();
+        });
           }
         });
     }
