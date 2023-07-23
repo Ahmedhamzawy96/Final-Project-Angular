@@ -176,7 +176,16 @@
 
                 <td>
                   <div *ngIf="item.operation == 2">
-                    فاتورة بيع رقم {{ item.operationID }}
+                    فاتورة بيع رقم 
+                      <a
+                        [routerLink]="[
+                          '/ExportRecieptPrint/',
+                          item.operationID
+                        ]"
+                        routerLinkActive="router-link-active"
+                        >{{ item.operationID }}</a
+                      >
+                  
                   </div>
                   <div *ngIf="item.operation == 5 && item.type == 1">
                     توريد مبلغ مالى رقم

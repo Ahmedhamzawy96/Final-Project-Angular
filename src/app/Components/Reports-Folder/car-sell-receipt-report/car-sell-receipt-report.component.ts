@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ICartotaltranswithname } from 'src/app/Interface/trans-wit-name';
 import { Transacwithtotal } from 'src/app/Interface/transacwithtotal';
 import { CarService } from 'src/app/Services/Car/car.service';
 import { ReportService } from 'src/app/Services/Reports/report.service';
@@ -16,7 +17,7 @@ export class CarSellReceiptReportComponent implements OnInit {
     private carserv: CarService,
     private repserv: ReportService
   ) {}
-  transactions: Transacwithtotal;
+  transactions: ICartotaltranswithname;
   
 
   BillDate: string = new Date().toLocaleString();
@@ -49,10 +50,9 @@ export class CarSellReceiptReportComponent implements OnInit {
   
   this.repserv.getCarSellTransactions(parseInt(this.carid),this.date).subscribe
   ((data)=>{this.transactions=data  
-  this.transactions.transactions.forEach((element)=>
+  this.transactions.transactionandname.forEach((element)=>
   {
-    console.log(element);
-    this.totalPaid += element.paid;  }
+    this.totalPaid += element.transactions.paid;  }
   )
 } )
   }

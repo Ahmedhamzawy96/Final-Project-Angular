@@ -8,6 +8,7 @@ import { ICustomer } from 'src/app/Interface/ICustomer';
 import { ActivatedRoute } from '@angular/router';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { ReportService } from 'src/app/Services/Reports/report.service';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-report-customer-accounts',
@@ -19,7 +20,8 @@ export class ReportCustomerAccountsComponent implements OnInit {
     private transerve: TransactionsService,
     private rout: ActivatedRoute,
     private custserv: CustService,
-    private repserv: ReportService
+    private repserv: ReportService,
+    private printserv:RecieptPrintService
   ) {}
   transactions: ITransactions[];
   BillDate: string = new Date().toLocaleString();
@@ -47,7 +49,8 @@ export class ReportCustomerAccountsComponent implements OnInit {
             if (element.operation == Operation.ExportReciept) {
               this.Total += element.paid + element.remaining;
               this.totalPaid += element.paid;
-            } else if (element.operation == Operation.CustomerTrans) {
+            }
+             else if (element.operation == Operation.CustomerTrans) {
               if (element.type == TransType.Paid) {
                 this.Total += element.paid;
               } else if (element.type == TransType.Get) {
@@ -60,13 +63,16 @@ export class ReportCustomerAccountsComponent implements OnInit {
   }
 
   Print() {
-    let printContents = document.getElementById('print').innerHTML;
-    let originalContents = document.body.innerHTML;
+ 
+    this.printserv.CustomerAccounts(this.transactions,this.Total,this.totalPaid).subscribe(data=>{console.log(data)});
 
-    document.body.innerHTML = printContents;
+    // let printContents = document.getElementById('print').innerHTML;
+    // let originalContents = document.body.innerHTML;
 
-    window.print();
+    // document.body.innerHTML = printContents;
 
-    document.body.innerHTML = originalContents;
+    // window.print();
+
+    // document.body.innerHTML = originalContents;
   }
 }

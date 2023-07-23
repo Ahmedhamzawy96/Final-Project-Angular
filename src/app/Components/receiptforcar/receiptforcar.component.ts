@@ -67,7 +67,7 @@ export class ReceiptforcarComponent implements OnInit {
   }
   prdselect(id: number) {
     this.Selectedproduct = this.Products.find((w) => w.id == id);
-    this.prdPrice = this.Selectedproduct.sellingPrice;
+    this.prdPrice = this.Selectedproduct.buyingPrice;
   }
   AddtoTable() {
     let prod = this.Selectedproduct;

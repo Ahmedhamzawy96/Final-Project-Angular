@@ -150,4 +150,11 @@ export class GenericService {
       this.httpOptions
     ).pipe(retry(3), catchError(this.handleError));
   }
+  custAccountprint(RouteURL: string, item: any, total: any,totalpaid:number): Observable<any> {
+    return this.Client.post<any>(
+      `${environment.APIUrl}/${RouteURL}/${total}/${totalpaid}`,
+      JSON.stringify(item),
+      this.httpOptions
+    ).pipe(retry(3), catchError(this.handleError));
+  }
 }

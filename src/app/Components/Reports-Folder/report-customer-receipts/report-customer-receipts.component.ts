@@ -8,6 +8,7 @@ import { ReportService } from 'src/app/Services/Reports/report.service';
 import { TransactionsService } from 'src/app/Services/transactions.service';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import { TransType } from 'src/app/Interface/Enums/TransType';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-report-customer-receipts',
@@ -19,7 +20,8 @@ export class ReportCustomerReceiptsComponent implements OnInit {
     private transerve: TransactionsService,
     private rout: ActivatedRoute,
     private custserv: CustService,
-    private repserv: ReportService
+    private repserv: ReportService,
+    private printserv:RecieptPrintService
   ) {}
   transactions: ITransactions[];
   transactionsReceipts: ITransactions[] = [];
