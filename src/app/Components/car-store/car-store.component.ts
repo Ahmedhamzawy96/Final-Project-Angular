@@ -36,16 +36,18 @@ export class CarStoreComponent implements OnInit {
 
   getcarProd(carid: number) {
     this.carID = carid;
+    this.TotalSellPrice=0;
+    this.TotalPaidPrice=0;
     this.CarProdServ.getProducts(carid).subscribe((Data) => {
       this.carProduct = Data;
       this.carProduct.forEach(element => {
         this.TotalSellPrice=this.TotalSellPrice+(element.sellingPrice*Number(element.quantity))
         this.TotalPaidPrice+=(element.buyingPrice*Number(element.quantity))
       });
-     
-      console.log(this.carProduct)
-      console.log(this.TotalSellPrice)
-      console.log(this.TotalPaidPrice)
+      this.TotalSellPrice=  parseFloat(this.TotalSellPrice.toFixed(2));
+      this.TotalPaidPrice=  parseFloat(this.TotalPaidPrice.toFixed(2));
+
+
 
     });
   }

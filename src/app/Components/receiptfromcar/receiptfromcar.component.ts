@@ -207,7 +207,7 @@ export class ReceiptfromcarComponent implements OnInit {
       let total = this.ExportRecieptForm.controls['total'].value;
       let discPerc = disc * 0.01;
       this.ExportRecieptForm.controls['total'].setValue(
-        total - discPerc * total
+        total -disc
       );
     }
 

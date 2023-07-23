@@ -26,6 +26,7 @@ export class ExportRecieptPrintComponent implements OnInit {
 
   ) {}
   Print() {
+    console.log(this.ExportReciept.id)
     this.PrintReciept.ExportRecieptPrint(this.ExportReciept.id).subscribe(data => {
       const x = `data:application/pdf;base64,${data}`;
       var link = document.createElement('a');

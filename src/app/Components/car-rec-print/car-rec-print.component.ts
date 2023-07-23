@@ -24,7 +24,7 @@ export class CarRecPrintComponent implements OnInit {
 
   ) {}
   Print() {
-    this.PrintReciept.ExportRecieptPrint(this.ExportReciept.id).subscribe(data => {
+    this.PrintReciept.ExportCarRecieptPrint(this.ExportReciept.id).subscribe(data => {
       const x = `data:application/pdf;base64,${data}`;
       var link = document.createElement('a');
     link.href = x;
