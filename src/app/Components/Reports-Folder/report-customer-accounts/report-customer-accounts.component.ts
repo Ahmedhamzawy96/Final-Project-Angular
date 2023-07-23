@@ -64,15 +64,15 @@ export class ReportCustomerAccountsComponent implements OnInit {
 
   Print() {
  
-    this.printserv.CustomerAccounts(this.transactions,this.Total,this.totalPaid).subscribe(data=>{console.log(data)});
+    this.printserv.CustomerAccounts(this.transactions,this.Total,this.totalPaid)
+    .subscribe(data=>{
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = ` كشف حساب - ${this.selcustomer.name}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
 
-    // let printContents = document.getElementById('print').innerHTML;
-    // let originalContents = document.body.innerHTML;
 
-    // document.body.innerHTML = printContents;
-
-    // window.print();
-
-    // document.body.innerHTML = originalContents;
   }
 }
