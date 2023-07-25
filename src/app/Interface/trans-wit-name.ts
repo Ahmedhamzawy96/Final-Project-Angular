@@ -1,13 +1,13 @@
 import { ITransactions } from "./ITransactions";
 
- interface TransWitName {
+export interface TransWitName {
 
     transactions:ITransactions,
     custname:string
 }
 
 
-export interface ICartotaltranswithname
+export interface Itotaltranswithname
 {
     transactionandname:TransWitName[],
     paid:number,

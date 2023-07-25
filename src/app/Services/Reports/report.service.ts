@@ -5,7 +5,7 @@ import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Transacwithtotal } from 'src/app/Interface/transacwithtotal';
 import { IProfitMargin } from 'src/app/Interface/iprofit-margin';
-import { ICartotaltranswithname } from 'src/app/Interface/trans-wit-name';
+import {  Itotaltranswithname } from 'src/app/Interface/trans-wit-name';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +40,7 @@ export class ReportService {
       date[date.length - 1].toDateString()
     );
   }
-  getCarSellTransactions(carid:number,date: Date[]): Observable<ICartotaltranswithname> {
+  getCarSellTransactions(carid:number,date: Date[]): Observable<Itotaltranswithname> {
     return this.genserv.getRepoTransactionNoType(
       'Report',
       carid,
@@ -48,13 +48,14 @@ export class ReportService {
       date[date.length - 1].toDateString()
     );
   }
-  geTotalStore(date: Date[]): Observable<Transacwithtotal> {
+  geTotalStore(date: Date[]): Observable<Itotaltranswithname> {
     return this.genserv.getTotalTransaction(
       'Report/StoreTotal',
       date[0].toDateString(),
       date[date.length - 1].toDateString()
     );
   }
+
   ProfitMarginforStore(date: Date[]): Observable<IProfitMargin> {
     return this.genserv.getTotalTransaction(
       'Report/ProfitMargin',

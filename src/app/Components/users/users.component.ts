@@ -64,6 +64,7 @@ export class UsersComponent implements OnInit {
         this.userserv.addUsers(this.senduser).subscribe((data) => {
           this.userserv.getUsers().subscribe((data: IUsers[]) => {
             this.users = data;
+            
           });
           this.carserv.getavaliablecar().subscribe((Data) => {
             this.avaliabelcars = Data;

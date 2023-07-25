@@ -43,4 +43,7 @@ UpdateProductPrice(id:number , productPrice:IProductPrice){
 getProductByQuantity(Quantity:Number): Observable<IProduct[]>{
   return this.Serv.getOne("Product/ProductByQuantity",Quantity);
 }
+printproductquntity(product:IProduct[]):Observable<any>{
+  return this.Serv.Post("Product/printproductquntity",product)
+}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ICartotaltranswithname } from 'src/app/Interface/trans-wit-name';
+import {  Itotaltranswithname } from 'src/app/Interface/trans-wit-name';
 import { Transacwithtotal } from 'src/app/Interface/transacwithtotal';
 import { CarService } from 'src/app/Services/Car/car.service';
 import { ReportService } from 'src/app/Services/Reports/report.service';
@@ -17,7 +17,7 @@ export class CarSellReceiptReportComponent implements OnInit {
     private carserv: CarService,
     private repserv: ReportService
   ) {}
-  transactions: ICartotaltranswithname;
+  transactions: Itotaltranswithname;
   
 
   BillDate: string = new Date().toLocaleString();

@@ -63,16 +63,14 @@ export class ReportCustomerAccountsComponent implements OnInit {
   }
 
   Print() {
- 
     this.printserv.CustomerAccounts(this.transactions,this.Total,this.totalPaid)
     .subscribe(data=>{
+    console.log(data);
       const x = `data:application/pdf;base64,${data}`;
       var link = document.createElement('a');
     link.href = x;
     link.download = ` كشف حساب - ${this.selcustomer.name}.pdf`;
     link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
     });
-
-
   }
 }

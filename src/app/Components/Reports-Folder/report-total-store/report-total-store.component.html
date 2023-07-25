@@ -11,6 +11,16 @@
         </ol>
       </nav>
     </div>
+    <div>
+      <ngx-select
+      [items]="users"
+      optionValueField="userName"
+      optionTextField="userName"
+      [(ngModel)]="UserName"
+      (ngModelChange)="SelUser()"
+    ></ngx-select>
+
+    </div>
     <section class="section" id="print">
       <div class="column row-md">
         <div class="col">
@@ -32,6 +42,9 @@
                       <thead class="">
                         <tr class="text-center m-3 p-2">
                           <th>كود</th>
+                          <th>اسم العميل</th>
+                          <th>اسم المستخدم </th>
+
                           <th class="text-center">تفاصيل العمليه</th>
                           <th class="text-center">الاجمالي</th>
                           <th class="text-center">المدفوع</th>
@@ -40,31 +53,34 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="text-center" *ngFor="let item of transactions.transactions">
-                          <th>{{ item.id }}</th>
+                        <tr class="text-center" *ngFor="let item of transWitName">
+                          <th>{{ item.transactions.id }}</th>
+                          <td>{{ item.custname }}</td>
+                          <td>{{ item.transactions.userName }}</td>
                         
   
                           <td>
-                            <div *ngIf="item.operation == 2">
-                              فاتورة بيع رقم {{ item.operationID }}
+
+                            <div *ngIf="item.transactions.operation == 2">
+                              فاتورة بيع رقم {{ item.transactions.operationID }}
                             </div>
-                            <div *ngIf="(item.operation == 5 ||item.operation==4)&& item.type == 1">
-                             توريد مبلغ مالى رقم  {{ item.id }}
+                            <div *ngIf="(item.transactions.operation == 5 ||item.transactions.operation==4)&& item.transactions.type == 1">
+                             توريد مبلغ مالى رقم  {{ item.transactions.id }}
                             </div>
-                            <div *ngIf="(item.operation == 5 ||item.operation==4)&& item.type == 0">
-                               دفع مبلغ مالي {{ item.id }}
+                            <div *ngIf="(item.transactions.operation == 5 ||item.transactions.operation==4)&& item.transactions.type == 0">
+                               دفع مبلغ مالي {{ item.transactions.id }}
                             </div>
-                            <div *ngIf="item.operation == 1">
-                                فاتورة شراء رقم {{ item.operationID }}
+                            <div *ngIf="item.transactions.operation == 1">
+                                فاتورة شراء رقم {{ item.transactions.operationID }}
                               </div>
-                              <div *ngIf="item.operation == 3 && item.type == 1">
-                                 توريد مبلغ مالى من  عربه رقم  {{ item.accountID }}
+                              <div *ngIf="item.transactions.operation == 3 && item.transactions.type == 1">
+                                 توريد مبلغ مالى من  عربه رقم  {{ item.transactions.accountID }}
                               </div>
                           </td>
-                          <td>{{ item.paid + item.remaining }}</td>
-                          <td>{{ item.paid }}</td>
-                          <td>{{ item.date }}</td>
-                          <td>{{ item.notes }}</td>
+                          <td>{{ item.transactions.paid + item.transactions.remaining }}</td>
+                          <td>{{ item.transactions.paid }}</td>
+                          <td>{{ item.transactions.date }}</td>
+                          <td>{{ item.transactions.notes }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -76,10 +92,10 @@
                   <div class="card-body">
                     <div class="row my-4">
                       <div class="col">
-                        <h2>اجمالى المحصل {{ transactions.get }}</h2>
+                        <h2>اجمالى المحصل {{ get }}</h2>
                       </div>
                       <div class="col">
-                        <h2>اجمالى المصروف {{  transactions.paid  }}</h2>
+                        <h2>اجمالى المصروف {{ paid  }}</h2>
                       </div>
                       <div class="col">
                             <!-- <h2>الحساب الحالى {{ selcustomer.account }}</h2> -->

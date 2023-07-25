@@ -48,6 +48,7 @@ import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-pro
 import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
 import { RecieptPricePreviewComponent } from './Components/reciept-price-preview/reciept-price-preview.component';
 import { ProductQuantityComponent } from './Components/product-quantity/product-quantity.component';
+import { ProductPriceComponent } from './Components/product-price/product-price.component';
 
 
 const routes: Routes = [
@@ -87,6 +88,11 @@ const routes: Routes = [
       {
         path: 'customer-accounts',
         component: CustomerAccountsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'CheckPrice',
+        component: ProductPriceComponent,
         canActivate: [AuthGuard],
       },
       {
