@@ -60,6 +60,7 @@ import { ProfitMarginCarComponent } from './Components/Reports-Folder/Report-pro
 import { ProfitMarginStoreComponent } from './Components/Reports-Folder/Report-profit-margin-store/profit-margin-store.component';
 import { RecieptPricePreviewComponent } from './Components/reciept-price-preview/reciept-price-preview.component';
 import { ProductQuantityComponent } from './Components/product-quantity/product-quantity.component';
+import { ProductPriceComponent } from './Components/product-price/product-price.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +111,7 @@ import { ProductQuantityComponent } from './Components/product-quantity/product-
     ProfitMarginStoreComponent,
     RecieptPricePreviewComponent,
     ProductQuantityComponent,
+    ProductPriceComponent,
   ],
   imports: [
     BrowserModule,

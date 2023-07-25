@@ -20,4 +20,16 @@ export class ProductQuantityComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  print()
+  {
+    this.ProdServ.printproductquntity(this.Products).subscribe(data => {
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = ` النواقص اقل من  - ${this.Quantity}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
+
+  }
+
 }
