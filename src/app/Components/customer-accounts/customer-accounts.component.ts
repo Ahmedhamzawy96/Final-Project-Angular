@@ -8,6 +8,7 @@ import { TransType } from 'src/app/Interface/Enums/TransType';
 import { Operation } from 'src/app/Interface/Enums/operation';
 import { AccountType } from 'src/app/Interface/Enums/account-type';
 import Swal from 'sweetalert2';
+import { RecieptPrintService } from 'src/app/Services/reciept-print.service';
 
 @Component({
   selector: 'app-customer-accounts',
@@ -18,6 +19,7 @@ export class CustomerAccountsComponent implements OnInit {
   customeraccountsform: FormGroup;
   customers: ICustomer[];
   selcustomer: ICustomer;
+  Printrans:ITransactions[]
   customerID: number;
   Custaccount: number = 0;
   custname: string;
@@ -29,7 +31,8 @@ export class CustomerAccountsComponent implements OnInit {
   constructor(
     private csutServ: CustService,
     private transactionsService: TransactionsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private printserv:RecieptPrintService
   ) {
     this.customeraccountsform = fb.group({
       accountID: [this.customerID, [Validators.required]],
@@ -72,13 +75,13 @@ export class CustomerAccountsComponent implements OnInit {
     this.customeraccountsform.controls['operation'].setValue(
       Operation.CustomerTrans
     );
-    if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
-      Swal.fire({
-        icon: 'error',
-        title: '',
-        text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
-      });
-    } else {
+if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: '',
+    //     text: 'يجب ان تكون قيمة المبلغ المدفوع اقل من او يساوي قيمة المبلغ المتبقي ',
+    //   });
+ } else {
       if (this.customeraccountsform.valid) {
         this.transactionsService
           .addtransaction(this.customeraccountsform.value)
@@ -92,6 +95,7 @@ export class CustomerAccountsComponent implements OnInit {
               .subscribe(() => {
                 this.Custaccount = 0;
               });
+              this.Print(Number(this.customeraccountsform.controls['paid'].value));
             this.customeraccountsform.controls['paid'].reset();
             this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
@@ -100,6 +104,7 @@ export class CustomerAccountsComponent implements OnInit {
               title: '',
               text: 'تم الدفع  بنجاح',
             });
+
           });
       }
     }
@@ -132,6 +137,7 @@ export class CustomerAccountsComponent implements OnInit {
               .subscribe((Data) => {
                 this.Custaccount = <number>Data.account;
               });
+              this.Print(Number(this.customeraccountsform.controls['paid'].value));
             this.customeraccountsform.controls['paid'].reset();
             this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
@@ -146,5 +152,21 @@ export class CustomerAccountsComponent implements OnInit {
           });
       }
     }
+  }
+
+
+
+  Print(Total:number) {
+this.Printrans=[this.customeraccountsform.value]
+this.Printrans[0].Name=this.selcustomer.name;
+    this.printserv.CustomerAccounts(this.Printrans,Total,Total)
+    .subscribe(data=>{
+    console.log(data);
+      const x = `data:application/pdf;base64,${data}`;
+      var link = document.createElement('a');
+    link.href = x;
+    link.download = ` كشف حساب - ${this.selcustomer.name}.pdf`;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
   }
 }
