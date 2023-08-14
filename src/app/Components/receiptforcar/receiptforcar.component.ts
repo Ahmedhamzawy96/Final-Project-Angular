@@ -133,6 +133,7 @@ export class ReceiptforcarComponent implements OnInit {
           let prod: IExportProduct = this.ProductsAdded.find(
             (pro) => pro.productID == this.selectedid
           );
+          console.log(prod);
           let index: number = this.ProductsAdded.indexOf(prod);
           this.ProductsAdded.splice(index, 1);
           this.totalReciept();
@@ -150,6 +151,7 @@ export class ReceiptforcarComponent implements OnInit {
   changeTable(id: Number, quantity: number, price: number) {
     this.tableNotValid = true;
     let mainProd = this.Products.find((A) => A.id == id);
+    console.log(mainProd)
     let pro = this.ProductsAdded.find((prod) => prod.productID == id);
     if (quantity == 0) {
       Swal.fire({
@@ -163,7 +165,7 @@ export class ReceiptforcarComponent implements OnInit {
         title: '',
         text: 'كمية الصنف في المخزن لا تسمح',
       });
-    } else if (price < mainProd.sellingPrice || price == 0) {
+    } else if (price < mainProd.buyingPrice || price == 0) {
       Swal.fire({
         icon: 'error',
         title: '',
