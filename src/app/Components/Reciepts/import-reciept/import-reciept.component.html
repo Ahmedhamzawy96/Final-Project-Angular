@@ -190,6 +190,7 @@
                   <thead>
                     <tr>
                       <th></th>
+                      <th></th>
                       <th scope="col">كود</th>
                       <th scope="col">الصنف</th>
                       <th scope="col">الكمية</th>
@@ -198,7 +199,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let prod of ImportProducts">
+                    <tr *ngFor="let prod of ImportProducts;let i =index">
+                      <td>
+                        {{i+1}}
+                      </td>
                       <td>
                         <input
                           #radioInput
