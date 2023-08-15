@@ -3,6 +3,7 @@ export interface IProduct{
   name:string,
   buyingPrice:number,
   sellingPrice:number,
-  quantity:number
+  quantity:number,
+  printable:boolean
 }
 

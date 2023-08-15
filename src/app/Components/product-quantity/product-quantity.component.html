@@ -51,7 +51,8 @@
                   <th scope="col">اسم المنتج</th>
                   <th scope="col">الكمية</th>
                   <th scope="col">ثمن الشراء</th>
-                  <th scope="col">ثمن البيع</th>
+                  <th scope="col"><input type="checkbox" (change)="Selectall()" [(ngModel)]="Ischecked" /> </th>
+
                 </tr>
               </thead>
               <tbody>
@@ -60,7 +61,8 @@
                   <td>{{prod.name}}</td>
                   <td>{{prod.quantity}}</td>
                   <td>{{prod.buyingPrice}}</td>
-                  <td>{{prod.sellingPrice}}</td>
+                  <td> <input [(ngModel)]="prod.printable" type="checkbox" /></td>
+
                 </tr>
               </tbody>
             </table>

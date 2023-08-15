@@ -10,18 +10,31 @@ import { ProductService } from 'src/app/Services/Product/product.service';
 export class ProductQuantityComponent implements OnInit {
   Quantity:Number = 0;
   Products:IProduct[] = [];
+  Ischecked:boolean
   constructor(private ProdServ:ProductService) { }
 
   GetProducts():void {
     this.ProdServ.getProductByQuantity(this.Quantity).subscribe((Data) => {
       this.Products = Data;
-    });
+this.Products.forEach(w=>{
+  w.printable=false
+})    
+console.log(this.Products)
+});
   }  
   ngOnInit(): void {
   }
+  Selectall()
+  {
 
+      this.Products.forEach(w=>w.printable=this.Ischecked)
+
+  }
   print()
   {
+    this.Products= this.Products.filter(w=>w.printable==true);
+    console.log(this.Products)
+
     this.ProdServ.printproductquntity(this.Products).subscribe(data => {
       const x = `data:application/pdf;base64,${data}`;
       var link = document.createElement('a');
