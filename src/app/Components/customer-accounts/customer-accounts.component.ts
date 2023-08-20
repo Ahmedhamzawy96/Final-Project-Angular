@@ -136,8 +136,8 @@ if (this.customeraccountsform.controls['paid'].value > this.Custaccount) {
               .updateCustomer(this.customerID, this.selcustomer)
               .subscribe((Data) => {
                 this.Custaccount = <number>Data.account;
+                this.Print(Number(this.customeraccountsform.controls['paid'].value));
               });
-              this.Print(Number(this.customeraccountsform.controls['paid'].value));
             this.customeraccountsform.controls['paid'].reset();
             this.customeraccountsform.controls['notes'].reset();
             this.transact = false;
